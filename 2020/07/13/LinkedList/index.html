@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="LinkedList链表中的节点123456789101112struct LinkedNode&amp;#123;    LinkedNode(int x)    &amp;#123;        key &#x3D; x;        prev &#x3D; nullptr;        next &#x3D; nullptr;    &amp;#125;    int key;    LinkedNode *prev;    Linked">
+  <meta name="description" content="基于《算法导论》中的伪代码 以及部分网络资源 LinkedList链表中的节点123456789101112struct LinkedNode&amp;#123;    LinkedNode(int x)    &amp;#123;        key &#x3D; x;        prev &#x3D; nullptr;        next &#x3D; nullptr;    &amp;#125;    int key;    Link">
 <meta property="og:type" content="article">
 <meta property="og:title" content="简单的双向链表">
 <meta property="og:url" content="https://caohch1.cn/2020/07/13/LinkedList/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="LinkedList链表中的节点123456789101112struct LinkedNode&amp;#123;    LinkedNode(int x)    &amp;#123;        key &#x3D; x;        prev &#x3D; nullptr;        next &#x3D; nullptr;    &amp;#125;    int key;    LinkedNode *prev;    Linked">
+<meta property="og:description" content="基于《算法导论》中的伪代码 以及部分网络资源 LinkedList链表中的节点123456789101112struct LinkedNode&amp;#123;    LinkedNode(int x)    &amp;#123;        key &#x3D; x;        prev &#x3D; nullptr;        next &#x3D; nullptr;    &amp;#125;    int key;    Link">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-13T16:22:18.954Z">
+<meta property="article:modified_time" content="2020-07-13T18:00:08.566Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 
@@ -193,7 +193,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-14 00:22:18" itemprop="dateModified" datetime="2020-07-14T00:22:18+08:00">2020-07-14</time>
+                <time title="Modified: 2020-07-14 02:00:08" itemprop="dateModified" datetime="2020-07-14T02:00:08+08:00">2020-07-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,7 +216,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h1><h4 id="链表中的节点"><a href="#链表中的节点" class="headerlink" title="链表中的节点"></a>链表中的节点</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LinkedNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LinkedNode(<span class="keyword">int</span> x)</span><br><span class="line">    &#123;</span><br><span class="line">        key = x;</span><br><span class="line">        prev = <span class="literal">nullptr</span>;</span><br><span class="line">        next = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> key;</span><br><span class="line">    LinkedNode *prev;</span><br><span class="line">    LinkedNode *next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <p><strong><em>基于《算法导论》中的伪代码 以及部分网络资源</em></strong></p>
+<h1 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h1><h4 id="链表中的节点"><a href="#链表中的节点" class="headerlink" title="链表中的节点"></a>链表中的节点</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LinkedNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LinkedNode(<span class="keyword">int</span> x)</span><br><span class="line">    &#123;</span><br><span class="line">        key = x;</span><br><span class="line">        prev = <span class="literal">nullptr</span>;</span><br><span class="line">        next = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> key;</span><br><span class="line">    LinkedNode *prev;</span><br><span class="line">    LinkedNode *next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
