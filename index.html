@@ -191,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-15 16:44:15" itemprop="dateModified" datetime="2020-07-15T16:44:15+08:00">2020-07-15</time>
+                <time title="Modified: 2020-07-15 16:52:24" itemprop="dateModified" datetime="2020-07-15T16:52:24+08:00">2020-07-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -316,33 +316,6 @@
 <p>那万一用户按屏幕上的 <strong>BACK</strong> 按键返回而不是我们设置的button呢</p>
 <p>修改 <strong>src/main/java/com/example/activitytest/SecondActivity.kt</strong></p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBackPressed</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> intent =Intent()</span><br><span class="line">    intent.putExtra(<span class="string">"data_return"</span>, <span class="string">"Hello FirstActivity"</span>)</span><br><span class="line">    setResult(Activity.RESULT_OK,intent)</span><br><span class="line">    finish()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       
     </div>
