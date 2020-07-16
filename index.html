@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-07-16 00:35:00 / Modified: 03:20:27" itemprop="dateCreated datePublished" datetime="2020-07-16T00:35:00+08:00">2020-07-16</time>
+              <time title="Created: 2020-07-16 21:52:00 / Modified: 21:53:00" itemprop="dateCreated datePublished" datetime="2020-07-16T21:52:00+08:00">2020-07-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -287,7 +287,7 @@
 <h3 id="向下一个Activity传递数据"><a href="#向下一个Activity传递数据" class="headerlink" title="向下一个Activity传递数据"></a>向下一个Activity传递数据</h3><p>修改 <strong>src/main/java/com/example/activitytest/FirstActivity.kt</strong></p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.first_layout)</span><br><span class="line">    button1.setOnClickListener &#123;</span><br><span class="line">        <span class="keyword">val</span> <span class="keyword">data</span> =<span class="string">"Hello SecondActivity"</span></span><br><span class="line">        <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>,SecondActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">        intent.putExtra(<span class="string">"extra_data"</span>,<span class="keyword">data</span>) <span class="comment">//前键后值</span></span><br><span class="line">        startActivity(intent)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<p>修改 <strong>src/main/java/com/example/activitytest/FirstActivity.kt</strong></p>
+<p>修改 <strong>src/main/java/com/example/activitytest/SecondActivity.kt</strong></p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SecondActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.second_layout)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> extraData = intent.getStringExtra(<span class="string">"extra_data"</span>)</span><br><span class="line">        Log.d(<span class="string">"SecondActivity"</span>, <span class="string">"extra data is <span class="variable">$extraData</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="向上一个Activity返回数据"><a href="#向上一个Activity返回数据" class="headerlink" title="向上一个Activity返回数据"></a>向上一个Activity返回数据</h3><p>第一步 修改 <strong>src/main/java/com/example/activitytest/FirstActivity.kt</strong></p>
@@ -310,6 +310,80 @@
 <p>那万一用户按屏幕上的 <strong>BACK</strong> 按键返回而不是我们设置的button呢</p>
 <p>修改 <strong>src/main/java/com/example/activitytest/SecondActivity.kt</strong></p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBackPressed</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> intent =Intent()</span><br><span class="line">    intent.putExtra(<span class="string">"data_return"</span>, <span class="string">"Hello FirstActivity"</span>)</span><br><span class="line">    setResult(Activity.RESULT_OK,intent)</span><br><span class="line">    finish()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-4-Activity的生命周期"><a href="#3-4-Activity的生命周期" class="headerlink" title="3.4 Activity的生命周期"></a>3.4 Activity的生命周期</h2><p>Activity被存放在栈中 称为返回栈(back stack)</p>
+<p>运行状态：位于栈顶 </p>
+<p>暂停状态：不在栈顶但仍然可见 </p>
+<p>停止状态：不在栈顶也不可见 </p>
+<p>销毁状态：不在栈中</p>
+<h3 id="七大Activity回调方法"><a href="#七大Activity回调方法" class="headerlink" title="七大Activity回调方法"></a>七大Activity回调方法</h3><p><strong>onCreate ()</strong> 在Activity第一次被创建时调用</p>
+<p><strong>onStart ()</strong> 由不可见变为可见时调用</p>
+<p><strong>onResume ()</strong> 位于栈顶 处于运行状态</p>
+<p><strong>onPause ()</strong> 准备启动或恢复另一个Activity时调用 该方法执行速度一定要</p>
+<p><strong>onStop ()</strong> Activity<strong>完全</strong>不可见时调用  </p>
+<p><strong>onDestory ()</strong> 被销毁前调用</p>
+<p><strong>onRestart ()</strong> 顾名思义 由停止变为运行状态时调用</p>
+<h3 id="生命周期基础"><a href="#生命周期基础" class="headerlink" title="生命周期基础"></a>生命周期基础</h3><p><strong>onCreate</strong>和<strong>onDestory</strong> 之间是完整生存期</p>
+<p><strong>onStart</strong>和<strong>onStop</strong> 之间是可见生存期</p>
+<p><strong>onResume</strong>和<strong>onPause</strong> 之间是前台生存期</p>
+<p><img src="https://developer.android.com/guide/components/images/activity_lifecycle.png" alt="生命周期示意图"></p>
+<h3 id="Activity被回收了怎么办"><a href="#Activity被回收了怎么办" class="headerlink" title="Activity被回收了怎么办"></a>Activity被回收了怎么办</h3><p>回收前可以保留临时数据</p>
+<p><strong>onSaveInstanceState ( )</strong> 携带一个Bundle类型参数 用于保存数据</p>
+<h2 id="3-5-Activity的启动模式"><a href="#3-5-Activity的启动模式" class="headerlink" title="3.5 Activity的启动模式"></a>3.5 Activity的启动模式</h2><p>在 <strong>src/main/AndroidManifest.xml</strong> 中通过给 <strong><activity></strong> 标签指定 <strong>android:launchMode</strong> 来选择启动模式</p>
+<h3 id="standard"><a href="#standard" class="headerlink" title="standard"></a>standard</h3><p>缺省值</p>
+<p>该模式下系统不在乎Activity是否已经在BackStack中 每次启动都会创建一个新的</p>
+<p><img src="https://s1.ax1x.com/2020/07/16/UrA8fJ.png" alt="standard"></p>
+<h3 id="singleTop"><a href="#singleTop" class="headerlink" title="singleTop"></a>singleTop</h3><p>该模式下系统判断Activity是否已经在BackStack的<strong>栈顶</strong> 在则不创建新的 不在则创建新的</p>
+<p><img src="https://s1.ax1x.com/2020/07/16/UrEDbV.png" alt="singleTop"></p>
+<h3 id="singleTask"><a href="#singleTask" class="headerlink" title="singleTask"></a>singleTask</h3><p>该模式下系统判断Activity是否已经在BackStack中 </p>
+<p>在则使用它 并把它之上的Activity统统出栈</p>
+<p>不在就创建新的</p>
+<p><img src="https://s1.ax1x.com/2020/07/16/UrE65F.png" alt="singleTask"></p>
+<h3 id="singleInstance"><a href="#singleInstance" class="headerlink" title="singleInstance"></a>singleInstance</h3><p>启用新的返回栈来管理这个Activity</p>
+<p><img src="https://s1.ax1x.com/2020/07/16/UrE28J.png" alt="singleInstance"></p>
+<h2 id="3-6几种实践技巧"><a href="#3-6几种实践技巧" class="headerlink" title="3.6几种实践技巧"></a>3.6几种实践技巧</h2><h3 id="知晓当前在哪一个Activity"><a href="#知晓当前在哪一个Activity" class="headerlink" title="知晓当前在哪一个Activity"></a>知晓当前在哪一个Activity</h3><p>简单来说就是</p>
+<p>创建一个继承自 <strong>AppCompatActivity</strong> 的 <strong>BaseActivity</strong></p>
+<p>让他在被创建时 Log.d 出当前Activity的名字</p>
+<p>让所有别的Activity 成为他的子类</p>
+<h3 id="随时随地退出程序"><a href="#随时随地退出程序" class="headerlink" title="随时随地退出程序"></a>随时随地退出程序</h3><p><del>Home键+上滑不香么</del></p>
+<p>简单来说就是</p>
+<p>创建一个单例类Collector 所有Activity在创建时被add进该类的list里 (我们有BaseActivity 所以这是容易实现的)</p>
+<p>从而实现统一化管理</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> ActivityCollector &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> activities = ArrayList&lt;Activity&gt;()</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">addActivity</span><span class="params">(activity: <span class="type">Activity</span>)</span></span> &#123;</span><br><span class="line">        activities.add(activity)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">removeActivity</span><span class="params">(activity: <span class="type">Activity</span>)</span></span> &#123;</span><br><span class="line">        activities.remove(activity)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">finishAll</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (activity <span class="keyword">in</span> activities) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!activity.isFinishing) &#123;</span><br><span class="line">                activity.finish()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        activities.clear()</span><br><span class="line">        android.os.Process.killProcess(android.os.Process.myPid())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动Activity的最佳写法"><a href="#启动Activity的最佳写法" class="headerlink" title="启动Activity的最佳写法"></a>启动Activity的最佳写法</h3><p>这样的好处在于方便别人启动时明白需要什么数据</p>
+<p>在合作工程中建议这么干</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SecondActivity</span> : <span class="type">BaseActivity</span></span>() &#123;</span><br><span class="line">    <span class="comment">//Something</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>, data1: <span class="type">String</span>, data2: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(context, SecondActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            intent.putExtra(<span class="string">"data1"</span>, data1)</span><br><span class="line">            intent.putExtra(<span class="string">"data2"</span>, data2)</span><br><span class="line">            context.startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Kotlin拓展"><a href="#Kotlin拓展" class="headerlink" title="Kotlin拓展"></a>Kotlin拓展</h1><h2 id="标准函数-with-run和apply"><a href="#标准函数-with-run和apply" class="headerlink" title="标准函数 with, run和apply"></a>标准函数 with, run和apply</h2><h3 id="with"><a href="#with" class="headerlink" title="with"></a>with</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> result = with(obj) &#123;</span><br><span class="line">    <span class="comment">// obj的上下文</span></span><br><span class="line">    <span class="string">"value"</span> <span class="comment">//with的返回值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>i.e.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="keyword">val</span> builder = StringBuilder()</span><br><span class="line">builder.append(<span class="string">"Start!\n"</span>)</span><br><span class="line"><span class="keyword">for</span> (num <span class="keyword">in</span> list) &#123;</span><br><span class="line">    builder.append(num).append(<span class="string">"\n"</span>)</span><br><span class="line">&#125;</span><br><span class="line">builder.append(<span class="string">"Over!\n"</span>)</span><br><span class="line"><span class="keyword">val</span> res=builder.toString()</span><br><span class="line">println(res)</span><br></pre></td></tr></table></figure>
+
+<p>可以简化为</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="keyword">val</span> res = with(StringBuilder()) &#123;</span><br><span class="line">    append(<span class="string">"Start!\n"</span>)</span><br><span class="line">    <span class="keyword">for</span> (num <span class="keyword">in</span> list) &#123;</span><br><span class="line">        append(num).append(<span class="string">"\n"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    append(<span class="string">"Over!\n"</span>)</span><br><span class="line">    toString()</span><br><span class="line">&#125;</span><br><span class="line">println(res)</span><br></pre></td></tr></table></figure>
+
+<h3 id="run"><a href="#run" class="headerlink" title="run"></a>run</h3><p>与with基本类似</p>
+<p>i.e</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="keyword">val</span> res = StringBuilder().run &#123;</span><br><span class="line">    append(<span class="string">"Start!\n"</span>)</span><br><span class="line">    <span class="keyword">for</span> (num <span class="keyword">in</span> list) &#123;</span><br><span class="line">        append(num).append(<span class="string">"\n"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    append(<span class="string">"Over!\n"</span>)</span><br><span class="line">    toString()</span><br><span class="line">&#125;</span><br><span class="line">println(res)</span><br></pre></td></tr></table></figure>
+
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><p>也很类似 但是只能返回对象本身 不能指定返回值</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="keyword">val</span> res = StringBuilder().apply &#123;</span><br><span class="line">    append(<span class="string">"Start!\n"</span>)</span><br><span class="line">    <span class="keyword">for</span> (num <span class="keyword">in</span> list) &#123;</span><br><span class="line">        append(num).append(<span class="string">"\n"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    append(<span class="string">"Over!\n"</span>)</span><br><span class="line">&#125;</span><br><span class="line">println(res.toString())</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="定义静态方法"><a href="#定义静态方法" class="headerlink" title="定义静态方法"></a>定义静态方法</h2><p>静态方法指不需要创建实例就能调用的方法</p>
+<p>但是Kotlin弱化了这一概念 因为更加推荐单例类</p>
+<p><strong>companion object { //Something }</strong>  支持了类似静态方法调用的写法</p>
+<p>如果一定要真正的静态方法 Two ways</p>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><p>在<strong>companion object</strong> 的一个方法前面加上 <strong>@JvmStatic</strong></p>
+<p>注意 这一注解只能加在单例类 和 <strong>companion object</strong> 里</p>
+<h3 id="顶层方法"><a href="#顶层方法" class="headerlink" title="顶层方法"></a>顶层方法</h3><p>简单来说 就是新建一个kt文件 里面写的就是顶层方法了</p>
+<p>在Java中调用该方法时需要 <strong>file_name.function_name</strong></p>
 
       
     </div>
