@@ -22,30 +22,36 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/index.html">
+  <meta name="description" content="基于《第一行代码——Android》@郭霖 第五章：探究Fragment5.1 What’s this一种可以嵌入在Activity中的UI片段 在平板上广泛使用 5.2使用方法简单用法Step1: 创建布局创建 src&#x2F;main&#x2F;res&#x2F;layout&#x2F;left_fragment.xml （同样的还有个right 不赘述） 1234567891011121314&lt;?xml version&#x3D;&quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-5">
+<meta property="og:url" content="https://caohch1.cn/2020/07/20/Android-5/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《第一行代码——Android》@郭霖 第五章：探究Fragment5.1 What’s this一种可以嵌入在Activity中的UI片段 在平板上广泛使用 5.2使用方法简单用法Step1: 创建布局创建 src&#x2F;main&#x2F;res&#x2F;layout&#x2F;left_fragment.xml （同样的还有个right 不赘述） 1234567891011121314&lt;?xml version&#x3D;&quot;">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://developer.android.com/images/fragment_lifecycle.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/20/U4OZE6.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/20/U5ZwD0.png">
+<meta property="article:published_time" content="2020-07-20T15:39:26.236Z">
+<meta property="article:modified_time" content="2020-07-20T15:40:15.448Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.android.com/images/fragment_lifecycle.png">
 
-<link rel="canonical" href="https://caohch1.cn/">
+<link rel="canonical" href="https://caohch1.cn/2020/07/20/Android-5/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>Android-5 | MissSirius Planet</title>
   
 
 
@@ -154,9 +160,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -172,10 +179,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/20/Android-5/" class="post-title-link" itemprop="url">Android-5</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Android-5
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,7 +214,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《第一行代码——Android》@郭霖</p>
+        <p>基于《第一行代码——Android》@郭霖</p>
 <h1 id="第五章：探究Fragment"><a href="#第五章：探究Fragment" class="headerlink" title="第五章：探究Fragment"></a>第五章：探究Fragment</h1><h2 id="5-1-What’s-this"><a href="#5-1-What’s-this" class="headerlink" title="5.1 What’s this"></a>5.1 What’s this</h2><p>一种可以嵌入在Activity中的UI片段</p>
 <p>在平板上广泛使用</p>
 <h2 id="5-2使用方法"><a href="#5-2使用方法" class="headerlink" title="5.2使用方法"></a>5.2使用方法</h2><h3 id="简单用法"><a href="#简单用法" class="headerlink" title="简单用法"></a>简单用法</h3><h4 id="Step1-创建布局"><a href="#Step1-创建布局" class="headerlink" title="Step1: 创建布局"></a>Step1: 创建布局</h4><p>创建 <strong>src/main/res/layout/left_fragment.xml</strong> （同样的还有个right 不赘述）</p>
@@ -310,25 +316,31 @@
 
 <p><img src="https://s1.ax1x.com/2020/07/20/U5ZwD0.png" alt="语法糖和实际调用函数"></p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/19/Android-4/" rel="prev" title="Android-4">
+      <i class="fa fa-chevron-left"></i> Android-4
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -380,6 +392,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第五章：探究Fragment"><span class="nav-number">1.</span> <span class="nav-text">第五章：探究Fragment</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-What’s-this"><span class="nav-number">1.1.</span> <span class="nav-text">5.1 What’s this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2使用方法"><span class="nav-number">1.2.</span> <span class="nav-text">5.2使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单用法"><span class="nav-number">1.2.1.</span> <span class="nav-text">简单用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step1-创建布局"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Step1: 创建布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step2-创建类"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">Step2: 创建类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step3-修改Main布局"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">Step3: 修改Main布局</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态添加"><span class="nav-number">1.2.2.</span> <span class="nav-text">动态添加</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step1-创建待添加Fragment的实例"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Step1: 创建待添加Fragment的实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step2-改变Main布局"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Step2: 改变Main布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step3-实现点击按钮改变布局"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">Step3: 实现点击按钮改变布局</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现返回栈"><span class="nav-number">1.2.3.</span> <span class="nav-text">实现返回栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fragment和Activity之间的交互"><span class="nav-number">1.2.4.</span> <span class="nav-text">Fragment和Activity之间的交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在Activity中调用Fragment"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">在Activity中调用Fragment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在Fragment中调用Activity"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">在Fragment中调用Activity</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在Fragment中调用其他Fragment"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">在Fragment中调用其他Fragment</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-生命周期"><span class="nav-number">1.3.</span> <span class="nav-text">5.3 生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态和回调"><span class="nav-number">1.3.1.</span> <span class="nav-text">状态和回调</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-动态加载的技巧"><span class="nav-number">1.4.</span> <span class="nav-text">5.4: 动态加载的技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#限定符"><span class="nav-number">1.4.1.</span> <span class="nav-text">限定符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最小宽度限定符"><span class="nav-number">1.4.2.</span> <span class="nav-text">最小宽度限定符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-实践-简易的新闻应用"><span class="nav-number">1.5.</span> <span class="nav-text">5.5 实践 简易的新闻应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kotlin拓展"><span class="nav-number">2.</span> <span class="nav-text">Kotlin拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展函数"><span class="nav-number">2.1.</span> <span class="nav-text">扩展函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符重载"><span class="nav-number">2.2.</span> <span class="nav-text">运算符重载</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
