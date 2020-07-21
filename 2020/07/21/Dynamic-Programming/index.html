@@ -22,30 +22,32 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/index.html">
+  <meta name="description" content="基于《算法导论（原书第三版）》 钢条切割    长度 i 0 1 2 3 4 5 6 7 8 9 10     价格 Pi 0 1 5 8 9 10 17 17 20 24 30     Problem:​    给定一段长度为n英寸的钢条和一个价格表Pi，求切割钢条方案，使得销售收益Rn最大。注意，如果长度为n英寸的钢条的价格Pn足够大，最优解可能就是完全不需要切割。 Solution:Meth">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dynamic Programming">
+<meta property="og:url" content="https://caohch1.cn/2020/07/21/Dynamic-Programming/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《算法导论（原书第三版）》 钢条切割    长度 i 0 1 2 3 4 5 6 7 8 9 10     价格 Pi 0 1 5 8 9 10 17 17 20 24 30     Problem:​    给定一段长度为n英寸的钢条和一个价格表Pi，求切割钢条方案，使得销售收益Rn最大。注意，如果长度为n英寸的钢条的价格Pn足够大，最优解可能就是完全不需要切割。 Solution:Meth">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-21T06:33:20.518Z">
+<meta property="article:modified_time" content="2020-07-21T06:44:31.615Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://caohch1.cn/">
+<link rel="canonical" href="https://caohch1.cn/2020/07/21/Dynamic-Programming/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>Dynamic Programming | MissSirius Planet</title>
   
 
 
@@ -154,9 +156,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -172,10 +175,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/21/Dynamic-Programming/" class="post-title-link" itemprop="url">Dynamic Programming</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Dynamic Programming
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,7 +210,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《算法导论（原书第三版）》</p>
+        <p>基于《算法导论（原书第三版）》</p>
 <h1 id="钢条切割"><a href="#钢条切割" class="headerlink" title="钢条切割"></a>钢条切割</h1><div class="table-container">
 <table>
 <thead>
@@ -269,25 +271,31 @@ R_n=\mathop{max}\limits_{1\leq i \leq n}(P_i+R_{n-i})</script><figure class="hig
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用来返回两个数组 一个收益 一个切割方案</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Result</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> *revenue;</span><br><span class="line">    <span class="keyword">int</span> *solution;</span><br><span class="line"></span><br><span class="line">    Result(<span class="keyword">int</span> *p, <span class="keyword">int</span> *s) &#123;</span><br><span class="line">        revenue = p;</span><br><span class="line">        solution = s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主要处理过程</span></span><br><span class="line"><span class="function">Result <span class="title">EXTENDED_BOTTOM_UP_ROD</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//record revenue</span></span><br><span class="line">    <span class="keyword">int</span> memory_r[length + <span class="number">1</span>];</span><br><span class="line">    memory_r[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//record cut-solution</span></span><br><span class="line">    <span class="keyword">int</span> memory_s[length + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> q;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= length; ++j) &#123;</span><br><span class="line">        q = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= j; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (q &lt; price[i] + memory_r[j - i]) &#123;</span><br><span class="line">                q = price[i] + memory_r[j - i];</span><br><span class="line">                memory_s[j] = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        memory_r[j] = q;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Result(memory_r, memory_s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PRINT_CUT_ROD_SOLUTION</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    Result res = EXTENDED_BOTTOM_UP_ROD(price, length);</span><br><span class="line">    <span class="keyword">int</span> cut1 = res.solution[length];</span><br><span class="line">    <span class="keyword">int</span> cut2 = length - cut1;</span><br><span class="line">    <span class="keyword">int</span> revenue = res.revenue[length];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Cut solution: "</span> &lt;&lt; cut1 &lt;&lt; <span class="string">"--"</span> &lt;&lt; cut2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Revenue: "</span> &lt;&lt; revenue &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h1><p>待更新</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/20/Android-5/" rel="prev" title="Android-5">
+      <i class="fa fa-chevron-left"></i> Android-5
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -339,6 +347,7 @@ R_n=\mathop{max}\limits_{1\leq i \leq n}(P_i+R_{n-i})</script><figure class="hig
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#钢条切割"><span class="nav-number">1.</span> <span class="nav-text">钢条切割</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">1.1.</span> <span class="nav-text">Problem:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">1.2.</span> <span class="nav-text">Solution:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Method1-Noramal"><span class="nav-number">1.2.1.</span> <span class="nav-text">Method1: Noramal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method2-Recursion"><span class="nav-number">1.2.2.</span> <span class="nav-text">Method2: Recursion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method3-Dynmaic-Programming"><span class="nav-number">1.2.3.</span> <span class="nav-text">Method3: Dynmaic Programming !!!</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Top-down-with-memoization"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">Top-down with memoization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bottom-up"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">Bottom-up</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重构解"><span class="nav-number">1.3.</span> <span class="nav-text">重构解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵链乘法"><span class="nav-number">2.</span> <span class="nav-text">矩阵链乘法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
