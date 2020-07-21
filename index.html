@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-07-22 00:25:40 / Modified: 00:28:50" itemprop="dateCreated datePublished" datetime="2020-07-22T00:25:40+08:00">2020-07-22</time>
+              <time title="Created: 2020-07-22 00:25:40 / Modified: 00:45:13" itemprop="dateCreated datePublished" datetime="2020-07-22T00:25:40+08:00">2020-07-22</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,11 +267,19 @@ R_n=\mathop{max}\limits_{1\leq i \leq n}(P_i+R_{n-i})</script><figure class="hig
 <h2 id="重构解"><a href="#重构解" class="headerlink" title="重构解"></a>重构解</h2><p>如果还要出第一段长度 我们可以扩展以上算法</p>
 <p>对于每个子问题不仅保存最优收益 还保存对应切割方案</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用来返回两个数组 一个收益 一个切割方案</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Result</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> *revenue;</span><br><span class="line">    <span class="keyword">int</span> *solution;</span><br><span class="line"></span><br><span class="line">    Result(<span class="keyword">int</span> *p, <span class="keyword">int</span> *s) &#123;</span><br><span class="line">        revenue = p;</span><br><span class="line">        solution = s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主要处理过程</span></span><br><span class="line"><span class="function">Result <span class="title">EXTENDED_BOTTOM_UP_ROD</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//record revenue</span></span><br><span class="line">    <span class="keyword">int</span> memory_r[length + <span class="number">1</span>];</span><br><span class="line">    memory_r[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//record cut-solution</span></span><br><span class="line">    <span class="keyword">int</span> memory_s[length + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> q;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= length; ++j) &#123;</span><br><span class="line">        q = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= j; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (q &lt; price[i] + memory_r[j - i]) &#123;</span><br><span class="line">                q = price[i] + memory_r[j - i];</span><br><span class="line">                memory_s[j] = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        memory_r[j] = q;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Result(memory_r, memory_s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PRINT_CUT_ROD_SOLUTION</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    Result res = EXTENDED_BOTTOM_UP_ROD(price, length);</span><br><span class="line">    <span class="keyword">int</span> cut1 = res.solution[length];</span><br><span class="line">    <span class="keyword">int</span> cut2 = length - cut1;</span><br><span class="line">    <span class="keyword">int</span> revenue = res.revenue[length];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Cut solution: "</span> &lt;&lt; cut1 &lt;&lt; <span class="string">"--"</span> &lt;&lt; cut2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Revenue: "</span> &lt;&lt; revenue &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h1><h2 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem:"></a>Problem:</h2><p>给定n个矩阵的链<A~1~, A~2~, ..., A~n~>，矩阵A~i~的规模为$p_{i-1}\times p_i (1\leq i \leq n)$，求完全括号化方案，使得计算乘积A~1~A~2~…A~n~所需标量乘法次数最少.</p>
+<h1 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h1><h2 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem:"></a>Problem:</h2><p>给定n个矩阵的链&lt;$A_1, A_2, …, A_n$&gt;</p>
+<p>矩阵$A_i$的规模为$p_{i-1}\times p_i (1\leq i \leq n)$</p>
+<p>求完全括号化方案，使得计算乘积$A_1 A_2…A_n$所需标量乘法次数最少.</p>
 <p>i.e.</p>
-<p><A~1~, A~2~, A~3~> 其中规模分别为10✖100，100✖5，5✖50</p>
-<p>如果按照 ((A~1~A~2~)A~3~)  10✖100✖5=5000 —&gt; 10✖5✖50=2500 —&gt; 5000+2500=7500</p>
-<p>如果按照 (A~1~(A~2~A~3~)) 100✖5✖50=25000 —&gt; 10✖100✖50=50000 —&gt; 50000+25000=75000</p>
+<p>&lt;$A_1, A_2, A_3$&gt; 其中规模分别为$10\times100，100\times5，5\times50$</p>
+<p>如果按照 $((A_1 A_2)A_3)$ </p>
+<p> $10\times100\times5=5000$ —&gt;</p>
+<p> $10\times5\times50=2500$   —&gt;</p>
+<p> $5000+2500=7500$</p>
+<p>如果按照 $(A_1(A_2 A_3))$ </p>
+<p>$100\times5\times50=25000$    —&gt;</p>
+<p> $10\times100\times50=50000$ —&gt;</p>
+<p> $50000+25000=75000$</p>
 <h2 id="Thinking"><a href="#Thinking" class="headerlink" title="Thinking:"></a>Thinking:</h2><h3 id="否定穷举"><a href="#否定穷举" class="headerlink" title="否定穷举:"></a>否定穷举:</h3><p>看看穷举的递归方程</p>
 <script type="math/tex; mode=display">
 P(n)=\left\{
@@ -280,17 +288,17 @@ P(n)=\left\{
 \sum\limits_{k=1}^{n-1} P(k)P(n-k)&如果n\leq2\\
 \end{array}\right.</script><p>他的结果是$\Omega(2^n)$，好哥哥你应该也知道这很糟糕</p>
 <h3 id="应用动态规划方案"><a href="#应用动态规划方案" class="headerlink" title="应用动态规划方案:"></a>应用动态规划方案:</h3><h4 id="Step1-最优括号化方案的结构特征"><a href="#Step1-最优括号化方案的结构特征" class="headerlink" title="Step1: 最优括号化方案的结构特征"></a>Step1: 最优括号化方案的结构特征</h4><p>很容易发现可以把问题划分为两个子问题</p>
-<p>A~i~A~i+1~…A~k~和A~k+1~A~k+2~…A~j~的最优化括号问题 分别求出子问题的最优解 再结合起来</p>
-<h4 id="Step2-一个递归求解方案"><a href="#Step2-一个递归求解方案" class="headerlink" title="Step2: 一个递归求解方案"></a>Step2: 一个递归求解方案</h4><p>我们用<strong>m[i, j]</strong>表示计算矩阵A~i..j~所需标量乘法次数的最小值</p>
+<p>$A_i A_{i+1}…A_k$和$A_{k+1} A_{k+2}…A_j$的最优化括号问题 分别求出子问题的最优解 再结合起来</p>
+<h4 id="Step2-一个递归求解方案"><a href="#Step2-一个递归求解方案" class="headerlink" title="Step2: 一个递归求解方案"></a>Step2: 一个递归求解方案</h4><p>我们用<strong>m[i, j]</strong>表示计算矩阵$A_{i..j}$所需标量乘法次数的最小值</p>
 <p>那么原问题最优解可以表示为<strong>m[1, n]</strong></p>
-<p>容易得到下面的式子  ( A~i~对应矩阵大小是 p~i-1~✖p~i~ )</p>
+<p>容易得到下面的式子  ( $A_i对应矩阵大小是 p_{i-1}\times p_i$ )</p>
 <script type="math/tex; mode=display">
 m[i,j]=\left\{
 \begin{array}{rcl}
 0\qquad\qquad\qquad\qquad&如果i=j\\
 \mathop{min}\limits_{i\leq k \leq j} \{m[i,k]+m[k+1,j]+p_{i-1}p_k p_j\}&如果i<j\\
 \end{array}\right.</script><p><strong>m[i, j]</strong>的值给出了子问题最优解的代价，但还需要更多信息来构造最优解</p>
-<p>为此用<strong>s[i, j]</strong>保存A~i~A~i+1~…A~j~最优括号化方案的分割点位置k，即使得$m[i,j]=m[i,k]+m[k+1,j]+p_{i-1} p_k p_j$成立的k值</p>
+<p>为此用<strong>s[i, j]</strong>保存$A_i A_{i+1}…A_j$最优括号化方案的分割点位置k，即使得$m[i,j]=m[i,k]+m[k+1,j]+p_{i-1} p_k p_j$成立的k值</p>
 <h4 id="Step3-计算最优代价"><a href="#Step3-计算最优代价" class="headerlink" title="Step3: 计算最优代价"></a>Step3: 计算最优代价</h4><p>学不动了 明天再说</p>
 
       
