@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-07-23 22:52:32 / Modified: 22:54:49" itemprop="dateCreated datePublished" datetime="2020-07-23T22:52:32+08:00">2020-07-23</time>
+              <time title="Created: 2020-07-23 22:52:32 / Modified: 22:56:28" itemprop="dateCreated datePublished" datetime="2020-07-23T22:52:32+08:00">2020-07-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -409,7 +409,7 @@ m[i,j]=\left\{
 <p>这并不难理解</p>
 <h4 id="Final-跑一跑"><a href="#Final-跑一跑" class="headerlink" title="Final: 跑一跑"></a>Final: 跑一跑</h4><p>正式运行一下我们之前列出的例子</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> test[] = &#123;<span class="number">30</span>, <span class="number">35</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">25</span>&#125;; <span class="comment">//矩阵链长度</span></span><br><span class="line">    <span class="keyword">int</span> length = <span class="number">6</span>; <span class="comment">//矩阵个数</span></span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">m</span><span class="params">(length, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(length))</span></span>; <span class="comment">//创建m</span></span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">s</span><span class="params">(length - <span class="number">1</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(length - <span class="number">1</span>))</span></span>; <span class="comment">//创建s</span></span><br><span class="line">    MATRIX_CHAIN_ORDER(test, length, m, s); <span class="comment">//芜湖 起飞</span></span><br><span class="line">    PRINT_OPTIMAL_PARENS(s, <span class="number">0</span>, length - <span class="number">1</span>); <span class="comment">//得到输出 ((A0(A1A2))((A3A4)A5))</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="重构最优解"><a href="#重构最优解" class="headerlink" title="重构最优解"></a>重构最优解</h3><p>==永远不要对一个算法感到满足== </p>
+<h3 id="重构最优解"><a href="#重构最优解" class="headerlink" title="重构最优解"></a>重构最优解</h3><p><strong>永远不要对一个算法感到满足</strong></p>
 <p>从实际考虑，我们通常会把子问题的解存在一个表里</p>
 <p>加入备忘机制</p>
 <p>不做太多解释，上面的看懂了这个也很容易理解</p>
