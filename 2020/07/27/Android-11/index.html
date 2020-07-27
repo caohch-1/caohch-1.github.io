@@ -22,30 +22,32 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/index.html">
+  <meta name="description" content="基于《第一行代码——Android》@郭霖 第十一章：使用网络技术11.1 WebView的用法WebView控件让我们能够在APP中内嵌一个浏览器 12345678910class MainActivity : AppCompatActivity() &amp;#123;    override fun onCreate(savedInstanceState: Bundle?) &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-11">
+<meta property="og:url" content="https://caohch1.cn/2020/07/27/Android-11/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《第一行代码——Android》@郭霖 第十一章：使用网络技术11.1 WebView的用法WebView控件让我们能够在APP中内嵌一个浏览器 12345678910class MainActivity : AppCompatActivity() &amp;#123;    override fun onCreate(savedInstanceState: Bundle?) &amp;#123;">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-27T12:55:02.344Z">
+<meta property="article:modified_time" content="2020-07-27T12:55:03.753Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://caohch1.cn/">
+<link rel="canonical" href="https://caohch1.cn/2020/07/27/Android-11/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>Android-11 | MissSirius Planet</title>
   
 
 
@@ -154,9 +156,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -172,10 +175,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/27/Android-11/" class="post-title-link" itemprop="url">Android-11</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Android-11
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,7 +210,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《第一行代码——Android》@郭霖</p>
+        <p>基于《第一行代码——Android》@郭霖</p>
 <h1 id="第十一章：使用网络技术"><a href="#第十一章：使用网络技术" class="headerlink" title="第十一章：使用网络技术"></a>第十一章：使用网络技术</h1><h2 id="11-1-WebView的用法"><a href="#11-1-WebView的用法" class="headerlink" title="11.1 WebView的用法"></a>11.1 WebView的用法</h2><p>WebView控件让我们能够在APP中内嵌一个浏览器</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">		<span class="comment">//webView已经在xml布局里写好</span></span><br><span class="line">        webView.settings.javaScriptEnabled = <span class="literal">true</span> <span class="comment">//settings可以设置一些浏览器属性</span></span><br><span class="line">        webView.webViewClient = WebViewClient() <span class="comment">//当需要从一个网页跳转到另一个网页时，目标网页仍然在WebView中显示，而非打开系统浏览器</span></span><br><span class="line">        webView.loadUrl(<span class="string">"https://okrara.cn"</span>) <span class="comment">//传入网址即可展示相关内容</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>连接网络需要权限声明，具体怎么做很简单，不说了</p>
@@ -366,25 +368,31 @@
 <p>最后再来学习一个比较特殊的作用域构建器： <strong>withContext</strong>函数，该函数是一个挂起函数，大体可以将他理解成 <strong>async</strong>函数的一种简化版写法，实例写法如下</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    runBlocking &#123;</span><br><span class="line">        <span class="keyword">val</span> result = withContext(Dispatchers.Default) &#123; <span class="comment">//Dispatchers.Default是该函数的必要参数--线程参数，有三种值可选</span></span><br><span class="line">            <span class="number">5</span>+<span class="number">5</span></span><br><span class="line">        &#125;</span><br><span class="line">        println(result)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/27/Android-10/" rel="prev" title="Android-10">
+      <i class="fa fa-chevron-left"></i> Android-10
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -436,6 +444,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第十一章：使用网络技术"><span class="nav-number">1.</span> <span class="nav-text">第十一章：使用网络技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-1-WebView的用法"><span class="nav-number">1.1.</span> <span class="nav-text">11.1 WebView的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-2-使用HTTP访问网络"><span class="nav-number">1.2.</span> <span class="nav-text">11.2 使用HTTP访问网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用HttpURLConnection"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用HttpURLConnection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用OkHttp"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用OkHttp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-3-解析XML格式数据"><span class="nav-number">1.3.</span> <span class="nav-text">11.3 解析XML格式数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pull解析方式"><span class="nav-number">1.3.1.</span> <span class="nav-text">Pull解析方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SAX解析方式"><span class="nav-number">1.3.2.</span> <span class="nav-text">SAX解析方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-4-解析JSON格式数据"><span class="nav-number">1.4.</span> <span class="nav-text">11.4 解析JSON格式数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用JSONObject"><span class="nav-number">1.4.1.</span> <span class="nav-text">使用JSONObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">1.4.2.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用GSON"><span class="nav-number">1.4.3.</span> <span class="nav-text">使用GSON</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-5-网络请求回调的实现方式"><span class="nav-number">1.5.</span> <span class="nav-text">11.5 网络请求回调的实现方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-6-最好用的网络库：Retrofit"><span class="nav-number">1.6.</span> <span class="nav-text">11.6 最好用的网络库：Retrofit</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本用法"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理复杂的接口地址类型"><span class="nav-number">1.6.0.2.</span> <span class="nav-text">处理复杂的接口地址类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Retrofit构建器的最佳写法"><span class="nav-number">1.6.0.3.</span> <span class="nav-text">Retrofit构建器的最佳写法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kotlin拓展：协程编写高效并发程序"><span class="nav-number">2.</span> <span class="nav-text">Kotlin拓展：协程编写高效并发程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本用法-1"><span class="nav-number">2.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多的作用域构建器"><span class="nav-number">2.2.</span> <span class="nav-text">更多的作用域构建器</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
