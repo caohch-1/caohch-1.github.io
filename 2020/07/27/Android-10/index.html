@@ -22,30 +22,34 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/index.html">
+  <meta name="description" content="基于《第一行代码——Android》@郭霖 第十章：后台劳动者，探究Service10.1 Service是什么即使程序切换到后台或者用户打开了另外一个应用程序，Service仍然能保持正常运行 10.2 Android多线程编程基本用法定义一个线程:  12345class MyThread: Thread() &amp;#123;    override fun run () &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-10">
+<meta property="og:url" content="https://caohch1.cn/2020/07/27/Android-10/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《第一行代码——Android》@郭霖 第十章：后台劳动者，探究Service10.1 Service是什么即使程序切换到后台或者用户打开了另外一个应用程序，Service仍然能保持正常运行 10.2 Android多线程编程基本用法定义一个线程:  12345class MyThread: Thread() &amp;#123;    override fun run () &amp;#123;">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/26/aCRoZT.png">
+<meta property="article:published_time" content="2020-07-27T06:30:12.432Z">
+<meta property="article:modified_time" content="2020-07-27T06:30:14.141Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/07/26/aCRoZT.png">
 
-<link rel="canonical" href="https://caohch1.cn/">
+<link rel="canonical" href="https://caohch1.cn/2020/07/27/Android-10/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>Android-10 | MissSirius Planet</title>
   
 
 
@@ -154,9 +158,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -172,10 +177,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/27/Android-10/" class="post-title-link" itemprop="url">Android-10</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Android-10
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,7 +212,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《第一行代码——Android》@郭霖</p>
+        <p>基于《第一行代码——Android》@郭霖</p>
 <h1 id="第十章：后台劳动者，探究Service"><a href="#第十章：后台劳动者，探究Service" class="headerlink" title="第十章：后台劳动者，探究Service"></a>第十章：后台劳动者，探究Service</h1><h2 id="10-1-Service是什么"><a href="#10-1-Service是什么" class="headerlink" title="10.1 Service是什么"></a>10.1 Service是什么</h2><p>即使程序切换到后台或者用户打开了另外一个应用程序，Service仍然能保持正常运行</p>
 <h2 id="10-2-Android多线程编程"><a href="#10-2-Android多线程编程" class="headerlink" title="10.2 Android多线程编程"></a>10.2 Android多线程编程</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>定义一个线程: </p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span>: <span class="type">Thread</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">run</span> <span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">//Something</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -296,25 +300,31 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">startActivity&lt;TestActivity&gt;(context)</span><br><span class="line"></span><br><span class="line">startActivity&lt;TestActivity&gt;(context) &#123;</span><br><span class="line">    putExtra(<span class="string">"param1"</span>, <span class="string">"data"</span>)</span><br><span class="line">    putExtra(<span class="string">"param2"</span>, <span class="number">123</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="泛型的协变和逆变"><a href="#泛型的协变和逆变" class="headerlink" title="泛型的协变和逆变"></a>泛型的协变和逆变</h2><p>理论性强，理解有难度，看书吧</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/25/Android-9/" rel="prev" title="Android-9">
+      <i class="fa fa-chevron-left"></i> Android-9
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -366,6 +376,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第十章：后台劳动者，探究Service"><span class="nav-number">1.</span> <span class="nav-text">第十章：后台劳动者，探究Service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-1-Service是什么"><span class="nav-number">1.1.</span> <span class="nav-text">10.1 Service是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-2-Android多线程编程"><span class="nav-number">1.2.</span> <span class="nav-text">10.2 Android多线程编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在子线程中更新UI"><span class="nav-number">1.2.2.</span> <span class="nav-text">在子线程中更新UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析异步消息处理机制"><span class="nav-number">1.2.3.</span> <span class="nav-text">解析异步消息处理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Message"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">Message</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Handler"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">Handler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MessageQueue"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">MessageQueue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Looper"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">Looper</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用AsyncTask"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用AsyncTask</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#onPreExcute"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">onPreExcute ( )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#doInBackground-Params…"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">doInBackground (Params…)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onProgressUpdate-Progress…"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">onProgressUpdate (Progress…)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onPostExcute-Result"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">onPostExcute (Result)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-3-Service的基本用法"><span class="nav-number">1.3.</span> <span class="nav-text">10.3 Service的基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义一个Service"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义一个Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动和停止Service"><span class="nav-number">1.3.2.</span> <span class="nav-text">启动和停止Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity和Service进行通信"><span class="nav-number">1.3.3.</span> <span class="nav-text">Activity和Service进行通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-4-生命周期"><span class="nav-number">1.4.</span> <span class="nav-text">10.4 生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-5-更多技巧"><span class="nav-number">1.5.</span> <span class="nav-text">10.5 更多技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前台Service"><span class="nav-number">1.5.1.</span> <span class="nav-text">前台Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用IntentService"><span class="nav-number">1.5.2.</span> <span class="nav-text">使用IntentService</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kotlin拓展"><span class="nav-number">2.</span> <span class="nav-text">Kotlin拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对泛型进行实化"><span class="nav-number">2.1.</span> <span class="nav-text">对泛型进行实化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型实化的应用"><span class="nav-number">2.2.</span> <span class="nav-text">泛型实化的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型的协变和逆变"><span class="nav-number">2.3.</span> <span class="nav-text">泛型的协变和逆变</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
