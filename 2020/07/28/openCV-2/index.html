@@ -22,30 +22,37 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/index.html">
+  <meta name="description" content="基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇 第二章：数据载入、显示与保存2.1 图像储存容器数字图像在计算机中以矩阵形式保存 OpenCV提供了一个Mat类用于储存矩阵数据 Mat类介绍Mat类分为矩阵头和指向储存数据的矩阵指针 矩阵头包含矩阵的尺寸、储存方法、地址和引用次数等，矩阵头的大小是个常数，不会随着矩阵尺寸的大小改变 在创建Mat类时，可以先创建矩阵头后赋值数据  123cv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV-2">
+<meta property="og:url" content="https://caohch1.cn/2020/07/28/openCV-2/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇 第二章：数据载入、显示与保存2.1 图像储存容器数字图像在计算机中以矩阵形式保存 OpenCV提供了一个Mat类用于储存矩阵数据 Mat类介绍Mat类分为矩阵头和指向储存数据的矩阵指针 矩阵头包含矩阵的尺寸、储存方法、地址和引用次数等，矩阵头的大小是个常数，不会随着矩阵尺寸的大小改变 在创建Mat类时，可以先创建矩阵头后赋值数据  123cv">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/aAjks1.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/aE2LIP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/aETfi9.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/28/aEbBRA.jpg">
+<meta property="article:published_time" content="2020-07-28T13:35:08.129Z">
+<meta property="article:modified_time" content="2020-07-28T13:33:42.554Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/07/28/aAjks1.jpg">
 
-<link rel="canonical" href="https://caohch1.cn/">
+<link rel="canonical" href="https://caohch1.cn/2020/07/28/openCV-2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>OpenCV-2 | MissSirius Planet</title>
   
 
 
@@ -154,9 +161,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -172,10 +180,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/28/openCV-2/" class="post-title-link" itemprop="url">OpenCV-2</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          OpenCV-2
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,7 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
+        <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
 <h1 id="第二章：数据载入、显示与保存"><a href="#第二章：数据载入、显示与保存" class="headerlink" title="第二章：数据载入、显示与保存"></a>第二章：数据载入、显示与保存</h1><h2 id="2-1-图像储存容器"><a href="#2-1-图像储存容器" class="headerlink" title="2.1 图像储存容器"></a>2.1 图像储存容器</h2><p>数字图像在计算机中以矩阵形式保存</p>
 <p>OpenCV提供了一个Mat类用于储存矩阵数据</p>
 <h3 id="Mat类介绍"><a href="#Mat类介绍" class="headerlink" title="Mat类介绍"></a>Mat类介绍</h3><p>Mat类分为<strong>矩阵头</strong>和<strong>指向储存数据的矩阵指针</strong></p>
@@ -627,25 +634,31 @@
 <p>i.e.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"opencv2/opencv.hpp"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> fileName = <span class="string">"datas.yaml"</span>;</span><br><span class="line">    <span class="comment">//open file in write mode</span></span><br><span class="line">    <span class="function">cv::FileStorage <span class="title">fwrite</span><span class="params">(fileName, cv::FileStorage::WRITE)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//store Mat type data</span></span><br><span class="line">    Mat mat = Mat::eye(<span class="number">3</span>, <span class="number">3</span>, CV_8U);</span><br><span class="line">    fwrite.<span class="built_in">write</span>(<span class="string">"mat"</span>, mat);  <span class="comment">//ʹ��write()����д������</span></span><br><span class="line">    <span class="comment">//store float type data</span></span><br><span class="line">    <span class="keyword">float</span> x = <span class="number">100</span>;</span><br><span class="line">    fwrite &lt;&lt; <span class="string">"x"</span> &lt;&lt; x;</span><br><span class="line">    <span class="comment">//store string type data</span></span><br><span class="line">    <span class="keyword">String</span> str = <span class="string">"Learn OpenCV 4"</span>;</span><br><span class="line">    fwrite &lt;&lt; <span class="string">"str"</span> &lt;&lt; str;</span><br><span class="line">    <span class="comment">//store array type data</span></span><br><span class="line">    fwrite &lt;&lt; <span class="string">"number_array"</span> &lt;&lt; <span class="string">"["</span> &lt;&lt; <span class="number">4</span> &lt;&lt; <span class="number">5</span> &lt;&lt; <span class="number">6</span> &lt;&lt; <span class="string">"]"</span>;</span><br><span class="line">    <span class="comment">//store multi-nodes type data</span></span><br><span class="line">    fwrite &lt;&lt; <span class="string">"multi_nodes"</span> &lt;&lt; <span class="string">"&#123;"</span> &lt;&lt; <span class="string">"month"</span> &lt;&lt; <span class="number">8</span> &lt;&lt; <span class="string">"day"</span> &lt;&lt; <span class="number">28</span> &lt;&lt; <span class="string">"year"</span></span><br><span class="line">           &lt;&lt; <span class="number">2019</span> &lt;&lt; <span class="string">"time"</span> &lt;&lt; <span class="string">"["</span> &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="number">2</span> &lt;&lt; <span class="number">3</span> &lt;&lt; <span class="string">"]"</span> &lt;&lt; <span class="string">"&#125;"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//close file</span></span><br><span class="line">    fwrite.<span class="built_in">release</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//open file in read mode</span></span><br><span class="line">    <span class="function">cv::FileStorage <span class="title">fread</span><span class="params">(fileName, cv::FileStorage::READ)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (!fread.isOpened()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Open file failed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//read data in file</span></span><br><span class="line">    <span class="keyword">float</span> xRead;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//float</span></span><br><span class="line">    fread[<span class="string">"x"</span>] &gt;&gt; xRead;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"x="</span> &lt;&lt; xRead &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//string</span></span><br><span class="line">    <span class="built_in">string</span> strRead;</span><br><span class="line">    fread[<span class="string">"str"</span>] &gt;&gt; strRead;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"str="</span> &lt;&lt; strRead &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//array</span></span><br><span class="line">    FileNode fileNode = fread[<span class="string">"number_array"</span>];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"number_array=["</span>;</span><br><span class="line">    <span class="keyword">for</span> (FileNodeIterator i = fileNode.<span class="built_in">begin</span>(); i != fileNode.<span class="built_in">end</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">float</span> a;</span><br><span class="line">        *i &gt;&gt; a;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"]"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Mat</span></span><br><span class="line">    Mat matRead;</span><br><span class="line">    fread[<span class="string">"mat="</span>] &gt;&gt; matRead;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"mat="</span> &lt;&lt; mat &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//multi-nodes</span></span><br><span class="line">    FileNode fileNode1 = fread[<span class="string">"multi_nodes"</span>];</span><br><span class="line">    <span class="keyword">int</span> month = (<span class="keyword">int</span>) fileNode1[<span class="string">"month"</span>];</span><br><span class="line">    <span class="keyword">int</span> day = (<span class="keyword">int</span>) fileNode1[<span class="string">"day"</span>];</span><br><span class="line">    <span class="keyword">int</span> year = (<span class="keyword">int</span>) fileNode1[<span class="string">"year"</span>];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"multi_nodes:"</span> &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">         &lt;&lt; <span class="string">"  month="</span> &lt;&lt; month &lt;&lt; <span class="string">"  day="</span> &lt;&lt; day &lt;&lt; <span class="string">"  year="</span> &lt;&lt; year;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"  time=["</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> a = (<span class="keyword">int</span>) fileNode1[<span class="string">"time"</span>][i];</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"]"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//close file</span></span><br><span class="line">    fread.<span class="built_in">release</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/28/openCV-1/" rel="prev" title="OpenCV-1">
+      <i class="fa fa-chevron-left"></i> OpenCV-1
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -697,6 +710,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章：数据载入、显示与保存"><span class="nav-number">1.</span> <span class="nav-text">第二章：数据载入、显示与保存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-图像储存容器"><span class="nav-number">1.1.</span> <span class="nav-text">2.1 图像储存容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mat类介绍"><span class="nav-number">1.1.1.</span> <span class="nav-text">Mat类介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mat类构造与赋值"><span class="nav-number">1.1.2.</span> <span class="nav-text">Mat类构造与赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Mat类的构造"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">Mat类的构造</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#默认构造函数使用方式"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text">默认构造函数使用方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据输入矩阵的尺寸和类型构造"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text">根据输入矩阵的尺寸和类型构造</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用已有构造"><span class="nav-number">1.1.2.1.3.</span> <span class="nav-text">利用已有构造</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mat类的赋值"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Mat类的赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#构造时赋值"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">构造时赋值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#枚举赋值"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">枚举赋值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环赋值"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">循环赋值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类方法赋值"><span class="nav-number">1.1.2.2.4.</span> <span class="nav-text">类方法赋值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用数组进行赋值"><span class="nav-number">1.1.2.2.5.</span> <span class="nav-text">利用数组进行赋值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mat类支持的运算"><span class="nav-number">1.1.3.</span> <span class="nav-text">Mat类支持的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加减乘除"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">加减乘除</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mat类元素的读取"><span class="nav-number">1.1.4.</span> <span class="nav-text">Mat类元素的读取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#at方法"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">at方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过指针ptr读取Mat类矩阵中的元素"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">通过指针ptr读取Mat类矩阵中的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过迭代器访问Mat类矩阵中的元素"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">通过迭代器访问Mat类矩阵中的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过矩阵元素的地址定位方式访问元素"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">通过矩阵元素的地址定位方式访问元素</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-图像读取与显示"><span class="nav-number">1.2.</span> <span class="nav-text">2.2 图像读取与显示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像读取函数-imread"><span class="nav-number">1.2.1.</span> <span class="nav-text">图像读取函数 imread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像窗口函数-namedWindow"><span class="nav-number">1.2.2.</span> <span class="nav-text">图像窗口函数 namedWindow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像显示函数-imshow"><span class="nav-number">1.2.3.</span> <span class="nav-text">图像显示函数 imshow</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-视频加载与摄像头调用"><span class="nav-number">1.3.</span> <span class="nav-text">2.3 视频加载与摄像头调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#视频数据的读取"><span class="nav-number">1.3.1.</span> <span class="nav-text">视频数据的读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摄像头调用"><span class="nav-number">1.3.2.</span> <span class="nav-text">摄像头调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-数据保存"><span class="nav-number">1.4.</span> <span class="nav-text">2.4 数据保存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像的保存"><span class="nav-number">1.4.1.</span> <span class="nav-text">图像的保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视频的保存"><span class="nav-number">1.4.2.</span> <span class="nav-text">视频的保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存和读取XML和YMAL文件"><span class="nav-number">1.4.3.</span> <span class="nav-text">保存和读取XML和YMAL文件</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
