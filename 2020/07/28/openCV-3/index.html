@@ -22,30 +22,32 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/index.html">
+  <meta name="description" content="基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇 第三章：图像基本操作3.1 图像颜色空间颜色模型与转换耳机没电了，等会儿再看 多通道分离与合并3.2 图像像素处理图像像素统计两图像间的像素操作图像二值化LUT3.3 图像变换图像连接图像尺寸变换图像反转变换图像仿射变换图像透视变换极坐标变化3.4 在图像上绘制几何图形绘制圆形绘制直线绘制椭圆绘制多边形文字生成3.5 感兴趣区域3.6 图像金">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV-3">
+<meta property="og:url" content="https://caohch1.cn/2020/07/28/openCV-3/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇 第三章：图像基本操作3.1 图像颜色空间颜色模型与转换耳机没电了，等会儿再看 多通道分离与合并3.2 图像像素处理图像像素统计两图像间的像素操作图像二值化LUT3.3 图像变换图像连接图像尺寸变换图像反转变换图像仿射变换图像透视变换极坐标变化3.4 在图像上绘制几何图形绘制圆形绘制直线绘制椭圆绘制多边形文字生成3.5 感兴趣区域3.6 图像金">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-28T13:35:25.368Z">
+<meta property="article:modified_time" content="2020-07-28T13:32:08.757Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://caohch1.cn/">
+<link rel="canonical" href="https://caohch1.cn/2020/07/28/openCV-3/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>OpenCV-3 | MissSirius Planet</title>
   
 
 
@@ -154,9 +156,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -172,10 +175,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/28/openCV-3/" class="post-title-link" itemprop="url">OpenCV-3</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          OpenCV-3
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,28 +210,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
+        <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
 <h1 id="第三章：图像基本操作"><a href="#第三章：图像基本操作" class="headerlink" title="第三章：图像基本操作"></a>第三章：图像基本操作</h1><h2 id="3-1-图像颜色空间"><a href="#3-1-图像颜色空间" class="headerlink" title="3.1 图像颜色空间"></a>3.1 图像颜色空间</h2><h3 id="颜色模型与转换"><a href="#颜色模型与转换" class="headerlink" title="颜色模型与转换"></a>颜色模型与转换</h3><p>耳机没电了，等会儿再看</p>
 <h3 id="多通道分离与合并"><a href="#多通道分离与合并" class="headerlink" title="多通道分离与合并"></a>多通道分离与合并</h3><h2 id="3-2-图像像素处理"><a href="#3-2-图像像素处理" class="headerlink" title="3.2 图像像素处理"></a>3.2 图像像素处理</h2><h3 id="图像像素统计"><a href="#图像像素统计" class="headerlink" title="图像像素统计"></a>图像像素统计</h3><h3 id="两图像间的像素操作"><a href="#两图像间的像素操作" class="headerlink" title="两图像间的像素操作"></a>两图像间的像素操作</h3><h3 id="图像二值化"><a href="#图像二值化" class="headerlink" title="图像二值化"></a>图像二值化</h3><h3 id="LUT"><a href="#LUT" class="headerlink" title="LUT"></a>LUT</h3><h2 id="3-3-图像变换"><a href="#3-3-图像变换" class="headerlink" title="3.3 图像变换"></a>3.3 图像变换</h2><h3 id="图像连接"><a href="#图像连接" class="headerlink" title="图像连接"></a>图像连接</h3><h3 id="图像尺寸变换"><a href="#图像尺寸变换" class="headerlink" title="图像尺寸变换"></a>图像尺寸变换</h3><h3 id="图像反转变换"><a href="#图像反转变换" class="headerlink" title="图像反转变换"></a>图像反转变换</h3><h3 id="图像仿射变换"><a href="#图像仿射变换" class="headerlink" title="图像仿射变换"></a>图像仿射变换</h3><h3 id="图像透视变换"><a href="#图像透视变换" class="headerlink" title="图像透视变换"></a>图像透视变换</h3><h3 id="极坐标变化"><a href="#极坐标变化" class="headerlink" title="极坐标变化"></a>极坐标变化</h3><h2 id="3-4-在图像上绘制几何图形"><a href="#3-4-在图像上绘制几何图形" class="headerlink" title="3.4 在图像上绘制几何图形"></a>3.4 在图像上绘制几何图形</h2><h3 id="绘制圆形"><a href="#绘制圆形" class="headerlink" title="绘制圆形"></a>绘制圆形</h3><h3 id="绘制直线"><a href="#绘制直线" class="headerlink" title="绘制直线"></a>绘制直线</h3><h3 id="绘制椭圆"><a href="#绘制椭圆" class="headerlink" title="绘制椭圆"></a>绘制椭圆</h3><h3 id="绘制多边形"><a href="#绘制多边形" class="headerlink" title="绘制多边形"></a>绘制多边形</h3><h3 id="文字生成"><a href="#文字生成" class="headerlink" title="文字生成"></a>文字生成</h3><h2 id="3-5-感兴趣区域"><a href="#3-5-感兴趣区域" class="headerlink" title="3.5 感兴趣区域"></a>3.5 感兴趣区域</h2><h2 id="3-6-图像金字塔"><a href="#3-6-图像金字塔" class="headerlink" title="3.6 图像金字塔"></a>3.6 图像金字塔</h2><h3 id="高斯“金字塔”"><a href="#高斯“金字塔”" class="headerlink" title="高斯“金字塔”"></a>高斯“金字塔”</h3><h3 id="拉普拉斯“金字塔”"><a href="#拉普拉斯“金字塔”" class="headerlink" title="拉普拉斯“金字塔”"></a>拉普拉斯“金字塔”</h3><h2 id="3-7-窗口交互操作"><a href="#3-7-窗口交互操作" class="headerlink" title="3.7 窗口交互操作"></a>3.7 窗口交互操作</h2><h3 id="图像窗口滑条"><a href="#图像窗口滑条" class="headerlink" title="图像窗口滑条"></a>图像窗口滑条</h3><h3 id="鼠标响应"><a href="#鼠标响应" class="headerlink" title="鼠标响应"></a>鼠标响应</h3>
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/28/openCV-2/" rel="prev" title="OpenCV-2">
+      <i class="fa fa-chevron-left"></i> OpenCV-2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -281,6 +289,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章：图像基本操作"><span class="nav-number">1.</span> <span class="nav-text">第三章：图像基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-图像颜色空间"><span class="nav-number">1.1.</span> <span class="nav-text">3.1 图像颜色空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#颜色模型与转换"><span class="nav-number">1.1.1.</span> <span class="nav-text">颜色模型与转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多通道分离与合并"><span class="nav-number">1.1.2.</span> <span class="nav-text">多通道分离与合并</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-图像像素处理"><span class="nav-number">1.2.</span> <span class="nav-text">3.2 图像像素处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像像素统计"><span class="nav-number">1.2.1.</span> <span class="nav-text">图像像素统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两图像间的像素操作"><span class="nav-number">1.2.2.</span> <span class="nav-text">两图像间的像素操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像二值化"><span class="nav-number">1.2.3.</span> <span class="nav-text">图像二值化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LUT"><span class="nav-number">1.2.4.</span> <span class="nav-text">LUT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-图像变换"><span class="nav-number">1.3.</span> <span class="nav-text">3.3 图像变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像连接"><span class="nav-number">1.3.1.</span> <span class="nav-text">图像连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像尺寸变换"><span class="nav-number">1.3.2.</span> <span class="nav-text">图像尺寸变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像反转变换"><span class="nav-number">1.3.3.</span> <span class="nav-text">图像反转变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像仿射变换"><span class="nav-number">1.3.4.</span> <span class="nav-text">图像仿射变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像透视变换"><span class="nav-number">1.3.5.</span> <span class="nav-text">图像透视变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#极坐标变化"><span class="nav-number">1.3.6.</span> <span class="nav-text">极坐标变化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-在图像上绘制几何图形"><span class="nav-number">1.4.</span> <span class="nav-text">3.4 在图像上绘制几何图形</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制圆形"><span class="nav-number">1.4.1.</span> <span class="nav-text">绘制圆形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制直线"><span class="nav-number">1.4.2.</span> <span class="nav-text">绘制直线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制椭圆"><span class="nav-number">1.4.3.</span> <span class="nav-text">绘制椭圆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制多边形"><span class="nav-number">1.4.4.</span> <span class="nav-text">绘制多边形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字生成"><span class="nav-number">1.4.5.</span> <span class="nav-text">文字生成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-感兴趣区域"><span class="nav-number">1.5.</span> <span class="nav-text">3.5 感兴趣区域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-图像金字塔"><span class="nav-number">1.6.</span> <span class="nav-text">3.6 图像金字塔</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#高斯“金字塔”"><span class="nav-number">1.6.1.</span> <span class="nav-text">高斯“金字塔”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉普拉斯“金字塔”"><span class="nav-number">1.6.2.</span> <span class="nav-text">拉普拉斯“金字塔”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-窗口交互操作"><span class="nav-number">1.7.</span> <span class="nav-text">3.7 窗口交互操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像窗口滑条"><span class="nav-number">1.7.1.</span> <span class="nav-text">图像窗口滑条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#鼠标响应"><span class="nav-number">1.7.2.</span> <span class="nav-text">鼠标响应</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
