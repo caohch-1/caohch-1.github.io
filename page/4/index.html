@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/07/29/openCV-3/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/07/30/openCV-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/29/openCV-3/" class="post-title-link" itemprop="url">OpenCV3-Basic Img Operation</a>
+            <a href="/2020/07/30/openCV-4/" class="post-title-link" itemprop="url">OpenCV4-Image histogram and Template matching</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-07-29 22:20:42 / Modified: 22:30:24" itemprop="dateCreated datePublished" datetime="2020-07-29T22:20:42+08:00">2020-07-29</time>
+              <time title="Created: 2020-07-30 08:20:18 / Modified: 08:21:25" itemprop="dateCreated datePublished" datetime="2020-07-30T08:20:18+08:00">2020-07-30</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,822 +209,214 @@
 
       
           <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
-<h1 id="图像颜色空间"><a href="#图像颜色空间" class="headerlink" title="图像颜色空间"></a>图像颜色空间</h1><h2 id="颜色模型与转换"><a href="#颜色模型与转换" class="headerlink" title="颜色模型与转换"></a>颜色模型与转换</h2><h3 id="RGB颜色模型"><a href="#RGB颜色模型" class="headerlink" title="RGB颜色模型"></a>RGB颜色模型</h3><p>该模型为立方体<del>不难想象</del></p>
-<p><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/KfLGF0ibu6cL0nqcZhH7pv1LT6icjwibN5icCtFIfQVjXU4U0fPwFXswhibgdG6wLTv08N4snCtlKWJ4tuV81MKyZ0w/640?wx_fmt=png" /></p>
-<p>OpenCV中顺序相反</p>
-<p>Channel1 is Blue</p>
-<p>Channel2 is Green</p>
-<p>Channel3 is Red</p>
-<p>该模型基础上加入Channel4即为RGBA模型，Channel4 is Alpha透明度</p>
-<h3 id="YUV颜色模型"><a href="#YUV颜色模型" class="headerlink" title="YUV颜色模型"></a>YUV颜色模型</h3><p>电视信号系统采用的颜色编码模式</p>
-<p>像素的亮度 Y</p>
-<p>红色分量与亮度的信号差值 U</p>
-<p>蓝色与亮度的差值 V</p>
-<script type="math/tex; mode=display">
-\left\{
-\begin{array}{rcl}
-Y=&0.299R+0.587G+0.144B\\
-U=&-0.147R-0.289G+0.436B\\
-V=&0.615R-0.515G-0.100B\\
-R=&Y+1.14V\\
-G=&Y-0.39U-0.68V\\
-B=&Y+2.03U
-\end{array}\right.</script><h3 id="HSV颜色模型"><a href="#HSV颜色模型" class="headerlink" title="HSV颜色模型"></a>HSV颜色模型</h3><p>该模型为锥形<del>不难想象 个屁</del></p>
-<p><img src="http://image.catbro.cn/dda3f983d4912.png" alt="HSV" style="zoom:150%;" /></p>
-<p>H is Hue 色度</p>
-<p>S is Saturation 饱和度</p>
-<p>V is Value 亮度</p>
-<p>由于三个参量的取值范围不同，故为空间模型为锥体，该模型更符合人类感知颜色的方式：颜色，深浅，暗亮</p>
-<h3 id="Lab颜色模型"><a href="#Lab颜色模型" class="headerlink" title="Lab颜色模型"></a>Lab颜色模型</h3><p>该模型是球型</p>
-<p><img src="https://tse2-mm.cn.bing.net/th/id/OIP.BUPtYIN5BjySudu8Tpz2rQHaHc?pid=Api&amp;rs=1" alt="Lab"></p>
-<p>弥补了RGB模型的不足</p>
-<p>L is Luminosity</p>
-<p>a and b are two color channels, from -128~127</p>
-<h3 id="GRAY颜色模型"><a href="#GRAY颜色模型" class="headerlink" title="GRAY颜色模型"></a>GRAY颜色模型</h3><p>灰度图像模型，只有单通道</p>
-<p>常用的RGB模型转成灰度图方式$GRAY=0.3R+0.59G+0.11B$</p>
-<h3 id="不同颜色模型之间的转换"><a href="#不同颜色模型之间的转换" class="headerlink" title="不同颜色模型之间的转换"></a>不同颜色模型之间的转换</h3><p><strong>cvtColor</strong>函数原型</p>
+<h1 id="图像直方图的绘制"><a href="#图像直方图的绘制" class="headerlink" title="图像直方图的绘制"></a>图像直方图的绘制</h1><p>由于同一物体无论是旋转还是平移，在图像中都具有相同的灰度值，因此图像直方图具有平移不变性、放缩不变性等优点.</p>
+<p>图像灰度值为横轴，灰度值个数或比例为纵轴.</p>
+<p>通常情况下，灰度值代表亮暗程度，因此通过图像直方图可以分析图像亮暗对比度，并调整图像的亮暗程度</p>
+<p><strong>calcHist</strong>函数原型</p>
 <ul>
-<li>src：原始图像</li>
-<li>dst：目标图像</li>
-<li>code：颜色空间转换的标志</li>
-<li>dstCn：目标图像中的通道数，为0则自动从src和代码中导出</li>
+<li>images：待统计直方图的图像数组，数据中所有图像应具有相同的尺寸和数据类型，并且数据类型只能是CV_8U, CV_16U和CV_32F中的一种，但是通道数可以不同</li>
+<li>nimages：输入图像的数量</li>
+<li>channels：需要统计的通道索引数组</li>
+<li>mask：操作掩码</li>
+<li>hist：输出的结果，是一个dims维度的数组</li>
+<li>dims：需要计算直方图的维度</li>
+<li>histSize：存放每个维度直方图的数组的尺寸</li>
+<li>ranges：每个图像通道中灰度值的取值范围</li>
+<li>uniform：直方图是否均匀的标志，默认是均匀</li>
+<li>accumulate：是否累积直方图的标志</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::cvtColor</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                  OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">int</span> code,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">int</span> dstCn = <span class="number">0</span></span></span></span><br><span class="line"><span class="function"><span class="params">                 )</span></span></span><br></pre></td></tr></table></figure>
-<p><strong><em>Warning</em></strong>：如果转换过程中添加了alpha通道，则将其值设置为相应通道范围的最大值</p>
-<p>cvtColor函数颜色空间转换常用标志表</p>
-<p><img src="https://s1.ax1x.com/2020/07/28/aVQvh8.jpg" alt="cvtColor"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::calcHist</span><span class="params">(<span class="keyword">const</span> Mat* images,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">int</span> nimages,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">const</span> <span class="keyword">int</span>* channels,</span></span></span><br><span class="line"><span class="function"><span class="params">                  InputArray mask,</span></span></span><br><span class="line"><span class="function"><span class="params">                  OutputArray hist,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">int</span> dims,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">const</span> <span class="keyword">int</span>* histSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">const</span> <span class="keyword">float</span>** ranges,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">bool</span> uniform = <span class="literal">true</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">bool</span> accumulate = <span class="literal">false</span></span></span></span><br><span class="line"><span class="function"><span class="params">                 )</span></span></span><br></pre></td></tr></table></figure>
+<p><strong><em>Hint</em></strong>：由于该函数参数较多，建议使用时只统计单通道图像的灰度值分布，对于多通道图像，可以将图像每个通道分离后再统计</p>
 <p>i.e.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"lena.png"</span>);</span><br><span class="line">    <span class="keyword">if</span> (img.empty()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to load img"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Mat gray, HSV, YUV, Lab, img32;</span><br><span class="line">    img.convertTo(img32, CV_32F, <span class="number">1.0</span> / <span class="number">255</span>); <span class="comment">//turn CV_8U into CV_32F</span></span><br><span class="line">    <span class="comment">//img32.convertTo(img,CV_8U,255); //turn CV_32F into CV_8U</span></span><br><span class="line">    cvtColor(img32, HSV, COLOR_BGR2HSV);</span><br><span class="line">    cvtColor(img32, YUV, COLOR_BGR2YUV);</span><br><span class="line">    cvtColor(img32, Lab, COLOR_BGR2Lab);</span><br><span class="line">    cvtColor(img32, gray, COLOR_BGR2GRAY);</span><br><span class="line"></span><br><span class="line">    imshow(<span class="string">"original img"</span>, img32);</span><br><span class="line">    imshow(<span class="string">"HSV"</span>, HSV);</span><br><span class="line">    imshow(<span class="string">"YUV"</span>, YUV);</span><br><span class="line">    imshow(<span class="string">"Lab"</span>, Lab);</span><br><span class="line">    imshow(<span class="string">"GRAY"</span>, gray);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>效果图</p>
-<p><img src="https://s1.ax1x.com/2020/07/29/aVUhqS.png" alt="cvtColor图"></p>
-<p>介绍下刚刚用到的数据类型转换函数 <strong>convertTo</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"apple.jpg"</span>);</span><br><span class="line">    Mat gray;</span><br><span class="line">    cvtColor(img, gray, COLOR_BGR2GRAY);</span><br><span class="line">    <span class="comment">//set params</span></span><br><span class="line">    <span class="keyword">int</span> nimages = <span class="number">1</span>; <span class="comment">//nimages</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> channels[<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">//channels</span></span><br><span class="line">    Mat mask = Mat(); <span class="comment">//mask</span></span><br><span class="line">    Mat hist; <span class="comment">//hist</span></span><br><span class="line">    <span class="keyword">int</span> dims = <span class="number">1</span>; <span class="comment">//dims</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> histSize[<span class="number">1</span>] = &#123;<span class="number">256</span>&#125;; <span class="comment">//histSize</span></span><br><span class="line">    <span class="comment">//ranges</span></span><br><span class="line">    <span class="keyword">float</span> inRanges[<span class="number">2</span>] = &#123;<span class="number">0</span>, <span class="number">255</span>&#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">float</span> *ranges[<span class="number">1</span>] = &#123;inRanges&#125;;</span><br><span class="line">    <span class="comment">//calculate</span></span><br><span class="line">    calcHist(&amp;gray, nimages, channels, mask, hist, dims, histSize, ranges);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//draw hist</span></span><br><span class="line">    <span class="keyword">int</span> hist_width = <span class="number">512</span>;</span><br><span class="line">    <span class="keyword">int</span> hist_height = <span class="number">400</span>;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">width</span> = <span class="number">2</span>;</span><br><span class="line">    Mat histImage = Mat::zeros(hist_height, hist_width, CV_8UC3);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= hist.rows; ++i) &#123;</span><br><span class="line">        rectangle(histImage, Point(<span class="built_in">width</span> * (i - <span class="number">1</span>), hist_height - <span class="number">1</span>),</span><br><span class="line">                  Point(<span class="built_in">width</span> * i - <span class="number">1</span>, hist_height - cvRound(hist.at&lt;<span class="keyword">float</span>&gt;(i - <span class="number">1</span>) / <span class="number">15</span>)), Scalar(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>), <span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    imshow(<span class="string">"histImage"</span>, histImage);</span><br><span class="line">    imshow(<span class="string">"gray"</span>, gray);</span><br><span class="line"></span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="直方图操作"><a href="#直方图操作" class="headerlink" title="直方图操作"></a>直方图操作</h1><h2 id="直方图归一化"><a href="#直方图归一化" class="headerlink" title="直方图归一化"></a>直方图归一化</h2><p><strong>normalize</strong>函数原型</p>
 <ul>
-<li>m：转换后输出的图像</li>
-<li>rtype：转换图像的数据类型</li>
-<li>alpha：转换过程中的缩放因子</li>
-<li>beta：转换过程中的偏置因子</li>
+<li>src：输入数组矩阵</li>
+<li>dst：输入与src相同大小的数组矩阵</li>
+<li>alpha：在范围归一化的情况下，归一化到下限边界的标准值</li>
+<li>beta：范围归一化的上限范围，不用于标准归一化</li>
+<li>norm_type：归一化过程中数据范数种类标志</li>
+<li>dtype：输出数据类型选择标志. 如果为负，与src一致，否则与src拥有相同通道数但是数据类型不同</li>
+<li>mask：掩码矩阵</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> cv::Mat::convertTo(OutputArray m,</span><br><span class="line">                        <span class="keyword">int</span> rtype,</span><br><span class="line">                        <span class="keyword">double</span> alpha = <span class="number">1</span>,</span><br><span class="line">                        <span class="keyword">double</span> beta = <span class="number">0</span></span><br><span class="line">                       )</span><br></pre></td></tr></table></figure>
-<p>第三、四个参数用于声明两个数据类型之间的转换关系，的具体转换形式如下式</p>
-<script type="math/tex; mode=display">
-m(x,y)=saturate\_cast<rtype>(\alpha (*this)(x,y)+\beta)</script><p>通过转换公式可以知道，该转换方式就是将原有数据进行线性转换，并按照指定的数据类型输出。根据其转换规则也可以知道，该函数还能实现同种数据类型之间的线性变换。</p>
-<h2 id="多通道分离与合并"><a href="#多通道分离与合并" class="headerlink" title="多通道分离与合并"></a>多通道分离与合并</h2><h3 id="多通道分离函数-split"><a href="#多通道分离函数-split" class="headerlink" title="多通道分离函数 split"></a>多通道分离函数 split</h3><p>函数原型</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::normalize</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                   InputOutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">double</span> alpha = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">double</span> beta = <span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">int</span> norm_type = NORM_L2,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">int</span> dtype = <span class="number">-1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                   InputArray mask = noArray()</span></span></span><br><span class="line"><span class="function"><span class="params">                  )</span></span></span><br></pre></td></tr></table></figure>
+<p>norm_type参数常用标志，无论是否归一化或者采用哪种方式归一化，直方图的分布特性都不会改变</p>
+<p><img src="https://s1.ax1x.com/2020/07/30/auERGF.jpg" alt="norm_type"></p>
+<h2 id="直方图比较"><a href="#直方图比较" class="headerlink" title="直方图比较"></a>直方图比较</h2><p><strong>compareHist</strong>函数原型</p>
 <ul>
-<li>src：待分离图像</li>
-<li>mvbegin：分离后的单通道图像，为数组形式，数组大小需要与通道数相等</li>
-<li>m：待分离图像</li>
-<li>mv：分离后的单通道图像，为向量(vector)形式</li>
+<li>H1：第一幅图像直方图</li>
+<li>H2：第二幅</li>
+<li>method：比较方法标志</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::split</span><span class="params">(<span class="keyword">const</span> Mat&amp; src,</span></span></span><br><span class="line"><span class="function"><span class="params">               Mat* mvbegin</span></span></span><br><span class="line"><span class="function"><span class="params">              )</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::split</span><span class="params">(InputArray m,</span></span></span><br><span class="line"><span class="function"><span class="params">               OutputArrayOfArrays mv</span></span></span><br><span class="line"><span class="function"><span class="params">              )</span></span></span><br></pre></td></tr></table></figure>
-<p>分离原理如下式</p>
-<script type="math/tex; mode=display">
-mv[c](I)=src(I)_c</script><h3 id="多通道合并函数-merge"><a href="#多通道合并函数-merge" class="headerlink" title="多通道合并函数 merge"></a>多通道合并函数 merge</h3><p>函数原型</p>
-<ul>
-<li>mv（第一种重载）：需要合并的图片数组，其中每个图像必须尺寸、数据类型相同</li>
-<li>count：输入的图像数组的长度，必须大于0</li>
-<li>mv（第二种重载）：需要合并的图像向量(vector)，其中每个图像必须尺寸、数据类型相同</li>
-<li>dst：合并后输出的图像，与mv[0]具有相同的尺寸和数据类型，通道数等于所有输入图像的通道数总和</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::merge</span><span class="params">(<span class="keyword">const</span> Mat* mv,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">size_t</span> count,</span></span></span><br><span class="line"><span class="function"><span class="params">               OutputArray dst</span></span></span><br><span class="line"><span class="function"><span class="params">              )</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::merge</span><span class="params">(InputArrayOfArrays mv,</span></span></span><br><span class="line"><span class="function"><span class="params">               OutputArray dst</span></span></span><br><span class="line"><span class="function"><span class="params">              )</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="图像多通道分离与合并例程"><a href="#图像多通道分离与合并例程" class="headerlink" title="图像多通道分离与合并例程"></a>图像多通道分离与合并例程</h3><p>该程序分离了HSV和RGB图像</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"lena.png"</span>);</span><br><span class="line">    <span class="keyword">if</span> (img.empty()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to load img"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Mat HSV;</span><br><span class="line">    cvtColor(img, HSV, COLOR_RGB2HSV);</span><br><span class="line">    Mat imgs0, imgs1, imgs2; <span class="comment">//to store results in array type</span></span><br><span class="line">    Mat imgv0, imgv1, imgv2; <span class="comment">//to store results in vector type</span></span><br><span class="line">    Mat results0, results1, results2; <span class="comment">//multi-channels merge results</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//input array type to do split and merge</span></span><br><span class="line">    Mat imgs[<span class="number">3</span>];</span><br><span class="line">    split(img, imgs);</span><br><span class="line">    imgs0 = imgs[<span class="number">0</span>];</span><br><span class="line">    imgs1 = imgs[<span class="number">1</span>];</span><br><span class="line">    imgs2 = imgs[<span class="number">2</span>];</span><br><span class="line">    imshow(<span class="string">"RGB-B channel"</span>, imgs0);</span><br><span class="line">    imshow(<span class="string">"RGB-G channel"</span>, imgs1);</span><br><span class="line">    imshow(<span class="string">"RGB-R channel"</span>, imgs2);</span><br><span class="line">    imgs[<span class="number">2</span>] = img;</span><br><span class="line"></span><br><span class="line">    merge(imgs, <span class="number">3</span>, results0); <span class="comment">//make num of channels in array be different</span></span><br><span class="line"><span class="comment">//    imshow("result0",results0); //imshow cannot show img with more than 4 channels,so see result0 in ImageWatch</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// show G-channel situation</span></span><br><span class="line">    Mat zero = cv::Mat::zeros(img.rows, img.cols, CV_8UC1);</span><br><span class="line">    imgs[<span class="number">0</span>] = zero;</span><br><span class="line">    imgs[<span class="number">2</span>] = zero;</span><br><span class="line">    merge(imgs, <span class="number">3</span>, results1);</span><br><span class="line">    imshow(<span class="string">"result1"</span>, results1);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//input vector to do split and merge</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;Mat&gt; imgv;</span><br><span class="line">    split(HSV, imgv);</span><br><span class="line">    imgv0 = imgv.at(<span class="number">0</span>);</span><br><span class="line">    imgv1 = imgv.at(<span class="number">1</span>);</span><br><span class="line">    imgv2 = imgv.at(<span class="number">2</span>);</span><br><span class="line">    imshow(<span class="string">"HSV-H channel"</span>, imgv0);</span><br><span class="line">    imshow(<span class="string">"HSV-S channel"</span>, imgv1);</span><br><span class="line">    imshow(<span class="string">"HSV-V channel"</span>, imgv2);</span><br><span class="line"></span><br><span class="line">    imgv.push_back(HSV); <span class="comment">//make num of channels in vector be different</span></span><br><span class="line">    merge(imgv, results2);</span><br><span class="line"><span class="comment">//    imshow("result2",results2); //imshow cannot show img with more than 4 channels,so see result2 in ImageWatch</span></span><br><span class="line"></span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>效果图：</p>
-<p><img src="https://s1.ax1x.com/2020/07/29/aVr3yn.png" alt="mySplitAndMerge"></p>
-<h1 id="图像像素处理"><a href="#图像像素处理" class="headerlink" title="图像像素处理"></a>图像像素处理</h1><h2 id="图像像素统计"><a href="#图像像素统计" class="headerlink" title="图像像素统计"></a>图像像素统计</h2><h3 id="寻找图像像素最大值与最小值"><a href="#寻找图像像素最大值与最小值" class="headerlink" title="寻找图像像素最大值与最小值"></a>寻找图像像素最大值与最小值</h3><p><strong>minMaxLoc</strong>函数原型</p>
-<ul>
-<li>src：需要进行寻找的图像或矩阵，必须是单通道矩阵</li>
-<li>minVal：最小值</li>
-<li>maxVal：最大值</li>
-<li>minLoc：最小值坐标</li>
-<li>maxLoc：最大值坐标</li>
-<li>mask：掩模，用于设置在指定区域寻找最值</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Mat <span class="title">cv::minMaxLoc</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">double</span>* minVal,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">double</span>* maxVal = <span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                  Point* minLoc = <span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                  Point* maxLoc = <span class="number">0</span>;</span></span></span><br><span class="line"><span class="function"><span class="params">                  InputArray mask = noArray()</span></span></span><br><span class="line"><span class="function"><span class="params">                 )</span></span></span><br></pre></td></tr></table></figure>
-<p><strong><em>Warning</em></strong>：如果有多个最大最小值会返回从左向右方向第一个，同时输入参数时一定要添加取地址符</p>
-<p><strong>Point</strong>是一个新的数据类型，用于表示图像的像素坐标，由于图像左上角是坐标原点，故而 <strong>Point(x,y)</strong>表示第<strong>x</strong>列第<strong>y</strong>行</p>
-<p>该函数只能接收单通道图像，如果是多通道必须先用<strong>reshape</strong>方法把多通道变成单通道，或者分别寻找每个通道的最值，然后进行比较，寻找全局最值</p>
-<p><strong>reshape</strong>函数原型</p>
-<ul>
-<li>cn：转换后矩阵的通道数</li>
-<li>rows：转换后矩阵行数，如果参数为0，则转换后行数与转换前相同</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mat cv::Mat::reshape(<span class="keyword">int</span> cn,</span><br><span class="line">                     <span class="keyword">int</span> rows = <span class="number">0</span></span><br><span class="line">                    )</span><br></pre></td></tr></table></figure>
-<h3 id="计算图像的平均值和标准差"><a href="#计算图像的平均值和标准差" class="headerlink" title="计算图像的平均值和标准差"></a>计算图像的平均值和标准差</h3><p><strong>mean</strong>函数原型</p>
-<ul>
-<li>src：待求平均值矩阵</li>
-<li>mask：掩模，用于设置在指定区域寻找平均值</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">cv::Scalar <span class="title">cv::mean</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                    InputArray mask = noArray()</span></span></span><br><span class="line"><span class="function"><span class="params">                   )</span></span></span><br></pre></td></tr></table></figure>
-<p>计算原理如下式：</p>
-<script type="math/tex; mode=display">
-N=\sum_{I,mask(I)\neq0}1 \\
-M_c = (\sum_{I,mask(I)}src(I)_c)/N</script><p>where $M_c$ is average value of $c^{th}$ channel，$src(I)_c$ is grayscale value of $c^{th}$ channel.</p>
-<p><strong>meanStdDev</strong>函数原型</p>
-<ul>
-<li>src：待求矩阵</li>
-<li>mean：图像每个通道的平均值，参数为Mat类型变量</li>
-<li>stddev：图像每个通道的标准差，参数为Mat类型变量</li>
-<li>mask：掩模，用于设置在指定区域寻找</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::meanStdDev</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                    OutputArray mean,</span></span></span><br><span class="line"><span class="function"><span class="params">                    OutputArray stddev,</span></span></span><br><span class="line"><span class="function"><span class="params">                    InputArray mask = noArray()</span></span></span><br><span class="line"><span class="function"><span class="params">                   )</span></span></span><br></pre></td></tr></table></figure>
-<p>计算原理如下式</p>
-<script type="math/tex; mode=display">
-N=\sum_{I,mask(I)\neq0}1 \\
-M_c = (\sum_{I,mask(I)}src(I)_c)/N \\
-stddev_c = \sqrt{\sum_{I,mask(I)}(src(I)_c-M_c)^2/N}</script><h2 id="两图像间的像素操作"><a href="#两图像间的像素操作" class="headerlink" title="两图像间的像素操作"></a>两图像间的像素操作</h2><h3 id="两幅图像的比较运算"><a href="#两幅图像的比较运算" class="headerlink" title="两幅图像的比较运算"></a>两幅图像的比较运算</h3><p><strong>max</strong>和<strong>min</strong>函数原型</p>
-<ul>
-<li>src1：第一个图像矩阵</li>
-<li>src2：第二个图像矩阵，尺寸和通道数以及数据类型都需要与src1一致</li>
-<li>dst：保留对应位置较大(较小)灰度值后的图像矩阵，尺寸、通道数和数据类型与src1一致</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::max</span><span class="params">(InputArray src1,</span></span></span><br><span class="line"><span class="function"><span class="params">             INputArray src2,</span></span></span><br><span class="line"><span class="function"><span class="params">             OutputArray dst</span></span></span><br><span class="line"><span class="function"><span class="params">            )</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::min</span><span class="params">(InputArray src1,</span></span></span><br><span class="line"><span class="function"><span class="params">             INputArray src2,</span></span></span><br><span class="line"><span class="function"><span class="params">             OutputArray dst</span></span></span><br><span class="line"><span class="function"><span class="params">            )</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="两幅图像的逻辑运算"><a href="#两幅图像的逻辑运算" class="headerlink" title="两幅图像的逻辑运算"></a>两幅图像的逻辑运算</h3><p>如果像素数据类型是二值，那不必多说</p>
-<p>但是与上CV_8U这样的8位数据，会先转换到二进制再进行运算，特此说明</p>
-<p><strong>逻辑运算</strong>函数原型</p>
-<ul>
-<li>src1：第一个图像矩阵</li>
-<li>src2：第二个图像矩阵，尺寸等属性要求与src1一致</li>
-<li>dst：输出结果矩阵，尺寸等属性要求与src1一致</li>
-<li>mask：掩模，用于设置在指定区域进行运算</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::bitwise_and</span><span class="params">(InputArray src1,</span></span></span><br><span class="line"><span class="function"><span class="params">                     InputArray src2,</span></span></span><br><span class="line"><span class="function"><span class="params">                     OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                     InputArray mask = noArray()</span></span></span><br><span class="line"><span class="function"><span class="params">                    )</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::bitwise_or</span><span class="params">(InputArray src1,</span></span></span><br><span class="line"><span class="function"><span class="params">                     InputArray src2,</span></span></span><br><span class="line"><span class="function"><span class="params">                     OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                     InputArray mask = noArray()</span></span></span><br><span class="line"><span class="function"><span class="params">                    )</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::bitwise_xor</span><span class="params">(InputArray src1,</span></span></span><br><span class="line"><span class="function"><span class="params">                     InputArray src2,</span></span></span><br><span class="line"><span class="function"><span class="params">                     OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                     InputArray mask = noArray()</span></span></span><br><span class="line"><span class="function"><span class="params">                    )</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::bitwise_not</span><span class="params">(InputArray src1,</span></span></span><br><span class="line"><span class="function"><span class="params">                     OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                     InputArray mask = noArray()</span></span></span><br><span class="line"><span class="function"><span class="params">                    )</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="图像二值化"><a href="#图像二值化" class="headerlink" title="图像二值化"></a>图像二值化</h2><h3 id="threshold函数"><a href="#threshold函数" class="headerlink" title="threshold函数"></a>threshold函数</h3><p><strong>threshold</strong>函数原型</p>
-<ul>
-<li>src：待二值化图像，只能是CV_8U or CV_32F，通道数目要求与二值化方法有关</li>
-<li>dst：二值化后的图像</li>
-<li>thresh：二值化阈值</li>
-<li>maxval：二值化过程中最大值，它只在THRESH_BINARY和THRESH_BINARY_INV两种方法中才使用</li>
-<li>type：选择图像二值化方法的标志</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">cv::threshold</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                     OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">double</span> thresh,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">double</span> maxval,</span></span></span><br><span class="line"><span class="function"><span class="params">                     <span class="keyword">int</span> type</span></span></span><br><span class="line"><span class="function"><span class="params">                    )</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">cv::compareHist</span><span class="params">(InputArray H1,</span></span></span><br><span class="line"><span class="function"><span class="params">                       InputArray H2,</span></span></span><br><span class="line"><span class="function"><span class="params">                       <span class="keyword">int</span> method</span></span></span><br><span class="line"><span class="function"><span class="params">                      )</span></span></span><br></pre></td></tr></table></figure>
+<p>以下是七种标志参数</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
 <th>标志参数</th>
 <th>简记</th>
-<th>作用</th>
+<th>名称或作用</th>
+<th>备注</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>THRESH_BINARY</td>
+<td>HISTCMP_CORREL</td>
 <td>0</td>
-<td>灰度值大于阈值的为最大值，其他值为0</td>
+<td>相关法</td>
+<td>1完全一致，0完全不相关</td>
 </tr>
 <tr>
-<td>THRESH_BINARY_INV</td>
+<td>HISTCMP_CHISQR</td>
 <td>1</td>
-<td>灰度值大于阈值的为0，其他值为最大值</td>
+<td>卡方法</td>
+<td>0完全一致，越大越不相似</td>
 </tr>
 <tr>
-<td>THRESH_TRUNC</td>
+<td>HISTCMP_INTERSECT</td>
 <td>2</td>
-<td>灰度值大于阈值的为阈值，其他值不变</td>
+<td>直方图相交法</td>
+<td>越大越相似</td>
 </tr>
 <tr>
-<td>THRESH_TOZERO</td>
+<td>HISTCMP_BHATTACHARYYA</td>
 <td>3</td>
-<td>灰度值大于阈值的不变，其他值为0</td>
+<td>巴塔恰里雅距离法</td>
+<td>0完全一致，越大越不相似</td>
 </tr>
 <tr>
-<td>THRESH_TOZERO_INV</td>
-<td>4</td>
-<td>灰度值大于阈值的为0，其他值不变</td>
-</tr>
-<tr>
-<td>THRESH_OTSU</td>
-<td>8</td>
-<td>大津法自动寻求全局阈值</td>
-</tr>
-<tr>
-<td>THRESH_TRIANGLE</td>
-<td>16</td>
-<td>三角形法自动寻求全局阈值</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>接下来详细介绍每种标志对应的二值化原理和需要的参数</p>
-<h3 id="THRESH-BINARY-and-THRESH-BINARY-INV"><a href="#THRESH-BINARY-and-THRESH-BINARY-INV" class="headerlink" title="THRESH_BINARY and THRESH_BINARY_INV"></a>THRESH_BINARY and THRESH_BINARY_INV</h3><script type="math/tex; mode=display">
-THRESH\_BINARY(x,y)=\left\{
-\begin{array}{rcl}
-&maxval&when\,src(x,y)>thresh \\
-&0&other\,situation
-\end{array}\right. \\
-THRESH\_BINARY\_INV(x,y)=\left\{
-\begin{array}{rcl}
-&0&when\,src(x,y)>thresh \\
-&maxval&other\,situation
-\end{array}\right.</script><h3 id="THRESH-TRUNC"><a href="#THRESH-TRUNC" class="headerlink" title="THRESH_TRUNC"></a>THRESH_TRUNC</h3><p>该方法相当于重新给图像灰度值设定一个新的最大值，如下式</p>
-<script type="math/tex; mode=display">
-THRESH\_TRUNC(x,y)=\left\{
-\begin{array}{rcl}
-&threshold&when\,src(x,y)>thresh \\
-&src(x,y)&other\,situation
-\end{array}\right.</script><h3 id="THRESH-TOZERO-and-THRESH-TOZERO-INV"><a href="#THRESH-TOZERO-and-THRESH-TOZERO-INV" class="headerlink" title="THRESH_TOZERO and THRESH_TOZERO_INV"></a>THRESH_TOZERO and THRESH_TOZERO_INV</h3><p>该方法不需要使用参数maxval，这点很容易从式子中理解</p>
-<script type="math/tex; mode=display">
-THRESH\_TOZERO(x,y)=\left\{
-\begin{array}{rcl}
-&src(x,y)&when\,src(x,y)>thresh \\
-&0&other\,situation
-\end{array}\right. \\
-THRESH\_TOZERO\_INV(x,y)=\left\{
-\begin{array}{rcl}
-&0&when\,src(x,y)>thresh \\
-&src(x,y)&other\,situation
-\end{array}\right.</script><h3 id="THRESH-OTSU-and-THRESH-TRIANGLE"><a href="#THRESH-OTSU-and-THRESH-TRIANGLE" class="headerlink" title="THRESH_OTSU and THRESH_TRIANGLE"></a>THRESH_OTSU and THRESH_TRIANGLE</h3><p>这两种标志是获取阈值的而非比较阈值的方法，这两个标志可以和之前的一起使用，用“ | ”分隔即可</p>
-<p>如果函数最后一个参数设置了这个标志，那么第三个参数thresh的输入将会无效，该由系统给出</p>
-<p>值得注意的是，目前只支持输入CV_8UC1类型图像</p>
-<h3 id="adaptiveThreshold函数"><a href="#adaptiveThreshold函数" class="headerlink" title="adaptiveThreshold函数"></a>adaptiveThreshold函数</h3><p><strong>adaptiveThreshold</strong>函数原型</p>
-<ul>
-<li>src：待二值化图像，只能是CV_8UC1</li>
-<li>dst：二值化后的图像</li>
-<li>maxval：二值化过程中最大值，它只在THRESH_BINARY和THRESH_BINARY_INV两种方法中才使用</li>
-<li>adaptiveMethod：自适应确定阈值的方法，分为均值法ADAPTIVE_THRESH_MEAN_C和高斯法ADAPTIVE_THRESH_GAUSSIAN_C两种</li>
-<li>thresholdType：选择图像二值化方法的标志，这里只能是THRESH_BINARY and THRESH_BINARY_INV</li>
-<li>blockSize：自适应确定阈值的像素领域大小，一般是3，5，7的奇数</li>
-<li>C：从平均值或者加权平均值中减去的常数，可以为正也可以为负</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::adaptiveThreshold</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                           OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">double</span> maxValue,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">int</span> adaptiveMethod,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">int</span> thresholdType,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">int</span> blockSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">double</span> C</span></span></span><br><span class="line"><span class="function"><span class="params">                          )</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="LUT"><a href="#LUT" class="headerlink" title="LUT"></a>LUT</h2><p>前面介绍的阈值比较方法中都只有一个阈值，如果需要多个阈值进行比较，就需要用到显示查找表(Look-Up-Table, LUT)</p>
-<p>LUT简单来说就是个像素灰度值的映射表</p>
-<p><strong>LUT</strong>函数原型</p>
-<ul>
-<li>src：输入图像矩阵，数据类型只能是CV_8U</li>
-<li>lut：256个像素灰度值的查找表，单通道或者与src通道数相同</li>
-<li>dst：输出图像矩阵，尺寸与src一致，数据类型与lut一致</li>
-</ul>
-<h1 id="图像变换"><a href="#图像变换" class="headerlink" title="图像变换"></a>图像变换</h1><h2 id="图像连接"><a href="#图像连接" class="headerlink" title="图像连接"></a>图像连接</h2><h3 id="vconcat函数实现图像上下连接"><a href="#vconcat函数实现图像上下连接" class="headerlink" title="vconcat函数实现图像上下连接"></a>vconcat函数实现图像上下连接</h3><p><strong>vconcat</strong>函数原型1</p>
-<ul>
-<li>src：Mat矩阵类型数组，所有Mat列数必须相同</li>
-<li>nsrc：数组中Mat类型数据数目</li>
-<li>dst：连接后的Mat矩阵</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::vconcat</span><span class="params">(<span class="keyword">const</span> Mat* src,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">size_t</span> nsrc,</span></span></span><br><span class="line"><span class="function"><span class="params">                 OutputArray dst</span></span></span><br><span class="line"><span class="function"><span class="params">                )</span></span></span><br></pre></td></tr></table></figure>
-<p><strong>vconcat</strong>函数原型2</p>
-<ul>
-<li>src1：第一个需要连接的Mat矩阵</li>
-<li>src2：第二个需要连接的Mat矩阵</li>
-<li>dst：连接后的Mat矩阵</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::vconcat</span><span class="params">(InputArray src1,</span></span></span><br><span class="line"><span class="function"><span class="params">                 InputArray src2,</span></span></span><br><span class="line"><span class="function"><span class="params">                 OutputArray dst</span></span></span><br><span class="line"><span class="function"><span class="params">                )</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="hconcat函数实现图像左右连接"><a href="#hconcat函数实现图像左右连接" class="headerlink" title="hconcat函数实现图像左右连接"></a>hconcat函数实现图像左右连接</h3><p>与<strong>vconcat</strong>类似，不赘述</p>
-<h2 id="图像尺寸变换"><a href="#图像尺寸变换" class="headerlink" title="图像尺寸变换"></a>图像尺寸变换</h2><p><strong>resize</strong>函数原型</p>
-<ul>
-<li>src：输入图像</li>
-<li>dst：输出图像</li>
-<li>dsize：输出图像的尺寸</li>
-<li>fx：水平轴的比例因子</li>
-<li>fy：垂直轴的比例因子</li>
-<li>interpolation：插值方法的标志</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::resize</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">double</span> dsize,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">double</span> fx = <span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">double</span> fy = <span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> interpolation = INTER_LINEAR</span></span></span><br><span class="line"><span class="function"><span class="params">               )</span></span></span><br></pre></td></tr></table></figure>
-<p><strong><em>Hint</em></strong>：dsize参数和fx,fy参数在实际使用时一般选一类填就可以了，当根据两类参数计算出来的输出图像尺寸不一致时，以dsize设置的为准，这两类参数的关系如式$dsize=Size(round(fx<em>src.cols),round(fy</em>src.rows))$</p>
-<p>插值方法标志表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">标志参数</th>
-<th style="text-align:center">简记</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">INTER_NEAREST</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">最近邻插值</td>
-</tr>
-<tr>
-<td style="text-align:center">INTER_LINEAR</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">双线性插值</td>
-</tr>
-<tr>
-<td style="text-align:center">INTER_CUBIC</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">双三次插值</td>
-</tr>
-<tr>
-<td style="text-align:center">INTER_AREA</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">使用像素区域关系重新采样，首选用于图像缩小，图像放大时效果与INTER——NEAREST相似</td>
-</tr>
-<tr>
-<td style="text-align:center">INTER_LANCZOS4</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">Lanczos插值法</td>
-</tr>
-<tr>
-<td style="text-align:center">INTER_LINEAR_EXACT</td>
-<td style="text-align:center">5</td>
-<td style="text-align:center">位精确双线性插值法</td>
-</tr>
-<tr>
-<td style="text-align:center">INTER_MAX</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">用掩码进行插值</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong><em>Hint</em></strong>：一般来讲，缩小图片使用INTER_AREA；放大图片使用INTER_CUBIC和INTER_LINEAR，前者计算速度慢，但是效果较好<del>其实后者效果相对也挺理想的</del></p>
-<h2 id="图像翻转变换"><a href="#图像翻转变换" class="headerlink" title="图像翻转变换"></a>图像翻转变换</h2><p><strong>flip</strong>函数原型</p>
-<ul>
-<li>src：输入图像</li>
-<li>dst：输出图像</li>
-<li>flipCode：翻转方式标志 数值大于0表示绕y轴进行翻转；数值等于0表示绕x轴翻转；数值小于0表示绕两个轴都翻转</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::flip</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">              OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">int</span> flipCode</span></span></span><br><span class="line"><span class="function"><span class="params">             )</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="图像仿射变换"><a href="#图像仿射变换" class="headerlink" title="图像仿射变换"></a>图像仿射变换</h2><p>实现图像旋转首先需要确定旋转中心和角度，进而确定旋转矩阵，最终通过仿射变换实现图像旋转</p>
-<p>针对该流程，OpenCV4提供了<strong>getRotationMatrix2D</strong>函数用于计算旋转矩阵， <strong>warpAffine</strong>函数用于实现图像仿射变换</p>
-<h3 id="getRotationMatrix2D函数"><a href="#getRotationMatrix2D函数" class="headerlink" title="getRotationMatrix2D函数"></a>getRotationMatrix2D函数</h3><p>函数原型</p>
-<ul>
-<li>center：旋转的中心位置</li>
-<li>angle：角度，单位为度，正值为逆时针旋转</li>
-<li>scale：两个轴的比例因子，实现旋转时缩放，不缩放则输入1</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Mat <span class="title">cv::getRotationMatrix2D</span><span class="params">(Point2f center,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">double</span> angle,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">double</span> scale</span></span></span><br><span class="line"><span class="function"><span class="params">                           )</span></span></span><br></pre></td></tr></table></figure>
-<p>该函数生成的旋转矩阵与旋转中心及角度的关系如下式</p>
-<script type="math/tex; mode=display">
-Rotation=\left[\begin{array}{ccc}
-\alpha & \beta &(1-\alpha)*center.x-\beta*center.y\\
--\beta & \alpha &\beta*center.x+(1+\alpha)*center.y \end{array} \right] \\
-where:\\
-\, \alpha=scale*cos(angle) \\
-\beta=scale*sin(angle)</script><h3 id="wrapAffine函数"><a href="#wrapAffine函数" class="headerlink" title="wrapAffine函数"></a>wrapAffine函数</h3><p>函数原型</p>
-<ul>
-<li>src：输入图像</li>
-<li>dst：输出图像</li>
-<li>M：$2\times3$的变换矩阵，可以用之前求取的旋转矩阵</li>
-<li>dsize：输出图像的尺寸</li>
-<li>flags：插值方法标志，相比于图像尺寸变换多了两个</li>
-<li>borderMode：像素边界外推方法的标志</li>
-<li>borderValue：填充边界使用的数值，默认为0</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::wrapAffine</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                    OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                    Size dsize,</span></span></span><br><span class="line"><span class="function"><span class="params">                    <span class="keyword">int</span> flags = INTER_LINEAR</span></span></span><br><span class="line"><span class="function"><span class="params">                    <span class="keyword">int</span> borderMode = BORDER_CONSTANT</span></span></span><br><span class="line"><span class="function"><span class="params">                    <span class="keyword">const</span> Scalar&amp; borderValue = Scalar()</span></span></span><br><span class="line"><span class="function"><span class="params">                   )</span></span></span><br></pre></td></tr></table></figure>
-<p>图像仿射变换插值方法的两个额外标志</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>方法标志</th>
-<th>简记</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>WARP_FILL_OUTLIERS</td>
-<td>8</td>
-<td>填充所有输出图像的像素，如果部分像素落在输入图像的边界外，则他们的值设定为fillval</td>
-</tr>
-<tr>
-<td>WARP_INVERSE_MAP</td>
-<td>16</td>
-<td>设置为M输出图像到输入图像的反变换</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>边界外推方法标志</p>
-<p><img src="https://s1.ax1x.com/2020/07/29/aeaBOP.jpg" alt="边界外推方法标志"></p>
-<h3 id="仿射变换的基本数学概念"><a href="#仿射变换的基本数学概念" class="headerlink" title="仿射变换的基本数学概念"></a>仿射变换的基本数学概念</h3><p>仿射变换可以表示为<strong>线性变换</strong>和<strong>平移变换</strong>的叠加，其数学表示是先乘以一个<strong>线性变换矩阵</strong>再加上一个<strong>平移向量</strong>，其中<strong>线性变换矩阵</strong>为$2\times2$的矩阵，<strong>平移向量</strong>为$2\times1$的向量. 至此我们可以理解函数为什么需要输入$2\times3$的<strong>变换矩阵M</strong>. 假设现在有一个<strong>线性变换矩阵A</strong>和一个<strong>平移向量B</strong>，两者与<strong>函数输入矩阵M</strong>的关系如下式</p>
-<script type="math/tex; mode=display">
-M=[A\quad B]=\left[\begin{array}{ccc}
-a_{00} & a_{01} & b_{00}\\
-a_{10} & a_{11} & b_{10} \end{array} \right] \\</script><p>根据<strong>线性变换矩阵A</strong>和<strong>平移向量B</strong>，以及图像像素值$[x\quad y]^T$，仿射变换的数学原理可以用如下式表示</p>
-<script type="math/tex; mode=display">
-T=A\left[ \begin{array}{c}
-x\\
-y \end{array}\right]+B</script><h3 id="getAffineTransform函数"><a href="#getAffineTransform函数" class="headerlink" title="getAffineTransform函数"></a>getAffineTransform函数</h3><p>仿射变换又称三点变换，如果知道变换前后两幅图像中三个像素点坐标的对应关系，就可以求的仿射变换的变换矩阵M<del>但凡线代没挂科都能理解</del></p>
-<p>OpenCV提供了这一函数</p>
-<p>函数原型</p>
-<ul>
-<li>src[ ]：源图像中的三个像素坐标</li>
-<li>dst[ ]：目标图像中的三个像素坐标</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Mat <span class="title">cv::getAfflineTransform</span><span class="params">(<span class="keyword">const</span> Point2f src[],</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">const</span> Point3f dst[]</span></span></span><br><span class="line"><span class="function"><span class="params">                           )</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="图像透视变换"><a href="#图像透视变换" class="headerlink" title="图像透视变换"></a>图像透视变换</h2><p>透视变换中前后的变换关系可以用一个$3\times3$变换矩阵表示，该矩阵通过两幅图像中4个对应点的坐标求取，因此透视变换又叫四点变换</p>
-<p>与仿射变换类似，OpenCV提供了相关的函数</p>
-<p>透视变换原理示意图</p>
-<p><img src="https://s1.ax1x.com/2020/07/29/aerh6J.jpg" alt="透视变换原理示意图" style="zoom: 25%;" /></p>
-<h3 id="getPerspectiveTransform函数"><a href="#getPerspectiveTransform函数" class="headerlink" title="getPerspectiveTransform函数"></a>getPerspectiveTransform函数</h3><p>函数原型</p>
-<ul>
-<li>src[ ]：源图像中的三个像素坐标</li>
-<li>dst[ ]：目标图像中的三个像素坐标</li>
-<li>solveMethod：选择计算透视变换矩阵方法的标志</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Mat <span class="title">cv::getPerspectiveTransform</span><span class="params">(<span class="keyword">const</span> Point2f src[],</span></span></span><br><span class="line"><span class="function"><span class="params">                                <span class="keyword">const</span> Point3f dst[],</span></span></span><br><span class="line"><span class="function"><span class="params">                                <span class="keyword">int</span> solveMethod = DECOMP_LU</span></span></span><br><span class="line"><span class="function"><span class="params">                               )</span></span></span><br></pre></td></tr></table></figure>
-<p>计算透视变换矩阵方法标志表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">标志参数</th>
-<th style="text-align:center">简记</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">DECOMP_LU</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">最佳主轴元素的高斯消元法</td>
-</tr>
-<tr>
-<td style="text-align:center">DECOMP_SVD</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">奇异值分解方法</td>
-</tr>
-<tr>
-<td style="text-align:center">DECOMP_EIG</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">特征值分解方法</td>
-</tr>
-<tr>
-<td style="text-align:center">DECOMP_CHOLESKY</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">Cholesky分解法</td>
-</tr>
-<tr>
-<td style="text-align:center">DECOMP_QR</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">QR分解法</td>
-</tr>
-<tr>
-<td style="text-align:center">DECOMP_NORMAL</td>
-<td style="text-align:center">16</td>
-<td style="text-align:center">使用正规方程公式，可以与其他标志一起使用</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="warpPerspective函数"><a href="#warpPerspective函数" class="headerlink" title="warpPerspective函数"></a>warpPerspective函数</h3><p>函数原型</p>
-<ul>
-<li>src：输入图像</li>
-<li>dst：输出图像</li>
-<li>M：$3\times3$的变换矩阵</li>
-<li>dsize：输出图像的尺寸</li>
-<li>flags：插值方法标志，相比于图像尺寸变换多了两个</li>
-<li>borderMode：像素边界外推方法的标志</li>
-<li>borderValue：填充边界使用的数值，默认为0</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::warpPerspective</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                         OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                         InputArray M,</span></span></span><br><span class="line"><span class="function"><span class="params">                         Size dsize,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">int</span> flags = INTER_LINEAR</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">int</span> borderMode = BORDER_CONSTANT</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">const</span> Scalar&amp; borderValue = Scalar()</span></span></span><br><span class="line"><span class="function"><span class="params">                        )</span></span></span><br></pre></td></tr></table></figure>
-<p>i.e.倾斜二维码图片复原</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Mat img0 = imread(<span class="string">"noobcvqr.png"</span>);</span><br><span class="line">    <span class="keyword">if</span> (img0.empty()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"load img failed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Mat rotation, img_warp; <span class="comment">//rotation matrix and result matrix</span></span><br><span class="line"></span><br><span class="line">    Point2f src_points[<span class="number">4</span>], dst_points[<span class="number">4</span>]; <span class="comment">//four groups of points to calculate rotation matrix</span></span><br><span class="line">    src_points[<span class="number">0</span>] = Point2f(<span class="number">94.0</span>, <span class="number">374.0</span>);</span><br><span class="line">    src_points[<span class="number">1</span>] = Point2f(<span class="number">507.0</span>, <span class="number">380.0</span>);</span><br><span class="line">    src_points[<span class="number">2</span>] = Point2f(<span class="number">1.0</span>, <span class="number">623.0</span>);</span><br><span class="line">    src_points[<span class="number">3</span>] = Point2f(<span class="number">627.0</span>, <span class="number">627.0</span>);</span><br><span class="line">    dst_points[<span class="number">0</span>] = Point2f(<span class="number">0.0</span>, <span class="number">0.0</span>);</span><br><span class="line">    dst_points[<span class="number">1</span>] = Point2f(<span class="number">627.0</span>, <span class="number">0.0</span>);</span><br><span class="line">    dst_points[<span class="number">2</span>] = Point2f(<span class="number">0.0</span>, <span class="number">627.0</span>);</span><br><span class="line">    dst_points[<span class="number">3</span>] = Point2f(<span class="number">627.0</span>, <span class="number">627.0</span>);</span><br><span class="line"></span><br><span class="line">    rotation = getPerspectiveTransform(src_points, dst_points);</span><br><span class="line">    warpPerspective(img0, img_warp, rotation, img0.<span class="built_in">size</span>());</span><br><span class="line"></span><br><span class="line">    imshow(<span class="string">"original"</span>, img0);</span><br><span class="line">    imshow(<span class="string">"res"</span>, img_warp);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="极坐标变化"><a href="#极坐标变化" class="headerlink" title="极坐标变化"></a>极坐标变化</h2><p>将图像在直角坐标系与极坐标系中互相变换，它可以把圆形图像变换成矩形图像，常用于处理钟表、圆盘等图像</p>
-<p>圆形图案边缘上的文字经过极坐标变换后可以垂直地排列在新图像的边缘，便于对文字进行识别</p>
-<p><strong>warpPolar</strong>函数原型</p>
-<ul>
-<li>src：源图像</li>
-<li>dst：输出图像</li>
-<li>dsize：目标图像大小</li>
-<li>center：极坐标原点坐标</li>
-<li>maxRadius：变换时边界圆的半径，它也决定了逆变换时的比例参数</li>
-<li>flags：插值方法与极坐标映射方法标志，两个方法之间用“ + ”或“ | ”连接</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::warpPolar</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                   OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                   Size dsize,</span></span></span><br><span class="line"><span class="function"><span class="params">                   Point2f center,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">double</span> maxRadius,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">int</span> flags</span></span></span><br><span class="line"><span class="function"><span class="params">                  )</span></span></span><br></pre></td></tr></table></figure>
-<p>插值方法与之前尺寸变换的一致</p>
-<p>坐标映射方法表如下</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>标志参数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>WARP_POLAR_LINEAR</td>
-<td>极坐标变换</td>
-</tr>
-<tr>
-<td>WARP_POLAR_LOG</td>
-<td>半对数极坐标变换</td>
-</tr>
-<tr>
-<td>WARP_INVERSE_MAP</td>
-<td>逆变换</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h1 id="在图像上绘制几何图形"><a href="#在图像上绘制几何图形" class="headerlink" title="在图像上绘制几何图形"></a>在图像上绘制几何图形</h1><h2 id="绘制圆形"><a href="#绘制圆形" class="headerlink" title="绘制圆形"></a>绘制圆形</h2><p><strong>circle</strong>函数原型</p>
-<ul>
-<li>img：需要绘制的图像</li>
-<li>center：圆心位置坐标</li>
-<li>color：半径，单位是像素</li>
-<li>thickness：轮廓宽度，如果数值为负，会绘制一个实心圆</li>
-<li>lineType：边界类型，可取值FILLED、LINE_4、LINE_8、LINE_AA</li>
-<li>shift：中心坐标和半径数值的小数位数</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::circle</span><span class="params">(InputOutputArray img,</span></span></span><br><span class="line"><span class="function"><span class="params">                Point center,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> radius,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">const</span> Scalar&amp; color,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> thickness = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> shift = <span class="number">0</span></span></span></span><br><span class="line"><span class="function"><span class="params">               )</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="绘制直线"><a href="#绘制直线" class="headerlink" title="绘制直线"></a>绘制直线</h2><p><strong>line</strong>函数原型</p>
-<ul>
-<li>pt1：起点坐标</li>
-<li>pt2：终点坐标</li>
-<li>color：颜色，三通道表示</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::line</span><span class="params">(InputOutputArray img,</span></span></span><br><span class="line"><span class="function"><span class="params">              Point pt1,</span></span></span><br><span class="line"><span class="function"><span class="params">              Point pt2,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">const</span> Scalar&amp; color,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">int</span> thickness = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">int</span> shift = <span class="number">0</span></span></span></span><br><span class="line"><span class="function"><span class="params">             )</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="绘制椭圆"><a href="#绘制椭圆" class="headerlink" title="绘制椭圆"></a>绘制椭圆</h2><p><strong>ellipse</strong>函数原型</p>
-<ul>
-<li>center：中心坐标</li>
-<li>axes：主轴大小一半</li>
-<li>angle：旋转角度，单位是度</li>
-<li>startAngle：弧起始角度</li>
-<li>endAngle：弧终止角度</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::ellipse</span><span class="params">(InputOutputArray img,</span></span></span><br><span class="line"><span class="function"><span class="params">                 Point center,</span></span></span><br><span class="line"><span class="function"><span class="params">                 Size axes,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">double</span> angle,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">double</span> startAngle,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">double</span> endAngle,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">const</span> Scalar&amp; color,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">int</span> thickness = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">int</span> shift = <span class="number">0</span></span></span></span><br><span class="line"><span class="function"><span class="params">                )</span></span></span><br></pre></td></tr></table></figure>
-<p><strong>ellipse2Poly</strong>函数原型</p>
-<ul>
-<li>delta：后续折线顶点之间的角度，定义了近似精度</li>
-<li>pts：椭圆边缘像素坐标向量集合</li>
-</ul>
-<p>该函数不将椭圆输出到图像中，而是通过vector将椭圆边缘的坐标点存储起来</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::ellipse2Poly</span><span class="params">(Point center,</span></span></span><br><span class="line"><span class="function"><span class="params">                 	  Size axes,</span></span></span><br><span class="line"><span class="function"><span class="params">                 	  <span class="keyword">int</span> angle,</span></span></span><br><span class="line"><span class="function"><span class="params">                 	  <span class="keyword">int</span> arcStart,</span></span></span><br><span class="line"><span class="function"><span class="params">                 	  <span class="keyword">int</span> arcEnd,</span></span></span><br><span class="line"><span class="function"><span class="params">                      <span class="keyword">int</span> delta,</span></span></span><br><span class="line"><span class="function"><span class="params">                      <span class="built_in">std</span>::<span class="built_in">vector</span>&lt; Point &gt;&amp; pts</span></span></span><br><span class="line"><span class="function"><span class="params">                	 )</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="绘制多边形"><a href="#绘制多边形" class="headerlink" title="绘制多边形"></a>绘制多边形</h2><p><strong>rectangle</strong>函数原型</p>
-<ul>
-<li>pt1：矩形的一个顶点</li>
-<li>pt2：与pt1相对的另一个顶点</li>
-<li>rec：矩形左上角顶点和长宽</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::rectangle</span><span class="params">(InputOutputArray img,</span></span></span><br><span class="line"><span class="function"><span class="params">                   Point pt1,</span></span></span><br><span class="line"><span class="function"><span class="params">                   Point pt2,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">const</span> Scalar&amp; color,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">int</span> thickness = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">int</span> shift = <span class="number">0</span></span></span></span><br><span class="line"><span class="function"><span class="params">                  )</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::rectangle</span><span class="params">(InputOutputArray img,</span></span></span><br><span class="line"><span class="function"><span class="params">                   Rect rec,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">const</span> Scalar&amp; color,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">int</span> thickness = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="function"><span class="params">                   <span class="keyword">int</span> shift = <span class="number">0</span></span></span></span><br><span class="line"><span class="function"><span class="params">                  )</span></span></span><br></pre></td></tr></table></figure>
-<p><strong>Rect</strong>变量在OpenCV中用于表示矩形，该类型定义的格式为<strong>Rect(像素的x坐标，像素的y坐标，矩形的宽，矩形的高)</strong></p>
-<p><strong>fillPoly</strong>函数原型</p>
-<ul>
-<li>pts：多边形顶点数组</li>
-<li>npts：每个多边形顶点数组中顶点的个数</li>
-<li>ncontours：绘制多边形的个数</li>
-<li>offset：所有顶点的可选偏移</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::fillPoly</span><span class="params">(InputOutputArray img,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">const</span> Point** pts,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">const</span> <span class="keyword">int</span>* npts,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">int</span> ncontours,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">const</span> Scalar&amp; color,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">int</span> shift = <span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                  Point offset = Point()</span></span></span><br><span class="line"><span class="function"><span class="params">                 )</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="文字生成"><a href="#文字生成" class="headerlink" title="文字生成"></a>文字生成</h2><p><strong>putText</strong>函数原型</p>
-<ul>
-<li>text：输出到图像中的文字</li>
-<li>org：图像中文字字符串的左下角像素坐标</li>
-<li>fontFace：字体类型的选择标志</li>
-<li>fontScale：字体大小</li>
-<li>bottomLeftOrigin：图像数据原点位置，默认为左上角，true则为左下角</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::putText</span><span class="params">(InputOutputArray img,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">const</span> <span class="keyword">String</span>&amp; <span class="built_in">text</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 Point org,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">int</span> fontFace</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">double</span> fontScale,</span></span></span><br><span class="line"><span class="function"><span class="params">                 Scalar color,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">int</span> thickness = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">int</span> lineType = LINE_8,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">bool</span> bottomLeftOrigin = <span class="literal">false</span></span></span></span><br><span class="line"><span class="function"><span class="params">                )</span></span></span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>标志</th>
-<th>取值</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>FONT_HERSHEY_SIMPLEX</td>
-<td>0</td>
-<td>正常大小的无衬线字体</td>
-</tr>
-<tr>
-<td>FONT_HERSHEY_PLAIN</td>
-<td>1</td>
-<td>小尺寸的无衬线字体</td>
-</tr>
-<tr>
-<td>FONT_HERSHEY_DUPLEX</td>
-<td>2</td>
-<td>正常大小的较复杂的无衬线字体</td>
-</tr>
-<tr>
-<td>FONT_HERSHEY_COMPLEX</td>
+<td>HISTCMP_HELLINGER</td>
 <td>3</td>
-<td>正常大小的衬线字体</td>
+<td>与上相同</td>
+<td>与上相同</td>
 </tr>
 <tr>
-<td>FONT_HERSHEY_TRIPLEX</td>
+<td>HISTCMP_CHISQR_ALT</td>
 <td>4</td>
-<td>正常大小的较复杂的衬线字体</td>
+<td>替代卡方法</td>
+<td>常用于纹理比较</td>
 </tr>
 <tr>
-<td>FONT_HERSHEY_COMPLEX_SAMLL</td>
+<td>HISTCMP_KL_DIV</td>
 <td>5</td>
-<td>小尺寸的衬线字体</td>
-</tr>
-<tr>
-<td>FONT_HERSHEY_SCRIPT_SIMPLEX</td>
-<td>6</td>
-<td>手写风格字体</td>
-</tr>
-<tr>
-<td>FONT_HERSHEY_SCRIPT_COMPLEX</td>
-<td>7</td>
-<td>复杂的手写风格字体</td>
-</tr>
-<tr>
-<td>FONT_ITALIC</td>
-<td>16</td>
-<td>斜体字体</td>
+<td>相对熵法</td>
+<td>0完全一致，越大越不相似</td>
 </tr>
 </tbody>
 </table>
 </div>
-<h1 id="感兴趣区域ROI"><a href="#感兴趣区域ROI" class="headerlink" title="感兴趣区域ROI"></a>感兴趣区域ROI</h1><p>简单来说就是截图</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">img(Rect(p.x, p.y, <span class="built_in">width</span>, <span class="built_in">height</span>))</span><br><span class="line">img(Range(rows_start, rows_end), Range(cols_start, cols_end))</span><br></pre></td></tr></table></figure>
-<p>以上两种截图方式都不难理解</p>
-<p>这里主要说一个深拷贝函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> cv::Mat::copyTo(OutputArray m) <span class="keyword">const</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">void</span> cv::Mat::copyTo(OutputArray m,</span><br><span class="line">                     InputArray mask,</span><br><span class="line">                    ) <span class="keyword">const</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::copyTo</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                InputArray mask</span></span></span><br><span class="line"><span class="function"><span class="params">               )</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="图像金字塔"><a href="#图像金字塔" class="headerlink" title="图像金字塔"></a>图像金字塔</h1><p>通过多个分辨率表示图像的一种有效且简单的结构</p>
-<p>一个图像金字塔是一系列以金字塔形状排列、分辨率逐步降低的图像集合，底部是待处理图像的高分辨率表示，顶部是低分辨率表示</p>
-<h2 id="高斯“金字塔”"><a href="#高斯“金字塔”" class="headerlink" title="高斯“金字塔”"></a>高斯“金字塔”</h2><p>解决尺度不准确性的一种常用办法</p>
-<p>通过下采样不断缩小图像尺寸，一般情况下，每往上一层就会通过下采样缩小一次图像的尺寸，通常为一半</p>
-<p>OpenCV4提供了<strong>pyrDown</strong>函数专门用于图像下采样计算</p>
-<p>函数原型</p>
+<h1 id="直方图应用"><a href="#直方图应用" class="headerlink" title="直方图应用"></a>直方图应用</h1><h2 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h2><p>如果一个图像的直方图都集中在一个区域，那么整体图像对比度比较小，不便于图像中纹理的识别</p>
+<p>如果通过映射关系，将图像中的灰度值范围扩大，增加原来两个灰度值之间的插值，就可以提高图像对比度，进而将图像中的纹理显现出来</p>
+<p><strong>equalizeHist</strong>函数原型</p>
 <ul>
-<li>src：待下采样图像</li>
+<li>src：需要均衡化的CV_8UC1图像</li>
 <li>dst：输出图像</li>
-<li>dsize：输出尺寸，可以默认</li>
-<li>borderType：像素边界外推方法标志</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::pyrDown</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                 OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">const</span> Size&amp; dstsize = Size(),</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">int</span> borderType = BORDER_DEFAULT</span></span></span><br><span class="line"><span class="function"><span class="params">                )</span></span></span><br></pre></td></tr></table></figure>
-<p>无论输出尺寸是多少，都应该满足下式</p>
-<script type="math/tex; mode=display">
-\left\{
-\begin{array}{rcl}
-&|dstsize.width2-src.cols|&\leqslant2\\
-&|dstsize.height2-src.rows|&\leqslant2
-\end{array}\right. \\</script><p>该函数首先将原始图像与内核矩阵(如下)进行卷积，之后通过不使用偶数行和列的方式对图像进行下采样</p>
-<script type="math/tex; mode=display">
-k=\frac{1}{256}
-\left[\begin{array}{ccccc}
-1&4&6&4&1\\
-4&6&24&6&4\\
-6&24&36&24&6\\
-4&16&24&16&4\\
-1&4&6&4&1
-\end{array} \right]</script><p>该函数功能与<strong>resize</strong>函数将图像尺寸缩小一样，但是使用算法不同</p>
-<p><img src="https://img-blog.csdnimg.cn/20200103112744969.png" alt="高斯金字塔" style="zoom:150%;" /></p>
-<h2 id="拉普拉斯“金字塔”"><a href="#拉普拉斯“金字塔”" class="headerlink" title="拉普拉斯“金字塔”"></a>拉普拉斯“金字塔”</h2><p>拉普拉斯金字塔与高斯金字塔相反，拉普拉斯通过上层小尺寸构建下层大尺寸，它具有预测残差的功能，需要与高斯金字塔一起使用</p>
-<p><img src="https://img-blog.csdnimg.cn/20200103113414447.png" alt="拉普拉斯金字塔" style="zoom:150%;" /></p>
-<p>对于上采样操作，OpenCV4提供了<strong>pyrUp</strong>函数，它与下采样函数极度类似，此处不再赘述</p>
-<p>函数原型</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::pyrUp</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                 OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">const</span> Size&amp; dstsize = Size(),</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">int</span> borderType = BORDER_DEFAULT</span></span></span><br><span class="line"><span class="function"><span class="params">                )</span></span></span><br></pre></td></tr></table></figure>
-<p>i.e.尝试构建一下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"lena.png"</span>);</span><br><span class="line">    <span class="built_in">vector</span>&lt;Mat&gt; Gauss, Laplace;</span><br><span class="line">    <span class="keyword">int</span> level = <span class="number">3</span>;</span><br><span class="line">    <span class="comment">//Gauss Pyramid</span></span><br><span class="line">    Gauss.push_back(img);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; level; ++i) &#123;</span><br><span class="line">        Mat gauss;</span><br><span class="line">        pyrDown(Gauss[i], gauss);</span><br><span class="line">        Gauss.push_back(gauss);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//show</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; Gauss.<span class="built_in">size</span>(); ++j) &#123;</span><br><span class="line">        imshow(<span class="string">"Gauss"</span> + to_string(j), Gauss[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">//Laplace Pyramid</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = Gauss.<span class="built_in">size</span>() - <span class="number">1</span>; k &gt; <span class="number">0</span>; --k) &#123;</span><br><span class="line">        Mat laplace, upGauss;</span><br><span class="line">        <span class="keyword">if</span> (k == Gauss.<span class="built_in">size</span>() - <span class="number">1</span>) &#123;</span><br><span class="line">            Mat down;</span><br><span class="line">            pyrDown(Gauss[k], down);</span><br><span class="line">            pyrUp(down, upGauss);</span><br><span class="line">            laplace = Gauss[k] - upGauss;</span><br><span class="line">            Laplace.push_back(laplace);</span><br><span class="line">        &#125;</span><br><span class="line">        pyrUp(Gauss[k], upGauss);</span><br><span class="line">        laplace = Gauss[k - <span class="number">1</span>] - upGauss;</span><br><span class="line">        Laplace.push_back(laplace);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//show</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">0</span>; l &lt; Laplace.<span class="built_in">size</span>(); ++l) &#123;</span><br><span class="line">        imshow(<span class="string">"Laplace"</span> + to_string(l), Laplace[l]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::equalizeHist</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                      OutputArray dst</span></span></span><br><span class="line"><span class="function"><span class="params">                     )</span></span></span><br></pre></td></tr></table></figure>
+<p>i.e.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"gearwheel.jpg"</span>);</span><br><span class="line">    Mat gray, equalImg;</span><br><span class="line">    cvtColor(img, gray, COLOR_BGR2GRAY);</span><br><span class="line">    equalizeHist(gray, equalImg);</span><br><span class="line">    imshow(<span class="string">"original"</span>, gray);</span><br><span class="line">    imshow(<span class="string">"equalize"</span>, equalImg);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>效果图</p>
-<p><img src="https://s1.ax1x.com/2020/07/29/am83Yn.png" alt="金字塔"></p>
-<h1 id="窗口交互操作"><a href="#窗口交互操作" class="headerlink" title="窗口交互操作"></a>窗口交互操作</h1><h2 id="图像窗口滑条"><a href="#图像窗口滑条" class="headerlink" title="图像窗口滑条"></a>图像窗口滑条</h2><p><strong>createTrackerbar</strong>函数原型</p>
+<p><img src="https://s1.ax1x.com/2020/07/30/aunfBj.png" alt="equalize"></p>
+<h2 id="直方图匹配"><a href="#直方图匹配" class="headerlink" title="直方图匹配"></a>直方图匹配</h2><p>将直方图映射成指定分布形式的算法称为直方图匹配</p>
+<p>为了使两个图像直方图能够匹配，需要使用概率形式表示每个灰度值在图像像素中所占的比例，理想状况下，匹配操作后图像直方图分布形式应与目标分布一致，两者之间的累积概率分布也一致</p>
+<p>寻找灰度值匹配的过程是直方图匹配算法的关键，可以通过构建原直方图累积概率与目标直方图累积概率之间的差值表，寻找原直方图中灰度值n的累积概率与目标直方图中所有灰度值累积概率差值的最小值</p>
+<p>可以通过下面的例子轻松地理解这一过程</p>
+<p>i.e. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">drawHist</span><span class="params">(Mat &amp;hist, <span class="keyword">int</span> type, <span class="built_in">string</span> name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> hist_w = <span class="number">512</span>;</span><br><span class="line">    <span class="keyword">int</span> hist_h = <span class="number">400</span>;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">width</span> = <span class="number">2</span>;</span><br><span class="line">    Mat histImage = Mat::zeros(hist_h, hist_w, CV_8UC3);</span><br><span class="line">    normalize(hist, hist, <span class="number">1</span>, <span class="number">0</span>, type, <span class="number">-1</span>, Mat());</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= hist.rows; i++) &#123;</span><br><span class="line">        rectangle(histImage, Point(<span class="built_in">width</span> * (i - <span class="number">1</span>), hist_h - <span class="number">1</span>),</span><br><span class="line">                  Point(<span class="built_in">width</span> * i - <span class="number">1</span>, hist_h - cvRound(<span class="number">20</span> * hist_h * hist.at&lt;<span class="keyword">float</span>&gt;(i - <span class="number">1</span>)) - <span class="number">1</span>),</span><br><span class="line">                  Scalar(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>), <span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    imshow(name, histImage);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Mat img1 = imread(<span class="string">"histMatch.png"</span>);</span><br><span class="line">    Mat img2 = imread(<span class="string">"equalLena.png"</span>);</span><br><span class="line"></span><br><span class="line">    Mat hist1, hist2;</span><br><span class="line">    <span class="comment">//calculate hist</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> channels[<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">float</span> inRanges[<span class="number">2</span>] = &#123;<span class="number">0</span>, <span class="number">255</span>&#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">float</span> *ranges[<span class="number">1</span>] = &#123;inRanges&#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> bins[<span class="number">1</span>] = &#123;<span class="number">256</span>&#125;;</span><br><span class="line">    calcHist(&amp;img1, <span class="number">1</span>, channels, Mat(), hist1, <span class="number">1</span>, bins, ranges);</span><br><span class="line">    calcHist(&amp;img2, <span class="number">1</span>, channels, Mat(), hist2, <span class="number">1</span>, bins, ranges);</span><br><span class="line">    <span class="comment">//normalized hist</span></span><br><span class="line">    drawHist(hist1, NORM_L1, <span class="string">"hist1"</span>);</span><br><span class="line">    drawHist(hist2, NORM_L1, <span class="string">"hist2"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//calculate accumulation probability</span></span><br><span class="line">    <span class="keyword">float</span> hist1_cdf[<span class="number">256</span>] = &#123;hist1.at&lt;<span class="keyword">float</span>&gt;(<span class="number">0</span>)&#125;;</span><br><span class="line">    <span class="keyword">float</span> hist2_cdf[<span class="number">256</span>] = &#123;hist2.at&lt;<span class="keyword">float</span>&gt;(<span class="number">0</span>)&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">256</span>; i++) &#123;</span><br><span class="line">        hist1_cdf[i] = hist1_cdf[i - <span class="number">1</span>] + hist1.at&lt;<span class="keyword">float</span>&gt;(i);</span><br><span class="line">        hist2_cdf[i] = hist2_cdf[i - <span class="number">1</span>] + hist2.at&lt;<span class="keyword">float</span>&gt;(i);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//create accumulation probability error matrix</span></span><br><span class="line">    <span class="keyword">float</span> diff_cdf[<span class="number">256</span>][<span class="number">256</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">256</span>; j++) &#123;</span><br><span class="line">            diff_cdf[i][j] = <span class="built_in">fabs</span>(hist1_cdf[i] - hist2_cdf[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//create LUT</span></span><br><span class="line">    <span class="function">Mat <span class="title">lut</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">float</span> <span class="built_in">min</span> = diff_cdf[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; <span class="number">256</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">min</span> &gt; diff_cdf[i][j]) &#123;</span><br><span class="line">                <span class="built_in">min</span> = diff_cdf[i][j];</span><br><span class="line">                index = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        lut.at&lt;uchar&gt;(i) = (uchar) index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Mat result, hist3;</span><br><span class="line">    LUT(img1, lut, result);</span><br><span class="line">    imshow(<span class="string">"original"</span>, img1);</span><br><span class="line">    imshow(<span class="string">"result"</span>, result);</span><br><span class="line"></span><br><span class="line">    calcHist(&amp;result, <span class="number">1</span>, channels, Mat(), hist3, <span class="number">1</span>, bins, ranges);</span><br><span class="line">    drawHist(hist3, NORM_L1, <span class="string">"hist3"</span>);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果图</p>
+<p><img src="https://s1.ax1x.com/2020/07/30/au1du8.png" alt="match"></p>
+<h2 id="直方图反向投影"><a href="#直方图反向投影" class="headerlink" title="直方图反向投影"></a>直方图反向投影</h2><p>反向投影就是先计算某一特征的直方图模型，然后使用该模型去寻找图像中是否存在该特征的方法</p>
 <ul>
-<li>trackbarname：滑动条名称</li>
-<li>winname：创建滑动条窗口名称</li>
-<li>value：指向整数变量的指针，该指针指向的值反映滑块位置</li>
-<li>count：滑动条的最大取值</li>
-<li>onChange：每次滑块更改位置时要调用的函数的指针，其中函数原型是 void Foo(int, void*);，第一个参数是轨迹栏位置，第二个参数是用户数据. 如果回调是NULL指针，则不会调用任何回调，而只是更新数值</li>
-<li>userdata：传递给回调函数的可选参数</li>
+<li>images：待统计直方图的图像数组，数据中所有图像应具有相同的尺寸和数据类型，并且数据类型只能是CV_8U, CV_16U和CV_32F中的一种，但是通道数可以不同</li>
+<li>nimages：输入图像的数量</li>
+<li>channels：需要统计的通道索引数组</li>
+<li>hist：输入直方图</li>
+<li>backProject：目标为反向投影图像</li>
+<li>ranges：每个图像通道中灰度值的取值范围</li>
+<li>scale：输出反向投影矩阵的比例因子</li>
+<li>uniform：直方图是否均匀的标志，默认是均匀</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cv::createTrackbar</span><span class="params">(<span class="keyword">const</span> <span class="keyword">String</span>&amp; trackbarname,</span></span></span><br><span class="line"><span class="function"><span class="params">                       <span class="keyword">const</span> STring&amp; winname,</span></span></span><br><span class="line"><span class="function"><span class="params">                       <span class="keyword">int</span>* value,</span></span></span><br><span class="line"><span class="function"><span class="params">                       <span class="keyword">int</span> count,</span></span></span><br><span class="line"><span class="function"><span class="params">                       TracebarCallback onChange = <span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                       <span class="keyword">void</span>* userdata = <span class="number">0</span></span></span></span><br><span class="line"><span class="function"><span class="params">                      )</span></span></span><br></pre></td></tr></table></figure>
-<p>i.e. 滑动条改变亮度</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">callBack</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">void</span> *)</span></span>;</span><br><span class="line"></span><br><span class="line">Mat img1, img2;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    img1 = imread(<span class="string">"lena.png"</span>);</span><br><span class="line">    imshow(<span class="string">"change brightness"</span>, img1);</span><br><span class="line">    value = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    createTrackbar(<span class="string">"brightness percentage"</span>, <span class="string">"change brightness"</span>, &amp;value, <span class="number">600</span>, callBack, <span class="number">0</span>);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">callBack</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">void</span> *)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">float</span> a = value / <span class="number">100.0</span>;</span><br><span class="line">    img2 = img1 * a;</span><br><span class="line">    imshow(<span class="string">"change brightness"</span>, img2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="鼠标响应"><a href="#鼠标响应" class="headerlink" title="鼠标响应"></a>鼠标响应</h2><p>有时需要在图像中标记出重要区域，故而需要鼠标响应</p>
-<p><strong>setMouseCallback</strong>函数原型</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::calcBackProject</span><span class="params">(<span class="keyword">const</span> Mat* images,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">int</span> nimages,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">const</span> <span class="keyword">int</span>* channels,</span></span></span><br><span class="line"><span class="function"><span class="params">                         InputArray hist,</span></span></span><br><span class="line"><span class="function"><span class="params">                         OutputArray backProject,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">const</span> <span class="keyword">float</span>** ranges,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">double</span> scale = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                         <span class="keyword">bool</span> uniform = <span class="literal">true</span></span></span></span><br><span class="line"><span class="function"><span class="params">                        )</span></span></span><br></pre></td></tr></table></figure>
+<p>该函数使用时主要分以下四步</p>
+<ol>
+<li>加载模板图像和待反向投影图像</li>
+<li>转换图像颜色空间，常用的是灰度图像和HSV空间</li>
+<li>计算模板图像直方图，灰度图像为一维直方图，HSV图像为H-S通道的二维直方图</li>
+<li>调用该函数</li>
+</ol>
+<p>i.e.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">drawHist</span><span class="params">(Mat &amp;hist, <span class="keyword">int</span> type, <span class="built_in">string</span> name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> hist_w = <span class="number">512</span>;</span><br><span class="line">    <span class="keyword">int</span> hist_h = <span class="number">400</span>;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">width</span> = <span class="number">2</span>;</span><br><span class="line">    Mat histImage = Mat::zeros(hist_h, hist_w, CV_8UC3);</span><br><span class="line">    normalize(hist, hist, <span class="number">255</span>, <span class="number">0</span>, type, <span class="number">-1</span>, Mat());</span><br><span class="line"><span class="comment">//    imshow(name,hist);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"apple.jpg"</span>);</span><br><span class="line">    Mat sub_img = imread(<span class="string">"sub_apple.jpg"</span>);</span><br><span class="line">    Mat img_HSV, sub_HSV, hist, hist2;</span><br><span class="line"></span><br><span class="line">    imshow(<span class="string">"img"</span>, img);</span><br><span class="line">    imshow(<span class="string">"sub_img"</span>, sub_img);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Turn into HSV model and get channel_S and channel_H</span></span><br><span class="line">    cvtColor(img, img_HSV, COLOR_BGR2HSV);</span><br><span class="line">    cvtColor(sub_img, sub_HSV, COLOR_BGR2HSV);</span><br><span class="line">    <span class="keyword">int</span> h_bins = <span class="number">32</span>;</span><br><span class="line">    <span class="keyword">int</span> s_bins = <span class="number">32</span>;</span><br><span class="line">    <span class="keyword">int</span> histSize[] = &#123;h_bins, s_bins&#125;;</span><br><span class="line">    <span class="comment">//channel_H from 0-180</span></span><br><span class="line">    <span class="keyword">float</span> h_ranges[] = &#123;<span class="number">0</span>, <span class="number">180</span>&#125;;</span><br><span class="line">    <span class="comment">//channel_S from 0-256</span></span><br><span class="line">    <span class="keyword">float</span> s_ranges[] = &#123;<span class="number">0</span>, <span class="number">256</span>&#125;;</span><br><span class="line">    <span class="comment">//every channel's range</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">float</span> *ranges[] = &#123;h_ranges, s_ranges&#125;;</span><br><span class="line">    <span class="comment">//channel index</span></span><br><span class="line">    <span class="keyword">int</span> channels[] = &#123;<span class="number">0</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="comment">//draw 2-dims H-S hist</span></span><br><span class="line">    calcHist(&amp;sub_HSV, <span class="number">1</span>, channels, Mat(), hist, <span class="number">2</span>, histSize, ranges, <span class="literal">true</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//normalize hist</span></span><br><span class="line">    drawHist(hist, NORM_INF, <span class="string">"hist"</span>);</span><br><span class="line"></span><br><span class="line">    Mat backproj;</span><br><span class="line">    calcBackProject(&amp;img_HSV, <span class="number">1</span>, channels, hist, backproj, ranges, <span class="number">1.0</span>);</span><br><span class="line">    imshow(<span class="string">"res"</span>, backproj);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果图</p>
+<p><img src="https://s1.ax1x.com/2020/07/30/aucCJ1.png" alt="back"></p>
+<h1 id="图像的模板匹配"><a href="#图像的模板匹配" class="headerlink" title="图像的模板匹配"></a>图像的模板匹配</h1><p>比较像素灰度值来寻找相同内容称为图像的模板匹配</p>
+<p>虽然很好理解，还是给个示意图叭</p>
+<p><img src="https://tse4-mm.cn.bing.net/th/id/OIP.-MdyfuAuB4i_MNSoG7NmxgHaEM?pid=Api&amp;rs=1" alt="模板匹配"></p>
+<p><strong>matchTemplate</strong>函数原型</p>
 <ul>
-<li>winname：添加鼠标响应的窗口的名字</li>
-<li>onMouse：鼠标响应的回调函数</li>
-<li>userdata：传递给回调函数的可选参数</li>
+<li>image：待模板匹配的原始图像，数据类型为CV_8U和CV_32F</li>
+<li>templ：模板图像</li>
+<li>result：输出图像，数据类型是CV_32F，是单通道矩阵</li>
+<li>method：模板匹配方法标志</li>
+<li>mask：匹配模板掩码，默认不设置，目前仅支持在TM_SQDIFF和TM_CCORR_NORMED两种method中使用</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::setMouseCallback</span><span class="params">(<span class="keyword">const</span> <span class="keyword">String</span>&amp; winname,</span></span></span><br><span class="line"><span class="function"><span class="params">                          MouseCallback onMouse,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">void</span>* userdata = <span class="number">0</span></span></span></span><br><span class="line"><span class="function"><span class="params">                         )</span></span></span><br></pre></td></tr></table></figure>
-<p><strong>MouseCallback</strong>类型原型</p>
-<ul>
-<li>event：鼠标响应事件，参数为EVENT_*形式</li>
-<li>x：鼠标指针在图像坐标系中的x坐标</li>
-<li>y：鼠标指针在图像坐标系中的y坐标</li>
-<li>flags：鼠标响应标志，参数为EVENT_FLAG_*形式</li>
-<li>userdata：传递给回调函数的可选参数</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(* cv::MouseCallback)</span><span class="params">(<span class="keyword">int</span> event,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> x,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> y,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">int</span> flags,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">void</span>* userdata</span></span></span><br><span class="line"><span class="function"><span class="params">                                 )</span></span></span><br></pre></td></tr></table></figure>
-<p>event可选参数表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">标志参数</th>
-<th style="text-align:center">简记</th>
-<th style="text-align:center">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">EVENT_MOUSEMOVE</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">移动</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_LBUTTONDOWN</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">左键点击</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_RBUTTONDOWN</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">右键点击</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_MBUTTONDOWN</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">中键点击</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_LBUTTONUP</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">释放左键</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_RBUTTONUP</td>
-<td style="text-align:center">5</td>
-<td style="text-align:center">释放右键</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_MBUTTONUP</td>
-<td style="text-align:center">6</td>
-<td style="text-align:center">释放中键</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_LBUTTONDBLCLK</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">双击左键</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_RBUTTONDBLCLK</td>
-<td style="text-align:center">8</td>
-<td style="text-align:center">双击右键</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_MBUTTONDBLCLK</td>
-<td style="text-align:center">9</td>
-<td style="text-align:center">双击中键</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_MOUSEWHEEL</td>
-<td style="text-align:center">10</td>
-<td style="text-align:center">正值表示向前滚动，负值向后</td>
-</tr>
-<tr>
-<td style="text-align:center">EVENT_MOUSEHWHEEL</td>
-<td style="text-align:center">11</td>
-<td style="text-align:center">正值表示向左滚动，负值向右</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>flags可选参数表</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::matchTemplate</span><span class="params">(InputArray <span class="built_in">image</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                       InputArray templ,</span></span></span><br><span class="line"><span class="function"><span class="params">                       OutputArray result,</span></span></span><br><span class="line"><span class="function"><span class="params">                       <span class="keyword">int</span> method,</span></span></span><br><span class="line"><span class="function"><span class="params">                       InputArray mask = noArray()</span></span></span><br><span class="line"><span class="function"><span class="params">                      )</span></span></span><br></pre></td></tr></table></figure>
+<p>如果原始图像的尺寸为$W\times H$，模板图像的尺寸为$w\times h$，那么输出图像的尺寸为$(W-w+1)\times (H-h+1)$，这很容易想象</p>
+<p>method可选择标志表</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
 <th>标志参数</th>
 <th>简记</th>
-<th>含义</th>
+<th>方法名称</th>
+<th>备注</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>EVENT_FLAG_LBUTTON</td>
+<td>TM_SQDIFF</td>
+<td>0</td>
+<td>平方差匹配法</td>
+<td>0完全匹配，越大越不匹配</td>
+</tr>
+<tr>
+<td>TM_SQDIFF_NORMED</td>
 <td>1</td>
-<td>按住左键拖拽</td>
+<td>归一化平方差匹配法</td>
+<td>0完全匹配，越大越不匹配</td>
 </tr>
 <tr>
-<td>EVENT_FLAG_RBUTTON</td>
+<td>TM_CCORR</td>
 <td>2</td>
-<td>按住右键拖拽</td>
+<td>相关匹配法</td>
+<td>0最坏匹配结果，越大越匹配</td>
 </tr>
 <tr>
-<td>EVENT_FLAG_MBUTTON</td>
+<td>TM_CCORR_NORMED</td>
+<td>3</td>
+<td>归一化相关匹配法</td>
+<td>1完全匹配，0完全不匹配</td>
+</tr>
+<tr>
+<td>TM_CCOEFF</td>
 <td>4</td>
-<td>按住中键拖拽</td>
+<td>系数匹配法</td>
+<td>越大越匹配</td>
 </tr>
 <tr>
-<td>EVENT_FLAG_CTRLKEY</td>
-<td>8</td>
-<td>Ctrl</td>
-</tr>
-<tr>
-<td>EVENT_FLAG_SHIFTKEY</td>
-<td>16</td>
-<td>Shift</td>
-</tr>
-<tr>
-<td>EVENT_FLAG_ALTKEY</td>
-<td>32</td>
-<td>Alt</td>
+<td>TM_CCOEFF_NORMED</td>
+<td>5</td>
+<td>归一化相关系数匹配法</td>
+<td>1完全匹配，-1完全不匹配</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>i.e. 在图像上绘制鼠标轨迹</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line">Mat img, imgPoint; <span class="comment">//global img</span></span><br><span class="line">Point prePoint; <span class="comment">//pre-location of mouse, use it to draw line</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mouse</span><span class="params">(<span class="keyword">int</span> event, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> flags, <span class="keyword">void</span> *)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    img = imread(<span class="string">"lena.png"</span>);</span><br><span class="line">    img.copyTo(imgPoint);</span><br><span class="line">    imshow(<span class="string">"window1"</span>, img);</span><br><span class="line">    imshow(<span class="string">"window2"</span>, imgPoint);</span><br><span class="line">    setMouseCallback(<span class="string">"window1"</span>, mouse, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mouse</span><span class="params">(<span class="keyword">int</span> event, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> flags, <span class="keyword">void</span> *)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (event == EVENT_RBUTTONDOWN) &#123; <span class="comment">//click right</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Please click left"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (event == EVENT_LBUTTONDOWN) &#123;</span><br><span class="line">        prePoint = Point(x, y);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"start location"</span> &lt;&lt; prePoint &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (event == EVENT_MOUSEMOVE &amp;&amp; (flags &amp; EVENT_FLAG_LBUTTON)) &#123; <span class="comment">//left down and move</span></span><br><span class="line">        <span class="comment">//show trace by change pixel</span></span><br><span class="line">        imgPoint.at&lt;Vec3b&gt;(y, x) = Vec3b(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">        imgPoint.at&lt;Vec3b&gt;(y, x - <span class="number">1</span>) = Vec3b(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">        imgPoint.at&lt;Vec3b&gt;(y, x + <span class="number">1</span>) = Vec3b(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">        imgPoint.at&lt;Vec3b&gt;(y - <span class="number">1</span>, x) = Vec3b(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">        imgPoint.at&lt;Vec3b&gt;(y + <span class="number">1</span>, x) = Vec3b(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">        imshow(<span class="string">"window2"</span>, imgPoint);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//show trace by draw line</span></span><br><span class="line">        <span class="function">Point <span class="title">pt</span><span class="params">(x, y)</span></span>;</span><br><span class="line">        <span class="built_in">line</span>(img, prePoint, pt, Scalar(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">2</span>, <span class="number">5</span>, <span class="number">0</span>);</span><br><span class="line">        prePoint = pt;</span><br><span class="line">        imshow(<span class="string">"window1"</span>, img);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>效果图：</p>
-<p>可以看出画直线的方法在鼠标快速移动下还有很好的表现，但是改变像素方式就不行会有断点</p>
-<p><img src="https://s1.ax1x.com/2020/07/29/amwZSH.png" alt="鼠标响应"></p>
+<p>i.e.找脸</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"lena.png"</span>);</span><br><span class="line">    Mat temp = imread(<span class="string">"lena_face.png"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//match</span></span><br><span class="line">    Mat result;</span><br><span class="line">    matchTemplate(img, temp, result, TM_CCOEFF_NORMED);</span><br><span class="line">    <span class="comment">//locate</span></span><br><span class="line">    <span class="keyword">double</span> maxVal, minVal;</span><br><span class="line">    Point maxLoc, minLoc;</span><br><span class="line">    minMaxLoc(result, &amp;minVal, &amp;maxVal, &amp;minLoc, &amp;maxLoc);</span><br><span class="line">    <span class="comment">//draw</span></span><br><span class="line">    rectangle(img, cv::Rect(maxLoc.x, maxLoc.y, temp.cols, temp.rows), Scalar(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">2</span>);</span><br><span class="line">    <span class="comment">//show</span></span><br><span class="line">    imshow(<span class="string">"original"</span>, img);</span><br><span class="line">    imshow(<span class="string">"temp"</span>, temp);</span><br><span class="line">    imshow(<span class="string">"result"</span>, result);</span><br><span class="line"></span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果图</p>
+<p><img src="https://s1.ax1x.com/2020/07/30/auoIPS.png" alt="matchTemp"></p>
 
       
     </div>
@@ -1043,7 +435,7 @@ k=\frac{1}{256}
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1109,7 +501,7 @@ k=\frac{1}{256}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

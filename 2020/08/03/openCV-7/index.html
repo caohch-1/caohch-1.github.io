@@ -22,17 +22,24 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/archives/2020/07/index.html">
+  <meta name="description" content="基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇 形状检测直线检测借助霍夫变换，主要思想是将图像像素从原本所在的空间坐标系变换到另一个空间坐标系，把检测形状问题转化成统计峰值问题 先来看简单的，对于直线$y&#x3D;kx+b$可以从x-y坐标系变换到k-b坐标系，变换后k-b空间中一条直线对应x-y空间中的一个点，k-b空间中一个点对应x-y空间中的一条线，好处是显而易见的，可以通过寻找k-b空间中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV7-Target Detection">
+<meta property="og:url" content="https://caohch1.cn/2020/08/03/openCV-7/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇 形状检测直线检测借助霍夫变换，主要思想是将图像像素从原本所在的空间坐标系变换到另一个空间坐标系，把检测形状问题转化成统计峰值问题 先来看简单的，对于直线$y&#x3D;kx+b$可以从x-y坐标系变换到k-b坐标系，变换后k-b空间中一条直线对应x-y空间中的一个点，k-b空间中一个点对应x-y空间中的一条线，好处是显而易见的，可以通过寻找k-b空间中">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/24/k46Rm9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/24/k4cGA1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/24/k42eQU.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/24/k4Rn9P.png">
+<meta property="article:published_time" content="2020-08-02T16:09:36.165Z">
+<meta property="article:modified_time" content="2020-08-02T16:11:13.082Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/24/k46Rm9.png">
 
-<link rel="canonical" href="https://caohch1.cn/archives/2020/07/">
+<link rel="canonical" href="https://caohch1.cn/2020/08/03/openCV-7/">
 
 
 <script id="page-configurations">
@@ -40,12 +47,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | MissSirius Planet</title>
+  <title>OpenCV7-Target Detection | MissSirius Planet</title>
   
 
 
@@ -154,234 +161,104 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 27 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/03/openCV-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MissSirius">
+      <meta itemprop="description" content="仰观宇宙之无穷 俯究万类之运动">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MissSirius Planet">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenCV7-Target Detection
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-08-03 00:09:36 / Modified: 00:11:13" itemprop="dateCreated datePublished" datetime="2020-08-03T00:09:36+08:00">2020-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
+<h1 id="形状检测"><a href="#形状检测" class="headerlink" title="形状检测"></a>形状检测</h1><h2 id="直线检测"><a href="#直线检测" class="headerlink" title="直线检测"></a>直线检测</h2><p>借助霍夫变换，主要思想是将图像像素从原本所在的空间坐标系变换到另一个空间坐标系，把检测形状问题转化成统计峰值问题</p>
+<p>先来看简单的，对于直线$y=kx+b$可以从x-y坐标系变换到k-b坐标系，变换后k-b空间中一条直线对应x-y空间中的一个点，k-b空间中一个点对应x-y空间中的一条线，好处是显而易见的，可以通过寻找k-b空间中大量直线相交的点来发现直线</p>
+<p>以下是一个直观的例子示意图</p>
+<p><img src="https://s2.ax1x.com/2019/02/24/k46Rm9.png" alt="霍夫变换1"></p>
+<p>很容易想到它的不足，当图像中存在垂直直线时，变换后的空间中出现多条直线平行</p>
+<p><img src="https://s2.ax1x.com/2019/02/24/k4cGA1.png" alt="霍夫变换2"></p>
+<p>故而可以选择使用极坐标系作为参数空间</p>
+<p><img src="https://s2.ax1x.com/2019/02/24/k42eQU.png" alt="霍夫变换3"></p>
+<p><img src="https://s2.ax1x.com/2019/02/24/k4Rn9P.png" alt="霍夫变换4"></p>
+<p>总结一下，霍夫变换的四个主要步骤：</p>
+<ol>
+<li>将参数空间的坐标轴离散化，上面没有提到，但是很容易理解因为像素是离散的</li>
+<li>将图像中每个非零像素进行映射，求取在参数空间内的所在方格</li>
+<li>统计参数空间内每个方格出现次数，选取次数大与某阈值的方格作为表示直线的方格</li>
+<li>将参数空间中表示直线的方格的参数作为原图像中直线的参数</li>
+</ol>
+<p>OpenCV4提供了<strong>HoughLInes</strong>函数实现霍夫变换，以及渐进概率式霍夫变换<strong>HoughLInesP</strong></p>
+<h2 id="直线拟合"><a href="#直线拟合" class="headerlink" title="直线拟合"></a>直线拟合</h2>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-30T08:20:18+08:00"
-              content="2020-07-30">
-          07-30
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/30/openCV-4/" itemprop="url">
-            <span itemprop="name">OpenCV4-Image histogram and Template matching</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-29T22:20:42+08:00"
-              content="2020-07-29">
-          07-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/29/openCV-3/" itemprop="url">
-            <span itemprop="name">OpenCV3-Basic Img Operation</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-29T22:20:42+08:00"
-              content="2020-07-29">
-          07-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/29/openCV-1/" itemprop="url">
-            <span itemprop="name">OpenCV1-What's OpenCV</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-29T22:20:42+08:00"
-              content="2020-07-29">
-          07-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/29/openCV-2/" itemprop="url">
-            <span itemprop="name">OpenCV2-Load,Show and Store Data</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-28T13:09:04+08:00"
-              content="2020-07-28">
-          07-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/28/Android-12/" itemprop="url">
-            <span itemprop="name">Android-12</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-27T20:55:02+08:00"
-              content="2020-07-27">
-          07-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/27/Android-11/" itemprop="url">
-            <span itemprop="name">Android-11</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-27T14:30:12+08:00"
-              content="2020-07-27">
-          07-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/27/Android-10/" itemprop="url">
-            <span itemprop="name">Android-10</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-25T00:47:19+08:00"
-              content="2020-07-25">
-          07-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/25/Android-9/" itemprop="url">
-            <span itemprop="name">Android-9</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-24T16:59:50+08:00"
-              content="2020-07-24">
-          07-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/24/Android-8/" itemprop="url">
-            <span itemprop="name">Android-8</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-23T22:52:32+08:00"
-              content="2020-07-23">
-          07-23
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/23/DynmaicProgramming_Matrix/" itemprop="url">
-            <span itemprop="name">动态规划-矩阵链乘法</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        
 
 
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/02/openCV-6/" rel="prev" title="OpenCV6-Image morphology Operation">
+      <i class="fa fa-chevron-left"></i> OpenCV6-Image morphology Operation
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2020/07/page/2/">2</a><a class="page-number" href="/archives/2020/07/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/07/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -433,6 +310,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#形状检测"><span class="nav-number">1.</span> <span class="nav-text">形状检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#直线检测"><span class="nav-number">1.1.</span> <span class="nav-text">直线检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直线拟合"><span class="nav-number">1.2.</span> <span class="nav-text">直线拟合</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -569,6 +447,61 @@ document.querySelectorAll('.pdfobject-container').forEach(element => {
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
