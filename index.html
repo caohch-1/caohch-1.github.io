@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-02 18:16:18 / Modified: 18:16:19" itemprop="dateCreated datePublished" datetime="2020-08-02T18:16:18+08:00">2020-08-02</time>
+              <time title="Created: 2020-08-02 23:23:15 / Modified: 23:24:54" itemprop="dateCreated datePublished" datetime="2020-08-02T23:23:15+08:00">2020-08-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -488,7 +488,64 @@
 <li>borderValue：使用边界不变外推法时的边界值</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::dilate</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                InputArray kernel,</span></span></span><br><span class="line"><span class="function"><span class="params">                Point anchor = Point(<span class="number">-1</span>,<span class="number">-1</span>),</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> iterations = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> borderType = BORDER_CONSTANT,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">const</span> Scalar&amp; borderValue = morphologyDefaultBorderValue()</span></span></span><br><span class="line"><span class="function"><span class="params">               )</span></span></span><br></pre></td></tr></table></figure>
-<h1 id="形态学应用"><a href="#形态学应用" class="headerlink" title="形态学应用"></a>形态学应用</h1><h2 id="开运算"><a href="#开运算" class="headerlink" title="开运算"></a>开运算</h2>
+<p><strong><em>jojo，人的记忆力力是有限的</em></strong></p>
+<p><strong><em>我从短暂的大学生活中学到一件事……</em></strong></p>
+<p><strong><em>越是记函数原型、参数列表的笔记，就越会发现人的记忆力是有限的……</em></strong></p>
+<p><strong><em>除非超越函数</em></strong></p>
+<p><strong><em>所以，我不记函数啦！jojo！</em></strong></p>
+<p><strong><em>其实就是感觉记这些函数没啥用，又很浪费时间，后面只会记录一些原理性、概念性的东西了</em></strong></p>
+<h1 id="形态学应用"><a href="#形态学应用" class="headerlink" title="形态学应用"></a>形态学应用</h1><p>腐蚀可以将细小的噪声区域去除，但是会将图像主要区域的面积缩小</p>
+<p>膨胀可以扩充每个区域的面积，填充较小的空洞，但是会增加噪声的面积</p>
+<p>可以将这两者结合达到更好的处理效果</p>
+<p>OpenCV4提供了<strong>morphologyEx</strong>函数实现以下运算</p>
+<h2 id="开运算"><a href="#开运算" class="headerlink" title="开运算"></a>开运算</h2><p>开运算可以去除图像中的噪声，消除较小的连通域，保留较大的连通域，同时能够在两个物体纤细的连接处将两个物体分离，并且在不明显改变较大连通域面积的同时平滑连通域的边界</p>
+<p>步骤是先腐蚀，消除图像中的噪声和较小的连通域；后膨胀，弥补较大连通域因腐蚀而造成的面积减小</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8207483-33488fce8160ec93.png?imageMogr2/auto-orient/strip|imageView2/2/w/823/format/webp" alt="开运算"></p>
+<h2 id="闭运算"><a href="#闭运算" class="headerlink" title="闭运算"></a>闭运算</h2><p>闭运算可以去除连通域内的小型空洞，平滑物体轮廓，连接两个临近的连通域</p>
+<p>步骤是先膨胀，填充连通域内的小型空洞，扩大连通域的边界，将临近的连通域连接；后腐蚀，减少由膨胀引起的边界扩大和面积增大</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8207483-f3425d5097b98d2a.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" alt="闭运算" style="zoom:80%;" /></p>
+<h2 id="形态学梯度"><a href="#形态学梯度" class="headerlink" title="形态学梯度"></a>形态学梯度</h2><p>形态学梯度能够描述目标边界，分为基本梯度、内部梯度和外部梯度</p>
+<p>基本梯度是膨胀后和腐蚀后图像差值</p>
+<p>内部梯度是原图像和腐蚀后图像差值</p>
+<p>外部梯度是膨胀后图像和原图像差值</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/at4oNQ.jpg" alt="形态学基本梯度" style="zoom: 67%;" /></p>
+<h2 id="顶帽运算"><a href="#顶帽运算" class="headerlink" title="顶帽运算"></a>顶帽运算</h2><p>是原图像与开运算结果的差值，用于分离比邻近点亮一些的斑块</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/at5KCd.jpg" alt="顶帽元算"></p>
+<h2 id="黑帽运算"><a href="#黑帽运算" class="headerlink" title="黑帽运算"></a>黑帽运算</h2><p>黑帽运算是原图像与顶帽运算结果之间的差值</p>
+<p>黑帽运算先进行闭运算，之后从闭运算结果中减去原图像</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/at5DK0.jpg" alt="黑帽运算"></p>
+<h2 id="击中击不中变换"><a href="#击中击不中变换" class="headerlink" title="击中击不中变换"></a>击中击不中变换</h2><p>比图像腐蚀更严苛的一种操作，该变换要求原图像中需要存在与结构元素一模一样的结构</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/at5d8s.jpg" alt="击中击不中变换"></p>
+<h2 id="图像细化"><a href="#图像细化" class="headerlink" title="图像细化"></a>图像细化</h2><p>将图像的线条从多像素宽度减少到单位像素宽度，是模式识别领域的重要处理步骤之一，能够有效地减少数据量，减少图像的存储难度和识别难度</p>
+<p>分为迭代和非迭代细化算法</p>
+<p>非迭代不以像素为基础，该算法经过一次遍历，产生线条的某一中值或中心线，可以一次遍历产生“骨架”</p>
+<p>迭代细化是指通过重复删除图像的边缘处满足一定条件的像素，最终得到“骨架”</p>
+<p>迭代细化算法又分串行和并行，下面主要将并行细化算法中的<strong>Zhang细化算法</strong></p>
+<p>首先，循环所有前景像素点，对符合如下条件的像素点标记为待删除：</p>
+<ol>
+<li><p>$2 \leqslant N(p_1) \leqslant6$，N(p)表示p像素8-邻域黑像素的数量</p>
+</li>
+<li><p>$A(P_1) = 1$，A(p)表示p像素8-邻域内按顺时针顺序前后两个像素分别为黑和白的对数</p>
+</li>
+<li><p>$P_2 <em> P_4 </em> P_6=0$</p>
+</li>
+<li><p>$P_4 <em> P_6 </em> P_8 = 0$</p>
+</li>
+</ol>
+<p>所有像素判断完后把所有标记的待删除点删除，接着进入第二轮循环，对符合如下条件的像素点标记为待删除：</p>
+<ol>
+<li><p>$2 \leqslant N(p_1) \leqslant6$，N(p)表示p像素8-邻域黑像素的数量</p>
+</li>
+<li><p>$A(P_1) = 1$，A(p)表示p像素8-邻域内按顺时针顺序前后两个像素分别为黑和白的对数</p>
+</li>
+<li><p>$P_2 <em> P_4 </em> P_8=0$</p>
+</li>
+<li><p>$P_2 <em> P_6 </em> P_8 = 0$</p>
+</li>
+</ol>
+<p>所有像素判断完后把所有标记的待删除点删除，对同一副图像反复进行上述循环操作，直到没有可以删除的点</p>
+<p>OpenCV4提供了用于将二值化图像细化的<strong>thinning</strong>函数</p>
+
       
     </div>
 
