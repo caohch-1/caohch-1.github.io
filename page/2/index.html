@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/04/openCV-7/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/04/openCV-8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/04/openCV-7/" class="post-title-link" itemprop="url">OpenCV7-Target Detection</a>
+            <a href="/2020/08/04/openCV-8/" class="post-title-link" itemprop="url">OpenCV8-Image Analysis and Restoration</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-04 14:34:30 / Modified: 14:36:07" itemprop="dateCreated datePublished" datetime="2020-08-04T14:34:30+08:00">2020-08-04</time>
+              <time title="Created: 2020-08-04 15:47:49 / Modified: 15:49:25" itemprop="dateCreated datePublished" datetime="2020-08-04T15:47:49+08:00">2020-08-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,65 +209,48 @@
 
       
           <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
-<h1 id="形状检测"><a href="#形状检测" class="headerlink" title="形状检测"></a>形状检测</h1><h2 id="直线检测"><a href="#直线检测" class="headerlink" title="直线检测"></a>直线检测</h2><p>借助霍夫变换，主要思想是将图像像素从原本所在的空间坐标系变换到另一个空间坐标系，把检测形状问题转化成统计峰值问题</p>
-<p>先来看简单的，对于直线$y=kx+b$可以从x-y坐标系变换到k-b坐标系，变换后k-b空间中一条直线对应x-y空间中的一个点，k-b空间中一个点对应x-y空间中的一条线，好处是显而易见的，可以通过寻找k-b空间中大量直线相交的点来发现直线</p>
-<p>以下是一个直观的例子示意图</p>
-<p><img src="https://s2.ax1x.com/2019/02/24/k46Rm9.png" alt="霍夫变换1"></p>
-<p>很容易想到它的不足，当图像中存在垂直直线时，变换后的空间中出现多条直线平行</p>
-<p><img src="https://s2.ax1x.com/2019/02/24/k4cGA1.png" alt="霍夫变换2"></p>
-<p>故而可以选择使用极坐标系作为参数空间</p>
-<p><img src="https://s2.ax1x.com/2019/02/24/k42eQU.png" alt="霍夫变换3"></p>
-<p><img src="https://s2.ax1x.com/2019/02/24/k4Rn9P.png" alt="霍夫变换4"></p>
-<p>总结一下，霍夫变换的四个主要步骤：</p>
+<h1 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h1><h2 id="离散傅里叶变换"><a href="#离散傅里叶变换" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h2><p>可以简单地把傅里叶变换理解成一个函数的分解工具，图像离散傅里叶变换后的结果会得到既有实数又有虚数的图像，在实际使用时常将结果分成实数图像和虚数图像，或者使用复数的幅值和相位来表示变换结果，可以分为幅值图像和相位图像</p>
+<p>离散傅里叶变换能得到图像的频域信息，借此从另一个方面理解图像. 图像中像素波动较大的区域对应的频域是高频区域，因此高频区域体现图像的细节、纹理信息，而低频信息代表了图像的轮廓信息</p>
+<p>OpenCV4提供了<strong>dft</strong>函数实现对图像的离散傅里叶变换，以及逆变换函数<strong>idft</strong></p>
+<p>一般来说，离散傅里叶变换算法倾向于对某些特定长度的输入矩阵进行处理，OpenCV4提供了用于计算最优输入矩阵尺寸的<strong>getOptimalDFTSize</strong>函数</p>
+<p>确定最优尺寸后需要改变图像尺寸，为了不对图像进行缩放，OpenCV4提供了<strong>copyMakeBorder</strong>函数用于在图像周围形成外框</p>
+<p>由于离散傅里叶变换完得到的数值可能为双通道的复数，在实际使用过程中更加关注复数的幅值，因此OpenCV4提供了<strong>magnitude</strong>函数用于计算由两个矩阵组成的二维向量矩阵的幅值矩阵</p>
+<h2 id="傅里叶变换进行卷积"><a href="#傅里叶变换进行卷积" class="headerlink" title="傅里叶变换进行卷积"></a>傅里叶变换进行卷积</h2><p>傅里叶变换可以将两个矩阵的卷积转换成两个矩阵傅里叶变换结果的乘积，从而极大地提高卷积的计算速度</p>
+<p>OpenCV4提供了<strong>mulSpectrums</strong>函数用于计算两个复数矩阵的乘积</p>
+<h2 id="离散余弦变换"><a href="#离散余弦变换" class="headerlink" title="离散余弦变换"></a>离散余弦变换</h2><p>类似于离散傅里叶变换，但是变换过程中只使用实数，主要用于对信号和图像的有损压缩</p>
+<p>OpenCV4提供了<strong>dct</strong>函数实现离散余弦变换，以及逆变换函数<strong>idct</strong></p>
+<h1 id="积分图像"><a href="#积分图像" class="headerlink" title="积分图像"></a>积分图像</h1><p>积分图像主要用于快速计算图像某些区域像素的平均灰度</p>
+<p>积分图像是比原图像尺寸大1的新图像，就是从$N\times N$变成$(N+1)\times(N+1)$</p>
+<p>积分图像中每个像素的像素值为原图像中该像素点与坐标原点组成的矩形内所有像素点的和</p>
+<p><img src="https://img-blog.csdn.net/20150605235951859" alt="积分图像"></p>
+<p>积分图像主要分为三种</p>
+<p>标准求和积分图像$sum(x,y)=\sum_{y’&lt;y}\sum_{x’&lt;x}I(x’,y’)$</p>
+<p>平方和积分图像$sum_{square}=\sum_{y’&lt;y}\sum_{x’&lt;x}I(x’,y’)^2$</p>
+<p>倾斜求和积分图像$sum_{tilted}=\sum_{y’&lt;y}\sum_{asb(x’-x)&lt;y}I(x’,y’)$</p>
+<p>OpenCV4提供了<strong>integral</strong>函数用于实现上述三种积分图像</p>
+<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>将图像中某一类的像素点与其他像素点分开，例如黑白图像中分割黑白</p>
+<h2 id="漫水填充法"><a href="#漫水填充法" class="headerlink" title="漫水填充法"></a>漫水填充法</h2><p>该方法是根据像素灰度值之间的差值寻找相同区域以实现分割</p>
+<p>我们可以将图像的像素值理解成像素点的高度，这样一幅图像可以看成崎岖不平的地面或者山地，向地面上某一个低洼的地方倾倒一定量的水，水将掩盖低于某个高度的区域</p>
+<p>分为三步</p>
 <ol>
-<li>将参数空间的坐标轴离散化，上面没有提到，但是很容易理解因为像素是离散的</li>
-<li>将图像中每个非零像素进行映射，求取在参数空间内的所在方格</li>
-<li>统计参数空间内每个方格出现次数，选取次数大与某阈值的方格作为表示直线的方格</li>
-<li>将参数空间中表示直线的方格的参数作为原图像中直线的参数</li>
+<li>选择种子点(注水点)</li>
+<li>以种子点为中心，判断4-或8-邻域的像素值与种子点像素值的差值，将差值小于阈值的像素点添加进区域内</li>
+<li>将新加入的像素点作为i新的种子点，反复执行第二步，直到没有新的像素点被添加进该区域为止</li>
 </ol>
-<p>OpenCV4提供了<strong>HoughLInes</strong>函数实现霍夫变换，以及渐进概率式霍夫变换<strong>HoughLInesP</strong></p>
-<h2 id="直线拟合"><a href="#直线拟合" class="headerlink" title="直线拟合"></a>直线拟合</h2><p>OpenCV4提供了利用最小二乘M-estimator方法拟合直线的<strong>fitLine</strong>函数</p>
-<h2 id="圆形检测"><a href="#圆形检测" class="headerlink" title="圆形检测"></a>圆形检测</h2><p>也是利用霍夫变换，数学描述和示意图如下</p>
-<script type="math/tex; mode=display">
-x=a+Rcos(\theta) \\
-y=b+Rsin(\theta)</script><p><img src="https://pic1.zhimg.com/v2-4b18037dffd5e99d163f62c79ba0aedc_r.jpg" alt="霍夫变换-圆形"></p>
-<p>OpenCV4提供了<strong>HoughCircles</strong>函数进行基于霍夫变换的圆形检测</p>
-<h1 id="轮廓检测"><a href="#轮廓检测" class="headerlink" title="轮廓检测"></a>轮廓检测</h1><h2 id="轮廓发现与绘制"><a href="#轮廓发现与绘制" class="headerlink" title="轮廓发现与绘制"></a>轮廓发现与绘制</h2><p>图像轮廓不但能够提供物体的边缘，而且能够提供物体边缘之间的层次关系和拓扑关系</p>
-<p>为了描述不同轮廓之间的结构关系，定义由外到内的轮廓级别越来越低，也就是高一层的轮廓包围着低一层的轮廓</p>
-<p>为了清晰表明各个轮廓之间的层级关系，常用4个参数来描述不同层级之间的结构关系</p>
-<p>$[同层下一个轮廓的索引，同层上一个轮廓的索引，下一层第一个子轮廓的索引，上层父轮廓索引]$</p>
-<p>整体结构是一颗树，具体例子看书</p>
-<p>OpenCV4提供了可以在二值图像中检测图像所有轮廓并生成不同轮廓结构关系的<strong>findContours</strong>函数，也提供了显示轮廓的<strong>drawContours</strong>函数</p>
-<h2 id="轮廓面积"><a href="#轮廓面积" class="headerlink" title="轮廓面积"></a>轮廓面积</h2><p>OpenCV4提供了检测轮廓面积的<strong>contourArea</strong>函数</p>
-<h2 id="轮廓长度-周长"><a href="#轮廓长度-周长" class="headerlink" title="轮廓长度(周长)"></a>轮廓长度(周长)</h2><p>OpenCV4提供了检测轮廓长度的<strong>arcLength</strong>函数</p>
-<h2 id="轮廓外接多边形"><a href="#轮廓外接多边形" class="headerlink" title="轮廓外接多边形"></a>轮廓外接多边形</h2><p>物体轮廓的不规则不利于对图像内容进行分析，需要将物体的轮廓拟合成规则的几何形状</p>
-<p>OpenCV4提供了求取轮廓最大外接矩形的<strong>boundingRect</strong>函数、最小外接矩形的<strong>minAreaRect</strong>函数和多边形的<strong>approxPolyDP</strong>函数</p>
-<h2 id="点到轮廓距离"><a href="#点到轮廓距离" class="headerlink" title="点到轮廓距离"></a>点到轮廓距离</h2><p>OpenCV4提供了<strong>pointPolygonTest</strong>函数</p>
-<h2 id="凸包检测"><a href="#凸包检测" class="headerlink" title="凸包检测"></a>凸包检测</h2><p>将二维平面上的点集最外层的点连接起来构成的凸多边形称为凸包</p>
-<h1 id="矩的计算"><a href="#矩的计算" class="headerlink" title="矩的计算"></a>矩的计算</h1><p>矩是描述图像特征的算子</p>
-<h2 id="几何矩与中心矩"><a href="#几何矩与中心矩" class="headerlink" title="几何矩与中心矩"></a>几何矩与中心矩</h2><p>几何矩计算方式如下</p>
-<script type="math/tex; mode=display">
-m_{ij}=\sum_{x,y}I(x,y)x^jy^i</script><p>当$i=j=0$时，称为零阶矩，可以用于计算某个形状的质心</p>
-<p>当$i=0,j=1$时，称为一阶矩，以此类推</p>
-<p>图像质心的计算公式如下</p>
-<script type="math/tex; mode=display">
-\overline{x}=\frac{m_{10}}{m_{00}},\overline{y}=\frac{m_{01}}{m_{00}}</script><p>图像中心矩的计算方式如下</p>
-<script type="math/tex; mode=display">
-mu_{ji}=\sum_{x,y}I(x,y)(x-\overline{x})^j(y-\overline{y})^i</script><p>图像归一化几何矩的计算方式如下</p>
-<script type="math/tex; mode=display">
-nu_{ji}=\frac{mu_{ji}}{m_{00}^{(i+j)/2+1}}</script><p>OpenCV4提供了<strong>moments</strong>函数计算图像矩</p>
-<h2 id="Hu矩"><a href="#Hu矩" class="headerlink" title="Hu矩"></a>Hu矩</h2><p>Hu矩具有旋转、平移和缩放不变性，因此在图像具有旋转和缩放情况下，Hu矩具有更广泛应用</p>
-<p>Hu矩是由二阶和三阶中心矩计算得到7个不变矩，计算方法如下</p>
-<p><img src="https://img-blog.csdnimg.cn/20190316185220150.png" alt="Hu矩"></p>
-<p>OpenCV4提供了<strong>HuMoments</strong>函数计算Hu矩</p>
-<h2 id="基于Hu矩的轮廓匹配"><a href="#基于Hu矩的轮廓匹配" class="headerlink" title="基于Hu矩的轮廓匹配"></a>基于Hu矩的轮廓匹配</h2><p>OpenCV4提供了<strong>MatchShapes</strong>函数进行基于Hu矩的轮廓匹配</p>
-<h1 id="点集拟合"><a href="#点集拟合" class="headerlink" title="点集拟合"></a>点集拟合</h1><p>有时我们关注的区域是一些面积较小、数目较多的连通域或者像素点，并且他们相对集中. 此时如果寻找轮廓并多边形逼近，会产生大量多边形，我们可以将这些连通域或者像素点看成一个大区域，再寻找包围大区域的规则图形</p>
-<p>OpenCV4提供了<strong>minEnclosingTriangle</strong>函数实现寻找二维点集的最小包围三角，当然还有最小包围圆形的<strong>minEnclosingCircle</strong></p>
-<h1 id="QR二维码检测"><a href="#QR二维码检测" class="headerlink" title="QR二维码检测"></a>QR二维码检测</h1><p>二维码顶点方向有3个较大的“回”字形区域用于对二维码进行定位，该区域的特别之处在与任何一条经过中心的直线在黑色和白色区域的长度比值都为$1:1:3:1:1$</p>
-<p>二维码中间也具有多个较小的“回”字形区域用于二维码对齐</p>
-<p><img src="http://static.oschina.net/uploads/img/201310/16121257_i3Sp.png" alt="QR"></p>
-<p>识别QR二维码大致分为探测和解码两个过程</p>
-<p>OpenCV4提供了<strong>detect</strong>函数实现二维码定位，提供了<strong>decode</strong>函数实现解码，提供了<strong>detectAndDecode</strong>同时定位和解码</p>
+<p>OpenCV4提供了<strong>floodFill</strong>函数实现该方法分割图像</p>
+<h2 id="分水岭法"><a href="#分水岭法" class="headerlink" title="分水岭法"></a>分水岭法</h2><p>与漫水填充法类似，都是模拟水淹过地面山地，区别在与漫水填充法是从某个像素值进行分割，是一种局部分割算法，而分水岭法从全局出发，对全局进行分割</p>
+<p>分水岭法在多个局部最低点开始注水，随着注水量增加，水位升高，两个相邻的凹陷区域的水汇集，形成分水岭</p>
+<p>该方法的计算过程是一个迭代标注过程，经典的计算方式主要分为以下两步</p>
+<ol>
+<li>排序，对图像像素灰度级进行排序，确定注水点</li>
+<li>注水，不断淹没周围像素，形成分割线</li>
+</ol>
+<p>OpenCV4提供了<strong>watershed</strong>函数实现分水岭法分割图像</p>
+<h2 id="Grabcut法"><a href="#Grabcut法" class="headerlink" title="Grabcut法"></a>Grabcut法</h2><p>使用高斯混合模型估计目标区域的背景和前景，通过迭代解决了能量函数最小化问题</p>
+<p>OpenCV4提供了<strong>grabCut</strong>函数实现Grabcut法进行图像分割</p>
+<h2 id="Mean-Shift法"><a href="#Mean-Shift法" class="headerlink" title="Mean-Shift法"></a>Mean-Shift法</h2><p>又叫均值漂移法，基于颜色空间分布的图像分割算法</p>
+<p>OpenCV4提供了<strong>pyrMeanShiftFiltering</strong>函数实现该方法</p>
+<h1 id="图像修复"><a href="#图像修复" class="headerlink" title="图像修复"></a>图像修复</h1><p>OpenCV4提供了能够对含有较少污染或者水印的图像进行修复的<strong>inpaint</strong>函数</p>
 
       
     </div>
@@ -286,7 +269,7 @@ nu_{ji}=\frac{mu_{ji}}{m_{00}^{(i+j)/2+1}}</script><p>OpenCV4提供了<strong>mo
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -352,7 +335,7 @@ nu_{ji}=\frac{mu_{ji}}{m_{00}^{(i+j)/2+1}}</script><p>OpenCV4提供了<strong>mo
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

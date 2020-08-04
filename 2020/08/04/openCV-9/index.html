@@ -22,30 +22,34 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/index.html">
+  <meta name="description" content="基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇 角点检测角点就是在某方面属性特别突出的点，例如像素最大或者最小的点、线段的顶点、孤立的边缘点等 显示关键点关键点是对图像中含有特殊信息的像素点的一种称呼，有时我们经过计算或已知这些点并且需要标记出来 OpenCV4提供了用于一次性绘制所有关键点的函数drawKeyPoints Harris角点检测Harris角点从像素值变化的角度对角点进行定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV9-Feature Point Detection and Matching">
+<meta property="og:url" content="https://caohch1.cn/2020/08/04/openCV-9/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇 角点检测角点就是在某方面属性特别突出的点，例如像素最大或者最小的点、线段的顶点、孤立的边缘点等 显示关键点关键点是对图像中含有特殊信息的像素点的一种称呼，有时我们经过计算或已知这些点并且需要标记出来 OpenCV4提供了用于一次性绘制所有关键点的函数drawKeyPoints Harris角点检测Harris角点从像素值变化的角度对角点进行定">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tse3-mm.cn.bing.net/th/id/OIP.6XCS05IOAcqz0SfXHtDLYwHaEX?pid=Api&amp;rs=1">
+<meta property="article:published_time" content="2020-08-04T12:11:52.156Z">
+<meta property="article:modified_time" content="2020-08-04T12:17:07.296Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tse3-mm.cn.bing.net/th/id/OIP.6XCS05IOAcqz0SfXHtDLYwHaEX?pid=Api&amp;rs=1">
 
-<link rel="canonical" href="https://caohch1.cn/">
+<link rel="canonical" href="https://caohch1.cn/2020/08/04/openCV-9/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>OpenCV9-Feature Point Detection and Matching | MissSirius Planet</title>
   
 
 
@@ -154,9 +158,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -172,10 +177,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/04/openCV-9/" class="post-title-link" itemprop="url">OpenCV9-Feature Point Detection and Matching</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          OpenCV9-Feature Point Detection and Matching
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,7 +212,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
+        <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
 <h1 id="角点检测"><a href="#角点检测" class="headerlink" title="角点检测"></a>角点检测</h1><p>角点就是在某方面属性特别突出的点，例如像素最大或者最小的点、线段的顶点、孤立的边缘点等</p>
 <h2 id="显示关键点"><a href="#显示关键点" class="headerlink" title="显示关键点"></a>显示关键点</h2><p>关键点是对图像中含有特殊信息的像素点的一种称呼，有时我们经过计算或已知这些点并且需要标记出来</p>
 <p>OpenCV4提供了用于一次性绘制所有关键点的函数<strong>drawKeyPoints</strong></p>
@@ -261,25 +265,31 @@ R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为
 </ol>
 <p>OpenCV4提供了<strong>findHomography</strong>函数实现</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/04/openCV-8/" rel="prev" title="OpenCV8-Image Analysis and Restoration">
+      <i class="fa fa-chevron-left"></i> OpenCV8-Image Analysis and Restoration
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -331,6 +341,7 @@ R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#角点检测"><span class="nav-number">1.</span> <span class="nav-text">角点检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#显示关键点"><span class="nav-number">1.1.</span> <span class="nav-text">显示关键点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Harris角点检测"><span class="nav-number">1.2.</span> <span class="nav-text">Harris角点检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shi-Tomas角点检测"><span class="nav-number">1.3.</span> <span class="nav-text">Shi-Tomas角点检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#亚像素级别角点检测"><span class="nav-number">1.4.</span> <span class="nav-text">亚像素级别角点检测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征点检测"><span class="nav-number">2.</span> <span class="nav-text">特征点检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关键点"><span class="nav-number">2.1.</span> <span class="nav-text">关键点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#描述子"><span class="nav-number">2.2.</span> <span class="nav-text">描述子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SIFT特征点检测"><span class="nav-number">2.3.</span> <span class="nav-text">SIFT特征点检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SURF特征点检测"><span class="nav-number">2.4.</span> <span class="nav-text">SURF特征点检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ORB特征点检测"><span class="nav-number">2.5.</span> <span class="nav-text">ORB特征点检测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征点匹配"><span class="nav-number">3.</span> <span class="nav-text">特征点匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DescriptorMatcher类介绍"><span class="nav-number">3.1.</span> <span class="nav-text">DescriptorMatcher类介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力匹配"><span class="nav-number">3.2.</span> <span class="nav-text">暴力匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示特征点匹配结果"><span class="nav-number">3.3.</span> <span class="nav-text">显示特征点匹配结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FLANN匹配"><span class="nav-number">3.4.</span> <span class="nav-text">FLANN匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RANSAC优化特征点匹配"><span class="nav-number">3.5.</span> <span class="nav-text">RANSAC优化特征点匹配</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
