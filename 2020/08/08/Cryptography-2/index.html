@@ -22,30 +22,43 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/index.html">
+  <meta name="description" content="基于《图解密码技术》@[日]结城浩 分组密码和流密码分组密码是每次只能处理特定长度的一块数据的一类密码算法 流密码是对数据流进行连续处理的一类密码算法 在分组密码中，明文长度超过密码长度就需要对加密算法进行迭代，迭代的方法就称为分组密码的模式 ECB模式Electronic CodeBook电子密码本模式 这种模式非常简单，但是存在弱点故而一般不使用  可以看出ECB模式中明文密文分组一一对应，只">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cryptography-2:Block Cipher">
+<meta property="og:url" content="https://caohch1.cn/2020/08/08/Cryptography-2/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《图解密码技术》@[日]结城浩 分组密码和流密码分组密码是每次只能处理特定长度的一块数据的一类密码算法 流密码是对数据流进行连续处理的一类密码算法 在分组密码中，明文长度超过密码长度就需要对加密算法进行迭代，迭代的方法就称为分组密码的模式 ECB模式Electronic CodeBook电子密码本模式 这种模式非常简单，但是存在弱点故而一般不使用  可以看出ECB模式中明文密文分组一一对应，只">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aI2AJO.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aIRkBn.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aIRRgg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aIW8MQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aIW1xg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aIfMwR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aI4cZj.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aI4oyF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aII65n.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/08/aIIOxK.png">
+<meta property="article:published_time" content="2020-08-08T13:23:16.078Z">
+<meta property="article:modified_time" content="2020-08-08T13:24:50.963Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/08/08/aI2AJO.png">
 
-<link rel="canonical" href="https://caohch1.cn/">
+<link rel="canonical" href="https://caohch1.cn/2020/08/08/Cryptography-2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>Cryptography-2:Block Cipher | MissSirius Planet</title>
   
 
 
@@ -154,9 +167,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -172,10 +186,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/08/Cryptography-2/" class="post-title-link" itemprop="url">Cryptography-2:Block Cipher</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Cryptography-2:Block Cipher
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,7 +221,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《图解密码技术》@[日]结城浩</p>
+        <p>基于《图解密码技术》@[日]结城浩</p>
 <h1 id="分组密码和流密码"><a href="#分组密码和流密码" class="headerlink" title="分组密码和流密码"></a>分组密码和流密码</h1><p><strong>分组密码</strong>是每次只能处理特定长度的一块数据的一类密码算法</p>
 <p><strong>流密码</strong>是对数据流进行连续处理的一类密码算法</p>
 <p>在分组密码中，明文长度超过密码长度就需要对加密算法进行迭代，迭代的方法就称为分组密码的模式</p>
@@ -246,25 +259,31 @@
 <p>CTR模式中可以以任意顺序对分组进行加密解密，这意味着可以实现并行计算</p>
 <p>再来看攻击，通过翻转密文分组中的某些比特，那么相应明文分组中的对应比特也会翻转，从而获取可能的破译信息，这是坏处；换个角度看，这一特点也保证如果通信过程中只有一个分组的密文受到损坏，那么不会影响解密后其他的明文分组，错误不会被放大，这也是好处</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/08/Cryptography-1/" rel="prev" title="Cryptography-1:Symmetric Cryptography">
+      <i class="fa fa-chevron-left"></i> Cryptography-1:Symmetric Cryptography
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -316,6 +335,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分组密码和流密码"><span class="nav-number">1.</span> <span class="nav-text">分组密码和流密码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ECB模式"><span class="nav-number">2.</span> <span class="nav-text">ECB模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CBC模式"><span class="nav-number">3.</span> <span class="nav-text">CBC模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CFB模式"><span class="nav-number">4.</span> <span class="nav-text">CFB模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OFB模式"><span class="nav-number">5.</span> <span class="nav-text">OFB模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CTR模式"><span class="nav-number">6.</span> <span class="nav-text">CTR模式</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
