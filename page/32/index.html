@@ -22,32 +22,30 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="基于《算法导论》中的伪代码 以及部分网络资源 最大子数组递归分治：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566&#x2F;*Method:  Find the maxmium sub-arr in both">
-<meta property="og:type" content="article">
-<meta property="og:title" content="最大子数组">
-<meta property="og:url" content="https://caohch1.cn/2020/07/09/MaxSubArr/index.html">
+  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MissSirius Planet">
+<meta property="og:url" content="https://caohch1.cn/page/32/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="基于《算法导论》中的伪代码 以及部分网络资源 最大子数组递归分治：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566&#x2F;*Method:  Find the maxmium sub-arr in both">
+<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-07-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-13T16:22:45.095Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://caohch1.cn/2020/07/09/MaxSubArr/">
+<link rel="canonical" href="https://caohch1.cn/page/32/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
+    isHome : true,
+    isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>最大子数组 | MissSirius Planet</title>
+  <title>MissSirius Planet</title>
   
 
 
@@ -156,10 +154,9 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content index posts-expand">
             
-
-    
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -175,9 +172,10 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          最大子数组
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/09/MaxSubArr/" class="post-title-link" itemprop="url">最大子数组</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -216,35 +214,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong><em>基于《算法导论》中的伪代码 以及部分网络资源</em></strong></p>
+          <p><strong><em>基于《算法导论》中的伪代码 以及部分网络资源</em></strong></p>
 <h1 id="最大子数组"><a href="#最大子数组" class="headerlink" title="最大子数组"></a>最大子数组</h1><h3 id="递归分治："><a href="#递归分治：" class="headerlink" title="递归分治："></a>递归分治：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*Method:</span></span><br><span class="line"><span class="comment">  Find the maxmium sub-arr in both sides</span></span><br><span class="line"><span class="comment">  plus together</span></span><br><span class="line"><span class="comment">  record index and sum*/</span></span><br><span class="line"><span class="function">Res *<span class="title">FIND_MAX_CROSSING_SUBARRAY</span><span class="params">(<span class="keyword">int</span> *data, <span class="keyword">int</span> low, <span class="keyword">int</span> mid, <span class="keyword">int</span> high)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//The initial sum should be infinite small</span></span><br><span class="line">    <span class="keyword">int</span> left_sum = <span class="number">-10000000</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> max_left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = mid; i &gt;= low; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += data[i];</span><br><span class="line">        <span class="keyword">if</span> (sum &gt; left_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            left_sum = sum;</span><br><span class="line">            max_left = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//The initial sum should be infinite small</span></span><br><span class="line">    <span class="keyword">int</span> right_sum = <span class="number">-10000000</span>;</span><br><span class="line">    sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> max_right = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = mid + <span class="number">1</span>; j &lt;= high; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += data[j];</span><br><span class="line">        <span class="keyword">if</span> (sum &gt; right_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            right_sum = sum;</span><br><span class="line">            max_right = j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Res *res = <span class="keyword">new</span> Res(max_left, max_right, left_sum + right_sum);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Res *<span class="title">FIND_MAXMIUM_SUBARRAY</span><span class="params">(<span class="keyword">int</span> *data, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//base case</span></span><br><span class="line">    <span class="keyword">if</span> (high == low)</span><br><span class="line">    &#123;</span><br><span class="line">        Res *res = <span class="keyword">new</span> Res(low, high, data[low]);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = <span class="built_in">floor</span>((low + high) / <span class="number">2</span>);</span><br><span class="line">        Res *left = FIND_MAXMIUM_SUBARRAY(data, low, mid);</span><br><span class="line">        Res *right = FIND_MAXMIUM_SUBARRAY(data, mid + <span class="number">1</span>, high);</span><br><span class="line">        Res *cross = FIND_MAX_CROSSING_SUBARRAY(data, low, mid, high);</span><br><span class="line">        <span class="keyword">if</span> ((left-&gt;sum &gt;= right-&gt;sum) &amp;&amp; (left-&gt;sum &gt;= cross-&gt;sum))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((right-&gt;sum &gt;= left-&gt;sum) &amp;&amp; (right-&gt;sum &gt;= cross-&gt;sum))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> cross;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="线性时间-基于算法导论4-1-5"><a href="#线性时间-基于算法导论4-1-5" class="headerlink" title="线性时间(基于算法导论4.1-5)"></a>线性时间(基于算法导论4.1-5)</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Res *<span class="title">FIND_MAXMIUM_SUBARRAY_WZOUT_RECUSION</span><span class="params">(<span class="keyword">int</span> *data, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> max_left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> max_right = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//recorded max sum</span></span><br><span class="line">    <span class="keyword">int</span> max_sum = <span class="number">-10000000</span>;</span><br><span class="line">    <span class="comment">//sum thatchanging every loop</span></span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//record where the maxmium sub-arr start</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">cursor</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += data[i];</span><br><span class="line">        <span class="keyword">if</span> (sum &gt; max_sum)</span><br><span class="line">        &#123;</span><br><span class="line">            max_sum = sum;</span><br><span class="line">            max_left = <span class="built_in">cursor</span>;</span><br><span class="line">            max_right = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (sum &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum = <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">cursor</span> = i + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Res *res = <span class="keyword">new</span> Res(max_left, max_right, max_sum);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+      
     </div>
 
     
     
     
-
       <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item"></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/12/sortAG/" rel="next" title="各类排序算法（学习ing）">
-      各类排序算法（学习ing） <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span>
+  </nav>
 
 
 
@@ -296,7 +288,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最大子数组"><span class="nav-number">1.</span> <span class="nav-text">最大子数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递归分治："><span class="nav-number">1.0.1.</span> <span class="nav-text">递归分治：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性时间-基于算法导论4-1-5"><span class="nav-number">1.0.2.</span> <span class="nav-text">线性时间(基于算法导论4.1-5)</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
