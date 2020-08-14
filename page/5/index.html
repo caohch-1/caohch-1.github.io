@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/04/openCV-9/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/08/Cryptography-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/04/openCV-9/" class="post-title-link" itemprop="url">OpenCV9-Feature Point Detection and Matching</a>
+            <a href="/2020/08/08/Cryptography-1/" class="post-title-link" itemprop="url">Cryptography-1:Symmetric Cryptography</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-04 20:11:52 / Modified: 20:17:07" itemprop="dateCreated datePublished" datetime="2020-08-04T20:11:52+08:00">2020-08-04</time>
+              <time title="Created: 2020-08-08 00:57:18 / Modified: 00:57:19" itemprop="dateCreated datePublished" datetime="2020-08-08T00:57:18+08:00">2020-08-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -193,7 +193,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+                  <a href="/categories/Cryptography/" itemprop="url" rel="index"><span itemprop="name">Cryptography</span></a>
                 </span>
             </span>
 
@@ -208,58 +208,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
-<h1 id="角点检测"><a href="#角点检测" class="headerlink" title="角点检测"></a>角点检测</h1><p>角点就是在某方面属性特别突出的点，例如像素最大或者最小的点、线段的顶点、孤立的边缘点等</p>
-<h2 id="显示关键点"><a href="#显示关键点" class="headerlink" title="显示关键点"></a>显示关键点</h2><p>关键点是对图像中含有特殊信息的像素点的一种称呼，有时我们经过计算或已知这些点并且需要标记出来</p>
-<p>OpenCV4提供了用于一次性绘制所有关键点的函数<strong>drawKeyPoints</strong></p>
-<h2 id="Harris角点检测"><a href="#Harris角点检测" class="headerlink" title="Harris角点检测"></a>Harris角点检测</h2><p>Harris角点从像素值变化的角度对角点进行定义，像素值的局部最大峰值即为Harris角点</p>
-<p>首先以某个像素为中心构建一个矩形滑动窗口，其覆盖的图像像素通过线性叠加得到滑动窗口所有像素值的衡量系数，该系数与滑动窗口范围内的像素值成正比，在图像中以每一个像素为中心向各个方向移动滑动窗口，当无论向哪个方向移动像素值衡量系数都缩小时，窗口中心点对应的像素即为Harris角点</p>
-<p>下图是一个示意图，可见只有在P3中才能达到Harris角点的定义条件</p>
-<p><img src="https://tse3-mm.cn.bing.net/th/id/OIP.6XCS05IOAcqz0SfXHtDLYwHaEX?pid=Api&amp;rs=1" alt="harris角点"></p>
-<p>Harris角点检测原理可以用下式描述</p>
-<script type="math/tex; mode=display">
-E(u,v)=\sum_{x,y}w(x,y)[I(x+u,y+v)-I(x,y)]^2</script><p>其中$w(x,y)$表示滑动窗口权重函数，可以是常数也可以是高斯函数. $E(u,v)$是窗口向各个方向移动时像素值衡量系数的变化. 对上式泰勒展开得到</p>
-<script type="math/tex; mode=display">
-E(u,v) =[u\quad v]M\left[\begin{array}{c}u\\v \end{array}\right]</script><p>其中$M$是计算Harris角点的梯度协方差矩阵$\left[\begin{array}{cc} I_xI_x&amp;I_xI_y\\I_xI_y&amp;I_yI_y \end{array}\right]$ 其中$I_x和I_y$分别表示X和Y方向的梯度</p>
-<p>进一步简化，定义Harris角点的评价系数$R$如下式</p>
-<script type="math/tex; mode=display">
-R=det(M)-k(tr(M))^2</script><p>其中$k$为常值权重系数，$det(M)=\lambda_1\lambda_2，tr(M)=\lambda_1+\lambda_2，\lambda_1和\lambda_2是梯度协方差矩阵M的特征向量$，将特征向量带入上式</p>
-<script type="math/tex; mode=display">
-R=\lambda_1\lambda_2-k(\lambda_1+\lambda_2)^2</script><p>当R较大，角点；R&lt;0，位于直线上；|R|较小时，位于平面上</p>
-<p>OpenCV4提供了<strong>cornerHarris</strong>函数用于计算Harris角点的评价系数$R$</p>
-<h2 id="Shi-Tomas角点检测"><a href="#Shi-Tomas角点检测" class="headerlink" title="Shi-Tomas角点检测"></a>Shi-Tomas角点检测</h2><p>是Harris角点的一种变形，将特征向量的最小值作为角点评价系数，具体如下</p>
-<script type="math/tex; mode=display">
-R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为角点</p>
-<p>OpenCV4提供了<strong>goodFeaturesToTrack</strong>函数直接检测Shi-Tomas角点</p>
-<h2 id="亚像素级别角点检测"><a href="#亚像素级别角点检测" class="headerlink" title="亚像素级别角点检测"></a>亚像素级别角点检测</h2><p>目前的角点都是像素级别，即角点坐标是整数，但有时在实际项目中需要更高精度的亚像素级别的角点坐标</p>
-<p>OpenCV4提供了<strong>cornerSubPix</strong>函数根据像素级别角点坐标计算亚像素级别角点</p>
-<h1 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h1><p>特征点由关键点和描述子组成</p>
-<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><p>关键点在OpenCV4中由<strong>KeyPoint</strong>类表示，<strong>detect</strong>函数能够直接计算关键点</p>
-<h2 id="描述子"><a href="#描述子" class="headerlink" title="描述子"></a>描述子</h2><p>描述子是用来唯一描述关键点的一串数字，通过描述子可以区分两个不同关键点，也可以在两幅图像中寻找同一个关键点</p>
-<p>OpenCV4提供了用于计算每种特征点描述子的<strong>compute</strong>函数</p>
-<h2 id="SIFT特征点检测"><a href="#SIFT特征点检测" class="headerlink" title="SIFT特征点检测"></a>SIFT特征点检测</h2><p>比较复杂，篇幅较长，懒得缩写，赶紧看书</p>
-<p>OpenCV4提供了$SIFT::create$函数实现</p>
-<h2 id="SURF特征点检测"><a href="#SURF特征点检测" class="headerlink" title="SURF特征点检测"></a>SURF特征点检测</h2><p>是SIFT特征点的改进，OpenCV4提供了<strong>SURF::create</strong>函数实现</p>
-<h2 id="ORB特征点检测"><a href="#ORB特征点检测" class="headerlink" title="ORB特征点检测"></a>ORB特征点检测</h2><p>ORB特征点由FAST角点和BRIEF描述子组成</p>
-<p>FAST角点通过比较图像像素灰度值变化确定关键点，其核心思想是：如果在某个灰度值较小的区域中存在一个灰度值明显较大的像素点，那么该像素点在这个区域中具有明显的特征，可以作为特征点</p>
-<p>BRIEF描述子用于描述特征点周围像素灰度值的变化趋势</p>
-<p>OpenCV4提供了<strong>ORB::create</strong>实现</p>
-<h1 id="特征点匹配"><a href="#特征点匹配" class="headerlink" title="特征点匹配"></a>特征点匹配</h1><h2 id="DescriptorMatcher类介绍"><a href="#DescriptorMatcher类介绍" class="headerlink" title="DescriptorMatcher类介绍"></a>DescriptorMatcher类介绍</h2><p>与计算特征点相似，OpenCV4提供了特征点匹配的虚类，类中定义了不同方式实现特征点匹配的函数</p>
-<p>用于匹配的特征点描述子集合分别称为查询描述子集合和训练描述子集合</p>
-<p>具体函数和使用方法不详细关注了</p>
-<h2 id="暴力匹配"><a href="#暴力匹配" class="headerlink" title="暴力匹配"></a>暴力匹配</h2><p>暴力匹配就是计算训练描述子集合中每个训练描述子与查询描述子之间的距离，之后将所有距离排序，选择距离最小的或者满足阈值要求的描述子作为匹配结果</p>
-<p>OpenCV4提供了<strong>BFMatcher</strong>函数实现暴力匹配</p>
-<h2 id="显示特征点匹配结果"><a href="#显示特征点匹配结果" class="headerlink" title="显示特征点匹配结果"></a>显示特征点匹配结果</h2><p>OpenCV4提供了<strong>drawMatches</strong>函数用于显示两幅图像中特征点匹配结果</p>
-<h2 id="FLANN匹配"><a href="#FLANN匹配" class="headerlink" title="FLANN匹配"></a>FLANN匹配</h2><p>快速最近邻搜索，OpenCV4提供了<strong>FlannBasedMatcher</strong>实现</p>
-<h2 id="RANSAC优化特征点匹配"><a href="#RANSAC优化特征点匹配" class="headerlink" title="RANSAC优化特征点匹配"></a>RANSAC优化特征点匹配</h2><p>RANSAC算法是随机抽样一致算法简写</p>
-<p>该算法假设所有数据符合一定规律，通过随机抽样方式获取这个规律，并且通过重复获取规律寻找使得较多数据符合的规律</p>
-<p>RANSAC算法优化特征点检测可以概括为以下三步</p>
-<ol>
-<li>在匹配结果中随机选择4对特征点，计算单应矩阵</li>
-<li>将第一帧图像中的特征点根据单应矩阵求取在第二帧图像中的重投影坐标，比较重投影坐标与已匹配的特征点坐标之间的距离，如果小于一定阈值，那么认为是正确匹配点对，否则视为错误匹配，并记录正确匹配点对的数量</li>
-<li>重复第一第二步，比较多次循环后统计的正确匹配点对的数量，将正确匹配点对数量最多的情况作为最终结果，剔除错误匹配，输出正确匹配对，从而实现特征点匹配的筛选</li>
-</ol>
-<p>OpenCV4提供了<strong>findHomography</strong>函数实现</p>
+          <p>基于《图解密码技术》@[日]结城浩</p>
+<h1 id="XOR异或"><a href="#XOR异或" class="headerlink" title="XOR异或"></a>XOR异或</h1><script type="math/tex; mode=display">
+0\oplus0=0\\
+0\oplus1=1\\
+1\oplus0=1\\
+1\oplus1=1\\</script><p>与加法不同，不需要进位</p>
+<p>对同一个比特序列重复两次XOR运算就会复原</p>
+<p>XOR运算会大量运用在后面的密码技术中</p>
+<h1 id="一次性密码本"><a href="#一次性密码本" class="headerlink" title="一次性密码本"></a>一次性密码本</h1><p>一次性密码本是已经在理论上被证明不存在破译方法的加密方式，即使是对密钥空间进行暴力破解也无法破译</p>
+<h2 id="加密解密过程"><a href="#加密解密过程" class="headerlink" title="加密解密过程"></a>加密解密过程</h2><script type="math/tex; mode=display">
+plaintext\oplus key=ciphertext\\
+ciphertext\oplus key=plaintext</script><p>这里的密钥$key$必须是随机比特序列</p>
+<h2 id="无法破译的原因"><a href="#无法破译的原因" class="headerlink" title="无法破译的原因"></a>无法破译的原因</h2><p>我们假设对一次性密码本的密文进行暴力破解，那么我们终有一天会尝试到加密时所用的$key$从而获得$plaintext$，这毋庸置疑，然而关键点在于我们<strong>无法判断它是否是正确的明文</strong></p>
+<p>i.e.</p>
+<p>假设 $plaintext=”midnight”$，它会被编码成64位的比特序列，被一串随机比特序列的$key$加密</p>
+<p>Eve经过暴力破解后会获得诸如$”aaaaaaaa”,”abcdefgh”,”ZZZZZZZZ”,”onenight”,”mistress”$包括$”midnight”$的大量规则、不规则、有意义和无意义的字符串，而Eve无法判断他们是不是正确的明文</p>
+<p>但是即使它如此优秀，无法被破译，可事实上无人会使用这种加密方式</p>
+<ul>
+<li>密钥配送，这是最大的问题，Alice和Bob必须持有相同的$key$去加密解密，如果能安全传输$key$为什么不直接安全传输$plaintext$</li>
+<li>密钥保存，和配送类似，$key$和$plaintext$长度相同，如果能安全保存$key$何不直接安全保存$plaintext$</li>
+</ul>
+<h1 id="DES-Data-Encryption-Standard"><a href="#DES-Data-Encryption-Standard" class="headerlink" title="DES(Data Encryption Standard)"></a>DES(Data Encryption Standard)</h1><p>大人，时代变了，DES已经能被暴力破解了，不能再用了</p>
+<p>DES是一种对称密码算法也是分组密码，将64比特明文加密成64比特密文，密钥长度56比特(事实上是64比特，但是每隔7比特会设置一个用于错误检查的比特)</p>
+<p>值的关注的是DES的结构，也就是Feistel网络</p>
+<p>Feistel网络中加密的各个步骤称为<strong>轮(round)</strong>，整个加密过程就是进行若干次轮的循环，DES是一种16轮循环的Feistel网络</p>
+<p><img src="https://s1.ax1x.com/2020/08/07/ahOWM6.png" alt="feistel" style="zoom: 67%;" /></p>
+<p>上图是Feistel网络中一轮的示意图，可以看出输入比特序列的右侧并没有被加密，故而Feistel网络在两轮之间会把左右数据对调</p>
+<p><img src="https://s1.ax1x.com/2020/08/07/ahjnnf.png" alt="feistel" style="zoom:67%;" /></p>
+<p>Feistel网络的特点在与加密的关键在与轮函数，而轮函数无论被设计的多么复杂，设计成没有反函数，最终也可以成功解密；而且Feistel网络的加密解密结构完全相同，这正是由于其在每一轮中对右侧序列不进行操作带来的</p>
+<h1 id="差分分析与线性分析"><a href="#差分分析与线性分析" class="headerlink" title="差分分析与线性分析"></a>差分分析与线性分析</h1><p>两者都是针对都是分组密码的分析方法</p>
+<p>差分分析：改变一部分明文并分析密文如何随之改变，理论上明文即使只改变一个比特，密文也应该发生彻底的改变</p>
+<p>线性分析：将明文和密文的一些对应比特进行XOR并计算结果为零的概率，结果应该为$\frac{1}{2}$，如果能找到大幅$\frac{1}{2}$的部分，就能借此推测密钥相关信息</p>
+<h1 id="三重DES"><a href="#三重DES" class="headerlink" title="三重DES"></a>三重DES</h1><p>由于DES可以被暴力破解，故而开发了三重DES</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/a4VFpV.png" alt="triple_des" style="zoom:67%;" /></p>
+<p>若$key1=key2=key3$，则就是普通的DES，故而三重DES具备向下兼容性，得益于第二步是<strong>解密</strong>而非加密</p>
+<p>若$key1=key3\neq key2$，则称为DES-EDE2</p>
+<p>若$key1\neq key2 \neq key3$，则称为DES-EDE3</p>
+<p>三重DES被银行等机构使用，但是其处理速度不高，除了特别重视向下兼容的场合，很少用于新用途</p>
+<h1 id="AES-Advanced-Encryption-Standard"><a href="#AES-Advanced-Encryption-Standard" class="headerlink" title="AES(Advanced Encryption Standard)"></a>AES(Advanced Encryption Standard)</h1><p>取代DES成为新标准的一种对称密码算法，2000年从全世界范围内提交的众多算法中选出了名为Rijndael的对称密码算法，确定为AES</p>
+<p>Rijndael没有采用Feistel网络，而是使用了SPN结构</p>
+<p>Rijndael的输入分组为128比特(16字节)</p>
+<h2 id="Step1：SubBytes"><a href="#Step1：SubBytes" class="headerlink" title="Step1：SubBytes"></a>Step1：SubBytes</h2><p>逐字节替换，可以想象成<strong>简单替换密码</strong>的256字母版本</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/a4ZnKS.png" alt="subBytes"></p>
+<h2 id="Step2：ShiftRows"><a href="#Step2：ShiftRows" class="headerlink" title="Step2：ShiftRows"></a>Step2：ShiftRows</h2><p>以4字节为单位的行按照一定规则左平移，每一行平移字节数不同</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/a4ZKbQ.png" alt="shiftRows"></p>
+<h2 id="Step3：MixColumns"><a href="#Step3：MixColumns" class="headerlink" title="Step3：MixColumns"></a>Step3：MixColumns</h2><p>对一个4字节的值进行比特运算，将其变为另一个4字节值</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/a4ZuDg.png" alt="MixColumns"></p>
+<h2 id="Ste4：AddRoundKey"><a href="#Ste4：AddRoundKey" class="headerlink" title="Ste4：AddRoundKey"></a>Ste4：AddRoundKey</h2><p>将Step3的输出结果与轮密钥进行XOR，至此一轮结束</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/a4ZQEj.png" alt="addRoundKey"></p>
 
       
     </div>
@@ -278,7 +275,7 @@ R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -344,7 +341,7 @@ R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
