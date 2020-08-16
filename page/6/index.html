@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/04/openCV-9/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/11/Cryptography-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/04/openCV-9/" class="post-title-link" itemprop="url">OpenCV9-Feature Point Detection and Matching</a>
+            <a href="/2020/08/11/Cryptography-4/" class="post-title-link" itemprop="url">Cryptography-4:One-way Hash Function</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-04 20:11:52 / Modified: 20:17:07" itemprop="dateCreated datePublished" datetime="2020-08-04T20:11:52+08:00">2020-08-04</time>
+              <time title="Created: 2020-08-11 23:42:36 / Modified: 23:45:37" itemprop="dateCreated datePublished" datetime="2020-08-11T23:42:36+08:00">2020-08-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -193,7 +193,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
+                  <a href="/categories/Cryptography/" itemprop="url" rel="index"><span itemprop="name">Cryptography</span></a>
                 </span>
             </span>
 
@@ -208,58 +208,64 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
-<h1 id="角点检测"><a href="#角点检测" class="headerlink" title="角点检测"></a>角点检测</h1><p>角点就是在某方面属性特别突出的点，例如像素最大或者最小的点、线段的顶点、孤立的边缘点等</p>
-<h2 id="显示关键点"><a href="#显示关键点" class="headerlink" title="显示关键点"></a>显示关键点</h2><p>关键点是对图像中含有特殊信息的像素点的一种称呼，有时我们经过计算或已知这些点并且需要标记出来</p>
-<p>OpenCV4提供了用于一次性绘制所有关键点的函数<strong>drawKeyPoints</strong></p>
-<h2 id="Harris角点检测"><a href="#Harris角点检测" class="headerlink" title="Harris角点检测"></a>Harris角点检测</h2><p>Harris角点从像素值变化的角度对角点进行定义，像素值的局部最大峰值即为Harris角点</p>
-<p>首先以某个像素为中心构建一个矩形滑动窗口，其覆盖的图像像素通过线性叠加得到滑动窗口所有像素值的衡量系数，该系数与滑动窗口范围内的像素值成正比，在图像中以每一个像素为中心向各个方向移动滑动窗口，当无论向哪个方向移动像素值衡量系数都缩小时，窗口中心点对应的像素即为Harris角点</p>
-<p>下图是一个示意图，可见只有在P3中才能达到Harris角点的定义条件</p>
-<p><img src="https://tse3-mm.cn.bing.net/th/id/OIP.6XCS05IOAcqz0SfXHtDLYwHaEX?pid=Api&amp;rs=1" alt="harris角点"></p>
-<p>Harris角点检测原理可以用下式描述</p>
-<script type="math/tex; mode=display">
-E(u,v)=\sum_{x,y}w(x,y)[I(x+u,y+v)-I(x,y)]^2</script><p>其中$w(x,y)$表示滑动窗口权重函数，可以是常数也可以是高斯函数. $E(u,v)$是窗口向各个方向移动时像素值衡量系数的变化. 对上式泰勒展开得到</p>
-<script type="math/tex; mode=display">
-E(u,v) =[u\quad v]M\left[\begin{array}{c}u\\v \end{array}\right]</script><p>其中$M$是计算Harris角点的梯度协方差矩阵$\left[\begin{array}{cc} I_xI_x&amp;I_xI_y\\I_xI_y&amp;I_yI_y \end{array}\right]$ 其中$I_x和I_y$分别表示X和Y方向的梯度</p>
-<p>进一步简化，定义Harris角点的评价系数$R$如下式</p>
-<script type="math/tex; mode=display">
-R=det(M)-k(tr(M))^2</script><p>其中$k$为常值权重系数，$det(M)=\lambda_1\lambda_2，tr(M)=\lambda_1+\lambda_2，\lambda_1和\lambda_2是梯度协方差矩阵M的特征向量$，将特征向量带入上式</p>
-<script type="math/tex; mode=display">
-R=\lambda_1\lambda_2-k(\lambda_1+\lambda_2)^2</script><p>当R较大，角点；R&lt;0，位于直线上；|R|较小时，位于平面上</p>
-<p>OpenCV4提供了<strong>cornerHarris</strong>函数用于计算Harris角点的评价系数$R$</p>
-<h2 id="Shi-Tomas角点检测"><a href="#Shi-Tomas角点检测" class="headerlink" title="Shi-Tomas角点检测"></a>Shi-Tomas角点检测</h2><p>是Harris角点的一种变形，将特征向量的最小值作为角点评价系数，具体如下</p>
-<script type="math/tex; mode=display">
-R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为角点</p>
-<p>OpenCV4提供了<strong>goodFeaturesToTrack</strong>函数直接检测Shi-Tomas角点</p>
-<h2 id="亚像素级别角点检测"><a href="#亚像素级别角点检测" class="headerlink" title="亚像素级别角点检测"></a>亚像素级别角点检测</h2><p>目前的角点都是像素级别，即角点坐标是整数，但有时在实际项目中需要更高精度的亚像素级别的角点坐标</p>
-<p>OpenCV4提供了<strong>cornerSubPix</strong>函数根据像素级别角点坐标计算亚像素级别角点</p>
-<h1 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h1><p>特征点由关键点和描述子组成</p>
-<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><p>关键点在OpenCV4中由<strong>KeyPoint</strong>类表示，<strong>detect</strong>函数能够直接计算关键点</p>
-<h2 id="描述子"><a href="#描述子" class="headerlink" title="描述子"></a>描述子</h2><p>描述子是用来唯一描述关键点的一串数字，通过描述子可以区分两个不同关键点，也可以在两幅图像中寻找同一个关键点</p>
-<p>OpenCV4提供了用于计算每种特征点描述子的<strong>compute</strong>函数</p>
-<h2 id="SIFT特征点检测"><a href="#SIFT特征点检测" class="headerlink" title="SIFT特征点检测"></a>SIFT特征点检测</h2><p>比较复杂，篇幅较长，懒得缩写，赶紧看书</p>
-<p>OpenCV4提供了$SIFT::create$函数实现</p>
-<h2 id="SURF特征点检测"><a href="#SURF特征点检测" class="headerlink" title="SURF特征点检测"></a>SURF特征点检测</h2><p>是SIFT特征点的改进，OpenCV4提供了<strong>SURF::create</strong>函数实现</p>
-<h2 id="ORB特征点检测"><a href="#ORB特征点检测" class="headerlink" title="ORB特征点检测"></a>ORB特征点检测</h2><p>ORB特征点由FAST角点和BRIEF描述子组成</p>
-<p>FAST角点通过比较图像像素灰度值变化确定关键点，其核心思想是：如果在某个灰度值较小的区域中存在一个灰度值明显较大的像素点，那么该像素点在这个区域中具有明显的特征，可以作为特征点</p>
-<p>BRIEF描述子用于描述特征点周围像素灰度值的变化趋势</p>
-<p>OpenCV4提供了<strong>ORB::create</strong>实现</p>
-<h1 id="特征点匹配"><a href="#特征点匹配" class="headerlink" title="特征点匹配"></a>特征点匹配</h1><h2 id="DescriptorMatcher类介绍"><a href="#DescriptorMatcher类介绍" class="headerlink" title="DescriptorMatcher类介绍"></a>DescriptorMatcher类介绍</h2><p>与计算特征点相似，OpenCV4提供了特征点匹配的虚类，类中定义了不同方式实现特征点匹配的函数</p>
-<p>用于匹配的特征点描述子集合分别称为查询描述子集合和训练描述子集合</p>
-<p>具体函数和使用方法不详细关注了</p>
-<h2 id="暴力匹配"><a href="#暴力匹配" class="headerlink" title="暴力匹配"></a>暴力匹配</h2><p>暴力匹配就是计算训练描述子集合中每个训练描述子与查询描述子之间的距离，之后将所有距离排序，选择距离最小的或者满足阈值要求的描述子作为匹配结果</p>
-<p>OpenCV4提供了<strong>BFMatcher</strong>函数实现暴力匹配</p>
-<h2 id="显示特征点匹配结果"><a href="#显示特征点匹配结果" class="headerlink" title="显示特征点匹配结果"></a>显示特征点匹配结果</h2><p>OpenCV4提供了<strong>drawMatches</strong>函数用于显示两幅图像中特征点匹配结果</p>
-<h2 id="FLANN匹配"><a href="#FLANN匹配" class="headerlink" title="FLANN匹配"></a>FLANN匹配</h2><p>快速最近邻搜索，OpenCV4提供了<strong>FlannBasedMatcher</strong>实现</p>
-<h2 id="RANSAC优化特征点匹配"><a href="#RANSAC优化特征点匹配" class="headerlink" title="RANSAC优化特征点匹配"></a>RANSAC优化特征点匹配</h2><p>RANSAC算法是随机抽样一致算法简写</p>
-<p>该算法假设所有数据符合一定规律，通过随机抽样方式获取这个规律，并且通过重复获取规律寻找使得较多数据符合的规律</p>
-<p>RANSAC算法优化特征点检测可以概括为以下三步</p>
-<ol>
-<li>在匹配结果中随机选择4对特征点，计算单应矩阵</li>
-<li>将第一帧图像中的特征点根据单应矩阵求取在第二帧图像中的重投影坐标，比较重投影坐标与已匹配的特征点坐标之间的距离，如果小于一定阈值，那么认为是正确匹配点对，否则视为错误匹配，并记录正确匹配点对的数量</li>
-<li>重复第一第二步，比较多次循环后统计的正确匹配点对的数量，将正确匹配点对数量最多的情况作为最终结果，剔除错误匹配，输出正确匹配对，从而实现特征点匹配的筛选</li>
-</ol>
-<p>OpenCV4提供了<strong>findHomography</strong>函数实现</p>
+          <p>基于《图解密码技术》@[日]结城浩</p>
+<h1 id="单向散列函数性质"><a href="#单向散列函数性质" class="headerlink" title="单向散列函数性质"></a>单向散列函数性质</h1><h2 id="散列值长度固定"><a href="#散列值长度固定" class="headerlink" title="散列值长度固定"></a>散列值长度固定</h2><p>单向散列函数的输入必须能够是任意长度的消息，且无论输入的消息多长，必须能够生成长度短且固定的散列值</p>
+<h2 id="抗碰撞性"><a href="#抗碰撞性" class="headerlink" title="抗碰撞性"></a>抗碰撞性</h2><p>两个不同的消息产生同一个散列值称为<strong>碰撞</strong>，如果要将单向散列函数用于完整性检查，必须保证在事实上不可能被人为地发现碰撞</p>
+<p>弱抗碰撞性：要找到和某条消息具有相同散列值的另一条消息是非常困难的</p>
+<p>强抗碰撞性：要找到散列值相同的两条不同的消息是非常困难的</p>
+<h2 id="单向性"><a href="#单向性" class="headerlink" title="单向性"></a>单向性</h2><p>无法通过散列值反推出消息，基于口令的加密(PBE)和伪随机数生成器等技术中就用到了单向性</p>
+<h1 id="SHA-3"><a href="#SHA-3" class="headerlink" title="SHA-3"></a>SHA-3</h1><p>单向散列函数的具体例子有很多，这里主要讲述SHA-3</p>
+<p>SHA-3是一种作为新标准发布的单向散列函数算法，用来替代理论上已被找出攻击方法的SHA-1算法</p>
+<p>Keccak算法于2012年击败别的候选算法被确定为SHA-3标准</p>
+<h2 id="海绵结构"><a href="#海绵结构" class="headerlink" title="海绵结构"></a>海绵结构</h2><p>Keccak算法采用了与SHA-1、SHA-2完全不同的<strong>海绵结构</strong>，该结构中输入的数据在进行填充后经过<strong>吸收阶段</strong>和<strong>挤出阶段</strong>，最终生成散列值</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aXUqud.png" alt="SHA-3"></p>
+<p>吸收阶段流程：</p>
+<ul>
+<li>将经过填充的输入消息按照每r比特为一组分割成若干个输入分组</li>
+<li>首先，将“内部状态的$r$比特”与“输入分组1”进行XOR，将其结果作为“函数$f$的输入值”</li>
+<li>然后，将“函数f的输出值$r$个比特”与“输入分组2”进行XOR，将其结果再次作为“函数$f$的输入值”</li>
+<li>反复执行上述步骤，直到达到最后一个输入分组</li>
+<li>等所有的输入分组处理完成后，结束吸收阶段，进入挤出阶段</li>
+</ul>
+<p>函数$f$的作用是将输入的数据进行复杂的搅拌操作并输出结果（输入和输出的长度均为$b=r+c$个比特），其操作对象是长度为$b=r+c$个比特的内部状态，内部状态的初始值为0. 每次被吸收的输入分组长度为$r$个比特，因此$r$被称为比特率。</p>
+<p>通过上图可以看出，函数$f$的输入长度不是$r$个比特，而是$r+c$个比特，这意味着内部状态中有$c$个比特时不受输入分组内容直接影响的（但会通过函数$f$受到间接影响）。这里的$c$被称为容量。</p>
+<p>挤出阶段流程</p>
+<ul>
+<li>首先，将“函数$f$的输出值中的$r$个比特”保存为“输出分组1”，并将整个输出值（$r+c$个比特）再次输入到函数$f$中</li>
+<li>然后，将“函数$f$的树池值中的$r$个比特”保存为“输出分组2”，并将整个输出值（$r+c$个比特）再次输入到函数$f$中</li>
+<li>反复执行上面的步骤，直到获得所需长度的输出数据</li>
+</ul>
+<h2 id="双工结构"><a href="#双工结构" class="headerlink" title="双工结构"></a>双工结构</h2><p>海绵结构的变形</p>
+<p>在海绵结构中，只有将输入的消息全部吸收完毕之后才能开始输出，但在双工结构中，输入和输出是以相同的速率进行的</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aXaGUx.png" alt="双工"></p>
+<h2 id="Keccak内部结构"><a href="#Keccak内部结构" class="headerlink" title="Keccak内部结构"></a>Keccak内部结构</h2><p>每个小方块代表一个比特</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aXaIZn.png" alt="内部结构"></p>
+<p>再来看看内部的搅拌函数$f$，它包含五个步骤：$\theta、\rho、\pi、\chi、\iota$</p>
+<p>$\theta$：</p>
+<p>将位置不同的两个column中各自5个比特通过XOR运算加起来(图中$\sum$标志)，然后再与置换目标比特求XOR并覆盖目标比特</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aXdKFP.png" alt="theta"></p>
+<p>$\rho$：</p>
+<p>沿$z$轴(lane方向)进行比特平移</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aXdsOJ.png" alt="rho"></p>
+<p>$\pi$：</p>
+<p>如图是对一片slice应用该步骤时的样子，事实上整条lane上的slice都会执行这一操作</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aXdffK.png" alt="pi"></p>
+<p>$\chi$：</p>
+<p>如图是对一个row应用该步骤的情景，这里使用了逻辑电路中的符号，其中<strong>小三角后加点</strong>代表输入比特取反(NOT)，<strong>矩形后加半圆</strong>表示两个输入均为1时输出1(AND)</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aXdH0A.png" alt="chi"></p>
+<p>$\iota$：</p>
+<p>用一个固定的轮常数对整个state的所有比特进行XOR运算，目的是让内部状态具备非对称性</p>
+<h1 id="对单向散列函数的攻击"><a href="#对单向散列函数的攻击" class="headerlink" title="对单向散列函数的攻击"></a>对单向散列函数的攻击</h1><h2 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h2><p>每次稍微改变一下消息的值，然后对消息求散列值，其实就是寻找具有特定散列值的消息，是针对<strong>弱抗碰撞性</strong>的攻击</p>
+<p>找出具有相同散列值的消息的攻击一般分为两种</p>
+<ul>
+<li>原像攻击：给定散列值，找出具有该值的任意消息</li>
+<li>第二原像攻击：给定一条消息1，找出另外一条消息2，他们散列值相同</li>
+</ul>
+<h2 id="生日攻击"><a href="#生日攻击" class="headerlink" title="生日攻击"></a>生日攻击</h2><p>找到散列相同的两条消息，而散列值可以是任意的，这称为生日攻击或者冲突攻击，是针对<strong>强抗碰撞性</strong>的攻击</p>
+<p>这种攻击原理来源于<strong>生日悖论</strong>，具体不展开，很好理解</p>
+<p>这种攻击比起暴力破解尝试次数要少的多</p>
+<h1 id="单向散列函数的问题"><a href="#单向散列函数的问题" class="headerlink" title="单向散列函数的问题"></a>单向散列函数的问题</h1><p>单向散列函数能够辨别消息是否被<strong>篡改</strong>，但是无法辨别<strong>伪装</strong></p>
+<p>我们通常不仅仅需要检查文件的完整性，还需要确认这个文件是否真的属于某个人，这时就需要<strong>认证</strong>，可以通过<strong>消息验证码</strong>和<strong>数字签名</strong>技术实现，以后会具体讲述</p>
 
       
     </div>
@@ -278,7 +284,7 @@ R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -344,7 +350,7 @@ R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

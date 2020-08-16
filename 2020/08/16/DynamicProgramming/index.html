@@ -22,19 +22,19 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="基于《算法导论（原书第三版）》 矩阵链乘法Problem:给定n个矩阵的链&lt;$A_1, A_2, …, A_n$&gt; 矩阵$A_i$的规模为$p_{i-1}\times p_i (1\leq i \leq n)$ 求完全括号化方案，使得计算乘积$A_1 A_2…A_n$所需标量乘法次数最少. i.e. &lt;$A_1, A_2, A_3$&gt; 其中规模分别为$10\times100">
+  <meta name="description" content="基于《算法导论》中的伪代码 以及部分网络资源 钢条切割    长度 i 0 1 2 3 4 5 6 7 8 9 10     价格 Pi 0 1 5 8 9 10 17 17 20 24 30     Problem:​    给定一段长度为n英寸的钢条和一个价格表Pi，求切割钢条方案，使得销售收益Rn最大。注意，如果长度为n英寸的钢条的价格Pn足够大，最优解可能就是完全不需要切割。 Soluti">
 <meta property="og:type" content="article">
-<meta property="og:title" content="动态规划-矩阵链乘法">
-<meta property="og:url" content="https://caohch1.cn/2020/07/23/DynmaicProgramming_Matrix/index.html">
+<meta property="og:title" content="Dynamic Programming">
+<meta property="og:url" content="https://caohch1.cn/2020/08/16/DynamicProgramming/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="基于《算法导论（原书第三版）》 矩阵链乘法Problem:给定n个矩阵的链&lt;$A_1, A_2, …, A_n$&gt; 矩阵$A_i$的规模为$p_{i-1}\times p_i (1\leq i \leq n)$ 求完全括号化方案，使得计算乘积$A_1 A_2…A_n$所需标量乘法次数最少. i.e. &lt;$A_1, A_2, A_3$&gt; 其中规模分别为$10\times100">
+<meta property="og:description" content="基于《算法导论》中的伪代码 以及部分网络资源 钢条切割    长度 i 0 1 2 3 4 5 6 7 8 9 10     价格 Pi 0 1 5 8 9 10 17 17 20 24 30     Problem:​    给定一段长度为n英寸的钢条和一个价格表Pi，求切割钢条方案，使得销售收益Rn最大。注意，如果长度为n英寸的钢条的价格Pn足够大，最优解可能就是完全不需要切割。 Soluti">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-07-23T14:52:32.058Z">
-<meta property="article:modified_time" content="2020-07-23T14:56:28.617Z">
+<meta property="article:published_time" content="2020-08-16T12:59:26.022Z">
+<meta property="article:modified_time" content="2020-08-16T13:01:03.549Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://caohch1.cn/2020/07/23/DynmaicProgramming_Matrix/">
+<link rel="canonical" href="https://caohch1.cn/2020/08/16/DynamicProgramming/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>动态规划-矩阵链乘法 | MissSirius Planet</title>
+  <title>Dynamic Programming | MissSirius Planet</title>
   
 
 
@@ -163,7 +163,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/07/23/DynmaicProgramming_Matrix/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/16/DynamicProgramming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -176,7 +176,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          动态规划-矩阵链乘法
+          Dynamic Programming
         </h1>
 
         <div class="post-meta">
@@ -187,7 +187,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-07-23 22:52:32 / Modified: 22:56:28" itemprop="dateCreated datePublished" datetime="2020-07-23T22:52:32+08:00">2020-07-23</time>
+              <time title="Created: 2020-08-16 20:59:26 / Modified: 21:01:03" itemprop="dateCreated datePublished" datetime="2020-08-16T20:59:26+08:00">2020-08-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -210,8 +210,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>基于《算法导论（原书第三版）》</p>
-<h1 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h1><h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem:"></a>Problem:</h2><p>给定n个矩阵的链&lt;$A_1, A_2, …, A_n$&gt;</p>
+        <p><strong><em>基于《算法导论》中的伪代码 以及部分网络资源</em></strong></p>
+<h1 id="钢条切割"><a href="#钢条切割" class="headerlink" title="钢条切割"></a>钢条切割</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>长度 i</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>价格 Pi</td>
+<td>0</td>
+<td>1</td>
+<td>5</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>17</td>
+<td>17</td>
+<td>20</td>
+<td>24</td>
+<td>30</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem:"></a>Problem:</h2><p>​    给定一段长度为<strong>n</strong>英寸的钢条和一个价格表Pi，求切割钢条方案，使得销售收益Rn最大。注意，如果长度为<strong>n</strong>英寸的钢条的价格Pn足够大，最优解可能就是完全不需要切割。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h2><h3 id="Method1-Noramal"><a href="#Method1-Noramal" class="headerlink" title="Method1: Noramal"></a>Method1: Noramal</h3><p>如果一个最优解将钢条切割成<strong>k</strong>段，那么最优切割方案</p>
+<script type="math/tex; mode=display">
+n=i_1+i_2+...+i_k</script><p>得到最大收益</p>
+<script type="math/tex; mode=display">
+R_n=P_{i_1}+P_{i_2}+...+P_{i_k}</script><p><strong>更一般的</strong>，对于Rn，我们可以用更短的钢条的最优切割收益来描述</p>
+<script type="math/tex; mode=display">
+R_n=max (p_n,r_1+r_{n-1},r_2+r_{n-2},...,r_{n-1}+r_1)</script><p>第一个参数Pn对应不切割，后面的是所有切割方案对应的收益</p>
+<h3 id="Method2-Recursion"><a href="#Method2-Recursion" class="headerlink" title="Method2: Recursion"></a>Method2: Recursion</h3><p>与Method1相似但是更简单的递归求解方法</p>
+<p>从左边割下长度<strong>i</strong>的一段，对右边剩下<strong>n-i</strong>继续切割，左边不操作</p>
+<p>用一个式子更加清晰地说明</p>
+<script type="math/tex; mode=display">
+R_n=\mathop{max}\limits_{1\leq i \leq n}(P_i+R_{n-i})</script><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CUT_ROD</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> q = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= length; i++) &#123;</span><br><span class="line">        q = <span class="built_in">max</span>(q, price[i] + CUT_ROD(price, length - i));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Method3-Dynmaic-Programming"><a href="#Method3-Dynmaic-Programming" class="headerlink" title="Method3: Dynmaic Programming"></a>Method3: Dynmaic Programming</h3><h4 id="Top-down-with-memoization"><a href="#Top-down-with-memoization" class="headerlink" title="Top-down with memoization"></a>Top-down with memoization</h4><p>在过程中保存每个子问题的解 从而花费空间节省时间</p>
+<p><strong>memory</strong>就是已知解的数组</p>
+<p>剩下与Method2中相似</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MEMOIZED_CUT_ROD</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> memory[length + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= length; ++i) &#123;</span><br><span class="line">        memory[i] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> MEMOIZED_CUT_ROD_AUX(price, length, memory);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MEMOIZED_CUT_ROD_AUX</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length, <span class="keyword">int</span> *memory)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (memory[length] &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> memory[length];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> q;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (length == <span class="number">0</span>) &#123;</span><br><span class="line">        q = <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        q = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= length; ++i) &#123;</span><br><span class="line">            q = <span class="built_in">max</span>(q, price[i] + MEMOIZED_CUT_ROD_AUX(price, length - i, memory));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    memory[length] = q;</span><br><span class="line">    <span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Bottom-up"><a href="#Bottom-up" class="headerlink" title="Bottom-up"></a>Bottom-up</h4><p>由于没有递归 该方法的事件复杂性函数通常具有更小的系数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BOTTOM_UP_CUT_ROD</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> memory[length + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> q;</span><br><span class="line">    memory[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= length; ++j) &#123;</span><br><span class="line">        q = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= j; ++i) &#123;</span><br><span class="line">            <span class="comment">//和Method2比较下 这里由于有了memory 所以不需要递归了</span></span><br><span class="line">            q = <span class="built_in">max</span>(q, price[i] + memory[j - i]);</span><br><span class="line">        &#125;</span><br><span class="line">        memory[j] = q;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> memory[length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="重构解"><a href="#重构解" class="headerlink" title="重构解"></a>重构解</h2><p>如果还要出第一段长度 我们可以扩展以上算法</p>
+<p>对于每个子问题不仅保存最优收益 还保存对应切割方案</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用来返回两个数组 一个收益 一个切割方案</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Result</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> *revenue;</span><br><span class="line">    <span class="keyword">int</span> *solution;</span><br><span class="line"></span><br><span class="line">    Result(<span class="keyword">int</span> *p, <span class="keyword">int</span> *s) &#123;</span><br><span class="line">        revenue = p;</span><br><span class="line">        solution = s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主要处理过程</span></span><br><span class="line"><span class="function">Result <span class="title">EXTENDED_BOTTOM_UP_ROD</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//record revenue</span></span><br><span class="line">    <span class="keyword">int</span> memory_r[length + <span class="number">1</span>];</span><br><span class="line">    memory_r[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//record cut-solution</span></span><br><span class="line">    <span class="keyword">int</span> memory_s[length + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> q;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= length; ++j) &#123;</span><br><span class="line">        q = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= j; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (q &lt; price[i] + memory_r[j - i]) &#123;</span><br><span class="line">                q = price[i] + memory_r[j - i];</span><br><span class="line">                memory_s[j] = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        memory_r[j] = q;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Result(memory_r, memory_s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PRINT_CUT_ROD_SOLUTION</span><span class="params">(<span class="keyword">int</span> *price, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    Result res = EXTENDED_BOTTOM_UP_ROD(price, length);</span><br><span class="line">    <span class="keyword">int</span> cut1 = res.solution[length];</span><br><span class="line">    <span class="keyword">int</span> cut2 = length - cut1;</span><br><span class="line">    <span class="keyword">int</span> revenue = res.revenue[length];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Cut solution: "</span> &lt;&lt; cut1 &lt;&lt; <span class="string">"--"</span> &lt;&lt; cut2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Revenue: "</span> &lt;&lt; revenue &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h1><h2 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem:"></a>Problem:</h2><p>给定n个矩阵的链&lt;$A_1, A_2, …, A_n$&gt;</p>
 <p>矩阵$A_i$的规模为$p_{i-1}\times p_i (1\leq i \leq n)$</p>
 <p>求完全括号化方案，使得计算乘积$A_1 A_2…A_n$所需标量乘法次数最少.</p>
 <p>i.e.</p>
@@ -224,7 +282,7 @@
 <p>$100\times5\times50=25000$    —&gt;</p>
 <p> $10\times100\times50=50000$ —&gt;</p>
 <p> $50000+25000=75000$</p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h2><h3 id="否定穷举"><a href="#否定穷举" class="headerlink" title="否定穷举:"></a>否定穷举:</h3><p>看看穷举的递归方程</p>
+<h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution:"></a>Solution:</h2><h3 id="否定穷举"><a href="#否定穷举" class="headerlink" title="否定穷举:"></a>否定穷举:</h3><p>看看穷举的递归方程</p>
 <script type="math/tex; mode=display">
 P(n)=\left\{
 \begin{array}{rcl}
@@ -411,7 +469,7 @@ m[i,j]=\left\{
 <p>这并不难理解</p>
 <h4 id="Final-跑一跑"><a href="#Final-跑一跑" class="headerlink" title="Final: 跑一跑"></a>Final: 跑一跑</h4><p>正式运行一下我们之前列出的例子</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> test[] = &#123;<span class="number">30</span>, <span class="number">35</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">25</span>&#125;; <span class="comment">//矩阵链长度</span></span><br><span class="line">    <span class="keyword">int</span> length = <span class="number">6</span>; <span class="comment">//矩阵个数</span></span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">m</span><span class="params">(length, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(length))</span></span>; <span class="comment">//创建m</span></span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">s</span><span class="params">(length - <span class="number">1</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(length - <span class="number">1</span>))</span></span>; <span class="comment">//创建s</span></span><br><span class="line">    MATRIX_CHAIN_ORDER(test, length, m, s); <span class="comment">//芜湖 起飞</span></span><br><span class="line">    PRINT_OPTIMAL_PARENS(s, <span class="number">0</span>, length - <span class="number">1</span>); <span class="comment">//得到输出 ((A0(A1A2))((A3A4)A5))</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="重构最优解"><a href="#重构最优解" class="headerlink" title="重构最优解"></a>重构最优解</h3><p><strong>永远不要对一个算法感到满足</strong></p>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="重构最优解"><a href="#重构最优解" class="headerlink" title="重构最优解"></a>重构最优解</h3><p>==永远不要对一个算法感到满足== </p>
 <p>从实际考虑，我们通常会把子问题的解存在一个表里</p>
 <p>加入备忘机制</p>
 <p>不做太多解释，上面的看懂了这个也很容易理解</p>
@@ -431,12 +489,12 @@ m[i,j]=\left\{
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/23/Android-7/" rel="prev" title="Android-7">
-      <i class="fa fa-chevron-left"></i> Android-7
+    <a href="/2020/08/16/ElementaryDataStructure/" rel="prev" title="基本数据结构">
+      <i class="fa fa-chevron-left"></i> 基本数据结构
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/24/Android-8/" rel="next" title="Android-8">
-      Android-8 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/16/BinarySearchTree/" rel="next" title="BinarySearchTree">
+      BinarySearchTree <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -496,7 +554,7 @@ m[i,j]=\left\{
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵链乘法"><span class="nav-number">1.</span> <span class="nav-text">矩阵链乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">1.1.</span> <span class="nav-text">Problem:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">1.2.</span> <span class="nav-text">Solution:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#否定穷举"><span class="nav-number">1.2.1.</span> <span class="nav-text">否定穷举:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用动态规划方案"><span class="nav-number">1.2.2.</span> <span class="nav-text">应用动态规划方案:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step1-最优括号化方案的结构特征"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Step1: 最优括号化方案的结构特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step2-一个递归求解方案"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Step2: 一个递归求解方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step3-计算最优代价"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">Step3: 计算最优代价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step4-构造最优解"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">Step4: 构造最优解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Final-跑一跑"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">Final: 跑一跑</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构最优解"><span class="nav-number">1.2.3.</span> <span class="nav-text">重构最优解</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#钢条切割"><span class="nav-number">1.</span> <span class="nav-text">钢条切割</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">1.1.</span> <span class="nav-text">Problem:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">1.2.</span> <span class="nav-text">Solution:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Method1-Noramal"><span class="nav-number">1.2.1.</span> <span class="nav-text">Method1: Noramal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method2-Recursion"><span class="nav-number">1.2.2.</span> <span class="nav-text">Method2: Recursion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method3-Dynmaic-Programming"><span class="nav-number">1.2.3.</span> <span class="nav-text">Method3: Dynmaic Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Top-down-with-memoization"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">Top-down with memoization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bottom-up"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">Bottom-up</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重构解"><span class="nav-number">1.3.</span> <span class="nav-text">重构解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵链乘法"><span class="nav-number">2.</span> <span class="nav-text">矩阵链乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-1"><span class="nav-number">2.1.</span> <span class="nav-text">Problem:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-1"><span class="nav-number">2.2.</span> <span class="nav-text">Solution:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#否定穷举"><span class="nav-number">2.2.1.</span> <span class="nav-text">否定穷举:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用动态规划方案"><span class="nav-number">2.2.2.</span> <span class="nav-text">应用动态规划方案:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step1-最优括号化方案的结构特征"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Step1: 最优括号化方案的结构特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step2-一个递归求解方案"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">Step2: 一个递归求解方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step3-计算最优代价"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">Step3: 计算最优代价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step4-构造最优解"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">Step4: 构造最优解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Final-跑一跑"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">Final: 跑一跑</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">2.2.3.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构最优解"><span class="nav-number">2.2.4.</span> <span class="nav-text">重构最优解</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -510,7 +568,7 @@ m[i,j]=\left\{
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

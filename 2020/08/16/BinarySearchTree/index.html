@@ -22,30 +22,32 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/index.html">
+  <meta name="description" content="基于《算法导论》中的伪代码 以及部分网络资源 BinarySearchNode12345678910111213struct BinarySearchNode &amp;#123;    BinarySearchNode(int x) &amp;#123;        key &#x3D; x;        parent &#x3D; nullptr;        left &#x3D; nullptr;        right &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BinarySearchTree">
+<meta property="og:url" content="https://caohch1.cn/2020/08/16/BinarySearchTree/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="基于《算法导论》中的伪代码 以及部分网络资源 BinarySearchNode12345678910111213struct BinarySearchNode &amp;#123;    BinarySearchNode(int x) &amp;#123;        key &#x3D; x;        parent &#x3D; nullptr;        left &#x3D; nullptr;        right &#x3D;">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-16T12:59:26.038Z">
+<meta property="article:modified_time" content="2020-08-16T13:01:04.362Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://caohch1.cn/">
+<link rel="canonical" href="https://caohch1.cn/2020/08/16/BinarySearchTree/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>BinarySearchTree | MissSirius Planet</title>
   
 
 
@@ -154,9 +156,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -172,10 +175,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/16/BinarySearchTree/" class="post-title-link" itemprop="url">BinarySearchTree</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          BinarySearchTree
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,7 +210,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong><em>基于《算法导论》中的伪代码 以及部分网络资源</em></strong></p>
+        <p><strong><em>基于《算法导论》中的伪代码 以及部分网络资源</em></strong></p>
 <h1 id="BinarySearchNode"><a href="#BinarySearchNode" class="headerlink" title="BinarySearchNode"></a>BinarySearchNode</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BinarySearchNode</span> &#123;</span></span><br><span class="line">    BinarySearchNode(<span class="keyword">int</span> x) &#123;</span><br><span class="line">        key = x;</span><br><span class="line">        parent = <span class="literal">nullptr</span>;</span><br><span class="line">        left = <span class="literal">nullptr</span>;</span><br><span class="line">        right = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> key;</span><br><span class="line">    BinarySearchNode *parent;</span><br><span class="line">    BinarySearchNode *left;</span><br><span class="line">    BinarySearchNode *right;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h1 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinarySearchTree</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    BinarySearchNode *root;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造和析构</span></span><br><span class="line">    BinarySearchTree(<span class="keyword">int</span> data);</span><br><span class="line">    ~BinarySearchTree();</span><br><span class="line">	<span class="comment">//获取根节点 获取自己 （用于外部调用）</span></span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">GETROOT</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>-&gt;root; &#125;;</span><br><span class="line">    <span class="function">BinarySearchTree *<span class="title">GETTREE</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>; &#125;;</span><br><span class="line">	<span class="comment">//返回树中最大or最小节点</span></span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">TREE_MINIMUM</span><span class="params">(BinarySearchNode *node)</span></span>;</span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">TREE_MAXIMUM</span><span class="params">(BinarySearchNode *node)</span></span>;</span><br><span class="line">    <span class="comment">//插入</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">TREE_INSERT</span><span class="params">(BinarySearchTree *tree, <span class="keyword">int</span> data)</span></span>;</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">TRANSPLANT</span><span class="params">(BinarySearchTree *tree, BinarySearchNode *u, BinarySearchNode *v)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">TREE_DELETE</span><span class="params">(BinarySearchTree *tree, <span class="keyword">int</span> data)</span></span>;</span><br><span class="line">	<span class="comment">//某节点的后继</span></span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">TREE_SUCCESSOR</span><span class="params">(BinarySearchNode *node)</span></span>;</span><br><span class="line">	<span class="comment">//中序遍历打印</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">INORDER_TREE_WALK</span><span class="params">(BinarySearchNode *node)</span></span>;</span><br><span class="line">	<span class="comment">//搜索某节点</span></span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">TREE_SEARCH</span><span class="params">(BinarySearchNode *node, <span class="keyword">int</span> data)</span></span>;</span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">ITERATIVE_TREE_SEARCH</span><span class="params">(BinarySearchNode *node, <span class="keyword">int</span> data)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h1 id="Initialize"><a href="#Initialize" class="headerlink" title="Initialize"></a>Initialize</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BinarySearchTree::BinarySearchTree(<span class="keyword">int</span> data) &#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;root = <span class="keyword">new</span> BinarySearchNode(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -219,25 +221,31 @@
 <h1 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="function">BinarySearchNode *<span class="title">BinarySearchTree::TREE_SEARCH</span><span class="params">(BinarySearchNode *node, <span class="keyword">int</span> data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="literal">nullptr</span> || data == node-&gt;key) &#123;</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"No such node in tree"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (data &lt; node-&gt;key) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>-&gt;TREE_SEARCH(node-&gt;left, data);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>-&gt;TREE_SEARCH(node-&gt;right, data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//一般用这个</span></span><br><span class="line"><span class="function">BinarySearchNode *<span class="title">BinarySearchTree::ITERATIVE_TREE_SEARCH</span><span class="params">(BinarySearchNode *node, <span class="keyword">int</span> data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (node != <span class="literal">nullptr</span> &amp;&amp; data != node-&gt;key) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data &lt; node-&gt;key) &#123;</span><br><span class="line">            node = node-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            node = node-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="Printer"><a href="#Printer" class="headerlink" title="Printer"></a>Printer</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BinarySearchTree::INORDER_TREE_WALK</span><span class="params">(BinarySearchNode *node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;INORDER_TREE_WALK(node-&gt;left);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; node-&gt;key &lt;&lt; <span class="string">" &lt;= "</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;INORDER_TREE_WALK(node-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/16/DynamicProgramming/" rel="prev" title="Dynamic Programming">
+      <i class="fa fa-chevron-left"></i> Dynamic Programming
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -289,6 +297,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BinarySearchNode"><span class="nav-number">1.</span> <span class="nav-text">BinarySearchNode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Class"><span class="nav-number">2.</span> <span class="nav-text">Class</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Initialize"><span class="nav-number">3.</span> <span class="nav-text">Initialize</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MinimumNode-and-MaximumNode"><span class="nav-number">4.</span> <span class="nav-text">MinimumNode and MaximumNode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Insert"><span class="nav-number">5.</span> <span class="nav-text">Insert</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Delete"><span class="nav-number">6.</span> <span class="nav-text">Delete(???)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Successor"><span class="nav-number">7.</span> <span class="nav-text">Successor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Search"><span class="nav-number">8.</span> <span class="nav-text">Search</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Printer"><span class="nav-number">9.</span> <span class="nav-text">Printer</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
