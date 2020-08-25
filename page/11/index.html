@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/04/openCV-8/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/04/openCV-9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/04/openCV-8/" class="post-title-link" itemprop="url">OpenCV8-Image Analysis and Restoration</a>
+            <a href="/2020/08/04/openCV-9/" class="post-title-link" itemprop="url">OpenCV9-Feature Point Detection and Matching</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-04 15:47:49 / Modified: 15:49:25" itemprop="dateCreated datePublished" datetime="2020-08-04T15:47:49+08:00">2020-08-04</time>
+              <time title="Created: 2020-08-04 20:11:52 / Modified: 20:17:07" itemprop="dateCreated datePublished" datetime="2020-08-04T20:11:52+08:00">2020-08-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,48 +209,57 @@
 
       
           <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
-<h1 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h1><h2 id="离散傅里叶变换"><a href="#离散傅里叶变换" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h2><p>可以简单地把傅里叶变换理解成一个函数的分解工具，图像离散傅里叶变换后的结果会得到既有实数又有虚数的图像，在实际使用时常将结果分成实数图像和虚数图像，或者使用复数的幅值和相位来表示变换结果，可以分为幅值图像和相位图像</p>
-<p>离散傅里叶变换能得到图像的频域信息，借此从另一个方面理解图像. 图像中像素波动较大的区域对应的频域是高频区域，因此高频区域体现图像的细节、纹理信息，而低频信息代表了图像的轮廓信息</p>
-<p>OpenCV4提供了<strong>dft</strong>函数实现对图像的离散傅里叶变换，以及逆变换函数<strong>idft</strong></p>
-<p>一般来说，离散傅里叶变换算法倾向于对某些特定长度的输入矩阵进行处理，OpenCV4提供了用于计算最优输入矩阵尺寸的<strong>getOptimalDFTSize</strong>函数</p>
-<p>确定最优尺寸后需要改变图像尺寸，为了不对图像进行缩放，OpenCV4提供了<strong>copyMakeBorder</strong>函数用于在图像周围形成外框</p>
-<p>由于离散傅里叶变换完得到的数值可能为双通道的复数，在实际使用过程中更加关注复数的幅值，因此OpenCV4提供了<strong>magnitude</strong>函数用于计算由两个矩阵组成的二维向量矩阵的幅值矩阵</p>
-<h2 id="傅里叶变换进行卷积"><a href="#傅里叶变换进行卷积" class="headerlink" title="傅里叶变换进行卷积"></a>傅里叶变换进行卷积</h2><p>傅里叶变换可以将两个矩阵的卷积转换成两个矩阵傅里叶变换结果的乘积，从而极大地提高卷积的计算速度</p>
-<p>OpenCV4提供了<strong>mulSpectrums</strong>函数用于计算两个复数矩阵的乘积</p>
-<h2 id="离散余弦变换"><a href="#离散余弦变换" class="headerlink" title="离散余弦变换"></a>离散余弦变换</h2><p>类似于离散傅里叶变换，但是变换过程中只使用实数，主要用于对信号和图像的有损压缩</p>
-<p>OpenCV4提供了<strong>dct</strong>函数实现离散余弦变换，以及逆变换函数<strong>idct</strong></p>
-<h1 id="积分图像"><a href="#积分图像" class="headerlink" title="积分图像"></a>积分图像</h1><p>积分图像主要用于快速计算图像某些区域像素的平均灰度</p>
-<p>积分图像是比原图像尺寸大1的新图像，就是从$N\times N$变成$(N+1)\times(N+1)$</p>
-<p>积分图像中每个像素的像素值为原图像中该像素点与坐标原点组成的矩形内所有像素点的和</p>
-<p><img src="https://img-blog.csdn.net/20150605235951859" alt="积分图像"></p>
-<p>积分图像主要分为三种</p>
-<p>标准求和积分图像$sum(x,y)=\sum_{y’&lt;y}\sum_{x’&lt;x}I(x’,y’)$</p>
-<p>平方和积分图像$sum_{square}=\sum_{y’&lt;y}\sum_{x’&lt;x}I(x’,y’)^2$</p>
-<p>倾斜求和积分图像$sum_{tilted}=\sum_{y’&lt;y}\sum_{asb(x’-x)&lt;y}I(x’,y’)$</p>
-<p>OpenCV4提供了<strong>integral</strong>函数用于实现上述三种积分图像</p>
-<h1 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h1><p>将图像中某一类的像素点与其他像素点分开，例如黑白图像中分割黑白</p>
-<h2 id="漫水填充法"><a href="#漫水填充法" class="headerlink" title="漫水填充法"></a>漫水填充法</h2><p>该方法是根据像素灰度值之间的差值寻找相同区域以实现分割</p>
-<p>我们可以将图像的像素值理解成像素点的高度，这样一幅图像可以看成崎岖不平的地面或者山地，向地面上某一个低洼的地方倾倒一定量的水，水将掩盖低于某个高度的区域</p>
-<p>分为三步</p>
+<h1 id="角点检测"><a href="#角点检测" class="headerlink" title="角点检测"></a>角点检测</h1><p>角点就是在某方面属性特别突出的点，例如像素最大或者最小的点、线段的顶点、孤立的边缘点等</p>
+<h2 id="显示关键点"><a href="#显示关键点" class="headerlink" title="显示关键点"></a>显示关键点</h2><p>关键点是对图像中含有特殊信息的像素点的一种称呼，有时我们经过计算或已知这些点并且需要标记出来</p>
+<p>OpenCV4提供了用于一次性绘制所有关键点的函数<strong>drawKeyPoints</strong></p>
+<h2 id="Harris角点检测"><a href="#Harris角点检测" class="headerlink" title="Harris角点检测"></a>Harris角点检测</h2><p>Harris角点从像素值变化的角度对角点进行定义，像素值的局部最大峰值即为Harris角点</p>
+<p>首先以某个像素为中心构建一个矩形滑动窗口，其覆盖的图像像素通过线性叠加得到滑动窗口所有像素值的衡量系数，该系数与滑动窗口范围内的像素值成正比，在图像中以每一个像素为中心向各个方向移动滑动窗口，当无论向哪个方向移动像素值衡量系数都缩小时，窗口中心点对应的像素即为Harris角点</p>
+<p>下图是一个示意图，可见只有在P3中才能达到Harris角点的定义条件</p>
+<p><img src="https://tse3-mm.cn.bing.net/th/id/OIP.6XCS05IOAcqz0SfXHtDLYwHaEX?pid=Api&amp;rs=1" alt="harris角点"></p>
+<p>Harris角点检测原理可以用下式描述</p>
+<script type="math/tex; mode=display">
+E(u,v)=\sum_{x,y}w(x,y)[I(x+u,y+v)-I(x,y)]^2</script><p>其中$w(x,y)$表示滑动窗口权重函数，可以是常数也可以是高斯函数. $E(u,v)$是窗口向各个方向移动时像素值衡量系数的变化. 对上式泰勒展开得到</p>
+<script type="math/tex; mode=display">
+E(u,v) =[u\quad v]M\left[\begin{array}{c}u\\v \end{array}\right]</script><p>其中$M$是计算Harris角点的梯度协方差矩阵$\left[\begin{array}{cc} I_xI_x&amp;I_xI_y\\I_xI_y&amp;I_yI_y \end{array}\right]$ 其中$I_x和I_y$分别表示X和Y方向的梯度</p>
+<p>进一步简化，定义Harris角点的评价系数$R$如下式</p>
+<script type="math/tex; mode=display">
+R=det(M)-k(tr(M))^2</script><p>其中$k$为常值权重系数，$det(M)=\lambda_1\lambda_2，tr(M)=\lambda_1+\lambda_2，\lambda_1和\lambda_2是梯度协方差矩阵M的特征向量$，将特征向量带入上式</p>
+<script type="math/tex; mode=display">
+R=\lambda_1\lambda_2-k(\lambda_1+\lambda_2)^2</script><p>当R较大，角点；R&lt;0，位于直线上；|R|较小时，位于平面上</p>
+<p>OpenCV4提供了<strong>cornerHarris</strong>函数用于计算Harris角点的评价系数$R$</p>
+<h2 id="Shi-Tomas角点检测"><a href="#Shi-Tomas角点检测" class="headerlink" title="Shi-Tomas角点检测"></a>Shi-Tomas角点检测</h2><p>是Harris角点的一种变形，将特征向量的最小值作为角点评价系数，具体如下</p>
+<script type="math/tex; mode=display">
+R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为角点</p>
+<p>OpenCV4提供了<strong>goodFeaturesToTrack</strong>函数直接检测Shi-Tomas角点</p>
+<h2 id="亚像素级别角点检测"><a href="#亚像素级别角点检测" class="headerlink" title="亚像素级别角点检测"></a>亚像素级别角点检测</h2><p>目前的角点都是像素级别，即角点坐标是整数，但有时在实际项目中需要更高精度的亚像素级别的角点坐标</p>
+<p>OpenCV4提供了<strong>cornerSubPix</strong>函数根据像素级别角点坐标计算亚像素级别角点</p>
+<h1 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h1><p>特征点由关键点和描述子组成</p>
+<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><p>关键点在OpenCV4中由<strong>KeyPoint</strong>类表示，<strong>detect</strong>函数能够直接计算关键点</p>
+<h2 id="描述子"><a href="#描述子" class="headerlink" title="描述子"></a>描述子</h2><p>描述子是用来唯一描述关键点的一串数字，通过描述子可以区分两个不同关键点，也可以在两幅图像中寻找同一个关键点</p>
+<p>OpenCV4提供了用于计算每种特征点描述子的<strong>compute</strong>函数</p>
+<h2 id="SIFT特征点检测"><a href="#SIFT特征点检测" class="headerlink" title="SIFT特征点检测"></a>SIFT特征点检测</h2><p>比较复杂，篇幅较长，懒得缩写，赶紧看书</p>
+<p>OpenCV4提供了$SIFT::create$函数实现</p>
+<h2 id="SURF特征点检测"><a href="#SURF特征点检测" class="headerlink" title="SURF特征点检测"></a>SURF特征点检测</h2><p>是SIFT特征点的改进，OpenCV4提供了<strong>SURF::create</strong>函数实现</p>
+<h2 id="ORB特征点检测"><a href="#ORB特征点检测" class="headerlink" title="ORB特征点检测"></a>ORB特征点检测</h2><p>ORB特征点由FAST角点和BRIEF描述子组成</p>
+<p>FAST角点通过比较图像像素灰度值变化确定关键点，其核心思想是：如果在某个灰度值较小的区域中存在一个灰度值明显较大的像素点，那么该像素点在这个区域中具有明显的特征，可以作为特征点</p>
+<p>BRIEF描述子用于描述特征点周围像素灰度值的变化趋势</p>
+<p>OpenCV4提供了<strong>ORB::create</strong>实现</p>
+<h1 id="特征点匹配"><a href="#特征点匹配" class="headerlink" title="特征点匹配"></a>特征点匹配</h1><h2 id="DescriptorMatcher类介绍"><a href="#DescriptorMatcher类介绍" class="headerlink" title="DescriptorMatcher类介绍"></a>DescriptorMatcher类介绍</h2><p>与计算特征点相似，OpenCV4提供了特征点匹配的虚类，类中定义了不同方式实现特征点匹配的函数</p>
+<p>用于匹配的特征点描述子集合分别称为查询描述子集合和训练描述子集合</p>
+<p>具体函数和使用方法不详细关注了</p>
+<h2 id="暴力匹配"><a href="#暴力匹配" class="headerlink" title="暴力匹配"></a>暴力匹配</h2><p>暴力匹配就是计算训练描述子集合中每个训练描述子与查询描述子之间的距离，之后将所有距离排序，选择距离最小的或者满足阈值要求的描述子作为匹配结果</p>
+<p>OpenCV4提供了<strong>BFMatcher</strong>函数实现暴力匹配</p>
+<h2 id="显示特征点匹配结果"><a href="#显示特征点匹配结果" class="headerlink" title="显示特征点匹配结果"></a>显示特征点匹配结果</h2><p>OpenCV4提供了<strong>drawMatches</strong>函数用于显示两幅图像中特征点匹配结果</p>
+<h2 id="FLANN匹配"><a href="#FLANN匹配" class="headerlink" title="FLANN匹配"></a>FLANN匹配</h2><p>快速最近邻搜索，OpenCV4提供了<strong>FlannBasedMatcher</strong>实现</p>
+<h2 id="RANSAC优化特征点匹配"><a href="#RANSAC优化特征点匹配" class="headerlink" title="RANSAC优化特征点匹配"></a>RANSAC优化特征点匹配</h2><p>RANSAC算法是随机抽样一致算法简写</p>
+<p>该算法假设所有数据符合一定规律，通过随机抽样方式获取这个规律，并且通过重复获取规律寻找使得较多数据符合的规律</p>
+<p>RANSAC算法优化特征点检测可以概括为以下三步</p>
 <ol>
-<li>选择种子点(注水点)</li>
-<li>以种子点为中心，判断4-或8-邻域的像素值与种子点像素值的差值，将差值小于阈值的像素点添加进区域内</li>
-<li>将新加入的像素点作为i新的种子点，反复执行第二步，直到没有新的像素点被添加进该区域为止</li>
+<li>在匹配结果中随机选择4对特征点，计算单应矩阵</li>
+<li>将第一帧图像中的特征点根据单应矩阵求取在第二帧图像中的重投影坐标，比较重投影坐标与已匹配的特征点坐标之间的距离，如果小于一定阈值，那么认为是正确匹配点对，否则视为错误匹配，并记录正确匹配点对的数量</li>
+<li>重复第一第二步，比较多次循环后统计的正确匹配点对的数量，将正确匹配点对数量最多的情况作为最终结果，剔除错误匹配，输出正确匹配对，从而实现特征点匹配的筛选</li>
 </ol>
-<p>OpenCV4提供了<strong>floodFill</strong>函数实现该方法分割图像</p>
-<h2 id="分水岭法"><a href="#分水岭法" class="headerlink" title="分水岭法"></a>分水岭法</h2><p>与漫水填充法类似，都是模拟水淹过地面山地，区别在与漫水填充法是从某个像素值进行分割，是一种局部分割算法，而分水岭法从全局出发，对全局进行分割</p>
-<p>分水岭法在多个局部最低点开始注水，随着注水量增加，水位升高，两个相邻的凹陷区域的水汇集，形成分水岭</p>
-<p>该方法的计算过程是一个迭代标注过程，经典的计算方式主要分为以下两步</p>
-<ol>
-<li>排序，对图像像素灰度级进行排序，确定注水点</li>
-<li>注水，不断淹没周围像素，形成分割线</li>
-</ol>
-<p>OpenCV4提供了<strong>watershed</strong>函数实现分水岭法分割图像</p>
-<h2 id="Grabcut法"><a href="#Grabcut法" class="headerlink" title="Grabcut法"></a>Grabcut法</h2><p>使用高斯混合模型估计目标区域的背景和前景，通过迭代解决了能量函数最小化问题</p>
-<p>OpenCV4提供了<strong>grabCut</strong>函数实现Grabcut法进行图像分割</p>
-<h2 id="Mean-Shift法"><a href="#Mean-Shift法" class="headerlink" title="Mean-Shift法"></a>Mean-Shift法</h2><p>又叫均值漂移法，基于颜色空间分布的图像分割算法</p>
-<p>OpenCV4提供了<strong>pyrMeanShiftFiltering</strong>函数实现该方法</p>
-<h1 id="图像修复"><a href="#图像修复" class="headerlink" title="图像修复"></a>图像修复</h1><p>OpenCV4提供了能够对含有较少污染或者水印的图像进行修复的<strong>inpaint</strong>函数</p>
+<p>OpenCV4提供了<strong>findHomography</strong>函数实现</p>
 
       
     </div>
@@ -269,7 +278,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -335,14 +344,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>

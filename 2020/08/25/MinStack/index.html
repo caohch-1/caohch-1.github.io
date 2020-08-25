@@ -22,30 +22,32 @@
     var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="仰观宇宙之无穷 俯究万类之运动">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MissSirius Planet">
-<meta property="og:url" content="https://caohch1.cn/page/9/index.html">
+  <meta name="description" content="新开了这个leetcode的category 最近没事干准备每天做两三道leetcode的题，遇到有意思的就记一记 en看《算法导论》真不下去，又想学点算法和数据结构，只能做做leetcode的简单题维持生活 LeetCode: 155 最小栈设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈  push(x) —— 将元素 x 推入栈中 pop( ) —— 删除">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Min Stack">
+<meta property="og:url" content="https://caohch1.cn/2020/08/25/MinStack/index.html">
 <meta property="og:site_name" content="MissSirius Planet">
-<meta property="og:description" content="仰观宇宙之无穷 俯究万类之运动">
+<meta property="og:description" content="新开了这个leetcode的category 最近没事干准备每天做两三道leetcode的题，遇到有意思的就记一记 en看《算法导论》真不下去，又想学点算法和数据结构，只能做做leetcode的简单题维持生活 LeetCode: 155 最小栈设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈  push(x) —— 将元素 x 推入栈中 pop( ) —— 删除">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-25T13:39:09.694Z">
+<meta property="article:modified_time" content="2020-08-25T13:40:45.304Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://caohch1.cn/page/9/">
+<link rel="canonical" href="https://caohch1.cn/2020/08/25/MinStack/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>MissSirius Planet</title>
+  <title>Min Stack | MissSirius Planet</title>
   
 
 
@@ -154,13 +156,14 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/08/Cryptography-2/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/25/MinStack/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -172,10 +175,9 @@
       <meta itemprop="name" content="MissSirius Planet">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/08/Cryptography-2/" class="post-title-link" itemprop="url">Cryptography-2:Block Cipher</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Min Stack
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -185,7 +187,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-08 21:23:16 / Modified: 21:24:50" itemprop="dateCreated datePublished" datetime="2020-08-08T21:23:16+08:00">2020-08-08</time>
+              <time title="Created: 2020-08-25 21:39:09 / Modified: 21:40:45" itemprop="dateCreated datePublished" datetime="2020-08-25T21:39:09+08:00">2020-08-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -193,7 +195,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cryptography/" itemprop="url" rel="index"><span itemprop="name">Cryptography</span></a>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
                 </span>
             </span>
 
@@ -208,63 +210,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《图解密码技术》@[日]结城浩</p>
-<h1 id="分组密码和流密码"><a href="#分组密码和流密码" class="headerlink" title="分组密码和流密码"></a>分组密码和流密码</h1><p><strong>分组密码</strong>是每次只能处理特定长度的一块数据的一类密码算法</p>
-<p><strong>流密码</strong>是对数据流进行连续处理的一类密码算法</p>
-<p>在分组密码中，明文长度超过密码长度就需要对加密算法进行迭代，迭代的方法就称为分组密码的模式</p>
-<h1 id="ECB模式"><a href="#ECB模式" class="headerlink" title="ECB模式"></a>ECB模式</h1><p>Electronic CodeBook电子密码本模式</p>
-<p>这种模式非常简单，但是存在弱点故而一般不使用</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aI2AJO.png" alt="ECB"></p>
-<p>可以看出ECB模式中明文密文分组一一对应，只要观察密文，就可以看出存在怎样的重复组合，从而作为破译线索</p>
-<p>针对ECB模式的攻击主要是<strong>改变密文分组顺序</strong></p>
-<p>假设Mallory可以改变密文分组的顺序，那就可能会有如下的攻击(只是一个例子，事实上可以造成许多意想不到的攻击)</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIRkBn.png" alt="ECB1"></p>
-<p>可能的答案是把<strong>口令</strong>全部替换成对应的<strong>名称</strong>，在攻击一个计算机系统时名称往往比密码更容易获取到，通过这种方式Mallory就绕开了原本的密码</p>
-<h1 id="CBC模式"><a href="#CBC模式" class="headerlink" title="CBC模式"></a>CBC模式</h1><p>Cipher Block Chaining密文分组链接</p>
-<p>CBC模式中，首先将明文分组与前一个密文分组进行XOR运算，然后再进行加密</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIRRgg.png" alt="CBC"></p>
-<p>CBC模式的特点在于密文分组中如果有一个分组<strong>损坏</strong>，解密时最多有两个分组受到影响；但是如果有一个分组中有比特<strong>缺失</strong>，解密时后面的所有分组都会被影响</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIW8MQ.png" alt="CBC2"></p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIW1xg.png" alt="CBC3"></p>
-<p>针对CBC模式的攻击一般有两种，第一种是通过<strong>翻转初始化向量中的某一位比特</strong>，那么相应明文分组中的对应一位比特也会翻转，从而获取可能的破译信息；还有一种是<strong>填充提示攻击</strong>，该攻击利用分组密码的填充部分，攻击者反复修改填充部分的比特获取对应的服务器返回信息，从而获取破译线索，这种攻击方式适用于几乎所有分组密码，这种攻击听上去不太实际，然而2014年对SSL3.0造成重大影响的POODLE攻击就是该种攻击</p>
-<h1 id="CFB模式"><a href="#CFB模式" class="headerlink" title="CFB模式"></a>CFB模式</h1><p>Cipher Feedback密文反馈</p>
-<p>该模式下前一个密文分组会被送到密码算法的输入端</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIfMwR.png" alt="CFB"></p>
-<p>CFB模式和一次性密码本很相似，CFB中密码算法的输出相当于一次性密码本中的随机比特序列，当然密码算法的输出毕竟还是计算得到的，故而CFB模式不会像一次性密码本那样具备理论上不可破译的性质；CFB模式中密码算法生成的比特序列称为<strong>密钥流</strong>；CFB模式中明文数据可以被逐比特加密，因此CFB模式可以看作是一种用<strong>分组密码来实现流密码</strong>的方式</p>
-<p>对CFB模式可以实施<strong>重放攻击</strong></p>
-<p>Alice向Bob发送有四个密文分组的消息，被Mallory窃听并且保留下了后三个分组，后来Alice又向Bob发送了一条有四个密文分组的消息，Mallory替换了其中的后三个分组，那么只有明文分组2会解密出错，明文分组3、4都会被替换成之前的消息，而Bob无法分辨分组2到底是被人恶意替换还是通信错误导致的</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aI4cZj.png" alt="CFB3"></p>
-<h1 id="OFB模式"><a href="#OFB模式" class="headerlink" title="OFB模式"></a>OFB模式</h1><p>Output-Feedback输出反馈模式</p>
-<p>OFB模式中，密码算法的输出会反馈到密码算法的输入中</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aI4oyF.png" alt="OFB"></p>
-<p>在OFB模式中密钥流可以提前通过密码算法生成，与明文分组无关，而众所周知XOR运算很快，这意味着只要提前准备好密钥流就可以快速加密，换而言之，生成密钥流和进行XOR运算可以并行</p>
-<h1 id="CTR模式"><a href="#CTR模式" class="headerlink" title="CTR模式"></a>CTR模式</h1><p>CounTeR计数器模式</p>
-<p>通过将逐次累加的计数器进行加密来生成密钥流的流密码</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aII65n.png" alt="CTR"></p>
-<p>关于计数器的生成，每次加密时都会生成一个不同的值(nonce)来作为计数器的初始值，当分组长度为128比特时，计数器的初始值可能向下面这样</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIIOxK.png" alt="CTR1"></p>
-<p>CTR模式中可以以任意顺序对分组进行加密解密，这意味着可以实现并行计算</p>
-<p>再来看攻击，通过翻转密文分组中的某些比特，那么相应明文分组中的对应比特也会翻转，从而获取可能的破译信息，这是坏处；换个角度看，这一特点也保证如果通信过程中只有一个分组的密文受到损坏，那么不会影响解密后其他的明文分组，错误不会被放大，这也是好处</p>
-
-      
+        <p>新开了这个leetcode的category</p>
+<p>最近没事干准备每天做两三道leetcode的题，遇到有意思的就记一记</p>
+<p>en看《算法导论》真不下去，又想学点算法和数据结构，只能做做leetcode的简单题维持生活</p>
+<h1 id="LeetCode-155-最小栈"><a href="#LeetCode-155-最小栈" class="headerlink" title="LeetCode: 155 最小栈"></a>LeetCode: 155 最小栈</h1><p>设计一个支持 <strong>push</strong> ，<strong>pop</strong> ，<strong>top</strong> 操作，并能在常数时间内检索到最小元素的栈</p>
+<ul>
+<li><strong>push(x)</strong> —— 将元素 x 推入栈中</li>
+<li><strong>pop( )</strong> —— 删除栈顶的元素</li>
+<li><strong>top( )</strong> —— 获取栈顶元素</li>
+<li><strong>getMin( )</strong> —— 检索栈中的最小元素</li>
+</ul>
+<h1 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h1><p>一般使用的是<strong>辅助栈</strong>，很简单</p>
+<p>但是看到评论有个说 <strong>面试的时候被问到不能用额外空间，就去网上搜了下不用额外空间的做法，思路是栈里保存差值</strong></p>
+<p>感觉挺有意思就写了下，也不麻烦</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> minimum;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; m_stack;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MinStack() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m_stack.empty()) &#123;</span><br><span class="line">            minimum = x;</span><br><span class="line">            m_stack.push(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> dif = x - minimum;</span><br><span class="line">            m_stack.push(dif);</span><br><span class="line">            <span class="comment">//meet a smaller element! replace the old minimum</span></span><br><span class="line">            minimum = (dif &lt; <span class="number">0</span>) ? x : minimum;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m_stack.top() &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            m_stack.pop();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//pop the smallest one</span></span><br><span class="line">            <span class="comment">//calculate the second smallest element</span></span><br><span class="line">            minimum = minimum - m_stack.top();</span><br><span class="line">            m_stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m_stack.top() &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//negative element represent the dif between minimum and the 2nd smallest element</span></span><br><span class="line">            <span class="comment">//neg element means the real value here is minimum</span></span><br><span class="line">            <span class="comment">//so return minimum here</span></span><br><span class="line">            <span class="keyword">return</span> minimum;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//all element in stack represent dif</span></span><br><span class="line">            <span class="comment">//so return dif+minimum</span></span><br><span class="line">            <span class="keyword">return</span> m_stack.top() + minimum;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> minimum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>用<strong>long long</strong>是因为一开始用<strong>int</strong>，然后在leetcode交的时候出现了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Line 19: Char 25: runtime error: signed <span class="built_in">integer</span> overflow: -2147483648 - 2147483647 cannot be represented <span class="keyword">in</span> <span class="built_in">type</span> <span class="string">'int'</span> (solution.cpp)</span><br></pre></td></tr></table></figure>
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/16/BinarySearchTree/" rel="prev" title="BinarySearchTree">
+      <i class="fa fa-chevron-left"></i> BinarySearchTree
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -316,6 +302,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-155-最小栈"><span class="nav-number">1.</span> <span class="nav-text">LeetCode: 155 最小栈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#答案"><span class="nav-number">2.</span> <span class="nav-text">答案</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -452,61 +439,6 @@ document.querySelectorAll('.pdfobject-container').forEach(element => {
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-          load: ['[tex]/mhchem'],
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-          packages: {'[+]': ['mhchem']},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
