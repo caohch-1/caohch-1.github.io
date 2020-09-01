@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/14/Cryptography-5/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/11/Cryptography-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/14/Cryptography-5/" class="post-title-link" itemprop="url">Cryptography-5:Message Authentication Code</a>
+            <a href="/2020/08/11/Cryptography-3/" class="post-title-link" itemprop="url">Cryptography-3:Public-key</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-14 20:17:18 / Modified: 20:17:20" itemprop="dateCreated datePublished" datetime="2020-08-14T20:17:18+08:00">2020-08-14</time>
+              <time title="Created: 2020-08-11 17:54:36 / Modified: 17:56:12" itemprop="dateCreated datePublished" datetime="2020-08-11T17:54:36+08:00">2020-08-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,39 +209,39 @@
 
       
           <p>基于《图解密码技术》@[日]结城浩</p>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>消息认证码，简称<strong>MAC</strong>，是一种确认完整性并进行认证的技术</p>
-<p>输入：任意长度的<strong>消息</strong>；发送者与接收者<strong>共享的密钥</strong></p>
-<p>输出：固定长度的数据，称为<strong>MAC值</strong></p>
-<p>消息认证码的实现方式很多，暂且可以理解为<strong>一种与密钥相关联的单向散列函数</strong></p>
-<p>下图是一个简单的使用步骤模型</p>
-<p><img src="https://s1.ax1x.com/2020/08/14/dC4JZF.png" alt="MAC0"></p>
-<h1 id="HMAC"><a href="#HMAC" class="headerlink" title="HMAC"></a>HMAC</h1><p>HMAC是一种使用单向散列函数来构造消息认证码的方法，HMAC中的H表示Hash</p>
-<p>借助下图梳理一下HMAC的步骤</p>
-<p><img src="https://s1.ax1x.com/2020/08/14/dC4IL8.png" alt="MAC1"></p>
-<h2 id="STEP1-密钥填充"><a href="#STEP1-密钥填充" class="headerlink" title="STEP1 密钥填充:"></a>STEP1 密钥填充:</h2><p>如果密钥比单向散列函数的分组长度短，则在末尾填充0，直到长度等于分组长度</p>
-<p>如果密钥比单向散列函数的分组长度长，则求出其散列值，将其作为HMAC的密钥</p>
-<h2 id="STEP2-填充后密钥与ipad进行XOR"><a href="#STEP2-填充后密钥与ipad进行XOR" class="headerlink" title="STEP2 填充后密钥与ipad进行XOR:"></a>STEP2 填充后密钥与ipad进行XOR:</h2><p><strong>ipad</strong>是将$00110110$这一比特序列不断循环反复直到达到分组长度形成的比特序列，<strong>ipad</strong>中的<strong>i</strong>是指<strong>inner</strong></p>
-<p>XOR运算后的比特序列称为<strong>ipadkey</strong></p>
-<h2 id="STEP3-与消息组合"><a href="#STEP3-与消息组合" class="headerlink" title="STEP3 与消息组合:"></a>STEP3 与消息组合:</h2><p>将<strong>ipadkey</strong>附加在消息的开头</p>
-<h2 id="STEP4-计算散列值"><a href="#STEP4-计算散列值" class="headerlink" title="STEP4 计算散列值:"></a>STEP4 计算散列值:</h2><p>将上一步结果输入单向散列函数，并计算出散列值</p>
-<h2 id="STEP5-填充后的密钥与opad进行XOR"><a href="#STEP5-填充后的密钥与opad进行XOR" class="headerlink" title="STEP5 填充后的密钥与opad进行XOR:"></a>STEP5 填充后的密钥与opad进行XOR:</h2><p><strong>opad</strong>是将$01011100$这一比特序列不断循环反复直到达到分组长度形成的比特序列，<strong>opad</strong>中的<strong>o</strong>是指<strong>outer</strong></p>
-<p>XOR运算后的比特序列称为<strong>opadkey</strong></p>
-<h2 id="STEP6-与散列值组合"><a href="#STEP6-与散列值组合" class="headerlink" title="STEP6 与散列值组合"></a>STEP6 与散列值组合</h2><p>将STEP4的结果拼在<strong>opadkey</strong>后面</p>
-<h2 id="STEP7-计算散列值"><a href="#STEP7-计算散列值" class="headerlink" title="STEP7 计算散列值"></a>STEP7 计算散列值</h2><p>将上一步结果输入单向散列函数，并计算出散列值，即为<strong>MAC值</strong></p>
-<h1 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h1><h2 id="重放攻击"><a href="#重放攻击" class="headerlink" title="重放攻击"></a>重放攻击</h2><p>Mallory可以通过事先保存正确的MAC值不断重放来发动攻击，这一过程中Mallory并没有破解MAC</p>
-<p>i.e.</p>
-<p>Mallory到Alice银行向自己在Bob银行中的账户汇款100万</p>
-<p>Mallory窃听Alice银行发送给Bob银行的汇款请求消息以及MAC值，并保存下来</p>
-<p>Mallory把保存下来的数据发送给Bob银行，重复100次</p>
-<p>Mallory去Bob银行成功取出一亿元</p>
-<p>存在几种防御重放攻击的方法</p>
-<ul>
-<li>序号：约定每次都对发送的消息赋予一个递增的序号，这种方法有效，但是对每个通信对象都需要记录最后一个消息的序号</li>
-<li>时间戳：约定在发送消息时包含当前的时间，虽然有效，但是发送与接收者的时钟必须一致，而且考虑到通信延迟，必须在时间的判断上留下缓冲，于是多少还是存在可以进行重放攻击的空间</li>
-<li>nonce：在通信前，接收者先向发送者发送一个一次性的随机数，这种方法虽然有效，但是通信数据量会有所增加</li>
-</ul>
-<h2 id="密钥推测攻击"><a href="#密钥推测攻击" class="headerlink" title="密钥推测攻击"></a>密钥推测攻击</h2><p>和对单向散列函数的攻击一样，对MAC也可以进行<strong>暴力破解</strong>和<strong>生日攻击</strong></p>
-<h1 id="无法解决的问题"><a href="#无法解决的问题" class="headerlink" title="无法解决的问题"></a>无法解决的问题</h1><p>MAC无法达到<strong>对第三方证明</strong>和<strong>防止否认</strong>，他们的解决方案是使用<strong>数字签名</strong>，会在后面讲到</p>
+<h1 id="基本模型"><a href="#基本模型" class="headerlink" title="基本模型"></a>基本模型</h1><p>公钥密码系统解决了密钥配送问题，虽然密钥配送问题也可以通过<strong>事先共享</strong>、<strong>密钥分配中心(KDC)</strong>、<strong>Diffie-Hellman密钥交换</strong>等实现，但是前两者存在一些问题，而 <strong>Diffie-Hellman密钥交换</strong>会在以后详细探讨</p>
+<p>不同于对称密码系统，公钥密码系统的加密解密使用不同密钥，加密使用<strong>公钥</strong>，解密使用<strong>私钥</strong></p>
+<p>公钥是公开给所有人的，而私钥必须安全地保护好</p>
+<p>下图是公钥系统的一个简单模型</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aO9bW9.png" alt="公钥0"></p>
+<h1 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h1><h2 id="加密解密"><a href="#加密解密" class="headerlink" title="加密解密"></a>加密解密</h2><p>RSA是现在使用最广泛的公钥密码算法</p>
+<p>RSA的加密：$ciphertext=plaintext^E\, mod\, N$</p>
+<p>RSA的解密：$plaintext=ciphertext^D\,mod\,N$</p>
+<p><strong>(E,N)是公钥</strong>，<strong>(D,N)是私钥</strong></p>
+<p>这看似非常简单，事实上要达成这样的条件，背后的数学方法并不容易想到</p>
+<h2 id="生成密钥对"><a href="#生成密钥对" class="headerlink" title="生成密钥对"></a>生成密钥对</h2><p><strong>(E,N)是公钥</strong>，<strong>(D,N)是私钥</strong>，故而求<strong>E、D、N</strong>就是<strong>生成密钥对</strong></p>
+<h3 id="求N"><a href="#求N" class="headerlink" title="求N"></a>求N</h3><p>准备两个很大的质数$p$、$q$般通过伪随机数生成器生成一个数再判断它时不是质数</p>
+<p>接着$N=p\times q$</p>
+<h3 id="求L"><a href="#求L" class="headerlink" title="求L"></a>求L</h3><p>$L$这个数在RSA的加密解密过程中都不出现，只出现在密钥对生成过程中</p>
+<p>$L是p-1和q-1的最小公倍数$，即$L=lcm(p-1,q-1)$</p>
+<h3 id="求E"><a href="#求E" class="headerlink" title="求E"></a>求E</h3><p>$E和L的最大公约数是1$，即</p>
+<script type="math/tex; mode=display">
+1<E<L \\
+gcd(E,L)=1</script><p>可以借助欧几里德算法实现</p>
+<h3 id="求D"><a href="#求D" class="headerlink" title="求D"></a>求D</h3><p>$D、E、L$之间必须具备以下关系</p>
+<script type="math/tex; mode=display">
+1<D<L \\
+E\times D\,mod\,L=1</script><p>下图是密钥对生成流程的示意图</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aOtGTK.png" alt="RSA1"></p>
+<h2 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h2><p><img src="https://s1.ax1x.com/2020/08/11/aOtI00.png" alt="RSA2"></p>
+<p>事实上破译的关键在于两个数学问题<strong>离散对数求解问题</strong>和<strong>大整数质因数分解问题</strong>，然而目前都没有高效算法实现</p>
+<p>然而还有一种重要的攻击—— <strong>man-in-the-middle attack中间人攻击</strong></p>
+<p>这种攻击无法破译RSA，但却是针对<strong>机密性</strong>的有效攻击，中间人攻击不难理解，通过下图就能清楚展现</p>
+<p>事实上，不只是RSA，中间人攻击可以针对所有公钥密码系统</p>
+<p><img src="https://s1.ax1x.com/2020/08/11/aONrv9.png" alt="RSA3"></p>
+<h1 id="其他的公钥加密系统"><a href="#其他的公钥加密系统" class="headerlink" title="其他的公钥加密系统"></a>其他的公钥加密系统</h1><p>EIGamal，缺点是密文长度是明文两倍</p>
+<p>Rabin，利用$mod\,N$下求平方根的困难度</p>
+<p>Elliptic Curve Cryptography(EEC)椭圆曲线密码，最近备受关注的一种公钥密码算法，通过将椭圆曲线上的特定点进行特殊的乘法运算来实现，利用了这种乘法运算的逆运算非常困难这一特性，详细内容会在以后讲到</p>
 
       
     </div>
@@ -260,7 +260,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -326,14 +326,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>

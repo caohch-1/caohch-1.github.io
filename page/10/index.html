@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/08/Cryptography-2/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/04/openCV-9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/08/Cryptography-2/" class="post-title-link" itemprop="url">Cryptography-2:Block Cipher</a>
+            <a href="/2020/08/04/openCV-9/" class="post-title-link" itemprop="url">OpenCV9-Feature Point Detection and Matching</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-08 21:23:16 / Modified: 21:24:50" itemprop="dateCreated datePublished" datetime="2020-08-08T21:23:16+08:00">2020-08-08</time>
+              <time title="Created: 2020-08-04 20:11:52 / Modified: 20:17:07" itemprop="dateCreated datePublished" datetime="2020-08-04T20:11:52+08:00">2020-08-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -193,7 +193,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cryptography/" itemprop="url" rel="index"><span itemprop="name">Cryptography</span></a>
+                  <a href="/categories/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
                 </span>
             </span>
 
@@ -208,43 +208,58 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>基于《图解密码技术》@[日]结城浩</p>
-<h1 id="分组密码和流密码"><a href="#分组密码和流密码" class="headerlink" title="分组密码和流密码"></a>分组密码和流密码</h1><p><strong>分组密码</strong>是每次只能处理特定长度的一块数据的一类密码算法</p>
-<p><strong>流密码</strong>是对数据流进行连续处理的一类密码算法</p>
-<p>在分组密码中，明文长度超过密码长度就需要对加密算法进行迭代，迭代的方法就称为分组密码的模式</p>
-<h1 id="ECB模式"><a href="#ECB模式" class="headerlink" title="ECB模式"></a>ECB模式</h1><p>Electronic CodeBook电子密码本模式</p>
-<p>这种模式非常简单，但是存在弱点故而一般不使用</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aI2AJO.png" alt="ECB"></p>
-<p>可以看出ECB模式中明文密文分组一一对应，只要观察密文，就可以看出存在怎样的重复组合，从而作为破译线索</p>
-<p>针对ECB模式的攻击主要是<strong>改变密文分组顺序</strong></p>
-<p>假设Mallory可以改变密文分组的顺序，那就可能会有如下的攻击(只是一个例子，事实上可以造成许多意想不到的攻击)</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIRkBn.png" alt="ECB1"></p>
-<p>可能的答案是把<strong>口令</strong>全部替换成对应的<strong>名称</strong>，在攻击一个计算机系统时名称往往比密码更容易获取到，通过这种方式Mallory就绕开了原本的密码</p>
-<h1 id="CBC模式"><a href="#CBC模式" class="headerlink" title="CBC模式"></a>CBC模式</h1><p>Cipher Block Chaining密文分组链接</p>
-<p>CBC模式中，首先将明文分组与前一个密文分组进行XOR运算，然后再进行加密</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIRRgg.png" alt="CBC"></p>
-<p>CBC模式的特点在于密文分组中如果有一个分组<strong>损坏</strong>，解密时最多有两个分组受到影响；但是如果有一个分组中有比特<strong>缺失</strong>，解密时后面的所有分组都会被影响</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIW8MQ.png" alt="CBC2"></p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIW1xg.png" alt="CBC3"></p>
-<p>针对CBC模式的攻击一般有两种，第一种是通过<strong>翻转初始化向量中的某一位比特</strong>，那么相应明文分组中的对应一位比特也会翻转，从而获取可能的破译信息；还有一种是<strong>填充提示攻击</strong>，该攻击利用分组密码的填充部分，攻击者反复修改填充部分的比特获取对应的服务器返回信息，从而获取破译线索，这种攻击方式适用于几乎所有分组密码，这种攻击听上去不太实际，然而2014年对SSL3.0造成重大影响的POODLE攻击就是该种攻击</p>
-<h1 id="CFB模式"><a href="#CFB模式" class="headerlink" title="CFB模式"></a>CFB模式</h1><p>Cipher Feedback密文反馈</p>
-<p>该模式下前一个密文分组会被送到密码算法的输入端</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIfMwR.png" alt="CFB"></p>
-<p>CFB模式和一次性密码本很相似，CFB中密码算法的输出相当于一次性密码本中的随机比特序列，当然密码算法的输出毕竟还是计算得到的，故而CFB模式不会像一次性密码本那样具备理论上不可破译的性质；CFB模式中密码算法生成的比特序列称为<strong>密钥流</strong>；CFB模式中明文数据可以被逐比特加密，因此CFB模式可以看作是一种用<strong>分组密码来实现流密码</strong>的方式</p>
-<p>对CFB模式可以实施<strong>重放攻击</strong></p>
-<p>Alice向Bob发送有四个密文分组的消息，被Mallory窃听并且保留下了后三个分组，后来Alice又向Bob发送了一条有四个密文分组的消息，Mallory替换了其中的后三个分组，那么只有明文分组2会解密出错，明文分组3、4都会被替换成之前的消息，而Bob无法分辨分组2到底是被人恶意替换还是通信错误导致的</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aI4cZj.png" alt="CFB3"></p>
-<h1 id="OFB模式"><a href="#OFB模式" class="headerlink" title="OFB模式"></a>OFB模式</h1><p>Output-Feedback输出反馈模式</p>
-<p>OFB模式中，密码算法的输出会反馈到密码算法的输入中</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aI4oyF.png" alt="OFB"></p>
-<p>在OFB模式中密钥流可以提前通过密码算法生成，与明文分组无关，而众所周知XOR运算很快，这意味着只要提前准备好密钥流就可以快速加密，换而言之，生成密钥流和进行XOR运算可以并行</p>
-<h1 id="CTR模式"><a href="#CTR模式" class="headerlink" title="CTR模式"></a>CTR模式</h1><p>CounTeR计数器模式</p>
-<p>通过将逐次累加的计数器进行加密来生成密钥流的流密码</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aII65n.png" alt="CTR"></p>
-<p>关于计数器的生成，每次加密时都会生成一个不同的值(nonce)来作为计数器的初始值，当分组长度为128比特时，计数器的初始值可能向下面这样</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/aIIOxK.png" alt="CTR1"></p>
-<p>CTR模式中可以以任意顺序对分组进行加密解密，这意味着可以实现并行计算</p>
-<p>再来看攻击，通过翻转密文分组中的某些比特，那么相应明文分组中的对应比特也会翻转，从而获取可能的破译信息，这是坏处；换个角度看，这一特点也保证如果通信过程中只有一个分组的密文受到损坏，那么不会影响解密后其他的明文分组，错误不会被放大，这也是好处</p>
+          <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
+<h1 id="角点检测"><a href="#角点检测" class="headerlink" title="角点检测"></a>角点检测</h1><p>角点就是在某方面属性特别突出的点，例如像素最大或者最小的点、线段的顶点、孤立的边缘点等</p>
+<h2 id="显示关键点"><a href="#显示关键点" class="headerlink" title="显示关键点"></a>显示关键点</h2><p>关键点是对图像中含有特殊信息的像素点的一种称呼，有时我们经过计算或已知这些点并且需要标记出来</p>
+<p>OpenCV4提供了用于一次性绘制所有关键点的函数<strong>drawKeyPoints</strong></p>
+<h2 id="Harris角点检测"><a href="#Harris角点检测" class="headerlink" title="Harris角点检测"></a>Harris角点检测</h2><p>Harris角点从像素值变化的角度对角点进行定义，像素值的局部最大峰值即为Harris角点</p>
+<p>首先以某个像素为中心构建一个矩形滑动窗口，其覆盖的图像像素通过线性叠加得到滑动窗口所有像素值的衡量系数，该系数与滑动窗口范围内的像素值成正比，在图像中以每一个像素为中心向各个方向移动滑动窗口，当无论向哪个方向移动像素值衡量系数都缩小时，窗口中心点对应的像素即为Harris角点</p>
+<p>下图是一个示意图，可见只有在P3中才能达到Harris角点的定义条件</p>
+<p><img src="https://tse3-mm.cn.bing.net/th/id/OIP.6XCS05IOAcqz0SfXHtDLYwHaEX?pid=Api&amp;rs=1" alt="harris角点"></p>
+<p>Harris角点检测原理可以用下式描述</p>
+<script type="math/tex; mode=display">
+E(u,v)=\sum_{x,y}w(x,y)[I(x+u,y+v)-I(x,y)]^2</script><p>其中$w(x,y)$表示滑动窗口权重函数，可以是常数也可以是高斯函数. $E(u,v)$是窗口向各个方向移动时像素值衡量系数的变化. 对上式泰勒展开得到</p>
+<script type="math/tex; mode=display">
+E(u,v) =[u\quad v]M\left[\begin{array}{c}u\\v \end{array}\right]</script><p>其中$M$是计算Harris角点的梯度协方差矩阵$\left[\begin{array}{cc} I_xI_x&amp;I_xI_y\\I_xI_y&amp;I_yI_y \end{array}\right]$ 其中$I_x和I_y$分别表示X和Y方向的梯度</p>
+<p>进一步简化，定义Harris角点的评价系数$R$如下式</p>
+<script type="math/tex; mode=display">
+R=det(M)-k(tr(M))^2</script><p>其中$k$为常值权重系数，$det(M)=\lambda_1\lambda_2，tr(M)=\lambda_1+\lambda_2，\lambda_1和\lambda_2是梯度协方差矩阵M的特征向量$，将特征向量带入上式</p>
+<script type="math/tex; mode=display">
+R=\lambda_1\lambda_2-k(\lambda_1+\lambda_2)^2</script><p>当R较大，角点；R&lt;0，位于直线上；|R|较小时，位于平面上</p>
+<p>OpenCV4提供了<strong>cornerHarris</strong>函数用于计算Harris角点的评价系数$R$</p>
+<h2 id="Shi-Tomas角点检测"><a href="#Shi-Tomas角点检测" class="headerlink" title="Shi-Tomas角点检测"></a>Shi-Tomas角点检测</h2><p>是Harris角点的一种变形，将特征向量的最小值作为角点评价系数，具体如下</p>
+<script type="math/tex; mode=display">
+R=min(\lambda_1,\lambda_2)</script><p>当$R$大与某一阈值，则判断它为角点</p>
+<p>OpenCV4提供了<strong>goodFeaturesToTrack</strong>函数直接检测Shi-Tomas角点</p>
+<h2 id="亚像素级别角点检测"><a href="#亚像素级别角点检测" class="headerlink" title="亚像素级别角点检测"></a>亚像素级别角点检测</h2><p>目前的角点都是像素级别，即角点坐标是整数，但有时在实际项目中需要更高精度的亚像素级别的角点坐标</p>
+<p>OpenCV4提供了<strong>cornerSubPix</strong>函数根据像素级别角点坐标计算亚像素级别角点</p>
+<h1 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h1><p>特征点由关键点和描述子组成</p>
+<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><p>关键点在OpenCV4中由<strong>KeyPoint</strong>类表示，<strong>detect</strong>函数能够直接计算关键点</p>
+<h2 id="描述子"><a href="#描述子" class="headerlink" title="描述子"></a>描述子</h2><p>描述子是用来唯一描述关键点的一串数字，通过描述子可以区分两个不同关键点，也可以在两幅图像中寻找同一个关键点</p>
+<p>OpenCV4提供了用于计算每种特征点描述子的<strong>compute</strong>函数</p>
+<h2 id="SIFT特征点检测"><a href="#SIFT特征点检测" class="headerlink" title="SIFT特征点检测"></a>SIFT特征点检测</h2><p>比较复杂，篇幅较长，懒得缩写，赶紧看书</p>
+<p>OpenCV4提供了$SIFT::create$函数实现</p>
+<h2 id="SURF特征点检测"><a href="#SURF特征点检测" class="headerlink" title="SURF特征点检测"></a>SURF特征点检测</h2><p>是SIFT特征点的改进，OpenCV4提供了<strong>SURF::create</strong>函数实现</p>
+<h2 id="ORB特征点检测"><a href="#ORB特征点检测" class="headerlink" title="ORB特征点检测"></a>ORB特征点检测</h2><p>ORB特征点由FAST角点和BRIEF描述子组成</p>
+<p>FAST角点通过比较图像像素灰度值变化确定关键点，其核心思想是：如果在某个灰度值较小的区域中存在一个灰度值明显较大的像素点，那么该像素点在这个区域中具有明显的特征，可以作为特征点</p>
+<p>BRIEF描述子用于描述特征点周围像素灰度值的变化趋势</p>
+<p>OpenCV4提供了<strong>ORB::create</strong>实现</p>
+<h1 id="特征点匹配"><a href="#特征点匹配" class="headerlink" title="特征点匹配"></a>特征点匹配</h1><h2 id="DescriptorMatcher类介绍"><a href="#DescriptorMatcher类介绍" class="headerlink" title="DescriptorMatcher类介绍"></a>DescriptorMatcher类介绍</h2><p>与计算特征点相似，OpenCV4提供了特征点匹配的虚类，类中定义了不同方式实现特征点匹配的函数</p>
+<p>用于匹配的特征点描述子集合分别称为查询描述子集合和训练描述子集合</p>
+<p>具体函数和使用方法不详细关注了</p>
+<h2 id="暴力匹配"><a href="#暴力匹配" class="headerlink" title="暴力匹配"></a>暴力匹配</h2><p>暴力匹配就是计算训练描述子集合中每个训练描述子与查询描述子之间的距离，之后将所有距离排序，选择距离最小的或者满足阈值要求的描述子作为匹配结果</p>
+<p>OpenCV4提供了<strong>BFMatcher</strong>函数实现暴力匹配</p>
+<h2 id="显示特征点匹配结果"><a href="#显示特征点匹配结果" class="headerlink" title="显示特征点匹配结果"></a>显示特征点匹配结果</h2><p>OpenCV4提供了<strong>drawMatches</strong>函数用于显示两幅图像中特征点匹配结果</p>
+<h2 id="FLANN匹配"><a href="#FLANN匹配" class="headerlink" title="FLANN匹配"></a>FLANN匹配</h2><p>快速最近邻搜索，OpenCV4提供了<strong>FlannBasedMatcher</strong>实现</p>
+<h2 id="RANSAC优化特征点匹配"><a href="#RANSAC优化特征点匹配" class="headerlink" title="RANSAC优化特征点匹配"></a>RANSAC优化特征点匹配</h2><p>RANSAC算法是随机抽样一致算法简写</p>
+<p>该算法假设所有数据符合一定规律，通过随机抽样方式获取这个规律，并且通过重复获取规律寻找使得较多数据符合的规律</p>
+<p>RANSAC算法优化特征点检测可以概括为以下三步</p>
+<ol>
+<li>在匹配结果中随机选择4对特征点，计算单应矩阵</li>
+<li>将第一帧图像中的特征点根据单应矩阵求取在第二帧图像中的重投影坐标，比较重投影坐标与已匹配的特征点坐标之间的距离，如果小于一定阈值，那么认为是正确匹配点对，否则视为错误匹配，并记录正确匹配点对的数量</li>
+<li>重复第一第二步，比较多次循环后统计的正确匹配点对的数量，将正确匹配点对数量最多的情况作为最终结果，剔除错误匹配，输出正确匹配对，从而实现特征点匹配的筛选</li>
+</ol>
+<p>OpenCV4提供了<strong>findHomography</strong>函数实现</p>
 
       
     </div>
@@ -263,7 +278,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -329,14 +344,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
