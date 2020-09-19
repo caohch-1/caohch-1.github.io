@@ -31,7 +31,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s1.ax1x.com/2020/09/19/w5Ra79.png">
 <meta property="article:published_time" content="2020-09-19T05:38:17.693Z">
-<meta property="article:modified_time" content="2020-09-19T05:45:09.819Z">
+<meta property="article:modified_time" content="2020-09-19T05:46:58.703Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/09/19/w5Ra79.png">
@@ -189,7 +189,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-09-19 13:38:17 / Modified: 13:45:09" itemprop="dateCreated datePublished" datetime="2020-09-19T13:38:17+08:00">2020-09-19</time>
+              <time title="Created: 2020-09-19 13:38:17 / Modified: 13:46:58" itemprop="dateCreated datePublished" datetime="2020-09-19T13:38:17+08:00">2020-09-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,6 +221,7 @@
 <p>但是Substitution Cipher需要一个一个猜，很折磨</p>
 <h1 id="Cryptanalysis-of-the-Vigenere-Cipher"><a href="#Cryptanalysis-of-the-Vigenere-Cipher" class="headerlink" title="Cryptanalysis of the Vigenere Cipher"></a>Cryptanalysis of the Vigenere Cipher</h1><p>首先要确定密钥长度</p>
 <p>Kasiski’s Method: 密文中重复多次出现的相同组合，它们之间的距离是密钥长度的整数倍</p>
+<p>Index of coincidence: <script type="math/tex">I_c=\frac{\sum_{letter} C_{\#\,of\,appearences\,of\,letter}^2}{C_{length\,of\,plaintext}^2}</script>，对于正常的英文文本，$I_c\approx0.065$，所以不断尝试密钥长度分割密文并计算每段密文的$I_c$，接近0.065的就很可能是正确的密钥长度</p>
 <p>接着确定密钥内容</p>
 <p>也是暴力尝试，每一段密文上经过解密后的26种可能中最接近0.065的就是那一位的密钥</p>
 <p>折 磨 密 码</p>
