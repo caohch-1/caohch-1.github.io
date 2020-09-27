@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/11/Cryptography-4/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/14/Cryptography-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/11/Cryptography-4/" class="post-title-link" itemprop="url">Cryptography-4:One-way Hash Function</a>
+            <a href="/2020/08/14/Cryptography-5/" class="post-title-link" itemprop="url">Cryptography-5:Message Authentication Code</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-11 23:42:36 / Modified: 23:45:37" itemprop="dateCreated datePublished" datetime="2020-08-11T23:42:36+08:00">2020-08-11</time>
+              <time title="Created: 2020-08-14 20:17:18 / Modified: 20:17:20" itemprop="dateCreated datePublished" datetime="2020-08-14T20:17:18+08:00">2020-08-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,63 +209,39 @@
 
       
           <p>基于《图解密码技术》@[日]结城浩</p>
-<h1 id="单向散列函数性质"><a href="#单向散列函数性质" class="headerlink" title="单向散列函数性质"></a>单向散列函数性质</h1><h2 id="散列值长度固定"><a href="#散列值长度固定" class="headerlink" title="散列值长度固定"></a>散列值长度固定</h2><p>单向散列函数的输入必须能够是任意长度的消息，且无论输入的消息多长，必须能够生成长度短且固定的散列值</p>
-<h2 id="抗碰撞性"><a href="#抗碰撞性" class="headerlink" title="抗碰撞性"></a>抗碰撞性</h2><p>两个不同的消息产生同一个散列值称为<strong>碰撞</strong>，如果要将单向散列函数用于完整性检查，必须保证在事实上不可能被人为地发现碰撞</p>
-<p>弱抗碰撞性：要找到和某条消息具有相同散列值的另一条消息是非常困难的</p>
-<p>强抗碰撞性：要找到散列值相同的两条不同的消息是非常困难的</p>
-<h2 id="单向性"><a href="#单向性" class="headerlink" title="单向性"></a>单向性</h2><p>无法通过散列值反推出消息，基于口令的加密(PBE)和伪随机数生成器等技术中就用到了单向性</p>
-<h1 id="SHA-3"><a href="#SHA-3" class="headerlink" title="SHA-3"></a>SHA-3</h1><p>单向散列函数的具体例子有很多，这里主要讲述SHA-3</p>
-<p>SHA-3是一种作为新标准发布的单向散列函数算法，用来替代理论上已被找出攻击方法的SHA-1算法</p>
-<p>Keccak算法于2012年击败别的候选算法被确定为SHA-3标准</p>
-<h2 id="海绵结构"><a href="#海绵结构" class="headerlink" title="海绵结构"></a>海绵结构</h2><p>Keccak算法采用了与SHA-1、SHA-2完全不同的<strong>海绵结构</strong>，该结构中输入的数据在进行填充后经过<strong>吸收阶段</strong>和<strong>挤出阶段</strong>，最终生成散列值</p>
-<p><img src="https://s1.ax1x.com/2020/08/11/aXUqud.png" alt="SHA-3"></p>
-<p>吸收阶段流程：</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>消息认证码，简称<strong>MAC</strong>，是一种确认完整性并进行认证的技术</p>
+<p>输入：任意长度的<strong>消息</strong>；发送者与接收者<strong>共享的密钥</strong></p>
+<p>输出：固定长度的数据，称为<strong>MAC值</strong></p>
+<p>消息认证码的实现方式很多，暂且可以理解为<strong>一种与密钥相关联的单向散列函数</strong></p>
+<p>下图是一个简单的使用步骤模型</p>
+<p><img src="https://s1.ax1x.com/2020/08/14/dC4JZF.png" alt="MAC0"></p>
+<h1 id="HMAC"><a href="#HMAC" class="headerlink" title="HMAC"></a>HMAC</h1><p>HMAC是一种使用单向散列函数来构造消息认证码的方法，HMAC中的H表示Hash</p>
+<p>借助下图梳理一下HMAC的步骤</p>
+<p><img src="https://s1.ax1x.com/2020/08/14/dC4IL8.png" alt="MAC1"></p>
+<h2 id="STEP1-密钥填充"><a href="#STEP1-密钥填充" class="headerlink" title="STEP1 密钥填充:"></a>STEP1 密钥填充:</h2><p>如果密钥比单向散列函数的分组长度短，则在末尾填充0，直到长度等于分组长度</p>
+<p>如果密钥比单向散列函数的分组长度长，则求出其散列值，将其作为HMAC的密钥</p>
+<h2 id="STEP2-填充后密钥与ipad进行XOR"><a href="#STEP2-填充后密钥与ipad进行XOR" class="headerlink" title="STEP2 填充后密钥与ipad进行XOR:"></a>STEP2 填充后密钥与ipad进行XOR:</h2><p><strong>ipad</strong>是将$00110110$这一比特序列不断循环反复直到达到分组长度形成的比特序列，<strong>ipad</strong>中的<strong>i</strong>是指<strong>inner</strong></p>
+<p>XOR运算后的比特序列称为<strong>ipadkey</strong></p>
+<h2 id="STEP3-与消息组合"><a href="#STEP3-与消息组合" class="headerlink" title="STEP3 与消息组合:"></a>STEP3 与消息组合:</h2><p>将<strong>ipadkey</strong>附加在消息的开头</p>
+<h2 id="STEP4-计算散列值"><a href="#STEP4-计算散列值" class="headerlink" title="STEP4 计算散列值:"></a>STEP4 计算散列值:</h2><p>将上一步结果输入单向散列函数，并计算出散列值</p>
+<h2 id="STEP5-填充后的密钥与opad进行XOR"><a href="#STEP5-填充后的密钥与opad进行XOR" class="headerlink" title="STEP5 填充后的密钥与opad进行XOR:"></a>STEP5 填充后的密钥与opad进行XOR:</h2><p><strong>opad</strong>是将$01011100$这一比特序列不断循环反复直到达到分组长度形成的比特序列，<strong>opad</strong>中的<strong>o</strong>是指<strong>outer</strong></p>
+<p>XOR运算后的比特序列称为<strong>opadkey</strong></p>
+<h2 id="STEP6-与散列值组合"><a href="#STEP6-与散列值组合" class="headerlink" title="STEP6 与散列值组合"></a>STEP6 与散列值组合</h2><p>将STEP4的结果拼在<strong>opadkey</strong>后面</p>
+<h2 id="STEP7-计算散列值"><a href="#STEP7-计算散列值" class="headerlink" title="STEP7 计算散列值"></a>STEP7 计算散列值</h2><p>将上一步结果输入单向散列函数，并计算出散列值，即为<strong>MAC值</strong></p>
+<h1 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h1><h2 id="重放攻击"><a href="#重放攻击" class="headerlink" title="重放攻击"></a>重放攻击</h2><p>Mallory可以通过事先保存正确的MAC值不断重放来发动攻击，这一过程中Mallory并没有破解MAC</p>
+<p>i.e.</p>
+<p>Mallory到Alice银行向自己在Bob银行中的账户汇款100万</p>
+<p>Mallory窃听Alice银行发送给Bob银行的汇款请求消息以及MAC值，并保存下来</p>
+<p>Mallory把保存下来的数据发送给Bob银行，重复100次</p>
+<p>Mallory去Bob银行成功取出一亿元</p>
+<p>存在几种防御重放攻击的方法</p>
 <ul>
-<li>将经过填充的输入消息按照每r比特为一组分割成若干个输入分组</li>
-<li>首先，将“内部状态的$r$比特”与“输入分组1”进行XOR，将其结果作为“函数$f$的输入值”</li>
-<li>然后，将“函数f的输出值$r$个比特”与“输入分组2”进行XOR，将其结果再次作为“函数$f$的输入值”</li>
-<li>反复执行上述步骤，直到达到最后一个输入分组</li>
-<li>等所有的输入分组处理完成后，结束吸收阶段，进入挤出阶段</li>
+<li>序号：约定每次都对发送的消息赋予一个递增的序号，这种方法有效，但是对每个通信对象都需要记录最后一个消息的序号</li>
+<li>时间戳：约定在发送消息时包含当前的时间，虽然有效，但是发送与接收者的时钟必须一致，而且考虑到通信延迟，必须在时间的判断上留下缓冲，于是多少还是存在可以进行重放攻击的空间</li>
+<li>nonce：在通信前，接收者先向发送者发送一个一次性的随机数，这种方法虽然有效，但是通信数据量会有所增加</li>
 </ul>
-<p>函数$f$的作用是将输入的数据进行复杂的搅拌操作并输出结果（输入和输出的长度均为$b=r+c$个比特），其操作对象是长度为$b=r+c$个比特的内部状态，内部状态的初始值为0. 每次被吸收的输入分组长度为$r$个比特，因此$r$被称为比特率。</p>
-<p>通过上图可以看出，函数$f$的输入长度不是$r$个比特，而是$r+c$个比特，这意味着内部状态中有$c$个比特时不受输入分组内容直接影响的（但会通过函数$f$受到间接影响）。这里的$c$被称为容量。</p>
-<p>挤出阶段流程</p>
-<ul>
-<li>首先，将“函数$f$的输出值中的$r$个比特”保存为“输出分组1”，并将整个输出值（$r+c$个比特）再次输入到函数$f$中</li>
-<li>然后，将“函数$f$的树池值中的$r$个比特”保存为“输出分组2”，并将整个输出值（$r+c$个比特）再次输入到函数$f$中</li>
-<li>反复执行上面的步骤，直到获得所需长度的输出数据</li>
-</ul>
-<h2 id="双工结构"><a href="#双工结构" class="headerlink" title="双工结构"></a>双工结构</h2><p>海绵结构的变形</p>
-<p>在海绵结构中，只有将输入的消息全部吸收完毕之后才能开始输出，但在双工结构中，输入和输出是以相同的速率进行的</p>
-<p><img src="https://s1.ax1x.com/2020/08/11/aXaGUx.png" alt="双工"></p>
-<h2 id="Keccak内部结构"><a href="#Keccak内部结构" class="headerlink" title="Keccak内部结构"></a>Keccak内部结构</h2><p>每个小方块代表一个比特</p>
-<p><img src="https://s1.ax1x.com/2020/08/11/aXaIZn.png" alt="内部结构"></p>
-<p>再来看看内部的搅拌函数$f$，它包含五个步骤：$\theta、\rho、\pi、\chi、\iota$</p>
-<p>$\theta$：</p>
-<p>将位置不同的两个column中各自5个比特通过XOR运算加起来(图中$\sum$标志)，然后再与置换目标比特求XOR并覆盖目标比特</p>
-<p><img src="https://s1.ax1x.com/2020/08/11/aXdKFP.png" alt="theta"></p>
-<p>$\rho$：</p>
-<p>沿$z$轴(lane方向)进行比特平移</p>
-<p><img src="https://s1.ax1x.com/2020/08/11/aXdsOJ.png" alt="rho"></p>
-<p>$\pi$：</p>
-<p>如图是对一片slice应用该步骤时的样子，事实上整条lane上的slice都会执行这一操作</p>
-<p><img src="https://s1.ax1x.com/2020/08/11/aXdffK.png" alt="pi"></p>
-<p>$\chi$：</p>
-<p>如图是对一个row应用该步骤的情景，这里使用了逻辑电路中的符号，其中<strong>小三角后加点</strong>代表输入比特取反(NOT)，<strong>矩形后加半圆</strong>表示两个输入均为1时输出1(AND)</p>
-<p><img src="https://s1.ax1x.com/2020/08/11/aXdH0A.png" alt="chi"></p>
-<p>$\iota$：</p>
-<p>用一个固定的轮常数对整个state的所有比特进行XOR运算，目的是让内部状态具备非对称性</p>
-<h1 id="对单向散列函数的攻击"><a href="#对单向散列函数的攻击" class="headerlink" title="对单向散列函数的攻击"></a>对单向散列函数的攻击</h1><h2 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h2><p>每次稍微改变一下消息的值，然后对消息求散列值，其实就是寻找具有特定散列值的消息，是针对<strong>弱抗碰撞性</strong>的攻击</p>
-<p>找出具有相同散列值的消息的攻击一般分为两种</p>
-<ul>
-<li>原像攻击：给定散列值，找出具有该值的任意消息</li>
-<li>第二原像攻击：给定一条消息1，找出另外一条消息2，他们散列值相同</li>
-</ul>
-<h2 id="生日攻击"><a href="#生日攻击" class="headerlink" title="生日攻击"></a>生日攻击</h2><p>找到散列相同的两条消息，而散列值可以是任意的，这称为生日攻击或者冲突攻击，是针对<strong>强抗碰撞性</strong>的攻击</p>
-<p>这种攻击原理来源于<strong>生日悖论</strong>，具体不展开，很好理解</p>
-<p>这种攻击比起暴力破解尝试次数要少的多</p>
-<h1 id="单向散列函数的问题"><a href="#单向散列函数的问题" class="headerlink" title="单向散列函数的问题"></a>单向散列函数的问题</h1><p>单向散列函数能够辨别消息是否被<strong>篡改</strong>，但是无法辨别<strong>伪装</strong></p>
-<p>我们通常不仅仅需要检查文件的完整性，还需要确认这个文件是否真的属于某个人，这时就需要<strong>认证</strong>，可以通过<strong>消息验证码</strong>和<strong>数字签名</strong>技术实现，以后会具体讲述</p>
+<h2 id="密钥推测攻击"><a href="#密钥推测攻击" class="headerlink" title="密钥推测攻击"></a>密钥推测攻击</h2><p>和对单向散列函数的攻击一样，对MAC也可以进行<strong>暴力破解</strong>和<strong>生日攻击</strong></p>
+<h1 id="无法解决的问题"><a href="#无法解决的问题" class="headerlink" title="无法解决的问题"></a>无法解决的问题</h1><p>MAC无法达到<strong>对第三方证明</strong>和<strong>防止否认</strong>，他们的解决方案是使用<strong>数字签名</strong>，会在后面讲到</p>
 
       
     </div>
@@ -284,7 +260,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -350,7 +326,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/08/Cryptography-1/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/08/Cryptography-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/08/Cryptography-1/" class="post-title-link" itemprop="url">Cryptography-1:Symmetric Cryptography</a>
+            <a href="/2020/08/08/Cryptography-2/" class="post-title-link" itemprop="url">Cryptography-2:Block Cipher</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-08 00:57:18 / Modified: 00:57:19" itemprop="dateCreated datePublished" datetime="2020-08-08T00:57:18+08:00">2020-08-08</time>
+              <time title="Created: 2020-08-08 21:23:16 / Modified: 21:24:50" itemprop="dateCreated datePublished" datetime="2020-08-08T21:23:16+08:00">2020-08-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,54 +209,42 @@
 
       
           <p>基于《图解密码技术》@[日]结城浩</p>
-<h1 id="XOR异或"><a href="#XOR异或" class="headerlink" title="XOR异或"></a>XOR异或</h1><script type="math/tex; mode=display">
-0\oplus0=0\\
-0\oplus1=1\\
-1\oplus0=1\\
-1\oplus1=1\\</script><p>与加法不同，不需要进位</p>
-<p>对同一个比特序列重复两次XOR运算就会复原</p>
-<p>XOR运算会大量运用在后面的密码技术中</p>
-<h1 id="一次性密码本"><a href="#一次性密码本" class="headerlink" title="一次性密码本"></a>一次性密码本</h1><p>一次性密码本是已经在理论上被证明不存在破译方法的加密方式，即使是对密钥空间进行暴力破解也无法破译</p>
-<h2 id="加密解密过程"><a href="#加密解密过程" class="headerlink" title="加密解密过程"></a>加密解密过程</h2><script type="math/tex; mode=display">
-plaintext\oplus key=ciphertext\\
-ciphertext\oplus key=plaintext</script><p>这里的密钥$key$必须是随机比特序列</p>
-<h2 id="无法破译的原因"><a href="#无法破译的原因" class="headerlink" title="无法破译的原因"></a>无法破译的原因</h2><p>我们假设对一次性密码本的密文进行暴力破解，那么我们终有一天会尝试到加密时所用的$key$从而获得$plaintext$，这毋庸置疑，然而关键点在于我们<strong>无法判断它是否是正确的明文</strong></p>
-<p>i.e.</p>
-<p>假设 $plaintext=”midnight”$，它会被编码成64位的比特序列，被一串随机比特序列的$key$加密</p>
-<p>Eve经过暴力破解后会获得诸如$”aaaaaaaa”,”abcdefgh”,”ZZZZZZZZ”,”onenight”,”mistress”$包括$”midnight”$的大量规则、不规则、有意义和无意义的字符串，而Eve无法判断他们是不是正确的明文</p>
-<p>但是即使它如此优秀，无法被破译，可事实上无人会使用这种加密方式</p>
-<ul>
-<li>密钥配送，这是最大的问题，Alice和Bob必须持有相同的$key$去加密解密，如果能安全传输$key$为什么不直接安全传输$plaintext$</li>
-<li>密钥保存，和配送类似，$key$和$plaintext$长度相同，如果能安全保存$key$何不直接安全保存$plaintext$</li>
-</ul>
-<h1 id="DES-Data-Encryption-Standard"><a href="#DES-Data-Encryption-Standard" class="headerlink" title="DES(Data Encryption Standard)"></a>DES(Data Encryption Standard)</h1><p>大人，时代变了，DES已经能被暴力破解了，不能再用了</p>
-<p>DES是一种对称密码算法也是分组密码，将64比特明文加密成64比特密文，密钥长度56比特(事实上是64比特，但是每隔7比特会设置一个用于错误检查的比特)</p>
-<p>值的关注的是DES的结构，也就是Feistel网络</p>
-<p>Feistel网络中加密的各个步骤称为<strong>轮(round)</strong>，整个加密过程就是进行若干次轮的循环，DES是一种16轮循环的Feistel网络</p>
-<p><img src="https://s1.ax1x.com/2020/08/07/ahOWM6.png" alt="feistel" style="zoom: 67%;" /></p>
-<p>上图是Feistel网络中一轮的示意图，可以看出输入比特序列的右侧并没有被加密，故而Feistel网络在两轮之间会把左右数据对调</p>
-<p><img src="https://s1.ax1x.com/2020/08/07/ahjnnf.png" alt="feistel" style="zoom:67%;" /></p>
-<p>Feistel网络的特点在与加密的关键在与轮函数，而轮函数无论被设计的多么复杂，设计成没有反函数，最终也可以成功解密；而且Feistel网络的加密解密结构完全相同，这正是由于其在每一轮中对右侧序列不进行操作带来的</p>
-<h1 id="差分分析与线性分析"><a href="#差分分析与线性分析" class="headerlink" title="差分分析与线性分析"></a>差分分析与线性分析</h1><p>两者都是针对都是分组密码的分析方法</p>
-<p>差分分析：改变一部分明文并分析密文如何随之改变，理论上明文即使只改变一个比特，密文也应该发生彻底的改变</p>
-<p>线性分析：将明文和密文的一些对应比特进行XOR并计算结果为零的概率，结果应该为$\frac{1}{2}$，如果能找到大幅$\frac{1}{2}$的部分，就能借此推测密钥相关信息</p>
-<h1 id="三重DES"><a href="#三重DES" class="headerlink" title="三重DES"></a>三重DES</h1><p>由于DES可以被暴力破解，故而开发了三重DES</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/a4VFpV.png" alt="triple_des" style="zoom:67%;" /></p>
-<p>若$key1=key2=key3$，则就是普通的DES，故而三重DES具备向下兼容性，得益于第二步是<strong>解密</strong>而非加密</p>
-<p>若$key1=key3\neq key2$，则称为DES-EDE2</p>
-<p>若$key1\neq key2 \neq key3$，则称为DES-EDE3</p>
-<p>三重DES被银行等机构使用，但是其处理速度不高，除了特别重视向下兼容的场合，很少用于新用途</p>
-<h1 id="AES-Advanced-Encryption-Standard"><a href="#AES-Advanced-Encryption-Standard" class="headerlink" title="AES(Advanced Encryption Standard)"></a>AES(Advanced Encryption Standard)</h1><p>取代DES成为新标准的一种对称密码算法，2000年从全世界范围内提交的众多算法中选出了名为Rijndael的对称密码算法，确定为AES</p>
-<p>Rijndael没有采用Feistel网络，而是使用了SPN结构</p>
-<p>Rijndael的输入分组为128比特(16字节)</p>
-<h2 id="Step1：SubBytes"><a href="#Step1：SubBytes" class="headerlink" title="Step1：SubBytes"></a>Step1：SubBytes</h2><p>逐字节替换，可以想象成<strong>简单替换密码</strong>的256字母版本</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/a4ZnKS.png" alt="subBytes"></p>
-<h2 id="Step2：ShiftRows"><a href="#Step2：ShiftRows" class="headerlink" title="Step2：ShiftRows"></a>Step2：ShiftRows</h2><p>以4字节为单位的行按照一定规则左平移，每一行平移字节数不同</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/a4ZKbQ.png" alt="shiftRows"></p>
-<h2 id="Step3：MixColumns"><a href="#Step3：MixColumns" class="headerlink" title="Step3：MixColumns"></a>Step3：MixColumns</h2><p>对一个4字节的值进行比特运算，将其变为另一个4字节值</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/a4ZuDg.png" alt="MixColumns"></p>
-<h2 id="Ste4：AddRoundKey"><a href="#Ste4：AddRoundKey" class="headerlink" title="Ste4：AddRoundKey"></a>Ste4：AddRoundKey</h2><p>将Step3的输出结果与轮密钥进行XOR，至此一轮结束</p>
-<p><img src="https://s1.ax1x.com/2020/08/08/a4ZQEj.png" alt="addRoundKey"></p>
+<h1 id="分组密码和流密码"><a href="#分组密码和流密码" class="headerlink" title="分组密码和流密码"></a>分组密码和流密码</h1><p><strong>分组密码</strong>是每次只能处理特定长度的一块数据的一类密码算法</p>
+<p><strong>流密码</strong>是对数据流进行连续处理的一类密码算法</p>
+<p>在分组密码中，明文长度超过密码长度就需要对加密算法进行迭代，迭代的方法就称为分组密码的模式</p>
+<h1 id="ECB模式"><a href="#ECB模式" class="headerlink" title="ECB模式"></a>ECB模式</h1><p>Electronic CodeBook电子密码本模式</p>
+<p>这种模式非常简单，但是存在弱点故而一般不使用</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aI2AJO.png" alt="ECB"></p>
+<p>可以看出ECB模式中明文密文分组一一对应，只要观察密文，就可以看出存在怎样的重复组合，从而作为破译线索</p>
+<p>针对ECB模式的攻击主要是<strong>改变密文分组顺序</strong></p>
+<p>假设Mallory可以改变密文分组的顺序，那就可能会有如下的攻击(只是一个例子，事实上可以造成许多意想不到的攻击)</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aIRkBn.png" alt="ECB1"></p>
+<p>可能的答案是把<strong>口令</strong>全部替换成对应的<strong>名称</strong>，在攻击一个计算机系统时名称往往比密码更容易获取到，通过这种方式Mallory就绕开了原本的密码</p>
+<h1 id="CBC模式"><a href="#CBC模式" class="headerlink" title="CBC模式"></a>CBC模式</h1><p>Cipher Block Chaining密文分组链接</p>
+<p>CBC模式中，首先将明文分组与前一个密文分组进行XOR运算，然后再进行加密</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aIRRgg.png" alt="CBC"></p>
+<p>CBC模式的特点在于密文分组中如果有一个分组<strong>损坏</strong>，解密时最多有两个分组受到影响；但是如果有一个分组中有比特<strong>缺失</strong>，解密时后面的所有分组都会被影响</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aIW8MQ.png" alt="CBC2"></p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aIW1xg.png" alt="CBC3"></p>
+<p>针对CBC模式的攻击一般有两种，第一种是通过<strong>翻转初始化向量中的某一位比特</strong>，那么相应明文分组中的对应一位比特也会翻转，从而获取可能的破译信息；还有一种是<strong>填充提示攻击</strong>，该攻击利用分组密码的填充部分，攻击者反复修改填充部分的比特获取对应的服务器返回信息，从而获取破译线索，这种攻击方式适用于几乎所有分组密码，这种攻击听上去不太实际，然而2014年对SSL3.0造成重大影响的POODLE攻击就是该种攻击</p>
+<h1 id="CFB模式"><a href="#CFB模式" class="headerlink" title="CFB模式"></a>CFB模式</h1><p>Cipher Feedback密文反馈</p>
+<p>该模式下前一个密文分组会被送到密码算法的输入端</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aIfMwR.png" alt="CFB"></p>
+<p>CFB模式和一次性密码本很相似，CFB中密码算法的输出相当于一次性密码本中的随机比特序列，当然密码算法的输出毕竟还是计算得到的，故而CFB模式不会像一次性密码本那样具备理论上不可破译的性质；CFB模式中密码算法生成的比特序列称为<strong>密钥流</strong>；CFB模式中明文数据可以被逐比特加密，因此CFB模式可以看作是一种用<strong>分组密码来实现流密码</strong>的方式</p>
+<p>对CFB模式可以实施<strong>重放攻击</strong></p>
+<p>Alice向Bob发送有四个密文分组的消息，被Mallory窃听并且保留下了后三个分组，后来Alice又向Bob发送了一条有四个密文分组的消息，Mallory替换了其中的后三个分组，那么只有明文分组2会解密出错，明文分组3、4都会被替换成之前的消息，而Bob无法分辨分组2到底是被人恶意替换还是通信错误导致的</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aI4cZj.png" alt="CFB3"></p>
+<h1 id="OFB模式"><a href="#OFB模式" class="headerlink" title="OFB模式"></a>OFB模式</h1><p>Output-Feedback输出反馈模式</p>
+<p>OFB模式中，密码算法的输出会反馈到密码算法的输入中</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aI4oyF.png" alt="OFB"></p>
+<p>在OFB模式中密钥流可以提前通过密码算法生成，与明文分组无关，而众所周知XOR运算很快，这意味着只要提前准备好密钥流就可以快速加密，换而言之，生成密钥流和进行XOR运算可以并行</p>
+<h1 id="CTR模式"><a href="#CTR模式" class="headerlink" title="CTR模式"></a>CTR模式</h1><p>CounTeR计数器模式</p>
+<p>通过将逐次累加的计数器进行加密来生成密钥流的流密码</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aII65n.png" alt="CTR"></p>
+<p>关于计数器的生成，每次加密时都会生成一个不同的值(nonce)来作为计数器的初始值，当分组长度为128比特时，计数器的初始值可能向下面这样</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/aIIOxK.png" alt="CTR1"></p>
+<p>CTR模式中可以以任意顺序对分组进行加密解密，这意味着可以实现并行计算</p>
+<p>再来看攻击，通过翻转密文分组中的某些比特，那么相应明文分组中的对应比特也会翻转，从而获取可能的破译信息，这是坏处；换个角度看，这一特点也保证如果通信过程中只有一个分组的密文受到损坏，那么不会影响解密后其他的明文分组，错误不会被放大，这也是好处</p>
 
       
     </div>
@@ -275,7 +263,7 @@ ciphertext\oplus key=plaintext</script><p>这里的密钥$key$必须是随机比
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -341,7 +329,7 @@ ciphertext\oplus key=plaintext</script><p>这里的密钥$key$必须是随机比
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
