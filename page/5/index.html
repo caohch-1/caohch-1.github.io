@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/16/BinarySearchTree/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/09/09/CS152-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/16/BinarySearchTree/" class="post-title-link" itemprop="url">BinarySearchTree</a>
+            <a href="/2020/09/09/CS152-1/" class="post-title-link" itemprop="url">CS152 Week1</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-08-16 20:59:26 / Modified: 21:01:04" itemprop="dateCreated datePublished" datetime="2020-08-16T20:59:26+08:00">2020-08-16</time>
+              <time title="Created: 2020-09-09 22:48:54 / Modified: 23:10:41" itemprop="dateCreated datePublished" datetime="2020-09-09T22:48:54+08:00">2020-09-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -193,7 +193,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                  <a href="/categories/Cryptography/" itemprop="url" rel="index"><span itemprop="name">Cryptography</span></a>
                 </span>
             </span>
 
@@ -208,16 +208,64 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong><em>基于《算法导论》中的伪代码 以及部分网络资源</em></strong></p>
-<h1 id="BinarySearchNode"><a href="#BinarySearchNode" class="headerlink" title="BinarySearchNode"></a>BinarySearchNode</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BinarySearchNode</span> &#123;</span></span><br><span class="line">    BinarySearchNode(<span class="keyword">int</span> x) &#123;</span><br><span class="line">        key = x;</span><br><span class="line">        parent = <span class="literal">nullptr</span>;</span><br><span class="line">        left = <span class="literal">nullptr</span>;</span><br><span class="line">        right = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> key;</span><br><span class="line">    BinarySearchNode *parent;</span><br><span class="line">    BinarySearchNode *left;</span><br><span class="line">    BinarySearchNode *right;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinarySearchTree</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    BinarySearchNode *root;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//构造和析构</span></span><br><span class="line">    BinarySearchTree(<span class="keyword">int</span> data);</span><br><span class="line">    ~BinarySearchTree();</span><br><span class="line">	<span class="comment">//获取根节点 获取自己 （用于外部调用）</span></span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">GETROOT</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>-&gt;root; &#125;;</span><br><span class="line">    <span class="function">BinarySearchTree *<span class="title">GETTREE</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>; &#125;;</span><br><span class="line">	<span class="comment">//返回树中最大or最小节点</span></span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">TREE_MINIMUM</span><span class="params">(BinarySearchNode *node)</span></span>;</span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">TREE_MAXIMUM</span><span class="params">(BinarySearchNode *node)</span></span>;</span><br><span class="line">    <span class="comment">//插入</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">TREE_INSERT</span><span class="params">(BinarySearchTree *tree, <span class="keyword">int</span> data)</span></span>;</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">TRANSPLANT</span><span class="params">(BinarySearchTree *tree, BinarySearchNode *u, BinarySearchNode *v)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">TREE_DELETE</span><span class="params">(BinarySearchTree *tree, <span class="keyword">int</span> data)</span></span>;</span><br><span class="line">	<span class="comment">//某节点的后继</span></span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">TREE_SUCCESSOR</span><span class="params">(BinarySearchNode *node)</span></span>;</span><br><span class="line">	<span class="comment">//中序遍历打印</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">INORDER_TREE_WALK</span><span class="params">(BinarySearchNode *node)</span></span>;</span><br><span class="line">	<span class="comment">//搜索某节点</span></span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">TREE_SEARCH</span><span class="params">(BinarySearchNode *node, <span class="keyword">int</span> data)</span></span>;</span><br><span class="line">    <span class="function">BinarySearchNode *<span class="title">ITERATIVE_TREE_SEARCH</span><span class="params">(BinarySearchNode *node, <span class="keyword">int</span> data)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="Initialize"><a href="#Initialize" class="headerlink" title="Initialize"></a>Initialize</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BinarySearchTree::BinarySearchTree(<span class="keyword">int</span> data) &#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;root = <span class="keyword">new</span> BinarySearchNode(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="MinimumNode-and-MaximumNode"><a href="#MinimumNode-and-MaximumNode" class="headerlink" title="MinimumNode and MaximumNode"></a>MinimumNode and MaximumNode</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BinarySearchNode *<span class="title">BinarySearchTree::TREE_MINIMUM</span><span class="params">(BinarySearchNode *node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (node-&gt;left != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        node = node-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BinarySearchNode *<span class="title">BinarySearchTree::TREE_MAXIMUM</span><span class="params">(BinarySearchNode *node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (node-&gt;right != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        node = node-&gt;right;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BinarySearchTree::TREE_INSERT</span><span class="params">(BinarySearchTree *tree, <span class="keyword">int</span> data)</span> </span>&#123;</span><br><span class="line">    BinarySearchNode *node = <span class="keyword">new</span> BinarySearchNode(data);</span><br><span class="line">    BinarySearchNode *y = <span class="literal">nullptr</span>;</span><br><span class="line">    BinarySearchNode *x = tree-&gt;root;</span><br><span class="line">    <span class="keyword">while</span> (x != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        y = x;</span><br><span class="line">        <span class="keyword">if</span> (node-&gt;key &lt; x-&gt;key) &#123;</span><br><span class="line">            x = x-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            x = x-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    node-&gt;parent = y;</span><br><span class="line">    <span class="keyword">if</span> (y == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        tree-&gt;root = node;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node-&gt;key &lt; y-&gt;key) &#123;</span><br><span class="line">        y-&gt;left = node;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        y-&gt;right = node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Delete"><a href="#Delete" class="headerlink" title="Delete(???)"></a>Delete(???)</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//辅助函数 子树替换</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BinarySearchTree::TRANSPLANT</span><span class="params">(BinarySearchTree *tree, BinarySearchNode *u, BinarySearchNode *v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (u-&gt;parent == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        tree-&gt;root = v;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (u == u-&gt;parent-&gt;left) &#123;</span><br><span class="line">        u-&gt;parent-&gt;left = v;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        u-&gt;parent-&gt;right = v;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (v != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        v-&gt;parent = u-&gt;parent;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BinarySearchTree::TREE_DELETE</span><span class="params">(BinarySearchTree *tree, <span class="keyword">int</span> data)</span> </span>&#123;</span><br><span class="line">    BinarySearchNode *z = tree-&gt;TREE_SEARCH(tree-&gt;GETROOT(), data);</span><br><span class="line">    <span class="keyword">if</span> (z == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (z-&gt;left == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        tree-&gt;TRANSPLANT(tree, z, z-&gt;right);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (z-&gt;right == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        tree-&gt;TRANSPLANT(tree, z, z-&gt;left);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        BinarySearchNode *y = tree-&gt;TREE_MINIMUM(z-&gt;right);</span><br><span class="line">        <span class="keyword">if</span> (y-&gt;parent != z) &#123;</span><br><span class="line">            tree-&gt;TRANSPLANT(tree, y, y-&gt;right);</span><br><span class="line">            y-&gt;right = z-&gt;right;</span><br><span class="line">            y-&gt;right-&gt;parent = y;</span><br><span class="line">        &#125;</span><br><span class="line">        tree-&gt;TRANSPLANT(tree, z, y);</span><br><span class="line">        y-&gt;left = z-&gt;left;</span><br><span class="line">        y-&gt;left = z-&gt;left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Successor"><a href="#Successor" class="headerlink" title="Successor"></a>Successor</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BinarySearchNode *<span class="title">BinarySearchTree::TREE_SUCCESSOR</span><span class="params">(BinarySearchNode *node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node-&gt;right != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>-&gt;TREE_MINIMUM(node-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    BinarySearchNode *successor = node-&gt;parent;</span><br><span class="line">    <span class="keyword">while</span> (successor != <span class="literal">nullptr</span> &amp;&amp; node == successor-&gt;right) &#123;</span><br><span class="line">        node = successor;</span><br><span class="line">        successor = successor-&gt;parent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> successor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="function">BinarySearchNode *<span class="title">BinarySearchTree::TREE_SEARCH</span><span class="params">(BinarySearchNode *node, <span class="keyword">int</span> data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="literal">nullptr</span> || data == node-&gt;key) &#123;</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"No such node in tree"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (data &lt; node-&gt;key) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>-&gt;TREE_SEARCH(node-&gt;left, data);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>-&gt;TREE_SEARCH(node-&gt;right, data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//一般用这个</span></span><br><span class="line"><span class="function">BinarySearchNode *<span class="title">BinarySearchTree::ITERATIVE_TREE_SEARCH</span><span class="params">(BinarySearchNode *node, <span class="keyword">int</span> data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (node != <span class="literal">nullptr</span> &amp;&amp; data != node-&gt;key) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data &lt; node-&gt;key) &#123;</span><br><span class="line">            node = node-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            node = node-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Printer"><a href="#Printer" class="headerlink" title="Printer"></a>Printer</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BinarySearchTree::INORDER_TREE_WALK</span><span class="params">(BinarySearchNode *node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;INORDER_TREE_WALK(node-&gt;left);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; node-&gt;key &lt;&lt; <span class="string">" &lt;= "</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;INORDER_TREE_WALK(node-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h1 id="Shift-Cipher"><a href="#Shift-Cipher" class="headerlink" title="Shift Cipher"></a>Shift Cipher</h1><p>Generalization of Caesar’s cipher </p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{array}{c}
+P=C=K=Z_{26}\\
+e_K(x) = x+K\\
+d_K(y) = y-K\\
+\end{array}\right.</script><h1 id="Affine-Cipher"><a href="#Affine-Cipher" class="headerlink" title="Affine Cipher"></a>Affine Cipher</h1><script type="math/tex; mode=display">
+\left\{
+\begin{array}{c}
+P=C=Z_{26}\\
+K=\{(a,b)\in Z_{26}\times Z_{26}:gcd(a,26)=1\}\\
+e_K(x) = ax+b\\
+d_K(y) = a^{-1}(y-b)\\
+\end{array}\right.</script><h1 id="Hill-Cipher"><a href="#Hill-Cipher" class="headerlink" title="Hill Cipher"></a>Hill Cipher</h1><script type="math/tex; mode=display">
+
+\left\{
+\begin{array}{c}
+P=(Z_{26})^n,n\geq2\,is\,an\,int\\
+C = (Z_{26})^n\\
+K=\{n\times n\,invertible\,matrices\,over\,Z_{26}\}\\
+e_K(x)=xK\\
+d_K(y)=yK^{-1}\\
+\end{array}\right.</script><h2 id="Matrix-over-Zm"><a href="#Matrix-over-Zm" class="headerlink" title="Matrix over Zm"></a>Matrix over Zm</h2><script type="math/tex; mode=display">
+\left\{
+\begin{array}{c}
+det(K)=\sum_{j=1}^n(-1)^{i+j}k_{i,j}det(K_{ij})\\
+K^{-1}=(detK)^{-1}K^{*}\\
+adjoint\,matrix\,K^*=(k_{i,j}^*):k_{i,j}^{*}=(-1)^{i+j}det(K_{ji})\\
+Don't\,forget\,mod\\
+\end{array}\right.</script><p>手算太累了而且容易错，快速糊了个码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment">#拓展欧几里德算法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">eea</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    s = [<span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line">    t = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">    r = [a, b]</span><br><span class="line">    q = [<span class="literal">None</span>, a // b]</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        r.append(r[<span class="number">-2</span>] % r[<span class="number">-1</span>])</span><br><span class="line">        <span class="keyword">if</span> r[<span class="number">-1</span>] == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> (s[<span class="number">-1</span>] &lt; <span class="number">0</span>):</span><br><span class="line">                s[<span class="number">-1</span>] += b</span><br><span class="line">            <span class="keyword">return</span> s[<span class="number">-1</span>], t[<span class="number">-1</span>], r[<span class="number">-2</span>]</span><br><span class="line">        s.append(s[<span class="number">-2</span>] - q[<span class="number">-1</span>] * s[<span class="number">-1</span>])</span><br><span class="line">        t.append(t[<span class="number">-2</span>] - q[<span class="number">-1</span>] * t[<span class="number">-1</span>])</span><br><span class="line">        q.append(r[<span class="number">-2</span>] // r[<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#Z_m下的矩阵求逆</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invMatrix</span><span class="params">(matrix, n)</span>:</span></span><br><span class="line">    det = round(np.linalg.det(matrix)) % <span class="number">26</span></span><br><span class="line">    detInv = eea(det, n)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    res = np.zeros(shape=matrix.shape, dtype=int)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(res.shape[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(res.shape[<span class="number">1</span>]):</span><br><span class="line">            temp = np.delete(matrix, j, axis=<span class="number">0</span>)</span><br><span class="line">            temp = np.delete(temp, i, axis=<span class="number">1</span>)</span><br><span class="line">            tempDet = round(detInv * pow(<span class="number">-1</span>, i + j) * np.linalg.det(temp)) % <span class="number">26</span></span><br><span class="line">            res[i, j] = tempDet</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h1 id="Substitution-Cipher"><a href="#Substitution-Cipher" class="headerlink" title="Substitution Cipher"></a>Substitution Cipher</h1><script type="math/tex; mode=display">
+\left\{
+\begin{array}{c}
+P=C=Z_{26}\\
+K:the\,set\,of\,all\,possible\,permutations\,of\,Z_{26}\\
+e_\pi(x) = \pi(x)\\
+d_\pi(y) = \pi^{-1}(y)\quad where\,\pi^{-1}\,is\,the\,inverse\,permutation\,to\,\pi
+\end{array}\right.</script><p>说白了就是换字母，$Shift\,Cipher$应该算是一种$Substitution\,Cipher$吧</p>
+<h1 id="Permutation-Cipher"><a href="#Permutation-Cipher" class="headerlink" title="Permutation Cipher"></a>Permutation Cipher</h1><script type="math/tex; mode=display">
+\left\{
+\begin{array}{c}
+P=(Z_{26})^n,n\geq0\,is\,an\,int\\
+C=(Z_{26})^n\\
+K=the\,set\,of\,all\,permutations\,of[n]\\
+e_\pi(x)=(x_{\pi^{-1}(1)},x_{\pi^{-1}(2)},\ldots,x_{\pi^{-1}(n)})\\
+d_\pi(y)=(y_{\pi^{-1}(1)},y_{\pi^{-1}(2)},\ldots,y_{\pi^{-1}(n)})\\
+\end{array}\right.</script><p>其实说白了就是换位置，属于一种$Block\,Cipher$</p>
+<h1 id="Vigenere-Cipher"><a href="#Vigenere-Cipher" class="headerlink" title="Vigenere Cipher"></a>Vigenere Cipher</h1><p>Generalization of shift cipher</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{array}{c}
+P=C=K=Z_{26}\\
+e_K(x)=(x_1+k_1,x_2+k_2,\ldots,x_n+k_n)\\
+d_K(y)=(y_1-k_1,y_2-k_2,\ldots,y_n-k_n)\\
+\end{array}\right.</script><p>$Shift\,Cipher$每位明文位移的数量相同，而$Vigenere\,Cipher$则不同，它同样也属于一种$Block\,Cipher$</p>
+<p><em>第一周就讲了点古典密码，都比较容易理解，虽然不想记笔记，但是还是想把头开好，还是糊一篇吧</em></p>
 
       
     </div>
@@ -236,7 +284,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -302,7 +350,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -425,6 +473,61 @@ document.querySelectorAll('.pdfobject-container').forEach(element => {
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
