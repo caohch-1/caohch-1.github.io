@@ -31,10 +31,12 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s3.ax1x.com/2020/11/25/Dd1SBt.png">
 <meta property="og:image" content="https://s3.ax1x.com/2020/11/25/Dd8T7q.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/28/D6rzwj.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/28/D6rxmQ.png">
 <meta property="og:image" content="https://s3.ax1x.com/2020/11/25/DdNKsg.png">
 <meta property="og:image" content="https://s3.ax1x.com/2020/11/28/D6URbt.png">
 <meta property="article:published_time" content="2020-11-28T15:22:11.055Z">
-<meta property="article:modified_time" content="2020-11-28T15:27:58.106Z">
+<meta property="article:modified_time" content="2020-11-28T15:31:08.603Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s3.ax1x.com/2020/11/25/Dd1SBt.png">
@@ -192,7 +194,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-11-28 23:22:11 / Modified: 23:27:58" itemprop="dateCreated datePublished" datetime="2020-11-28T23:22:11+08:00">2020-11-28</time>
+              <time title="Created: 2020-11-28 23:22:11 / Modified: 23:31:08" itemprop="dateCreated datePublished" datetime="2020-11-28T23:22:11+08:00">2020-11-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,67 +261,8 @@ f_{Y|X}(y|x)=\frac{f_{X|Y}(x|y)f_Y(y)}{f_X(x)}</script><script type="math/tex; m
 f_X(x)=\int_{-\infty}^{+\infty}f_{X|Y}(x|y)f_{Y}(y)\,dy</script><h3 id="Bayes’-Rule-Inference-Perspective"><a href="#Bayes’-Rule-Inference-Perspective" class="headerlink" title="Bayes’ Rule: Inference Perspective"></a>Bayes’ Rule: Inference Perspective</h3><p><a href="https://imgchr.com/i/Dd8T7q" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2020/11/25/Dd8T7q.png" alt="Dd8T7q.png"></a></p>
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h3><p>A light bulb produced by the GE company is known to have an exponential distributed lifetime $Y$. However, the company has been experiencing quality control problems. On any given day, the parameter $\lambda$ of the PDF of $Y$ is actually a random variable. uniformly distributed in the interval $[1, 3/2]$. We test a light bulb and record its lifetime. What we can say about the underlying parameter $\lambda$?</p>
 <p><strong>Solution:</strong>  $f_{\Lambda|Y}(\lambda|y)=\frac{2\cdot \lambda e^{-\lambda y}}{\int_{1}^{\frac{3}{2}}2te^{-ty}\,dt}$</p>
-<h3 id="General-Bayes’-Rule"><a href="#General-Bayes’-Rule" class="headerlink" title="General Bayes’ Rule"></a>General Bayes’ Rule</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">$Y$ discrete</th>
-<th style="text-align:center">$Y$ continuous</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$X$ discrete</td>
-<td style="text-align:center">$P(Y=y</td>
-<td style="text-align:center">X=x)=\frac{P(X=x</td>
-<td>Y=y)P(Y=y)}{P(X=x)}$</td>
-<td>$f_Y(y</td>
-<td>X=x)=\frac{P(X=x</td>
-<td>Y=y)f_Y(y)}{P(X=x)}$</td>
-</tr>
-<tr>
-<td style="text-align:center">$X$ continuous</td>
-<td style="text-align:center">$P(Y=y</td>
-<td style="text-align:center">X=x)=\frac{f_X(x</td>
-<td>Y=y)P(Y=y)}{f_X(x)}$</td>
-<td>$f_{Y</td>
-<td>X}(y</td>
-<td>x)=\frac{f_{X</td>
-<td>Y}(x</td>
-<td>y)f_Y(y)}{f_X(x)}$</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="General-LOTP"><a href="#General-LOTP" class="headerlink" title="General LOTP"></a>General LOTP</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">$Y$ discrete</th>
-<th style="text-align:center">$Y$ continuous</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$X$ discrete</td>
-<td style="text-align:center">$P(X=x)=\sum\limits_y P(X=x</td>
-<td style="text-align:center">Y=y)P(Y=y)$</td>
-<td>$P(X=x)=\int_{-\infty}^{+\infty}P(X=x</td>
-<td>Y=y)f_Y(y)\,dy$</td>
-</tr>
-<tr>
-<td style="text-align:center">$X$ continuous</td>
-<td style="text-align:center">$f_X(x)=\sum\limits_yf_X(x</td>
-<td style="text-align:center">Y=y)P(Y=y)$</td>
-<td>$f_X(x)=\int_{-\infty}^{+\infty}f_{X</td>
-<td>Y}(x</td>
-<td>y)f_Y(y)\,dy$</td>
-</tr>
-</tbody>
-</table>
-</div>
+<h3 id="General-Bayes’-Rule"><a href="#General-Bayes’-Rule" class="headerlink" title="General Bayes’ Rule"></a>General Bayes’ Rule</h3><p><img src="https://s3.ax1x.com/2020/11/28/D6rzwj.png" alt="D6rzwj.png"></p>
+<h3 id="General-LOTP"><a href="#General-LOTP" class="headerlink" title="General LOTP"></a>General LOTP</h3><p><img src="https://s3.ax1x.com/2020/11/28/D6rxmQ.png" alt="D6rxmQ.png"></p>
 <h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example:"></a>Example:</h3><p>A binary signal $S$ is transmitted, and we are given that $P(S = 1) = p$ and $P(S = 1) = 1-p$. The received signal is $Y = N + S$, where $N$ is normal noise, with zero mean and unit variance, independent of $S$. What is the probability that $S = 1$, as a function of the observed value $y$ of $Y$ ?</p>
 <p><strong>Solution:</strong> $P(S=1|Y=y)=\frac{pe^y}{pe^y+(1-p)e^{-y}}$</p>
 <h3 id="Example-Comparing-Exponentials-of-Different-Rates"><a href="#Example-Comparing-Exponentials-of-Different-Rates" class="headerlink" title="Example: Comparing Exponentials of Different Rates"></a>Example: Comparing Exponentials of Different Rates</h3><p>Let $T_1 \sim Expo( \lambda_1 )$, $T_2 \sim Expo( \lambda_2 )$, $T_1$ and $T_2$ are independent. Find $P(T_1 &lt; T_2 )$.</p>
