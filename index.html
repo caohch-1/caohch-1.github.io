@@ -183,10 +183,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-11-28 23:22:11 / Modified: 23:31:08" itemprop="dateCreated datePublished" datetime="2020-11-28T23:22:11+08:00">2020-11-28</time>
+              <time title="Created: 2020-11-28 23:22:11" itemprop="dateCreated datePublished" datetime="2020-11-28T23:22:11+08:00">2020-11-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-30 08:55:48" itemprop="dateModified" datetime="2020-11-30T08:55:48+08:00">2020-11-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -308,7 +314,27 @@ P(X_1=n_1,\dots, X_k=n_k)=\frac{n!}{n_1!n_2!\dots n_k!}\cdots p_1^{n_1}p_2^{n_2}
 <script type="math/tex; mode=display">
 (X_2,\dots,X_k)|X_1=n_1\sim Mult_{k-1}(n-n_1,(p_2',\dots,p_k')),</script><p>where $p_j’=p_j/(p_2+\cdots+p_k)$.</p>
 <h3 id="Covariance-in-A-Multinomial-Theorem"><a href="#Covariance-in-A-Multinomial-Theorem" class="headerlink" title="Covariance in A Multinomial Theorem"></a>Covariance in A Multinomial Theorem</h3><p>Let $(X_1,\dots,X_k)\sim Mult_k(n,p)$, where $p=(p_1,\dots,p_k)$. For $i\neq j$, $Cov(X_i, X_j)= -np_i p_j$.</p>
-<h2 id="Multivariate-Normal"><a href="#Multivariate-Normal" class="headerlink" title="Multivariate Normal"></a>Multivariate Normal</h2><p>To be continued</p>
+<h2 id="Multivariate-Normal"><a href="#Multivariate-Normal" class="headerlink" title="Multivariate Normal"></a>Multivariate Normal</h2><h3 id="Definition1-4"><a href="#Definition1-4" class="headerlink" title="Definition1:"></a>Definition1:</h3><p>A random vector $X = (X_1 , \dots, X_k )$ is said to have a <strong><em>Multivariate Normal</em></strong> (MVN) distribution if every linear combination of the $X_j$ has<br>a Normal distribution. That is, we require</p>
+<script type="math/tex; mode=display">
+t_1X_!+\dots+t_kX_k</script><p>to have a Normal distribution for any choice of constants $t_1 , \dots, t_k$. If $t_1 X_1 + \dots + t_k X_k$ is a constant (such as when all $t_i = 0$), we consider it to have a Normal distribution, albeit a degenerate Normal with variance 0. An important special case is $k = 2$; this distribution is called the Bivariate Normal (BVN).</p>
+<h3 id="Theorem1"><a href="#Theorem1" class="headerlink" title="Theorem1:"></a>Theorem1:</h3><p>If $(X_1 , X_2 , X_3 )$ is Multivariate Normal, then so is the subvector $(X_1 , X_2 )$.</p>
+<h3 id="Theorem2"><a href="#Theorem2" class="headerlink" title="Theorem2:"></a>Theorem2:</h3><p>If $X = (X_1 , \dots, X_n )$ and $Y = (Y_1 , \dots, Y_m )$ are MVN vectors with $X$ independent of $Y$, then the concatenated random vector $W = (X_1 , \dots, X_n , Y_1 , \dots, Y_m )$ is Multivariate Normal.</p>
+<h3 id="Parameters-of-MVN"><a href="#Parameters-of-MVN" class="headerlink" title="Parameters of MVN"></a>Parameters of MVN</h3><p>Parameters of an MVN random vector $(X_1 , \dots , X_k )$ are:</p>
+<ul>
+<li>the mean vector $(μ_1 , \dots , μ_k )$, where $E (X_j ) = μ_j$ .</li>
+<li>the covariance matrix, which is the $k \times k$ matrix of covariance between components, arranged so that the row $i$, column $j$ entry is $Cov (X_i , X_j )$.</li>
+</ul>
+<h3 id="Joint-MGF"><a href="#Joint-MGF" class="headerlink" title="Joint MGF"></a>Joint MGF</h3><p>The joint MGF of a random vector $X = (X_1 , \dots, X_k )$ is the function which takes a vector of constants $t = (t_1 , \dots, t_k )$ and returns</p>
+<script type="math/tex; mode=display">
+M(t)=E(e^{t'X})=E(e^{t_1X_1+\dots+t_kX_k})</script><p>We require this expectation to be finite in a box around the origin in $\mathbb{R}^k$; otherwise we say the joint MGF does not exist.</p>
+<h3 id="Theorem3"><a href="#Theorem3" class="headerlink" title="Theorem3:"></a>Theorem3:</h3><p>Within an MVN random vector, uncorrelated implies independent. That is, if $X \sim MVN$ can be written as $X = (X_1 , X_2 )$, where $X_1$ and $X_2$ are subvectors, and every component of $X_1$ is uncorrelated with every component of $X_2$ , then $X_1$ and $X_2$ are independent. In particular, if $(X , Y )$ is <strong><em>Bivariate Normal</em></strong> and $Corr(X , Y ) = 0$, then $X$ and $Y$ are independent.</p>
+<h3 id="Example-Independence-of-Sum-and-Difference"><a href="#Example-Independence-of-Sum-and-Difference" class="headerlink" title="Example: Independence of Sum and Difference"></a>Example: Independence of Sum and Difference</h3><p>Let $X , Y \sim N (0, 1)$. Find the joint distribution of $(X + Y , X-Y)$.</p>
+<p><strong>Res:</strong> $f_{\mathcal{N}(0,2)}\cdot f_{\mathcal{N}(0,2)}$</p>
+<h3 id="Example-Independence-of-Sample-Mean-and-Sample-Variance"><a href="#Example-Independence-of-Sample-Mean-and-Sample-Variance" class="headerlink" title="Example: Independence of Sample Mean and Sample Variance"></a>Example: Independence of Sample Mean and Sample Variance</h3><p>Let $X_1,\dots, X_n$ be i.i.d. $\mathcal{N}(\mu, \sigma^2)$, with $n\geq 2$. Define</p>
+<script type="math/tex; mode=display">
+\bar{X_n}=\frac{1}{n}(X_1+\cdots+X_n),</script><script type="math/tex; mode=display">
+S_n^2=\frac{1}{n-1}\sum_{j=1}^n (X_j-\bar{X_n})^2.</script><p>The sample mean $\bar{X_n}$ has expectation $\mu$ (the true mean) and the sample variance $S_n^2$ has expectation $\sigma^2$ (the true variance). Show that $\bar{X_n}$  and $S_n^2$ are independent by applying MVN ideas and results to the vector $\bar{X}_n , X_1- \bar{X}_n , \dots, X_n- \bar{X}_n .$</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p><img src="https://s3.ax1x.com/2020/11/30/DgO5He.png" alt="DgO5He.png"></p>
 
       
     </div>
