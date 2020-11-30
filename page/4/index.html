@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/09/27/probability-2/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/10/19/probability-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/27/probability-2/" class="post-title-link" itemprop="url">SI140 Lec2</a>
+            <a href="/2020/10/19/probability-3/" class="post-title-link" itemprop="url">SI140 Lec3</a>
         </h2>
 
         <div class="post-meta">
@@ -184,7 +184,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-09-27 13:54:13" itemprop="dateCreated datePublished" datetime="2020-09-27T13:54:13+08:00">2020-09-27</time>
+              <time title="Created: 2020-10-19 13:32:32" itemprop="dateCreated datePublished" datetime="2020-10-19T13:32:32+08:00">2020-10-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -207,68 +207,81 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Definition-amp-Intuition"><a href="#Definition-amp-Intuition" class="headerlink" title="Definition &amp; Intuition"></a>Definition &amp; Intuition</h1><p>New data &amp; information may affect our uncertainties</p>
-<p>Keep in mind: Thinking conditionally! All probabilities are conditional! Conditioning is the soul of statistics!</p>
-<p>Definition:</p>
-<p>If $A$ and $B$ are events with $P(B)&gt;0$, then the conditional probability of $A$ given $B$, denoted by $P(A|B)$, is defined as</p>
+          <h1 id="Random-Variables"><a href="#Random-Variables" class="headerlink" title="Random Variables"></a>Random Variables</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>A function from the <strong>sample space</strong> $S$ to the <strong>real numbers</strong> $R$.</p>
+<h2 id="Probability-Mass-Function-PMF"><a href="#Probability-Mass-Function-PMF" class="headerlink" title="Probability Mass Function (PMF)"></a>Probability Mass Function (PMF)</h2><h3 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h3><p>The probability mass function (PMF) of a discrete r.v. $X$ is the function $p_X$ given by $p_X(x)=P(X=x)$.</p>
+<p>Actually, </p>
 <script type="math/tex; mode=display">
-P(A|B)=\frac{P(A\cap B)}{P(B)}</script><p>$P(A)$: prior probability of $A$</p>
-<p>$P(A|B)$: posterior probability of $A$</p>
-<p>$B$: new data/ information</p>
-<h1 id="Bayes’-Rule-amp-LOTP"><a href="#Bayes’-Rule-amp-LOTP" class="headerlink" title="Bayes’ Rule &amp; LOTP"></a>Bayes’ Rule &amp; LOTP</h1><h2 id="Chain-Rule"><a href="#Chain-Rule" class="headerlink" title="Chain Rule"></a>Chain Rule</h2><p>For any events $A_1,\dots,A_n$ with postive probabilities,</p>
-<script type="math/tex; mode=display">
-P(A_1,\dots,A_n)=P(A_1)P(A_2|A_1)P(A_3|A_1,A_2)\cdots P(A_n|A_1,\dots,A_{n-1})</script><p>An interesting question raised by Prof.Shao in class:</p>
-<p>Suppose you have $n$ machines, how to reduce the time to calculate $P(A_1,\dots,A_n)$ ?</p>
-<p>Use $log$ turn the equation into </p>
-<script type="math/tex; mode=display">
-log(P(A_1,\dots,A_n))=log(P(A_1))+log(P(A_2|A_1))+log(P(A_3|A_1,A_2))+\cdots +log(P(A_n|A_1,\dots,A_{n-1}))</script><p>Let every machine calculate one part in the right hand of the equation.</p>
-<p> Using $log$ when meeting continuous multiplication is a common operation in actual engineering application because addition is much faster than multiplication.</p>
-<h2 id="Bayes’-Rule"><a href="#Bayes’-Rule" class="headerlink" title="Bayes’ Rule"></a>Bayes’ Rule</h2><p>For any events $A$ and $B$ with postive probabilities,</p>
-<script type="math/tex; mode=display">
-P(A|B)=\frac{P(B|A)P(A)}{P(B)}</script><h2 id="The-Law-of-Total-Probability-LOTP"><a href="#The-Law-of-Total-Probability-LOTP" class="headerlink" title="The Law of Total Probability(LOTP)"></a>The Law of Total Probability(LOTP)</h2><p>Let $A_1,\dots,A_n$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events and their union is $S$), with $P(A_i)&gt;0$ for all $i$. Then</p>
-<script type="math/tex; mode=display">
-P(B)=\sum_{i=1}^n P(B|A_i)P(A_i)</script><p><img src="https://s1.ax1x.com/2020/09/26/0izCTO.png" alt="lotp"></p>
-<h2 id="Inference-amp-Bayes’-Rule"><a href="#Inference-amp-Bayes’-Rule" class="headerlink" title="Inference &amp; Bayes’ Rule"></a>Inference &amp; Bayes’ Rule</h2><p>Let $A_1,\dots,A_n$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events and their union is $S$), with $P(A_i)&gt;0$ for all $i$. Then for any event $B$ such that $P(B)&gt;0$, we have</p>
-<script type="math/tex; mode=display">
-P(A_i|B)=\frac{P(A_i)P(B|A_i)}{P(A_1)P(B|A_1)+\cdots +P(A_n)P(B|A_n)}</script><h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Bayes-Spam-Filter"><a href="#Bayes-Spam-Filter" class="headerlink" title="Bayes Spam Filter"></a>Bayes Spam Filter</h3><p>A spam filter is designed by looking at commonly occurring phrases in spam. Suppose that 80% of email is spam. In 10% of the spam emails, the phrase “free money” is used, whereas this phrase is only used in 1% of non-spam emails. A new email has just arrived, which does mention “free money”. What is the probability that it is spam?</p>
-<p>Ans: $\frac{80}{82}$</p>
-<p>Reference: <a href="https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering</a></p>
-<h3 id="Random-Coins"><a href="#Random-Coins" class="headerlink" title="Random Coins"></a>Random Coins</h3><p>You have one fair coin, and one biased coin which lands Heads with probability 3/4. You pick one of the coins at random and flip it three times. It lands Heads all three times. Given this information, what is the probability that the coin you picked is the fair one?</p>
-<p>Ans: $\frac{8}{35}$</p>
-<h3 id="Communication-Channel"><a href="#Communication-Channel" class="headerlink" title="Communication Channel"></a>Communication Channel</h3><p>Suppose that Alice sends only one bit (a 0 or 1) to Bob, with equal probabilities. If she sends a 0, there is a 5% chance of an error occurring, resulting in Bob receiving a 1; if she sends a 1, there is a 5% chance of an error occurring, resulting in Bob receiving a 0.<br>Given that Bob receives a 1, what is the probability that Alice actually sent a 1?</p>
-<p>Ans: $0.95$</p>
-<h1 id="Conditional-Probability"><a href="#Conditional-Probability" class="headerlink" title="Conditional Probability"></a>Conditional Probability</h1><p>Def function $\hat{P}(\cdot)=P(\cdot|E)$ </p>
-<p>$\hat{P}$ is also a probability function with sample space $S$ </p>
-<h2 id="Bayes’-Rule-with-Extra-Conditioning"><a href="#Bayes’-Rule-with-Extra-Conditioning" class="headerlink" title="Bayes’ Rule with Extra Conditioning"></a>Bayes’ Rule with Extra Conditioning</h2><p>Provided that $P(A\cap E)&gt;0$ and $P(B\cap E)&gt;0$, we have</p>
-<script type="math/tex; mode=display">
-P(A|B,E)=\frac{P(B|A,E)P)(A|E)}{P(B|E)}</script><h2 id="LOTP-with-Extra-Conditioning"><a href="#LOTP-with-Extra-Conditioning" class="headerlink" title="LOTP with Extra Conditioning"></a>LOTP with Extra Conditioning</h2><p>Let $A_1,\dots,A_n$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events and their union is $S$), with $P(A_i)&gt;0$ for all $i$. Then</p>
-<script type="math/tex; mode=display">
-P(B|E)=\sum_{i=1}^n P(B|A_i,E)P(A_i|E)</script><h2 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h2><h3 id="Random-Coin"><a href="#Random-Coin" class="headerlink" title="Random Coin"></a>Random Coin</h3><p>You have one fair coin, and one biased coin which lands Heads with probability 3/4. You pick one of the coins at random and flip it three times. It lands Heads all three times. If we toss the coin a fourth time, what is the probability that it will land Heads once more?</p>
-<p>Ans: $\frac{97}{140}$</p>
-<h2 id="Approaches-for-Finding-P-A-B-C"><a href="#Approaches-for-Finding-P-A-B-C" class="headerlink" title="Approaches for Finding $P(A|B,C)$"></a>Approaches for Finding $P(A|B,C)$</h2><ul>
-<li>Think of $B,C$ as the single event $B\cap C$.</li>
-<li>Use Bayes’ rule with extra conditioning on $C$.</li>
-<li>Use Bayes’ rule with extra conditioning on $B$.</li>
+\begin{align}
+P(X=x)&=P(s:X(s)=x,s\in S)\\&=\sum_{\quad s\in S\\S:X(s)=x}P(s)
+\end{align}</script><h3 id="Two-criteria"><a href="#Two-criteria" class="headerlink" title="Two criteria"></a>Two criteria</h3><ul>
+<li>Nonnegative:$p_X(x)&gt;0$ if $x=x_j$ for some $j$, and $p_X(x)=0$ otherwise;</li>
+<li>Sums to $1$: $\sum\limits_{j=1}^\infty p_X(x_j)=1$</li>
 </ul>
-<h1 id="Independence-of-Events"><a href="#Independence-of-Events" class="headerlink" title="Independence of Events"></a>Independence of Events</h1><h2 id="Independence-of-Two-Events"><a href="#Independence-of-Two-Events" class="headerlink" title="Independence of Two Events"></a>Independence of Two Events</h2><p>Events $A$ and $B$ are independence if</p>
+<h1 id="Bernoulli-and-Binomial"><a href="#Bernoulli-and-Binomial" class="headerlink" title="Bernoulli and Binomial"></a>Bernoulli and Binomial</h1><h2 id="Definition-of-Bernoulli-Distribution"><a href="#Definition-of-Bernoulli-Distribution" class="headerlink" title="Definition of Bernoulli Distribution"></a>Definition of Bernoulli Distribution</h2><p>An r.v. $X$ is said to have the <em>Bernoulli distribution</em> with parameter $p$ if $P(X=1)=p$ and $p(X=0)=1-p$, where $0&lt;p&lt;1$. We write this as $X\sim Bern(p)$. </p>
+<h2 id="Definition-of-Indicator-Random-Varible"><a href="#Definition-of-Indicator-Random-Varible" class="headerlink" title="Definition of Indicator Random Varible"></a>Definition of Indicator Random Varible</h2><p>The <em>indicator random varible</em> of an event $A$ is th r.v. which equals $1$ if $A$ occurs and $0$ otherwise. We will denote the indicator r.v. of $A$ by $I_A$ or $I(A)$.</p>
+<h2 id="Definition-of-Binomial-Distribution"><a href="#Definition-of-Binomial-Distribution" class="headerlink" title="Definition of Binomial Distribution"></a>Definition of Binomial Distribution</h2><p>Suppose that $n$ independent Bernoulli trials are performed, each with the same success probability $p$. Let $X$ be the number od success. THe distributuon of $X$ is called the <em>BInomial distribution</em> with parameters $n$ and $p$. We write $X\sim Bin(n,p)$ to mean that $X$ has the Binomial distribution with parameters $n$ and $p$, where $n$ is a postive integer and $0&lt;p&lt;1$.</p>
+<h2 id="Binomial-PMF"><a href="#Binomial-PMF" class="headerlink" title="Binomial PMF"></a>Binomial PMF</h2><h3 id="Theorem-1"><a href="#Theorem-1" class="headerlink" title="Theorem 1"></a>Theorem 1</h3><p>If $X\sim Bin(n,p)$, then the PMF of $X$ is</p>
 <script type="math/tex; mode=display">
-P(A\cap B)=P(A)P(B)</script><p>If $P(A)&gt;0$ and $P(B)&gt;0$, then this is equivalent to</p>
+P(X=k)=\left(\begin{array}{cc} n\\k \end{array}\right)p^k(1-p)^{n-k}</script><p>for $k=0,1,\cdots,n$ (and $P(X=k)=0$ otherwise).</p>
+<h3 id="Theorem-2"><a href="#Theorem-2" class="headerlink" title="Theorem 2"></a>Theorem 2</h3><p>Let $X\sim Bin(n,p)$, and $q=1-p$ (we often use $q$ to denote the failure of a <em>Bernouli trial</em>). Then $n-X\sim Bin(n,q)$.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Statistical-Multiplexing"><a href="#Statistical-Multiplexing" class="headerlink" title="Statistical Multiplexing"></a>Statistical Multiplexing</h3><p>There are $N$ senders using one multiplexor, the shared medium is $1$Mbps and each sender requests $100$kbps and their active probability is $0.1$.</p>
+<p>What’s $N_{max}$?</p>
+<p>Res:$35$</p>
+<h3 id="Multiple-Access-Aloha-Protocol"><a href="#Multiple-Access-Aloha-Protocol" class="headerlink" title="Multiple Access (Aloha Protocol)"></a>Multiple Access (Aloha Protocol)</h3><ul>
+<li><p>$N$ smart devices sharing a WiFi access point</p>
+</li>
+<li><p>$\geq 2$ devices transmit simultaneously lead to collision</p>
+</li>
+<li><p>Each device transmits with probability $p$ independently</p>
+</li>
+<li><p>What’s the transmission rate (the number of successful transmissions per unit time) ?</p>
+<p>Res:$e^{-1}=0.36$</p>
+</li>
+</ul>
+<h1 id="Hypergeometric"><a href="#Hypergeometric" class="headerlink" title="Hypergeometric"></a>Hypergeometric</h1><h2 id="Definition-2"><a href="#Definition-2" class="headerlink" title="Definition"></a>Definition</h2><p>Consider an urn with $w$ white balls and $b$ black balls. We draw $n$ balls out of the urn at random without replacement, such that all $\left(\begin{array}{c} w+b\\n \end{array}\right)$ samples are equally likely. Let $X$ be the number of white balls in the sample. Then $X$ is said to have the <em>Hypergeometric distribution</em> with parameters $w,b$, and $n$; we denote this by $X\sim HGeom(w,b,n)$.</p>
+<h2 id="Hypergeometric-PMF"><a href="#Hypergeometric-PMF" class="headerlink" title="Hypergeometric PMF"></a>Hypergeometric PMF</h2><p>If $X\sim HGeom(w,b,n)$, then the PMF of $X$ is</p>
 <script type="math/tex; mode=display">
-P(A|B)=P(A)</script><script type="math/tex; mode=display">
-P(B|A)=P(B)</script><h2 id="Independence-vs-Disjointness"><a href="#Independence-vs-Disjointness" class="headerlink" title="Independence vs. Disjointness"></a>Independence vs. Disjointness</h2><p>$A,B$ disjoint ====&gt; $P(A\cap B)=0$</p>
-<p>$A,B$ independent ====&gt; $P(A\cap B)=P(A)P(B)$</p>
-<h2 id="Independence-of-Three-Events"><a href="#Independence-of-Three-Events" class="headerlink" title="Independence of Three Events"></a>Independence of Three Events</h2><p>Events $A,B$ and $C$ are independent if all of the following equations hold:</p>
+P(X=k)=\frac{\left(\begin{array}{c} w\\k \end{array}\right)\left(\begin{array}{c} b\\n-k \end{array}\right)}{\left(\begin{array}{c} w+b\\n \end{array}\right)}</script><p>for integers $k$ satisfying $0\leq k\leq w$ and $0\leq n-k\leq b$, and $P(X=k)=0$ otherwise.</p>
+<h2 id="Identical-Distribution"><a href="#Identical-Distribution" class="headerlink" title="Identical Distribution"></a>Identical Distribution</h2><p>The $HGeom(w,b,n)$ and $HGeom(n,w+b-n,w)$ distributions are identical. That is, if $X\sim HGeom(w,b,n)$ and $Y\sim HGeom(n,w+b-n,w)$, then $X$ and $Y$ have the same distribution.</p>
+<p>An simply explaination:</p>
+<p>超几何分布的适用基础是总体根据两套标签进行分类。在球的例子里，对于 r.v. $X$ 而言，白黑是第一套标签，是否抓到作为样本是第二套标签；对于 $Y$ 则反过来。故而事实上 $X$ 和 $Y$ 都表示被抽出来的白球数量，故而分布相同。我们也可以用麻烦的代数方法验证。</p>
+<h1 id="Discrete-Uniform-amp-Zipf-Distribution"><a href="#Discrete-Uniform-amp-Zipf-Distribution" class="headerlink" title="Discrete Uniform &amp; Zipf Distribution"></a>Discrete Uniform &amp; Zipf Distribution</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h1 id="Cumulative-Distribution-Functions-CDF"><a href="#Cumulative-Distribution-Functions-CDF" class="headerlink" title="Cumulative Distribution Functions (CDF)"></a>Cumulative Distribution Functions (CDF)</h1><h2 id="Definition-3"><a href="#Definition-3" class="headerlink" title="Definition"></a>Definition</h2><p>The <em>cumulative distribution function (CDF)</em> of an r.v. $X$ is the function $F_X$ given by $F_X(x)=P(X\leq x)$.</p>
+<h1 id="Functions-of-Random-Variables-Random-Variables"><a href="#Functions-of-Random-Variables-Random-Variables" class="headerlink" title="Functions of Random Variables: Random Variables"></a>Functions of Random Variables: Random Variables</h1><h2 id="Definition-4"><a href="#Definition-4" class="headerlink" title="Definition"></a>Definition</h2><p>For an experiment with sample space $S$, an r.v. $X$, and a function $g:\mathbb{R}\rightarrow\mathbb{R}$, $g(X)$ is the r.v. that maps $s$ to $g(X(s))$ for all $s\in S$.</p>
+<h2 id="Sympathetic-Magic"><a href="#Sympathetic-Magic" class="headerlink" title="Sympathetic Magic"></a>Sympathetic Magic</h2><p>GIven an r.v. $X$, trying to get the PMF of $2X$ by multiply the PMF of $X$ by 2:</p>
+<ul>
+<li>Wrong: $Y=2X\Rightarrow P(Y=y)=2P(X=y)$</li>
+<li>Right: $P(Y=y)=P(2X=y)=P(X=\frac{y}{2})$</li>
+</ul>
+<h1 id="Independence-of-R-V-s"><a href="#Independence-of-R-V-s" class="headerlink" title="Independence of R.V.s"></a>Independence of R.V.s</h1><h2 id="Definition-5"><a href="#Definition-5" class="headerlink" title="Definition"></a>Definition</h2><p>Random variables $X$ and $Y$ are said to be <em>independent</em> if</p>
 <script type="math/tex; mode=display">
-P(A\cap B)=P(A)P(B)</script><script type="math/tex; mode=display">
-P(A\cap C)=P(A)P(C)</script><script type="math/tex; mode=display">
-P(B\cap C)=P(B)P(C)</script><script type="math/tex; mode=display">
-P(A\cap B\cap C)=P(A)P(B)P(C) \quad//can't \,be \,omitted</script><h2 id="Conditional-Independence"><a href="#Conditional-Independence" class="headerlink" title="Conditional Independence"></a>Conditional Independence</h2><p>Events $A$ and $B$ are said to be conditionally independent given $E$ if:</p>
+P(X\leq x, Y\leq y)=P(X\leq x)P(Y\leq y),</script><p>for all $x,y \in \mathbb{R}$.</p>
+<h2 id="I-I-D"><a href="#I-I-D" class="headerlink" title="I.I.D"></a>I.I.D</h2><p>We will often work with random variables that are independent and have the same distribution. We call such r.v.s independent and identically distributed, or i.i.d for short.</p>
+<h2 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h2><p><img src="https://s1.ax1x.com/2020/10/19/0v5jlF.png" alt="bayesian"></p>
+<h1 id="Binomial-amp-Hypergeometric"><a href="#Binomial-amp-Hypergeometric" class="headerlink" title="Binomial &amp; Hypergeometric"></a>Binomial &amp; Hypergeometric</h1><h2 id="Connection-1"><a href="#Connection-1" class="headerlink" title="Connection 1"></a>Connection 1</h2><ul>
+<li>Binomial $\Rightarrow$ Hypergeometric: <strong>conditioning</strong></li>
+<li>Hypergeometric $\Rightarrow$ Binomial: <strong>taking a limit</strong></li>
+</ul>
+<h2 id="Connection-2"><a href="#Connection-2" class="headerlink" title="Connection 2"></a>Connection 2</h2><p>If $X\sim Bin(n,p)$, $Y\sim Bin(m,p)$, and $X$ is independent of $Y$, then the conditional distribution of $X$ given $X+Y=r$ is $HGeom(n,n,r)$.</p>
+<h2 id="Connection-3"><a href="#Connection-3" class="headerlink" title="Connection 3"></a>Connection 3</h2><p>If $X\sim HGeom(w,b,n)$ and $N=w+b\rightarrow\infty$ such that $p=w/(w+b)$ remains fixed, then the PMF of $X$ converges to the $Bin(n,p)$ PMF.</p>
+<p>Because when $N\rightarrow\infty$, whether with replacement become meaningless.</p>
+<h1 id="Information-Theory-amp-Entropy"><a href="#Information-Theory-amp-Entropy" class="headerlink" title="Information Theory &amp; Entropy"></a>Information Theory &amp; Entropy</h1><h2 id="Definition-of-Entropy"><a href="#Definition-of-Entropy" class="headerlink" title="Definition of Entropy"></a>Definition of Entropy</h2><p>Given a random variable $X$ with a probability mass function $p(x)$ and a support $\mathcal{X}$. The entropy of $X$ is defined by</p>
 <script type="math/tex; mode=display">
-P(A\cap B|E)=P(A|E)P(B|E)</script><h1 id="Conditioning-As-A-Problem-Solving-Tool"><a href="#Conditioning-As-A-Problem-Solving-Tool" class="headerlink" title="Conditioning As A Problem-Solving Tool"></a>Conditioning As A Problem-Solving Tool</h1><h2 id="Laplace’s-Rule-of-Succession"><a href="#Laplace’s-Rule-of-Succession" class="headerlink" title="Laplace’s Rule of Succession"></a>Laplace’s Rule of Succession</h2><p>There are $k + 1$ coins in a box. When flipped, the $i$ coin will turn up heads with probability $i/k$, $i = 0, 1,\dots , k.$ A coin is randomly selected from the box and is then repeatedly flipped. If the first $n$ flips all result in heads, what is the conditional probability that the $(n + 1)^{th}$ flip will do likewise?</p>
-<p>Res=$\frac{\sum_{i=0}^k (\frac{i}{k})^{n+1}}{\sum_{i=0}^k (\frac{i}{k})^n}=\frac{n+1}{n+2}$</p>
-<h2 id="Branching-Process"><a href="#Branching-Process" class="headerlink" title="Branching Process"></a>Branching Process</h2><p>A single amoeba, Bobo, lives in a pond. After one minute Bobo will either die, split into two amoebas, or stay the same, with equal probability, and in subsequent minutes all living amoebas will behave the same way, independently. What is the probability that the amoeba population will eventually die out?</p>
-<p>Res=$1$</p>
-
+H(X)=-\sum_{x\in\mathcal{X}}p(x)log_2p(x)</script><h2 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h2><p>One of 13 coins is fake. At least how many times to weigh can we know which of them is fake? (We can get a result $\in \{=,&lt;,&gt;\}$  every time we weigh, but we don’t know whether the fake coin is lighter or heavier).</p>
+<h3 id="Res"><a href="#Res" class="headerlink" title="Res"></a>Res</h3><ul>
+<li>每次称重的有三个结果，故而每次提供$log_2 3$ bits 信息</li>
+<li>假设要至少需要$n$次，则我们将获得$nlog_2 3$ bits 信息</li>
+<li>总共13个硬币，故而需要$log_2 13$ bits 信息</li>
+<li>假硬币可能重可能轻，故而需要$log_2 2$ bits 信息</li>
+</ul>
+<p>故而列出下列不等式，求解</p>
+<script type="math/tex; mode=display">
+\begin{align}
+log_2 13+log_2 2&\leq nlog_2 3\\
+log_2 26&\leq log_2 3^n\\
+3^n&\geq 26\\
+n&\geq 3
+\end{align}</script>
       
     </div>
 
@@ -286,7 +299,7 @@ P(A\cap B|E)=P(A|E)P(B|E)</script><h1 id="Conditioning-As-A-Problem-Solving-Tool
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -352,7 +365,7 @@ P(A\cap B|E)=P(A|E)P(B|E)</script><h1 id="Conditioning-As-A-Problem-Solving-Tool
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
