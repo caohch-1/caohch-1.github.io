@@ -183,10 +183,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-12-01 01:01:15 / Modified: 01:40:18" itemprop="dateCreated datePublished" datetime="2020-12-01T01:01:15+08:00">2020-12-01</time>
+              <time title="Created: 2020-12-01 01:01:15" itemprop="dateCreated datePublished" datetime="2020-12-01T01:01:15+08:00">2020-12-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-07 09:16:54" itemprop="dateModified" datetime="2020-12-07T09:16:54+08:00">2020-12-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -274,6 +280,42 @@ n \\
 k
 \end{array}\right) x^{k}(1-x)^{n-k} d x=\frac{1}{n+1}</script><p><img src="https://s3.ax1x.com/2020/12/01/DWDrX6.png" alt="DWDrX6.png"></p>
 <p><img src="https://s3.ax1x.com/2020/12/01/DWDD6x.png" alt="DWDD6x.png"></p>
+<h3 id="Story-Beta-Binomial-Conjugacy"><a href="#Story-Beta-Binomial-Conjugacy" class="headerlink" title="Story: Beta Binomial Conjugacy"></a>Story: Beta Binomial Conjugacy</h3><p>We have a coin that lands Heads with probability $p$, but we don’t know what $p$ is. Our goal is to infer the value of $p$ after observing the outcomes of $n$ tosses of the coin. The larger that $n$ is, the more accurately we should be able to estimate $p$.</p>
+<h4 id="Bayesian-Inference"><a href="#Bayesian-Inference" class="headerlink" title="Bayesian Inference"></a>Bayesian Inference</h4><ul>
+<li>Treats all unknown quantities as random variables.</li>
+<li>In the Bayesian approach, we would treat the unknown probability $p$ as a random variable and give $p$ a distribution.</li>
+<li>This is called a <strong>prior distribution</strong>, and it reflects our uncertainty about the true value of $p$ before observing the coin tosses.</li>
+<li>After the experiment is performed and the data are gathered, the prior distribution is updated using Bayes’ rule; this yields the <strong>posterior distribution</strong>, which reflects our new beliefs about $p$.</li>
+</ul>
+<h4 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h4><p>If win $k$ times of $n$ trails, we suppose $p\sim Beta(a, b)$ at first, then we will get the answer that $p\sim Beta(a+k, b+n-k)$</p>
+<h4 id="Furthermore"><a href="#Furthermore" class="headerlink" title="Furthermore"></a>Furthermore</h4><ul>
+<li><p>Furthermore, notice the very simple formula for updating the distribution of $p$.</p>
+</li>
+<li><p>We just add the number of observed successes, $k$, to the first parameter of the Beta distribution.</p>
+</li>
+<li><p>We also add the number of observed failures, $n - k$, to the second parameter of the Beta distribution.</p>
+</li>
+<li><p>So $a$ and $b$ have a concrete interpretation in this context:</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{array}[l]
+&a\text{ as the number of prior successes in earlier experiments}\\
+b\text{ as the number of prior failures in earlier experiments}\\
+a,b:\text{ pseudo counts}
+\end{array}
+\right.</script></li>
+<li></li>
+</ul>
+<h4 id="Mean-vs-Bayesian-Average"><a href="#Mean-vs-Bayesian-Average" class="headerlink" title="Mean vs. Bayesian Average"></a>Mean vs. Bayesian Average</h4><ul>
+<li>Infer the value of $p$ (probability of coin lands heads)</li>
+<li>Observed $k$ heads out of $n$ tosses of the coin</li>
+<li>Mean: $\frac{k}{n}$</li>
+<li>Bayesian Average: $E(p|X=k)=\frac{a+k}{a+b+n}$</li>
+<li>Suppose the prior distribution is Unif(0,1): $a=1$, $b=1$</li>
+<li>Bayesian Average: $\frac{k+1}{n+2}$</li>
+<li>When $k=n$, we have : 1(mean) vs. $\frac{n+1}{n+2}$(Bayesian Average)</li>
+</ul>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>If we have a Beta prior distribution on $p$ and data that are conditionally Binomial given $p$, then when going from prior to posterior, we don’t leave the family of Beta distributions. We say that <strong>the Beta is the conjugate prior of the Binomial</strong>.</p>
 
       
     </div>
