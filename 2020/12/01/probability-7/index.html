@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://s3.ax1x.com/2020/12/01/DWDrX6.png">
 <meta property="og:image" content="https://s3.ax1x.com/2020/12/01/DWDD6x.png">
 <meta property="article:published_time" content="2020-11-30T17:01:15.958Z">
-<meta property="article:modified_time" content="2020-12-07T01:16:54.539Z">
+<meta property="article:modified_time" content="2020-12-12T16:40:01.384Z">
 <meta property="article:author" content="MissSirius">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s3.ax1x.com/2020/12/01/DWDrX6.png">
@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-07 09:16:54" itemprop="dateModified" datetime="2020-12-07T09:16:54+08:00">2020-12-07</time>
+                <time title="Modified: 2020-12-13 00:40:01" itemprop="dateModified" datetime="2020-12-13T00:40:01+08:00">2020-12-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,7 +221,7 @@
       
         <h1 id="Transformations"><a href="#Transformations" class="headerlink" title="Transformations"></a>Transformations</h1><h2 id="Change-of-Variables"><a href="#Change-of-Variables" class="headerlink" title="Change of Variables"></a>Change of Variables</h2><h3 id="Theroem1-Change-of-Variables-in-One-Dimension"><a href="#Theroem1-Change-of-Variables-in-One-Dimension" class="headerlink" title="Theroem1: Change of Variables in One Dimension"></a>Theroem1: Change of Variables in One Dimension</h3><p>Let $X$ be a continuous $r.v.$ with PDF $f_X$ , and let $Y = g(X)$, where $g$ is differentiable and strictly increasing (or strictly decreasing). Then the PDF of $Y$ is given by</p>
 <script type="math/tex; mode=display">
-f_Y(y) = f_X(x)|\frac{dx}{dy}|,</script><p>where  $x=g^{-1}(y).$ The support of $Y $ is all $g(x)$ with $x$ in the support of $X$.</p>
+f_Y(y) = f_X(x)|\frac{dx}{dy}|,</script><p>where  $x=g^{-1}(y).$ The support of $Y $ is all $g(x)$ with $x$ in the support of $X$. </p>
 <h3 id="Theorem2-Change-of-Variables"><a href="#Theorem2-Change-of-Variables" class="headerlink" title="Theorem2: Change of Variables"></a>Theorem2: Change of Variables</h3><p>Let $X=(X_1, \dots, X_n)$ be a continuous random vector with joint PDF $f_X(x)$, and let $Y = g(X)$ where $g$ is an invertible function from $\mathbb{R}^n$ to $\mathbb{R}^n$. Let $y = g(x)$ and suppose that all the partial derivatives $\frac{\partial x_i}{\partial y_i}$ exists and are continuous, so we can form the Jacobian matrix</p>
 <script type="math/tex; mode=display">
 \frac{\partial \mathbf{x}}{\partial \mathbf{y}}=\left(\begin{array}{cccc}
@@ -234,10 +234,10 @@ f_{Y}(y)=f_{X}(x)\left|\frac{\partial x}{\partial y}\right|</script><h3 id="Jaco
 <li>For discrete $r.v.s$: No Jacobian</li>
 <li>For continuous $r.v.s$: Jacobian Yes</li>
 </ul>
-<h3 id="Box-Muller"><a href="#Box-Muller" class="headerlink" title="Box-Muller"></a>Box-Muller</h3><p>Let $U \sim \operatorname{Unif}(0,2 \pi),$ and let $T \sim \operatorname{Expo}(1)$ be independent of $U$ Define $X=\sqrt{2 T} \cos U$ and $Y=\sqrt{2 T} \sin U .$ Find the joint $\mathrm{PDF}$ of $(X, Y) .$ Are they independent? What are their marginal distributions?</p>
+<h3 id="Box-Muller"><a href="#Box-Muller" class="headerlink" title="Box-Muller"></a>Box-Muller</h3><p>Let $U \sim \operatorname{Unif}(0,2\pi),$ and let $T \sim \operatorname{Expo}(1)$ be independent of $U$ Define $X=\sqrt{2 T} \cos U$ and $Y=\sqrt{2 T} \sin U .$ Find the joint $\mathrm{PDF}$ of $(X, Y) .$ Are they independent? What are their marginal distributions?</p>
 <script type="math/tex; mode=display">
 F_{X,Y}(x,y)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}</script><script type="math/tex; mode=display">
-\text{Also, it's easy to oberserve that they are independent.}</script><h2 id="Convolutions"><a href="#Convolutions" class="headerlink" title="Convolutions"></a>Convolutions</h2><h3 id="Theorem1-Convolution-Sums-and-Integrals"><a href="#Theorem1-Convolution-Sums-and-Integrals" class="headerlink" title="Theorem1: Convolution Sums and Integrals"></a>Theorem1: Convolution Sums and Integrals</h3><p>If $X$ and $Y$ are independent discrete $r . v . s,$ then the $P M F$ of their sum $T=X+Y$ is</p>
+\text{Also, it's easy to oberserve that they are independent}</script><h2 id="Convolutions"><a href="#Convolutions" class="headerlink" title="Convolutions"></a>Convolutions</h2><h3 id="Theorem1-Convolution-Sums-and-Integrals"><a href="#Theorem1-Convolution-Sums-and-Integrals" class="headerlink" title="Theorem1: Convolution Sums and Integrals"></a>Theorem1: Convolution Sums and Integrals</h3><p>If $X$ and $Y$ are independent discrete $r . v . s,$ then the $P M F$ of their sum $T=X+Y$ is</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 P(T=t) &=\sum_{x} P(Y=t-x) P(X=x) \\
