@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="true">
+  <script src="true"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Definition &amp; IntuitionNew data &amp; information may affect our uncertainties Keep in mind: Thinking conditionally! All probabilities are conditional! Conditioning is the soul of statistics! Defin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SI140 Lec2">
+<meta property="og:url" content="https://caohch1.cn/2020/11/16/probability-2/index.html">
+<meta property="og:site_name" content="MissSirius Planet">
+<meta property="og:description" content="Definition &amp; IntuitionNew data &amp; information may affect our uncertainties Keep in mind: Thinking conditionally! All probabilities are conditional! Conditioning is the soul of statistics! Defin">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/09/26/0izCTO.png">
+<meta property="article:published_time" content="2020-11-16T08:30:10.350Z">
+<meta property="article:modified_time" content="2020-09-27T05:54:14.000Z">
+<meta property="article:author" content="MissSirius">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/09/26/0izCTO.png">
+
+<link rel="canonical" href="https://caohch1.cn/2020/11/16/probability-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>SI140 Lec2 | MissSirius Planet</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">MissSirius Planet</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Record interesting things</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/11/16/probability-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MissSirius">
+      <meta itemprop="description" content="仰观宇宙之无穷 俯究万类之运动">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MissSirius Planet">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SI140 Lec2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-16 16:30:10" itemprop="dateCreated datePublished" datetime="2020-11-16T16:30:10+08:00">2020-11-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-27 13:54:14" itemprop="dateModified" datetime="2020-09-27T13:54:14+08:00">2020-09-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Probability/" itemprop="url" rel="index"><span itemprop="name">Probability</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Definition-amp-Intuition"><a href="#Definition-amp-Intuition" class="headerlink" title="Definition &amp; Intuition"></a>Definition &amp; Intuition</h1><p>New data &amp; information may affect our uncertainties</p>
+<p>Keep in mind: Thinking conditionally! All probabilities are conditional! Conditioning is the soul of statistics!</p>
+<p>Definition:</p>
+<p>If $A$ and $B$ are events with $P(B)&gt;0$, then the conditional probability of $A$ given $B$, denoted by $P(A|B)$, is defined as</p>
+<script type="math/tex; mode=display">
+P(A|B)=\frac{P(A\cap B)}{P(B)}</script><p>$P(A)$: prior probability of $A$</p>
+<p>$P(A|B)$: posterior probability of $A$</p>
+<p>$B$: new data/ information</p>
+<h1 id="Bayes’-Rule-amp-LOTP"><a href="#Bayes’-Rule-amp-LOTP" class="headerlink" title="Bayes’ Rule &amp; LOTP"></a>Bayes’ Rule &amp; LOTP</h1><h2 id="Chain-Rule"><a href="#Chain-Rule" class="headerlink" title="Chain Rule"></a>Chain Rule</h2><p>For any events $A_1,\dots,A_n$ with postive probabilities,</p>
+<script type="math/tex; mode=display">
+P(A_1,\dots,A_n)=P(A_1)P(A_2|A_1)P(A_3|A_1,A_2)\cdots P(A_n|A_1,\dots,A_{n-1})</script><p>An interesting question raised by Prof.Shao in class:</p>
+<p>Suppose you have $n$ machines, how to reduce the time to calculate $P(A_1,\dots,A_n)$ ?</p>
+<p>Use $log$ turn the equation into </p>
+<script type="math/tex; mode=display">
+log(P(A_1,\dots,A_n))=log(P(A_1))+log(P(A_2|A_1))+log(P(A_3|A_1,A_2))+\cdots +log(P(A_n|A_1,\dots,A_{n-1}))</script><p>Let every machine calculate one part in the right hand of the equation.</p>
+<p> Using $log$ when meeting continuous multiplication is a common operation in actual engineering application because addition is much faster than multiplication.</p>
+<h2 id="Bayes’-Rule"><a href="#Bayes’-Rule" class="headerlink" title="Bayes’ Rule"></a>Bayes’ Rule</h2><p>For any events $A$ and $B$ with postive probabilities,</p>
+<script type="math/tex; mode=display">
+P(A|B)=\frac{P(B|A)P(A)}{P(B)}</script><h2 id="The-Law-of-Total-Probability-LOTP"><a href="#The-Law-of-Total-Probability-LOTP" class="headerlink" title="The Law of Total Probability(LOTP)"></a>The Law of Total Probability(LOTP)</h2><p>Let $A_1,\dots,A_n$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events and their union is $S$), with $P(A_i)&gt;0$ for all $i$. Then</p>
+<script type="math/tex; mode=display">
+P(B)=\sum_{i=1}^n P(B|A_i)P(A_i)</script><p><img src="https://s1.ax1x.com/2020/09/26/0izCTO.png" alt="lotp"></p>
+<h2 id="Inference-amp-Bayes’-Rule"><a href="#Inference-amp-Bayes’-Rule" class="headerlink" title="Inference &amp; Bayes’ Rule"></a>Inference &amp; Bayes’ Rule</h2><p>Let $A_1,\dots,A_n$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events and their union is $S$), with $P(A_i)&gt;0$ for all $i$. Then for any event $B$ such that $P(B)&gt;0$, we have</p>
+<script type="math/tex; mode=display">
+P(A_i|B)=\frac{P(A_i)P(B|A_i)}{P(A_1)P(B|A_1)+\cdots +P(A_n)P(B|A_n)}</script><h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Bayes-Spam-Filter"><a href="#Bayes-Spam-Filter" class="headerlink" title="Bayes Spam Filter"></a>Bayes Spam Filter</h3><p>A spam filter is designed by looking at commonly occurring phrases in spam. Suppose that 80% of email is spam. In 10% of the spam emails, the phrase “free money” is used, whereas this phrase is only used in 1% of non-spam emails. A new email has just arrived, which does mention “free money”. What is the probability that it is spam?</p>
+<p>Ans: $\frac{80}{82}$</p>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering</a></p>
+<h3 id="Random-Coins"><a href="#Random-Coins" class="headerlink" title="Random Coins"></a>Random Coins</h3><p>You have one fair coin, and one biased coin which lands Heads with probability 3/4. You pick one of the coins at random and flip it three times. It lands Heads all three times. Given this information, what is the probability that the coin you picked is the fair one?</p>
+<p>Ans: $\frac{8}{35}$</p>
+<h3 id="Communication-Channel"><a href="#Communication-Channel" class="headerlink" title="Communication Channel"></a>Communication Channel</h3><p>Suppose that Alice sends only one bit (a 0 or 1) to Bob, with equal probabilities. If she sends a 0, there is a 5% chance of an error occurring, resulting in Bob receiving a 1; if she sends a 1, there is a 5% chance of an error occurring, resulting in Bob receiving a 0.<br>Given that Bob receives a 1, what is the probability that Alice actually sent a 1?</p>
+<p>Ans: $0.95$</p>
+<h1 id="Conditional-Probability"><a href="#Conditional-Probability" class="headerlink" title="Conditional Probability"></a>Conditional Probability</h1><p>Def function $\hat{P}(\cdot)=P(\cdot|E)$ </p>
+<p>$\hat{P}$ is also a probability function with sample space $S$ </p>
+<h2 id="Bayes’-Rule-with-Extra-Conditioning"><a href="#Bayes’-Rule-with-Extra-Conditioning" class="headerlink" title="Bayes’ Rule with Extra Conditioning"></a>Bayes’ Rule with Extra Conditioning</h2><p>Provided that $P(A\cap E)&gt;0$ and $P(B\cap E)&gt;0$, we have</p>
+<script type="math/tex; mode=display">
+P(A|B,E)=\frac{P(B|A,E)P)(A|E)}{P(B|E)}</script><h2 id="LOTP-with-Extra-Conditioning"><a href="#LOTP-with-Extra-Conditioning" class="headerlink" title="LOTP with Extra Conditioning"></a>LOTP with Extra Conditioning</h2><p>Let $A_1,\dots,A_n$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events and their union is $S$), with $P(A_i)&gt;0$ for all $i$. Then</p>
+<script type="math/tex; mode=display">
+P(B|E)=\sum_{i=1}^n P(B|A_i,E)P(A_i|E)</script><h2 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h2><h3 id="Random-Coin"><a href="#Random-Coin" class="headerlink" title="Random Coin"></a>Random Coin</h3><p>You have one fair coin, and one biased coin which lands Heads with probability 3/4. You pick one of the coins at random and flip it three times. It lands Heads all three times. If we toss the coin a fourth time, what is the probability that it will land Heads once more?</p>
+<p>Ans: $\frac{97}{140}$</p>
+<h2 id="Approaches-for-Finding-P-A-B-C"><a href="#Approaches-for-Finding-P-A-B-C" class="headerlink" title="Approaches for Finding $P(A|B,C)$"></a>Approaches for Finding $P(A|B,C)$</h2><ul>
+<li>Think of $B,C$ as the single event $B\cap C$.</li>
+<li>Use Bayes’ rule with extra conditioning on $C$.</li>
+<li>Use Bayes’ rule with extra conditioning on $B$.</li>
+</ul>
+<h1 id="Independence-of-Events"><a href="#Independence-of-Events" class="headerlink" title="Independence of Events"></a>Independence of Events</h1><h2 id="Independence-of-Two-Events"><a href="#Independence-of-Two-Events" class="headerlink" title="Independence of Two Events"></a>Independence of Two Events</h2><p>Events $A$ and $B$ are independence if</p>
+<script type="math/tex; mode=display">
+P(A\cap B)=P(A)P(B)</script><p>If $P(A)&gt;0$ and $P(B)&gt;0$, then this is equivalent to</p>
+<script type="math/tex; mode=display">
+P(A|B)=P(A)</script><script type="math/tex; mode=display">
+P(B|A)=P(B)</script><h2 id="Independence-vs-Disjointness"><a href="#Independence-vs-Disjointness" class="headerlink" title="Independence vs. Disjointness"></a>Independence vs. Disjointness</h2><p>$A,B$ disjoint ====&gt; $P(A\cap B)=0$</p>
+<p>$A,B$ independent ====&gt; $P(A\cap B)=P(A)P(B)$</p>
+<h2 id="Independence-of-Three-Events"><a href="#Independence-of-Three-Events" class="headerlink" title="Independence of Three Events"></a>Independence of Three Events</h2><p>Events $A,B$ and $C$ are independent if all of the following equations hold:</p>
+<script type="math/tex; mode=display">
+P(A\cap B)=P(A)P(B)</script><script type="math/tex; mode=display">
+P(A\cap C)=P(A)P(C)</script><script type="math/tex; mode=display">
+P(B\cap C)=P(B)P(C)</script><script type="math/tex; mode=display">
+P(A\cap B\cap C)=P(A)P(B)P(C) \quad//can't \,be \,omitted</script><h2 id="Conditional-Independence"><a href="#Conditional-Independence" class="headerlink" title="Conditional Independence"></a>Conditional Independence</h2><p>Events $A$ and $B$ are said to be conditionally independent given $E$ if:</p>
+<script type="math/tex; mode=display">
+P(A\cap B|E)=P(A|E)P(B|E)</script><h1 id="Conditioning-As-A-Problem-Solving-Tool"><a href="#Conditioning-As-A-Problem-Solving-Tool" class="headerlink" title="Conditioning As A Problem-Solving Tool"></a>Conditioning As A Problem-Solving Tool</h1><h2 id="Laplace’s-Rule-of-Succession"><a href="#Laplace’s-Rule-of-Succession" class="headerlink" title="Laplace’s Rule of Succession"></a>Laplace’s Rule of Succession</h2><p>There are $k + 1$ coins in a box. When flipped, the $i$ coin will turn up heads with probability $i/k$, $i = 0, 1,\dots , k.$ A coin is randomly selected from the box and is then repeatedly flipped. If the first $n$ flips all result in heads, what is the conditional probability that the $(n + 1)^{th}$ flip will do likewise?</p>
+<p>Res=$\frac{\sum_{i=0}^k (\frac{i}{k})^{n+1}}{\sum_{i=0}^k (\frac{i}{k})^n}=\frac{n+1}{n+2}$</p>
+<h2 id="Branching-Process"><a href="#Branching-Process" class="headerlink" title="Branching Process"></a>Branching Process</h2><p>A single amoeba, Bobo, lives in a pond. After one minute Bobo will either die, split into two amoebas, or stay the same, with equal probability, and in subsequent minutes all living amoebas will behave the same way, independently. What is the probability that the amoeba population will eventually die out?</p>
+<p>Res=$1$</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/16/openCV-9/" rel="prev" title="OpenCV9-Feature Point Detection and Matching">
+      <i class="fa fa-chevron-left"></i> OpenCV9-Feature Point Detection and Matching
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/16/probability-3/" rel="next" title="SI140 Lec3">
+      SI140 Lec3 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Definition-amp-Intuition"><span class="nav-number">1.</span> <span class="nav-text">Definition &amp; Intuition</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bayes’-Rule-amp-LOTP"><span class="nav-number">2.</span> <span class="nav-text">Bayes’ Rule &amp; LOTP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chain-Rule"><span class="nav-number">2.1.</span> <span class="nav-text">Chain Rule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bayes’-Rule"><span class="nav-number">2.2.</span> <span class="nav-text">Bayes’ Rule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Law-of-Total-Probability-LOTP"><span class="nav-number">2.3.</span> <span class="nav-text">The Law of Total Probability(LOTP)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inference-amp-Bayes’-Rule"><span class="nav-number">2.4.</span> <span class="nav-text">Inference &amp; Bayes’ Rule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">2.5.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bayes-Spam-Filter"><span class="nav-number">2.5.1.</span> <span class="nav-text">Bayes Spam Filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Random-Coins"><span class="nav-number">2.5.2.</span> <span class="nav-text">Random Coins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Communication-Channel"><span class="nav-number">2.5.3.</span> <span class="nav-text">Communication Channel</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Conditional-Probability"><span class="nav-number">3.</span> <span class="nav-text">Conditional Probability</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bayes’-Rule-with-Extra-Conditioning"><span class="nav-number">3.1.</span> <span class="nav-text">Bayes’ Rule with Extra Conditioning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOTP-with-Extra-Conditioning"><span class="nav-number">3.2.</span> <span class="nav-text">LOTP with Extra Conditioning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-1"><span class="nav-number">3.3.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Random-Coin"><span class="nav-number">3.3.1.</span> <span class="nav-text">Random Coin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Approaches-for-Finding-P-A-B-C"><span class="nav-number">3.4.</span> <span class="nav-text">Approaches for Finding $P(A|B,C)$</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Independence-of-Events"><span class="nav-number">4.</span> <span class="nav-text">Independence of Events</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Independence-of-Two-Events"><span class="nav-number">4.1.</span> <span class="nav-text">Independence of Two Events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Independence-vs-Disjointness"><span class="nav-number">4.2.</span> <span class="nav-text">Independence vs. Disjointness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Independence-of-Three-Events"><span class="nav-number">4.3.</span> <span class="nav-text">Independence of Three Events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conditional-Independence"><span class="nav-number">4.4.</span> <span class="nav-text">Conditional Independence</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Conditioning-As-A-Problem-Solving-Tool"><span class="nav-number">5.</span> <span class="nav-text">Conditioning As A Problem-Solving Tool</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Laplace’s-Rule-of-Succession"><span class="nav-number">5.1.</span> <span class="nav-text">Laplace’s Rule of Succession</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Branching-Process"><span class="nav-number">5.2.</span> <span class="nav-text">Branching Process</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">MissSirius</p>
+  <div class="site-description" itemprop="description">仰观宇宙之无穷 俯究万类之运动</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caohch-1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caohch-1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/caohch1" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;caohch1" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MissSirius</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

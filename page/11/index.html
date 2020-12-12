@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/08/16/ElementaryDataStructure/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/11/16/openCV-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/16/ElementaryDataStructure/" class="post-title-link" itemprop="url">基本数据结构</a>
+            <a href="/2020/11/16/openCV-6/" class="post-title-link" itemprop="url">OpenCV6-Image morphology Operation</a>
         </h2>
 
         <div class="post-meta">
@@ -183,17 +183,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-08-16 20:59:26 / Modified: 21:01:04" itemprop="dateCreated datePublished" datetime="2020-08-16T20:59:26+08:00">2020-08-16</time>
+              <time title="Created: 2020-11-16 16:30:10" itemprop="dateCreated datePublished" datetime="2020-11-16T16:30:10+08:00">2020-11-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-02 23:32:04" itemprop="dateModified" datetime="2020-08-02T23:32:04+08:00">2020-08-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                  <a href="/categories/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a>
                 </span>
             </span>
 
@@ -208,25 +214,343 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong><em>基于《算法导论》中的伪代码 以及部分网络资源</em></strong></p>
-<h1 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h1><h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> *m_stack;</span><br><span class="line">    <span class="keyword">int</span> max_size;</span><br><span class="line">    <span class="keyword">int</span> m_top;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Stack(<span class="keyword">int</span> <span class="built_in">size</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;max_size = <span class="built_in">size</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_top = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_stack = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="keyword">this</span>-&gt;max_size];</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">STACK_EMPTY</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PUSH</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">POP</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PRINTER</span><span class="params">()</span></span>;</span><br><span class="line">    ~Stack() &#123; <span class="keyword">delete</span>[] <span class="keyword">this</span>-&gt;m_stack; &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Empty"><a href="#Empty" class="headerlink" title="Empty"></a>Empty</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Stack::STACK_EMPTY</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_top == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Stack::PUSH</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_top &lt;= <span class="keyword">this</span>-&gt;max_size - <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_top++;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_stack[<span class="keyword">this</span>-&gt;m_top] = x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//Full</span></span><br><span class="line">        <span class="keyword">this</span>-&gt;max_size++;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_top++;</span><br><span class="line">        <span class="keyword">int</span> *temp = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="keyword">this</span>-&gt;max_size];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>-&gt;max_size - <span class="number">1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            temp[i] = <span class="keyword">this</span>-&gt;m_stack[i];</span><br><span class="line">        &#125;</span><br><span class="line">        temp[<span class="keyword">this</span>-&gt;max_size - <span class="number">1</span>] = x;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">delete</span>[] <span class="keyword">this</span>-&gt;m_stack;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_stack = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Pop"><a href="#Pop" class="headerlink" title="Pop"></a>Pop</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Stack::POP</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;STACK_EMPTY())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">"Underflow"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_top--;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>-&gt;m_stack[<span class="keyword">this</span>-&gt;m_top + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Printer"><a href="#Printer" class="headerlink" title="Printer"></a>Printer</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Stack::PRINTER</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="keyword">this</span>-&gt;m_top; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="keyword">this</span>-&gt;m_stack[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h1><h2 id="Class-1"><a href="#Class-1" class="headerlink" title="Class"></a>Class</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queue</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> *m_queue;</span><br><span class="line">    <span class="keyword">int</span> m_head;</span><br><span class="line">    <span class="keyword">int</span> m_tail;</span><br><span class="line">    <span class="keyword">int</span> max_size;</span><br><span class="line">    <span class="keyword">int</span> temp_size;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Queue(<span class="keyword">int</span> <span class="built_in">size</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_queue = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="built_in">size</span>];</span><br><span class="line">        <span class="keyword">this</span>-&gt;max_size = <span class="built_in">size</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_head = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_tail = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//current num of elements in queue</span></span><br><span class="line">        <span class="keyword">this</span>-&gt;temp_size = <span class="number">0</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    ~Queue() &#123; <span class="keyword">delete</span>[] <span class="keyword">this</span>-&gt;m_queue; &#125;;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">ENQUEUE</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PRINTER</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">DEQUEUE</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Enqueue"><a href="#Enqueue" class="headerlink" title="Enqueue"></a>Enqueue</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Queue::ENQUEUE</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_head == <span class="keyword">this</span>-&gt;m_tail &amp;&amp; <span class="keyword">this</span>-&gt;temp_size != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">"Queue if full"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>-&gt;m_queue[<span class="keyword">this</span>-&gt;m_tail] = x;</span><br><span class="line">    <span class="keyword">this</span>-&gt;temp_size++;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_tail == <span class="keyword">this</span>-&gt;max_size - <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_tail = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_tail++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Dequeue"><a href="#Dequeue" class="headerlink" title="Dequeue"></a>Dequeue</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Queue::DEQUEUE</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;temp_size == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">"Queue is empty"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> x = <span class="keyword">this</span>-&gt;m_queue[<span class="keyword">this</span>-&gt;m_head];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_head == <span class="keyword">this</span>-&gt;max_size - <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_head = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_head++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>-&gt;temp_size--;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Printer-1"><a href="#Printer-1" class="headerlink" title="Printer"></a>Printer</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//print the queue in order</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Queue::PRINTER</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_head &lt; <span class="keyword">this</span>-&gt;m_tail)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="keyword">this</span>-&gt;m_head; i &lt; <span class="keyword">this</span>-&gt;m_tail; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="keyword">this</span>-&gt;m_queue[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_head &gt; <span class="keyword">this</span>-&gt;m_tail)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="keyword">this</span>-&gt;m_head; i &lt; <span class="keyword">this</span>-&gt;max_size; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="keyword">this</span>-&gt;m_queue[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>-&gt;m_tail; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="keyword">this</span>-&gt;m_queue[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;temp_size == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Queue is empty"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_head == <span class="keyword">this</span>-&gt;m_tail &amp;&amp; <span class="keyword">this</span>-&gt;temp_size != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Queue is full"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="keyword">this</span>-&gt;m_head; i &lt; <span class="keyword">this</span>-&gt;max_size; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="keyword">this</span>-&gt;m_queue[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>-&gt;m_tail; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="keyword">this</span>-&gt;m_queue[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h1><h2 id="LinkedNode"><a href="#LinkedNode" class="headerlink" title="LinkedNode"></a>LinkedNode</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LinkedNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LinkedNode(<span class="keyword">int</span> x)</span><br><span class="line">    &#123;</span><br><span class="line">        key = x;</span><br><span class="line">        prev = <span class="literal">nullptr</span>;</span><br><span class="line">        next = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> key;</span><br><span class="line">    LinkedNode *prev;</span><br><span class="line">    LinkedNode *next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Class-2"><a href="#Class-2" class="headerlink" title="Class"></a>Class</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    LinkedNode *head;</span><br><span class="line">    LinkedNode *tail;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">size</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    LinkedList(<span class="keyword">int</span> x);</span><br><span class="line">    ~LinkedList();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//print all nodes in linkedlist</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PRINTER</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//find the node whose key==k</span></span><br><span class="line">    <span class="function">LinkedNode *<span class="title">LIST_SEARCH</span><span class="params">(<span class="keyword">int</span> k)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//insert a node as the head</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PUSHFRONT</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//insert a node as the tail</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PUSHBACK</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//delete the first node</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">POPFRONT</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//delete the last node</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">POPBACK</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//delete the node whose key==x</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">LIST_DELETE</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//insert a node whose key==x after the node whose key==x</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">LIST_INSERT</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> key)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Initialize-and-Destroy"><a href="#Initialize-and-Destroy" class="headerlink" title="Initialize and Destroy"></a>Initialize and Destroy</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">LinkedList::LinkedList(<span class="keyword">int</span> x)</span><br><span class="line">&#123;</span><br><span class="line">    LinkedNode *temp = <span class="keyword">new</span> LinkedNode(x);</span><br><span class="line">    <span class="keyword">this</span>-&gt;head = temp;</span><br><span class="line">    <span class="keyword">this</span>-&gt;tail = temp;</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">size</span> = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LinkedList::~LinkedList()</span><br><span class="line">&#123;</span><br><span class="line">    LinkedNode *temp = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">    <span class="keyword">while</span> (temp)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;head = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> temp;</span><br><span class="line">        temp = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>-&gt;head = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">this</span>-&gt;tail = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">size</span> = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="PopFront-and-PopBack"><a href="#PopFront-and-PopBack" class="headerlink" title="PopFront and PopBack"></a>PopFront and PopBack</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinkedList::POPFRONT</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;head == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Empty linkedlist"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    LinkedNode *temp = <span class="keyword">this</span>-&gt;head;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//assign class_head to second node in original linked list</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;head = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">    <span class="keyword">this</span>-&gt;head-&gt;prev = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">delete</span> temp;</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">size</span>--;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinkedList::POPBACK</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//similar to POPFRONT()</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;tail == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Empty linkedlist"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    LinkedNode *temp = <span class="keyword">this</span>-&gt;tail;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>-&gt;tail = <span class="keyword">this</span>-&gt;tail-&gt;prev;</span><br><span class="line">    <span class="keyword">this</span>-&gt;tail-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">delete</span> temp;</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">size</span>--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="PushFront-and-PushBack"><a href="#PushFront-and-PushBack" class="headerlink" title="PushFront and PushBack"></a>PushFront and PushBack</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinkedList::PUSHFRONT</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LinkedNode *temp = <span class="keyword">new</span> LinkedNode(x);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//construct new_head--&gt;old_head</span></span><br><span class="line">    temp-&gt;next = <span class="keyword">this</span>-&gt;head;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;head != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//construct old_head--&gt;new_head</span></span><br><span class="line">        <span class="keyword">this</span>-&gt;head-&gt;prev = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//assign class_head to new_head</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;head = temp;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//if original linked list is empty, we also should assign tail to new head</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;tail == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;tail = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    temp-&gt;prev = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">size</span>++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinkedList::PUSHBACK</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//similar to PUSHFRONT()</span></span><br><span class="line">    LinkedNode *temp = <span class="keyword">new</span> LinkedNode(x);</span><br><span class="line"></span><br><span class="line">    temp-&gt;prev = <span class="keyword">this</span>-&gt;tail;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;tail != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;tail-&gt;next = temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>-&gt;tail = temp;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;head == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;head = <span class="keyword">this</span>-&gt;tail;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    temp-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">size</span>++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinkedList::LIST_DELETE</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//first locate the node will be deleted</span></span><br><span class="line">    LinkedNode *target = <span class="keyword">this</span>-&gt;LIST_SEARCH(x);</span><br><span class="line">    <span class="keyword">if</span> (target == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (target == <span class="keyword">this</span>-&gt;head)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;POPFRONT();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (target == <span class="keyword">this</span>-&gt;tail)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;POPBACK();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//node_a --- target_node --- node_b</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//construct node_a --&gt; node_b</span></span><br><span class="line">        target-&gt;next-&gt;prev = target-&gt;prev;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//construct node_a &lt;-- node_b</span></span><br><span class="line">        target-&gt;prev-&gt;next = target-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//now: node_a --- node_b</span></span><br><span class="line">        <span class="keyword">delete</span> target;</span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">size</span>--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinkedList::LIST_INSERT</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//first locate the node will be inserted</span></span><br><span class="line">    LinkedNode *location = <span class="keyword">this</span>-&gt;LIST_SEARCH(x);</span><br><span class="line">    <span class="keyword">if</span> (location == <span class="keyword">this</span>-&gt;tail)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;PUSHBACK(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (location)</span><br><span class="line">    &#123;</span><br><span class="line">        LinkedNode *temp = <span class="keyword">new</span> LinkedNode(key);</span><br><span class="line">        <span class="comment">//node_a(location) --- node_b</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//construct new_node --&gt; node_b</span></span><br><span class="line">        temp-&gt;next = location-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//construct new_node &lt;-- node_b</span></span><br><span class="line">        location-&gt;next-&gt;prev = temp;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//construct node_a --&gt; new_node</span></span><br><span class="line">        location-&gt;next = temp;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//construct node_a &lt;-- new_node</span></span><br><span class="line">        temp-&gt;prev = location;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//now: node_a --- new_node --- node_b</span></span><br><span class="line">        <span class="keyword">this</span>-&gt;<span class="built_in">size</span>++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LinkedNode *<span class="title">LinkedList::LIST_SEARCH</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//traverse linked list</span></span><br><span class="line">    LinkedNode *x = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">    <span class="keyword">while</span> (x != <span class="literal">nullptr</span> &amp;&amp; x-&gt;key != k)</span><br><span class="line">    &#123;</span><br><span class="line">        x = x-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (x == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"No such element in this linkedlist"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Printer-2"><a href="#Printer-2" class="headerlink" title="Printer"></a>Printer</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinkedList::PRINTER</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LinkedNode *temp = <span class="keyword">this</span>-&gt;head;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;head == <span class="literal">nullptr</span> &amp;&amp; <span class="keyword">this</span>-&gt;tail == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Empty linkedlist"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Node number: "</span> &lt;&lt; <span class="keyword">this</span>-&gt;<span class="built_in">size</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">while</span> (temp)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; temp-&gt;key &lt;&lt; <span class="string">" --- "</span>;</span><br><span class="line">        temp = temp-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>基于《OpenCV4快速入门》 @冯振、郭延宁、吕跃勇</p>
+<h1 id="像素距离与连通域"><a href="#像素距离与连通域" class="headerlink" title="像素距离与连通域"></a>像素距离与连通域</h1><h2 id="图像像素距离变换"><a href="#图像像素距离变换" class="headerlink" title="图像像素距离变换"></a>图像像素距离变换</h2><p>图像处理中常用的距离有欧氏距离、街区距离和棋盘距离</p>
+<p>欧氏距离：$d=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}$</p>
+<p>街区距离：$d=|x_1-x_2|+|y_1-y_2|$</p>
+<p>棋盘距离：$d=max(|x_1-x_2|,|y_1-y_2|)$</p>
+<p>OpenCV4提供了计算图像中不同距离的函数<strong>distanceTransform</strong></p>
+<p>函数原型：</p>
+<ul>
+<li>src：输入图像，数据图像类型为CV_8U</li>
+<li>dst：输出图像，数据类型为CV_8U或CV_32F的单通道</li>
+<li>labels：二维的标签数组(离散Voronoi图)，数据类型为CV_32S的单通道数据</li>
+<li>distanceType：选择计算两个像素之间距离方法的标志</li>
+<li>maskSize：距离变换掩码矩阵尺寸，可选尺寸为DIST_MASK_3($3\times3$)和DIST_MASK_5($5\times5$)</li>
+<li>labelType：要构建的标签数组的类型</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::distanceTransform</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                           OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                           OutputArray labels,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">int</span> distanceType,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">int</span> maskSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">int</span> labelType = DIST_LABEL_CCOMP</span></span></span><br><span class="line"><span class="function"><span class="params">                          )</span></span></span><br></pre></td></tr></table></figure>
+<p>距离计算方法选择标志表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标志参数</th>
+<th style="text-align:center">简记</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">DIST_USER</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">自定义距离</td>
+</tr>
+<tr>
+<td style="text-align:center">DIST_L1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">街区距离</td>
+</tr>
+<tr>
+<td style="text-align:center">DIST_L2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">欧氏距离</td>
+</tr>
+<tr>
+<td style="text-align:center">DIST_C</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">棋盘距离</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>标签数组类型选择标志表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标志参数</th>
+<th style="text-align:center">简记</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">DIST_LABEL_CCOMP</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">输入图像中每个连接的0像素都将被分配为相同的标签</td>
+</tr>
+<tr>
+<td style="text-align:center">DIST_LABEL_PIXEL</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">输入图像中每个0像素都有自己的标签</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong><em>Hint</em></strong>：在使用欧氏距离时，推荐使用$5\times5$掩码；当选择棋盘距离时，掩码矩阵尺寸对计算结果没有影响</p>
+<p>该函数还有一种重载，它取消了生成离散Voronoi图</p>
+<p>函数原型：</p>
+<ul>
+<li>src：输入图像，数据图像类型为CV_8U</li>
+<li>dst：输出图像，数据类型为CV_8U或CV_32F的单通道</li>
+<li>distanceType：选择计算两个像素之间距离方法的标志</li>
+<li>maskSize：距离变换掩码矩阵尺寸，可选尺寸为DIST_MASK_3($3\times3$)和DIST_MASK_5($5\times5$)</li>
+<li>dstType：输出图像的数据类型，可以是CV_8U或者CV_32F</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::distanceTransform</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                           OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">int</span> distanceType,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">int</span> maskSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">int</span> dstType = CV_32F</span></span></span><br><span class="line"><span class="function"><span class="params">                          )</span></span></span><br></pre></td></tr></table></figure>
+<p><strong><em>Hint</em></strong>：不建议使用尺寸过小或者黑色区域较多的图像</p>
+<h2 id="图像连通域分析"><a href="#图像连通域分析" class="headerlink" title="图像连通域分析"></a>图像连通域分析</h2><p>图像连通域是指图像中具有相同像素值并且位置相邻的像素组成的区域</p>
+<p>连通域分析是指在图像中寻找彼此互相独立的连通域并将其标记出来</p>
+<p>首先了解下图像邻域的概念，分为4-邻域和8-邻域</p>
+<p>4-邻域定义下两个像素相邻必须在水平和垂直方向上相邻，相邻的两个像素坐标必须只有一位不同而且只能相差1个像素</p>
+<p>8-邻域定义下两个像素相邻允许在对角线方向相邻，相邻的两个像素坐标在X和Y方向上的最大差值为1</p>
+<p>常用的图像邻域分析法有两遍扫描法和种子填充法</p>
+<p>首先是两遍扫描法</p>
+<p>第一次遍历图像时会给每一个非零像素赋予一个数字标签，当某个像素的上方和左侧邻域内的像素已经有了数字标签时，取两者中较小值作为当前像素的标签，否则赋予一个新的数字标签，在第一次扫描过程中，同一个连通域可能会被赋予一个或多个不同的标签，故而在第二次扫描时需要将属于同一个连通域的不同标签合并. 下图gif是一个简单演示</p>
+<p><img src="https://pic1.zhimg.com/v2-87301b46cf47a72590812c1e1658a37c_b.webp" alt="两遍扫描法"></p>
+<p>接着介绍种子填充法</p>
+<p>源于计算机图像学，首先把所有非零像素放到一个集合中，之后在集合中随机选出一个像素作为种子像素，根据邻域关系不断扩充种子像素所在连通域，并在集合中删除扩充出的像素，直到种子像素所在连通域不能扩充，之后再从集合中随机选择一个像素作为新的种子像素，重复上述过程直至集合变成空集. 下图是一个简单gif演示</p>
+<p><img src="https://pic3.zhimg.com/v2-d386319f55ddcdab6b48a4911e2a3018_b.webp" alt="种子填充"></p>
+<p>OpenCV4提供了用于提取不同连通域的<strong>connectedComponents</strong>函数，它有两个原型</p>
+<p>函数原型一</p>
+<ul>
+<li>image：待标记的单通道图像，数据类型必须为CV_8U，最好经过二值化</li>
+<li>labels：标记不同连通域后的输出图像</li>
+<li>connectivity：邻域种类</li>
+<li>Itype：输出图像的数据类型，CV_32S或者CV_16U</li>
+<li>ccltype：标记算法类型的标志</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cv::connectedComponents</span><span class="params">(InputArray <span class="built_in">image</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                            OutputArray labels,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">int</span> connectivity,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">int</span> ltype,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">int</span> ccltype</span></span></span><br><span class="line"><span class="function"><span class="params">                           )</span></span></span><br></pre></td></tr></table></figure>
+<p>返回连通域数目</p>
+<p>标记算法标志表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标志参数</th>
+<th style="text-align:center">简记</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CCL_WU</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">8-邻域使用SAUF，4-邻域使用SAUF</td>
+</tr>
+<tr>
+<td style="text-align:center">CCL_DEFAULT</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">8-邻域使用BBDT，4-邻域使用SAUF</td>
+</tr>
+<tr>
+<td style="text-align:center">CCL_GRANA</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">8-邻域使用BBDT，4-邻域使用SAUF</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>函数原型2(简化使用)</p>
+<ul>
+<li>image：待标记的单通道图像，数据类型必须为CV_8U，最好经过二值化</li>
+<li>labels：标记不同连通域后的输出图像</li>
+<li>connectivity：邻域种类</li>
+<li>Itype：输出图像的数据类型，CV_32S或者CV_16U</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cv::connectedComponents</span><span class="params">(InputArray <span class="built_in">image</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                            OutputArray labels,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">int</span> connectivity = <span class="number">8</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">int</span> ltype = CV_32S</span></span></span><br><span class="line"><span class="function"><span class="params">                           )</span></span></span><br></pre></td></tr></table></figure>
+<p>如果希望得到每个连通域中心位置或者在图像中标记出连通域所在的矩形区域，那就使用<strong>connectedComponentsWithStats</strong>函数</p>
+<p>函数原型一</p>
+<ul>
+<li>image：待标记不同连通域的单通道图像，数据类型必须为CV_8U</li>
+<li>labels：标记不同连通域后的输出图像</li>
+<li>stats：含有不同连通域统计信息的矩阵，矩阵的数据类型为CV_32S，矩阵中第i行是标签为i的连通域的统计特性</li>
+<li>centroids：每个连通域的质心坐标，数据类型为CV_64F</li>
+<li>connectivity：标记连通域时使用的邻域种类，4表示4-邻域，8表示8-邻域</li>
+<li>ltype：输出图像的数据类型，目前支持CV_32S和CV_16U两种数据类型</li>
+<li>ccltype：标记连通域使用的算法类型标志</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cv::connectedComponentsWithStats</span><span class="params">(InputArray  <span class="built_in">image</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     OutputArray  labels,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     OutputArray  stats,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     OutputArray  centroids,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     <span class="keyword">int</span>  connectivity,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     <span class="keyword">int</span>  ltype,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     <span class="keyword">int</span>  ccltype </span></span></span><br><span class="line"><span class="function"><span class="params">                                    )</span></span></span><br></pre></td></tr></table></figure>
+<p>如果图像中有N个连通域，那么该参数输出的矩阵尺寸为$N\times5$，矩阵中每一行分别保存每个连通域的统计特性，详细的如下表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标志参数</th>
+<th style="text-align:center">简记</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CC_STAT_LEFT</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">连通域内最左侧像素的x坐标，它是水平方向上的包含连通域边界框的开始</td>
+</tr>
+<tr>
+<td style="text-align:center">CC_STAT_TOP</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">连通域内最上方像素的y坐标，它是垂直方向上的包含连通域边界框的开始</td>
+</tr>
+<tr>
+<td style="text-align:center">CC_STAT_WIDTH</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">连通域边界框的水平长度</td>
+</tr>
+<tr>
+<td style="text-align:center">CC_STAT_HEIGHT</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">连通域边界框的垂直长度</td>
+</tr>
+<tr>
+<td style="text-align:center">CC_STAT_AREA</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">连通域的面积(以像素为单位)</td>
+</tr>
+<tr>
+<td style="text-align:center">CC_STAT_MAX</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">统计信息种类数目，无实际含义</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>函数原型2(简化使用)</p>
+<ul>
+<li>image：待标记不同连通域的单通道图像，数据类型必须为CV_8U</li>
+<li>labels：标记不同连通域后的输出图像</li>
+<li>stats：不同连通域的统计信息矩阵，矩阵的数据类型为CV_32S</li>
+<li>centroids：每个连通域的质心坐标，数据类型为CV_64F</li>
+<li>connectivity：标记连通域时使用的邻域种类，4表示4-邻域，8表示8-邻域，默认参数值为8</li>
+<li>ltype：输出图像的数据类型，目前只支持CV_32S和CV_16U这两种数据类型，默认参数值为CV_32S</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cv::connectedComponentsWithStats</span><span class="params">(InputArray  <span class="built_in">image</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">	                                 OutputArray  labels,</span></span></span><br><span class="line"><span class="function"><span class="params">	                                 OutputArray  stats,</span></span></span><br><span class="line"><span class="function"><span class="params">	                                 OutputArray  centroids,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     <span class="keyword">int</span>  connectivity = <span class="number">8</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">	                                 <span class="keyword">int</span>  ltype = CV_32S </span></span></span><br><span class="line"><span class="function"><span class="params">	                                )</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="腐蚀和膨胀"><a href="#腐蚀和膨胀" class="headerlink" title="腐蚀和膨胀"></a>腐蚀和膨胀</h1><p>腐蚀和膨胀是形态学基本运算，可以用于去除图像中的噪声、分割出独立的区域或者将两个连通域连接在一起等</p>
+<h2 id="图像腐蚀"><a href="#图像腐蚀" class="headerlink" title="图像腐蚀"></a>图像腐蚀</h2><p>与卷积操作类似</p>
+<p>结构元素内所有元素所覆盖的图像像素值均不为0，那么保留结构元素中心点对应的图像像素，否则将删除结构元素中心点对应的像素</p>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20181119/9cf88a46a7ab4189aa657a060e7a020a.webp" alt="腐蚀" style="zoom:150%;" /></p>
+<p>结构元素可以根据需求自己生成，但是OpenCV4也提供了<strong>getStructuringElement</strong>用于生成常用的矩形、十字形和椭圆结构元素</p>
+<p>函数原型</p>
+<ul>
+<li>shape：生成结构元素的种类</li>
+<li>ksize：结构元素的尺寸</li>
+<li>anchor：中心点的位置</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Mat <span class="title">cv::getStructuringElement</span><span class="params">(<span class="keyword">int</span> shape,</span></span></span><br><span class="line"><span class="function"><span class="params">                              Size ksize,</span></span></span><br><span class="line"><span class="function"><span class="params">                              Point anchor = Point(<span class="number">-1</span>,<span class="number">-1</span>)</span></span></span><br><span class="line"><span class="function"><span class="params">                             )</span></span></span><br></pre></td></tr></table></figure>
+<p>结构元素种类表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标志参数</th>
+<th style="text-align:center">简记</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">MORPH_RECT</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">矩形元素矩阵</td>
+</tr>
+<tr>
+<td style="text-align:center">MORPH_CROSS</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">十字结构元素</td>
+</tr>
+<tr>
+<td style="text-align:center">MORPH_ELLIPSE</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">椭圆结构元素</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>OpenCV4也提供了用于图像腐蚀的<strong>erode</strong>函数</p>
+<p>函数原型</p>
+<ul>
+<li>src：待腐蚀图像，通道数任意，数据类型必须是CV_8U、CV_16U、CV_16S、CV_32F或CV_64F</li>
+<li>dst：腐蚀后的输出图像</li>
+<li>kernel：结构元素</li>
+<li>anchor：中心点位置</li>
+<li>iterations：腐蚀次数</li>
+<li>borderType：像素外推法选择标志</li>
+<li>borderValue：使用边界不变外推法时的边界值</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::erode</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">               OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">               InputArray kernel,</span></span></span><br><span class="line"><span class="function"><span class="params">               Point anchor = Point(<span class="number">-1</span>,<span class="number">-1</span>),</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">int</span> iterations = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">int</span> borderType = BORDER_CONSTANT,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> Scalar&amp; borderValue = morphologyDefaultBorderValue()</span></span></span><br><span class="line"><span class="function"><span class="params">              )</span></span></span><br></pre></td></tr></table></figure>
+<p><strong><em>HInt</em></strong>：该函数的腐蚀过程只针对对非零像素</p>
+<h2 id="图像膨胀"><a href="#图像膨胀" class="headerlink" title="图像膨胀"></a>图像膨胀</h2><p>与图像腐蚀相反</p>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20181119/c0910d8e3a80490b91898f5edda99e68.jpeg" alt="膨胀" style="zoom:150%;" /></p>
+<p>OpenCV4也提供了用于图像膨胀的<strong>dilate</strong>函数</p>
+<p>函数原型</p>
+<ul>
+<li>src：待膨胀图像，通道数任意，数据类型必须是CV_8U、CV_16U、CV_16S、CV_32F或CV_64F</li>
+<li>dst：膨胀后的输出图像</li>
+<li>kernel：结构元素</li>
+<li>anchor：中心点位置</li>
+<li>iterations：膨胀次数</li>
+<li>borderType：像素外推法选择标志</li>
+<li>borderValue：使用边界不变外推法时的边界值</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cv::dilate</span><span class="params">(InputArray src,</span></span></span><br><span class="line"><span class="function"><span class="params">                OutputArray dst,</span></span></span><br><span class="line"><span class="function"><span class="params">                InputArray kernel,</span></span></span><br><span class="line"><span class="function"><span class="params">                Point anchor = Point(<span class="number">-1</span>,<span class="number">-1</span>),</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> iterations = <span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> borderType = BORDER_CONSTANT,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">const</span> Scalar&amp; borderValue = morphologyDefaultBorderValue()</span></span></span><br><span class="line"><span class="function"><span class="params">               )</span></span></span><br></pre></td></tr></table></figure>
+<p><strong><em>jojo，人的记忆力力是有限的</em></strong></p>
+<p><strong><em>我从短暂的大学生活中学到一件事……</em></strong></p>
+<p><strong><em>越是记函数原型、参数列表的笔记，就越会发现人的记忆力是有限的……</em></strong></p>
+<p><strong><em>除非超越函数</em></strong></p>
+<p><strong><em>所以，我不记函数啦！jojo！</em></strong></p>
+<p><strong><em>其实就是感觉记这些函数没啥用，又很浪费时间，后面只会记录一些原理性、概念性的东西了</em></strong></p>
+<h1 id="形态学应用"><a href="#形态学应用" class="headerlink" title="形态学应用"></a>形态学应用</h1><p>腐蚀可以将细小的噪声区域去除，但是会将图像主要区域的面积缩小</p>
+<p>膨胀可以扩充每个区域的面积，填充较小的空洞，但是会增加噪声的面积</p>
+<p>可以将这两者结合达到更好的处理效果</p>
+<p>OpenCV4提供了<strong>morphologyEx</strong>函数实现以下运算</p>
+<h2 id="开运算"><a href="#开运算" class="headerlink" title="开运算"></a>开运算</h2><p>开运算可以去除图像中的噪声，消除较小的连通域，保留较大的连通域，同时能够在两个物体纤细的连接处将两个物体分离，并且在不明显改变较大连通域面积的同时平滑连通域的边界</p>
+<p>步骤是先腐蚀，消除图像中的噪声和较小的连通域；后膨胀，弥补较大连通域因腐蚀而造成的面积减小</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/atHRjs.png" alt="开运算"></p>
+<h2 id="闭运算"><a href="#闭运算" class="headerlink" title="闭运算"></a>闭运算</h2><p>闭运算可以去除连通域内的小型空洞，平滑物体轮廓，连接两个临近的连通域</p>
+<p>步骤是先膨胀，填充连通域内的小型空洞，扩大连通域的边界，将临近的连通域连接；后腐蚀，减少由膨胀引起的边界扩大和面积增大</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/atHfun.png" alt="闭运算"></p>
+<h2 id="形态学梯度"><a href="#形态学梯度" class="headerlink" title="形态学梯度"></a>形态学梯度</h2><p>形态学梯度能够描述目标边界，分为基本梯度、内部梯度和外部梯度</p>
+<p>基本梯度是膨胀后和腐蚀后图像差值</p>
+<p>内部梯度是原图像和腐蚀后图像差值</p>
+<p>外部梯度是膨胀后图像和原图像差值</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/at4oNQ.jpg" alt="形态学基本梯度" style="zoom: 67%;" /></p>
+<h2 id="顶帽运算"><a href="#顶帽运算" class="headerlink" title="顶帽运算"></a>顶帽运算</h2><p>是原图像与开运算结果的差值，用于分离比邻近点亮一些的斑块</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/at5KCd.jpg" alt="顶帽元算"></p>
+<h2 id="黑帽运算"><a href="#黑帽运算" class="headerlink" title="黑帽运算"></a>黑帽运算</h2><p>黑帽运算是原图像与顶帽运算结果之间的差值</p>
+<p>黑帽运算先进行闭运算，之后从闭运算结果中减去原图像</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/at5DK0.jpg" alt="黑帽运算"></p>
+<h2 id="击中击不中变换"><a href="#击中击不中变换" class="headerlink" title="击中击不中变换"></a>击中击不中变换</h2><p>比图像腐蚀更严苛的一种操作，该变换要求原图像中需要存在与结构元素一模一样的结构</p>
+<p><img src="https://s1.ax1x.com/2020/08/02/at5d8s.jpg" alt="击中击不中变换"></p>
+<h2 id="图像细化"><a href="#图像细化" class="headerlink" title="图像细化"></a>图像细化</h2><p>将图像的线条从多像素宽度减少到单位像素宽度，是模式识别领域的重要处理步骤之一，能够有效地减少数据量，减少图像的存储难度和识别难度</p>
+<p>分为迭代和非迭代细化算法</p>
+<p>非迭代不以像素为基础，该算法经过一次遍历，产生线条的某一中值或中心线，可以一次遍历产生“骨架”</p>
+<p>迭代细化是指通过重复删除图像的边缘处满足一定条件的像素，最终得到“骨架”</p>
+<p>迭代细化算法又分串行和并行，下面主要将并行细化算法中的<strong>Zhang细化算法</strong></p>
+<p>首先，循环所有前景像素点，对符合如下条件的像素点标记为待删除：</p>
+<ol>
+<li><p>$2 \leqslant N(p_1) \leqslant6$，N(p)表示p像素8-邻域黑像素的数量</p>
+</li>
+<li><p>$A(P_1) = 1$，A(p)表示p像素8-邻域内按顺时针顺序前后两个像素分别为黑和白的对数</p>
+</li>
+<li><p>$P_2 \times P_4 \times P_6=0$</p>
+</li>
+<li><p>$P_4 \times P_6 \times P_8 = 0$</p>
+</li>
+</ol>
+<p>所有像素判断完后把所有标记的待删除点删除，接着进入第二轮循环，对符合如下条件的像素点标记为待删除：</p>
+<ol>
+<li><p>$2 \leqslant N(p_1) \leqslant6$，N(p)表示p像素8-邻域黑像素的数量</p>
+</li>
+<li><p>$A(P_1) = 1$，A(p)表示p像素8-邻域内按顺时针顺序前后两个像素分别为黑和白的对数</p>
+</li>
+<li><p>$P_2 \times P_4 \times P_8=0$</p>
+</li>
+<li><p>$P_2 \times P_6 \times P_8 = 0$</p>
+</li>
+</ol>
+<p>所有像素判断完后把所有标记的待删除点删除，对同一副图像反复进行上述循环操作，直到没有可以删除的点</p>
+<p>OpenCV4提供了用于将二值化图像细化的<strong>thinning</strong>函数</p>
 
       
     </div>
@@ -434,6 +758,61 @@ document.querySelectorAll('.pdfobject-container').forEach(element => {
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

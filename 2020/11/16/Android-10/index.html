@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32px.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16px.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="true">
+  <script src="true"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"caohch1.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="基于《第一行代码——Android》@郭霖 第十章：后台劳动者，探究Service10.1 Service是什么即使程序切换到后台或者用户打开了另外一个应用程序，Service仍然能保持正常运行 10.2 Android多线程编程基本用法定义一个线程:  12345class MyThread: Thread() &amp;#123;    override fun run () &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-10">
+<meta property="og:url" content="https://caohch1.cn/2020/11/16/Android-10/index.html">
+<meta property="og:site_name" content="MissSirius Planet">
+<meta property="og:description" content="基于《第一行代码——Android》@郭霖 第十章：后台劳动者，探究Service10.1 Service是什么即使程序切换到后台或者用户打开了另外一个应用程序，Service仍然能保持正常运行 10.2 Android多线程编程基本用法定义一个线程:  12345class MyThread: Thread() &amp;#123;    override fun run () &amp;#123;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/26/aCRoZT.png">
+<meta property="article:published_time" content="2020-11-16T08:30:09.480Z">
+<meta property="article:modified_time" content="2020-07-27T06:30:16.000Z">
+<meta property="article:author" content="MissSirius">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/07/26/aCRoZT.png">
+
+<link rel="canonical" href="https://caohch1.cn/2020/11/16/Android-10/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Android-10 | MissSirius Planet</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">MissSirius Planet</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Record interesting things</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/11/16/Android-10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MissSirius">
+      <meta itemprop="description" content="仰观宇宙之无穷 俯究万类之运动">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MissSirius Planet">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android-10
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-16 16:30:09" itemprop="dateCreated datePublished" datetime="2020-11-16T16:30:09+08:00">2020-11-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-27 14:30:16" itemprop="dateModified" datetime="2020-07-27T14:30:16+08:00">2020-07-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>基于《第一行代码——Android》@郭霖</p>
+<h1 id="第十章：后台劳动者，探究Service"><a href="#第十章：后台劳动者，探究Service" class="headerlink" title="第十章：后台劳动者，探究Service"></a>第十章：后台劳动者，探究Service</h1><h2 id="10-1-Service是什么"><a href="#10-1-Service是什么" class="headerlink" title="10.1 Service是什么"></a>10.1 Service是什么</h2><p>即使程序切换到后台或者用户打开了另外一个应用程序，Service仍然能保持正常运行</p>
+<h2 id="10-2-Android多线程编程"><a href="#10-2-Android多线程编程" class="headerlink" title="10.2 Android多线程编程"></a>10.2 Android多线程编程</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>定义一个线程: </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span>: <span class="type">Thread</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">run</span> <span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">//Something</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动线程</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyThread.start()</span><br></pre></td></tr></table></figure>
+<p>使用继承的方式耦合性有点高<del>啥意思</del>，我们一般使用实现 <strong>Runnable</strong>接口的方式来定义一个线程</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> : <span class="type">Runnable &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">run</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">//Something</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相应的启动方式也要改变</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> myThread = MyThread()</span><br><span class="line">Thread(myThread).start()</span><br></pre></td></tr></table></figure>
+<p>当然，如果不想专门定义一个类去实现 <strong>Runnable</strong>接口，也可以写成如下形式</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Thread &#123;</span><br><span class="line">    <span class="comment">//Something</span></span><br><span class="line">&#125;.start()</span><br></pre></td></tr></table></figure>
+<p>而Kotlin提供了一种更简单的方式</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">thread &#123;</span><br><span class="line">    <span class="comment">//Something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的thread是一个内置的顶层函数</p>
+<h3 id="在子线程中更新UI"><a href="#在子线程中更新UI" class="headerlink" title="在子线程中更新UI"></a>在子线程中更新UI</h3><p>Android的UI线程不安全，也就是说，如果要更新应用程序里的UI元素，必须在主线程中进行，否则会出现异常</p>
+<p>i.e.改变TextView中的text</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">val</span> updateText = <span class="number">1</span> <span class="comment">//用于表示更新TextView这个动作</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> handler = <span class="keyword">object</span> : Handler() &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">handleMessage</span><span class="params">(msg: <span class="type">Message</span>)</span></span> &#123;</span><br><span class="line">            <span class="comment">//可以在这里进行UI操作 在主线程中</span></span><br><span class="line">            <span class="keyword">when</span> (msg.what) &#123;</span><br><span class="line">                updateText -&gt; textView.text = <span class="string">"Nice to meet you"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        changeTextBtn.setOnClickListener &#123;</span><br><span class="line">            thread &#123;</span><br><span class="line">                <span class="keyword">val</span> msg = Message()</span><br><span class="line">                msg.what = updateText</span><br><span class="line">                handler.sendMessage(msg) <span class="comment">//将Message对象发送出去</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="解析异步消息处理机制"><a href="#解析异步消息处理机制" class="headerlink" title="解析异步消息处理机制"></a>解析异步消息处理机制</h3><p>Android中的异步消息处理主要由四个部分组成</p>
+<h4 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h4><p>用于在线程之间传递消息，除了之前用过 <strong>what</strong>字段，还可以使用 <strong>arg1, arg2</strong>字段携带一些整型数据，使用 <strong>obj</strong>字段携带一个Object对象</p>
+<h4 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h4><p>主要用处理、发送消息</p>
+<p>发送一般用到 <strong>sendMessage, post</strong>等方法</p>
+<p>最终会传递到 <strong>Handler</strong>的 <strong>handleMessage</strong>方法中</p>
+<h4 id="MessageQueue"><a href="#MessageQueue" class="headerlink" title="MessageQueue"></a>MessageQueue</h4><p>主要用于存放所有通过 <strong>Handler</strong>发送的消息，这部分消息会一直在队列中等待被处理</p>
+<p>每个线程只有一个该对象</p>
+<h4 id="Looper"><a href="#Looper" class="headerlink" title="Looper"></a>Looper</h4><p>调用该对象的 <strong>loop</strong>方法后，就会进入无限循环中，每当发现 <strong>MessageQueue</strong>中存在一条消息，就会将他取出，并且传递到 <strong>Handler</strong>的 <strong>handleMessage</strong>方法中</p>
+<p>每个线程只有一个该对象</p>
+<p>梳理一下整个流程，看下图</p>
+<p><img src="https://s1.ax1x.com/2020/07/26/aCRoZT.png" alt="异步消息处理"></p>
+<h3 id="使用AsyncTask"><a href="#使用AsyncTask" class="headerlink" title="使用AsyncTask"></a>使用AsyncTask</h3><p>方便我们在子线程中对UI操作的抽象类</p>
+<p>在继承时我们可以为 AsyncTask类指定三个泛型参数</p>
+<ul>
+<li>Params 在执行 AsyncTask时需要传入的参数，可用于在后台任务中使用</li>
+<li>Progress 在后台执行任务时，如果需要在界面上显示当前的进度，则使用这里指定的泛型作为进度单位</li>
+<li>Result 当任务执行完毕后，如果需要对结果进行返回，则使用这里指定的泛型作为返回值类型</li>
+</ul>
+<p>因此，一个最简单的自定义 <strong>AsyncTsak</strong>类可以写成如下形式</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DownloadTask</span>: <span class="type">AsyncTask</span>&lt;<span class="type">Unit, Int, Boolean</span>&gt; </span>() &#123; <span class="comment">//这里第一个泛型参数为Unit 表示不需要传入参数给后台任务 第二个时Int 表示使用整型来作为进度显示单位 第三个为Boolean 表示用布尔型反馈执行结果</span></span><br><span class="line">    <span class="comment">//Something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然目前我们定义的这个还是个空任务，需要重写如下几个方法才能完成对任务的定制</p>
+<h4 id="onPreExcute"><a href="#onPreExcute" class="headerlink" title="onPreExcute ( )"></a>onPreExcute ( )</h4><p>在后台任务开始执行之前调用，用于进行一些界面上的初始化操作，比如显示一个进度条对话框</p>
+<h4 id="doInBackground-Params…"><a href="#doInBackground-Params…" class="headerlink" title="doInBackground (Params…)"></a>doInBackground (Params…)</h4><p>该方法的所有代码都会在子线程中运行</p>
+<p>在这里执行耗时任务</p>
+<p>注意，该方法不可以进行UI操作</p>
+<p>如果要更新UI元素，比如说反馈当前任务的执行进度，可以调用 <strong>publishProgress (Progress…)</strong>来实现</p>
+<h4 id="onProgressUpdate-Progress…"><a href="#onProgressUpdate-Progress…" class="headerlink" title="onProgressUpdate (Progress…)"></a>onProgressUpdate (Progress…)</h4><p>该方法中携带的参数就是在后台任务中传递过来的</p>
+<p>该方法中可以对UI进行操作</p>
+<h4 id="onPostExcute-Result"><a href="#onPostExcute-Result" class="headerlink" title="onPostExcute (Result)"></a>onPostExcute (Result)</h4><p>当后台任务执行完毕并通过 return语句返回时，该方法很快被调用</p>
+<p>返回的数据被作为参数传递到次方法中，可以利用返回数据进行一些UI操作</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DownloadTask</span> : <span class="type">AsyncTask</span>&lt;<span class="type">Unit, Int, Boolean</span>&gt;</span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPreExecute</span><span class="params">()</span></span> &#123;</span><br><span class="line">        progressDialog.show()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doInBackground</span><span class="params">(<span class="keyword">vararg</span> params: <span class="type">Unit</span>?)</span></span> = <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">val</span> downloadPercent = doDownload() <span class="comment">//这是一个虚构的方法</span></span><br><span class="line">            publishProgress(downloadPercent)</span><br><span class="line">            <span class="keyword">if</span> (downloadPercent == <span class="number">100</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="literal">true</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">        <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onProgressUpdate</span><span class="params">(<span class="keyword">vararg</span> values: <span class="type">Int</span>?)</span></span> &#123;</span><br><span class="line">        progressDialog.setMessage(<span class="string">"Download <span class="subst">$&#123;values[<span class="number">0</span>]&#125;</span>%"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPostExecute</span><span class="params">(result: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">        progressDialog.dismiss() <span class="comment">//关闭进度对话框</span></span><br><span class="line">        <span class="comment">//在这里提示下载速度</span></span><br><span class="line">        <span class="keyword">if</span> (result) &#123;</span><br><span class="line">            Toast.makeText(context, <span class="string">"Download succeed"</span>, Toast.LENGTH_SHORT).show()</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Toast.makeText(context, <span class="string">"Download failed"</span>, Toast.LENGTH_SHORT).show()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="10-3-Service的基本用法"><a href="#10-3-Service的基本用法" class="headerlink" title="10.3 Service的基本用法"></a>10.3 Service的基本用法</h2><h3 id="定义一个Service"><a href="#定义一个Service" class="headerlink" title="定义一个Service"></a>定义一个Service</h3><p>New-&gt;Service-&gt;Service 没啥好说的</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyService</span> : <span class="type">Service</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBind</span><span class="params">(intent: <span class="type">Intent</span>)</span></span>: IBinder &#123; <span class="comment">//Service中唯一的抽象方法 必须重写</span></span><br><span class="line">        TODO(<span class="string">"Return the communication channel to the service."</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//以下三个里来写我们的处理逻辑</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">()</span></span> &#123; <span class="comment">//Service创建时调用</span></span><br><span class="line">        <span class="keyword">super</span>.onCreate()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStartCommand</span><span class="params">(intent: <span class="type">Intent</span>?, flags: <span class="type">Int</span>, startId: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123; <span class="comment">//每次启动时调用</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent, flags, startId)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> &#123; <span class="comment">//销毁时调用</span></span><br><span class="line">        <span class="keyword">super</span>.onDestroy()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AS会自动对组件注册，可以检查一下</p>
+<h3 id="启动和停止Service"><a href="#启动和停止Service" class="headerlink" title="启动和停止Service"></a>启动和停止Service</h3><p>借助 <strong>Intent</strong>完成</p>
+<p>直接看代码</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        startServiceBtn.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, MyService::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            startService(intent) <span class="comment">//启动</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stopServiceBtn.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, MyService::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            stopService(intent) <span class="comment">//停止</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Activity和Service进行通信"><a href="#Activity和Service进行通信" class="headerlink" title="Activity和Service进行通信"></a>Activity和Service进行通信</h3><p>举个例子，我们希望在MyService里提供一个下载功能，然后再Activity中可以决定何时开始下载，以及随时查看下载进度</p>
+<p>实现这个功能的思路是创建一个专门的Binder对象来对下载功能进行管理</p>
+<p>修改两份代码</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyService</span> : <span class="type">Service</span></span>() &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mBinder = DownloadBinder()</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">DownloadBinder</span></span>() : Binder() &#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">startDownload</span><span class="params">()</span></span> &#123;</span><br><span class="line">            Log.d(<span class="string">"MyService"</span>, <span class="string">"startDownload executed"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">getProgress</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">            Log.d(<span class="string">"MyService"</span>, <span class="string">"getProgress executed"</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBind</span><span class="params">(intent: <span class="type">Intent</span>)</span></span>: IBinder &#123;</span><br><span class="line">        <span class="keyword">return</span> mBinder</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate()</span><br><span class="line">        Log.d(<span class="string">"MyService"</span>, <span class="string">"onCreate executed"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStartCommand</span><span class="params">(intent: <span class="type">Intent</span>?, flags: <span class="type">Int</span>, startId: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        Log.d(<span class="string">"MyService"</span>, <span class="string">"onStartCommand executed"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent, flags, startId)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy()</span><br><span class="line">        Log.d(<span class="string">"MyService"</span>, <span class="string">"onDestroy executed"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">lateinit</span> <span class="keyword">var</span> downloadBinder: MyService.DownloadBinder</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> connection = <span class="keyword">object</span> : ServiceConnection &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onServiceConnected</span><span class="params">(name: <span class="type">ComponentName</span>, service: <span class="type">IBinder</span>?)</span></span> &#123;</span><br><span class="line">            downloadBinder = service <span class="keyword">as</span> MyService.DownloadBinder</span><br><span class="line">            downloadBinder.startDownload()</span><br><span class="line">            downloadBinder.getProgress()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onServiceDisconnected</span><span class="params">(p0: <span class="type">ComponentName</span>?)</span></span> &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        startServiceBtn.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, MyService::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            startService(intent) <span class="comment">//启动</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stopServiceBtn.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, MyService::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            stopService(intent) <span class="comment">//停止</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        bindServiceBtn.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>,MyService::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            <span class="comment">//第三个参数是一个标志位 此处传入的表示在绑定后自动创建Service 这会使得onCreate方法被调用 而onStartCommand不会被调用</span></span><br><span class="line">            bindService(intent,connection,Context.BIND_AUTO_CREATE) <span class="comment">//绑定Service</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        unbindServiceBtn.setOnClickListener &#123;</span><br><span class="line">            unbindService(connection) <span class="comment">//解绑Service</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="10-4-生命周期"><a href="#10-4-生命周期" class="headerlink" title="10.4 生命周期"></a>10.4 生命周期</h2><p>start后stop，这时onDestroy就会执行</p>
+<p>类似bind后unbind，onDestroy就会执行</p>
+<p>如果同时start和bind，那两个对应方法都要执行</p>
+<h2 id="10-5-更多技巧"><a href="#10-5-更多技巧" class="headerlink" title="10.5 更多技巧"></a>10.5 更多技巧</h2><h3 id="前台Service"><a href="#前台Service" class="headerlink" title="前台Service"></a>前台Service</h3><p>只有当应用保持在前台可见状态的情况下，Service才能保证稳定运行，一旦应用进入后台，Service随时可能被系统回收</p>
+<p>如果希望Service一直运行，考虑使用前台Service</p>
+<p>创建一个前台Service</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyService</span> : <span class="type">Service</span></span>() &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mBinder = DownloadBinder()</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">DownloadBinder</span></span>() : Binder() &#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">startDownload</span><span class="params">()</span></span> &#123;</span><br><span class="line">            Log.d(<span class="string">"MyService"</span>, <span class="string">"startDownload executed"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">getProgress</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">            Log.d(<span class="string">"MyService"</span>, <span class="string">"getProgress executed"</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBind</span><span class="params">(intent: <span class="type">Intent</span>)</span></span>: IBinder &#123;</span><br><span class="line">        <span class="keyword">return</span> mBinder</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate()</span><br><span class="line">        Log.d(<span class="string">"MyService"</span>, <span class="string">"onCreate executed"</span>)</span><br><span class="line">        <span class="keyword">val</span> manager = getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) &#123;</span><br><span class="line">            <span class="keyword">val</span> channel = NotificationChannel(</span><br><span class="line">                <span class="string">"my_service"</span>,</span><br><span class="line">                <span class="string">"前台Service通知"</span>,</span><br><span class="line">                NotificationManager.IMPORTANCE_DEFAULT</span><br><span class="line">            )</span><br><span class="line">            manager.createNotificationChannel(channel)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, MainActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">        <span class="keyword">val</span> pi = PendingIntent.getActivity(<span class="keyword">this</span>, <span class="number">0</span>, intent, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">val</span> notification = NotificationCompat.Builder(<span class="keyword">this</span>, <span class="string">"my_service"</span>)</span><br><span class="line">            .setContentTitle(<span class="string">"This is content title"</span>)</span><br><span class="line">            .setContentText(<span class="string">"This is content text"</span>)</span><br><span class="line">            .setSmallIcon(R.drawable.small_icon)</span><br><span class="line">            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.large_icon))</span><br><span class="line">            .setContentIntent(pi)</span><br><span class="line">            .build()</span><br><span class="line">        startForeground(<span class="number">1</span>, notification)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStartCommand</span><span class="params">(intent: <span class="type">Intent</span>?, flags: <span class="type">Int</span>, startId: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        Log.d(<span class="string">"MyService"</span>, <span class="string">"onStartCommand executed"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent, flags, startId)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy()</span><br><span class="line">        Log.d(<span class="string">"MyService"</span>, <span class="string">"onDestroy executed"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，Android9.0开始 前台Service必须在AndroidManifest.xml中进行权限声明</p>
+<h3 id="使用IntentService"><a href="#使用IntentService" class="headerlink" title="使用IntentService"></a>使用IntentService</h3><p>Service默认运行在主线程，如果在其中进行耗时的操作，容易出现ANR(Application Not Responding)，所与需要用到多线程编程</p>
+<p>为了简单地创建一个异步、会自动停止的Service，Android专门提供了IntentService类</p>
+<p>i.e.</p>
+<p>创建<strong>src/main/java/com/example/servicetest/MyIntentService.kt</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyIntentService</span> : <span class="type">IntentService</span></span>(<span class="string">"MyIntentService"</span>) &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onHandleIntent</span><span class="params">(p0: <span class="type">Intent</span>?)</span></span> &#123;</span><br><span class="line">        Log.d(<span class="string">"MyIntentService"</span>, <span class="string">"Thread id is <span class="subst">$&#123;Thread.currentThread().name&#125;</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy()</span><br><span class="line">        Log.d(<span class="string">"MyIntentService"</span>, <span class="string">"onDestroy executed"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>MainActivity.kt</strong>中添加</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">startIntentServiceBtn.setOnClickListener &#123;</span><br><span class="line">    Log.d(<span class="string">"MainActivity"</span>,<span class="string">"Thread id is <span class="subst">$&#123;Thread.currentThread().name&#125;</span>"</span>)</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>,MyIntentService::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">    startService(intent)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>别忘了注册</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"com.example.servicetest"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.FOREGROUND_SERVICE"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:roundIcon</span>=<span class="string">"@mipmap/ic_launcher_round"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        ...Something</span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">service</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">".MyIntentService"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:enabled</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:exported</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="Kotlin拓展"><a href="#Kotlin拓展" class="headerlink" title="Kotlin拓展"></a>Kotlin拓展</h1><h2 id="对泛型进行实化"><a href="#对泛型进行实化" class="headerlink" title="对泛型进行实化"></a>对泛型进行实化</h2><p>首先，函数必须是内联函数</p>
+<p>其次，声明泛型的地方必须加上 <strong>reified</strong>关键字</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">getGenericType</span> <span class="params">()</span></span> = T::<span class="class"><span class="keyword">class</span>.<span class="title">java</span></span></span><br></pre></td></tr></table></figure>
+<p>上述函数直接返回了当前指定泛型的实际类型</p>
+<h2 id="泛型实化的应用"><a href="#泛型实化的应用" class="headerlink" title="泛型实化的应用"></a>泛型实化的应用</h2><p>启动一个Activity：</p>
+<p>首先新建一个 <strong>reified.kt</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">startActivity</span><span class="params">(context: <span class="type">Context</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(context, T::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">    context.startActivity(intent)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">startActivity</span><span class="params">(context: <span class="type">Context</span>, block: <span class="type">Intent</span>.() -&gt; <span class="type">Unit</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(context,T::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">    intent.block()</span><br><span class="line">    context.startActivity(intent)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在可以按照如下方法启动Activity</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">startActivity&lt;TestActivity&gt;(context)</span><br><span class="line"></span><br><span class="line">startActivity&lt;TestActivity&gt;(context) &#123;</span><br><span class="line">    putExtra(<span class="string">"param1"</span>, <span class="string">"data"</span>)</span><br><span class="line">    putExtra(<span class="string">"param2"</span>, <span class="number">123</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="泛型的协变和逆变"><a href="#泛型的协变和逆变" class="headerlink" title="泛型的协变和逆变"></a>泛型的协变和逆变</h2><p>理论性强，理解有难度，看书吧</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/16/Android-1/" rel="prev" title="Android-1">
+      <i class="fa fa-chevron-left"></i> Android-1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/16/Android-11/" rel="next" title="Android-11">
+      Android-11 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第十章：后台劳动者，探究Service"><span class="nav-number">1.</span> <span class="nav-text">第十章：后台劳动者，探究Service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-1-Service是什么"><span class="nav-number">1.1.</span> <span class="nav-text">10.1 Service是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-2-Android多线程编程"><span class="nav-number">1.2.</span> <span class="nav-text">10.2 Android多线程编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在子线程中更新UI"><span class="nav-number">1.2.2.</span> <span class="nav-text">在子线程中更新UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析异步消息处理机制"><span class="nav-number">1.2.3.</span> <span class="nav-text">解析异步消息处理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Message"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">Message</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Handler"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">Handler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MessageQueue"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">MessageQueue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Looper"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">Looper</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用AsyncTask"><span class="nav-number">1.2.4.</span> <span class="nav-text">使用AsyncTask</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#onPreExcute"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">onPreExcute ( )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#doInBackground-Params…"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">doInBackground (Params…)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onProgressUpdate-Progress…"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">onProgressUpdate (Progress…)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onPostExcute-Result"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">onPostExcute (Result)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-3-Service的基本用法"><span class="nav-number">1.3.</span> <span class="nav-text">10.3 Service的基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义一个Service"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义一个Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动和停止Service"><span class="nav-number">1.3.2.</span> <span class="nav-text">启动和停止Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity和Service进行通信"><span class="nav-number">1.3.3.</span> <span class="nav-text">Activity和Service进行通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-4-生命周期"><span class="nav-number">1.4.</span> <span class="nav-text">10.4 生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-5-更多技巧"><span class="nav-number">1.5.</span> <span class="nav-text">10.5 更多技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前台Service"><span class="nav-number">1.5.1.</span> <span class="nav-text">前台Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用IntentService"><span class="nav-number">1.5.2.</span> <span class="nav-text">使用IntentService</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kotlin拓展"><span class="nav-number">2.</span> <span class="nav-text">Kotlin拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对泛型进行实化"><span class="nav-number">2.1.</span> <span class="nav-text">对泛型进行实化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型实化的应用"><span class="nav-number">2.2.</span> <span class="nav-text">泛型实化的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型的协变和逆变"><span class="nav-number">2.3.</span> <span class="nav-text">泛型的协变和逆变</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">MissSirius</p>
+  <div class="site-description" itemprop="description">仰观宇宙之无穷 俯究万类之运动</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/caohch-1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;caohch-1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/caohch1" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;caohch1" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MissSirius</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

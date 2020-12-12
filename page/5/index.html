@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/09/27/probability-2/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/11/16/probability-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/27/probability-2/" class="post-title-link" itemprop="url">SI140 Lec2</a>
+            <a href="/2020/11/16/probability-4/" class="post-title-link" itemprop="url">SI140 Lec4</a>
         </h2>
 
         <div class="post-meta">
@@ -184,8 +184,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-09-27 13:54:13" itemprop="dateCreated datePublished" datetime="2020-09-27T13:54:13+08:00">2020-09-27</time>
+              <time title="Created: 2020-11-16 16:30:10" itemprop="dateCreated datePublished" datetime="2020-11-16T16:30:10+08:00">2020-11-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-26 06:56:02" itemprop="dateModified" datetime="2020-10-26T06:56:02+08:00">2020-10-26</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -207,67 +214,142 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Definition-amp-Intuition"><a href="#Definition-amp-Intuition" class="headerlink" title="Definition &amp; Intuition"></a>Definition &amp; Intuition</h1><p>New data &amp; information may affect our uncertainties</p>
-<p>Keep in mind: Thinking conditionally! All probabilities are conditional! Conditioning is the soul of statistics!</p>
-<p>Definition:</p>
-<p>If $A$ and $B$ are events with $P(B)&gt;0$, then the conditional probability of $A$ given $B$, denoted by $P(A|B)$, is defined as</p>
+          <h1 id="Expectation-amp-Variance"><a href="#Expectation-amp-Variance" class="headerlink" title="Expectation &amp; Variance"></a>Expectation &amp; Variance</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>The expected value (also called the expectation or mean) of a discrete $r.v.$ $X$ whose distinct possible values are $x_1,x_2,\dots$ is defined by</p>
 <script type="math/tex; mode=display">
-P(A|B)=\frac{P(A\cap B)}{P(B)}</script><p>$P(A)$: prior probability of $A$</p>
-<p>$P(A|B)$: posterior probability of $A$</p>
-<p>$B$: new data/ information</p>
-<h1 id="Bayes’-Rule-amp-LOTP"><a href="#Bayes’-Rule-amp-LOTP" class="headerlink" title="Bayes’ Rule &amp; LOTP"></a>Bayes’ Rule &amp; LOTP</h1><h2 id="Chain-Rule"><a href="#Chain-Rule" class="headerlink" title="Chain Rule"></a>Chain Rule</h2><p>For any events $A_1,\dots,A_n$ with postive probabilities,</p>
+E(X)=\sum\limits_{j=1}^\infty x_j\cdot P(X=x_j)</script><h2 id="Distribution"><a href="#Distribution" class="headerlink" title="Distribution"></a>Distribution</h2><p>If $X$ and $Y$ are discrete $r.v.$s with the same distribution, then $E (X ) = E(Y)$  (if either side exists).</p>
+<h2 id="Linearity"><a href="#Linearity" class="headerlink" title="Linearity"></a>Linearity</h2><p>For any $r.v.$s $X$, $Y$ and any constant $c$,</p>
 <script type="math/tex; mode=display">
-P(A_1,\dots,A_n)=P(A_1)P(A_2|A_1)P(A_3|A_1,A_2)\cdots P(A_n|A_1,\dots,A_{n-1})</script><p>An interesting question raised by Prof.Shao in class:</p>
-<p>Suppose you have $n$ machines, how to reduce the time to calculate $P(A_1,\dots,A_n)$ ?</p>
-<p>Use $log$ turn the equation into </p>
+E(X+Y)=E(X)+E(Y)</script><script type="math/tex; mode=display">
+E(cX)=cE(X)</script><h2 id="Monotonicity-of-Expectation"><a href="#Monotonicity-of-Expectation" class="headerlink" title="Monotonicity of Expectation"></a>Monotonicity of Expectation</h2><p>Let $X$ and $Y$ be $r.v.$s such that $X\geq Y$ with probability 1. Then $E (X )\geq E (Y )$, with equality holding if and only if $X = Y$ with probability 1.</p>
+<h2 id="Survival-Function"><a href="#Survival-Function" class="headerlink" title="Survival Function"></a>Survival Function</h2><p>有时候通过定义很难计算期望，可以考虑使用存活函数</p>
+<p>Let $X$ be a nonnegative integer-valued $r.v.$. Let $F$ be the <strong>CDF</strong> of $X$ , and $G (x) = 1-F (x) = P(X &gt; x)$. The function $G$ is called the<br>survival function of $X$. Then</p>
 <script type="math/tex; mode=display">
-log(P(A_1,\dots,A_n))=log(P(A_1))+log(P(A_2|A_1))+log(P(A_3|A_1,A_2))+\cdots +log(P(A_n|A_1,\dots,A_{n-1}))</script><p>Let every machine calculate one part in the right hand of the equation.</p>
-<p> Using $log$ when meeting continuous multiplication is a common operation in actual engineering application because addition is much faster than multiplication.</p>
-<h2 id="Bayes’-Rule"><a href="#Bayes’-Rule" class="headerlink" title="Bayes’ Rule"></a>Bayes’ Rule</h2><p>For any events $A$ and $B$ with postive probabilities,</p>
+E(X)=\sum\limits_{n=0}^\infty G(n)</script><p>That is, we can obtain the expectation of $X$ by summing up the survival function (or, stated otherwise, summing up tail probabilities of the distribution).</p>
+<h3 id="Proof"><a href="#Proof" class="headerlink" title="Proof"></a>Proof</h3><script type="math/tex; mode=display">
+E(X)=\sum\limits_{n=0}^\infty n\cdot P(X=n)=0\cdot P(X=0) +1\cdot P(X=1)+2\cdot P(X=2)+\cdots</script><script type="math/tex; mode=display">
+\left[\begin{array}{ccccc}
+&P(X\geq 1): & P(X=1) &P(X=2) &P(X=3) &\cdots\\
+&P(X\geq 2): &  &P(X=2) &P(X=3) &\cdots\\
+&P(X\geq 3): &  & &P(X=3) &\cdots\\
+&\vdots &\vdots &\vdots &\vdots &\vdots\\
+&Sum: &1\cdot P(X=1) & 2\cdot P(X=2) &3\cdot P(X=3) &\cdots
+\end{array}\right]</script><h2 id="Law-Of-The-Unconscious-Statistician-LOTUS"><a href="#Law-Of-The-Unconscious-Statistician-LOTUS" class="headerlink" title="Law Of The Unconscious Statistician (LOTUS)"></a>Law Of The Unconscious Statistician (LOTUS)</h2><p>可以看成$r.v.$函数的期望吧，反正直观上很好理解</p>
+<p>If $X$ is a discrete $r.v.$ and $g$ is a function from $\mathbb{R}$ to $\mathbb{R}$, then</p>
 <script type="math/tex; mode=display">
-P(A|B)=\frac{P(B|A)P(A)}{P(B)}</script><h2 id="The-Law-of-Total-Probability-LOTP"><a href="#The-Law-of-Total-Probability-LOTP" class="headerlink" title="The Law of Total Probability(LOTP)"></a>The Law of Total Probability(LOTP)</h2><p>Let $A_1,\dots,A_n$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events and their union is $S$), with $P(A_i)&gt;0$ for all $i$. Then</p>
+E(g(x))=\sum_x g(x)\cdot P(X=x)</script><p>where the sum is taken over all possible values of $X$.</p>
+<h2 id="Variance-and-Standard-Deviation"><a href="#Variance-and-Standard-Deviation" class="headerlink" title="Variance and Standard Deviation"></a>Variance and Standard Deviation</h2><p>The variance of an $r.v.$ $X$ is</p>
 <script type="math/tex; mode=display">
-P(B)=\sum_{i=1}^n P(B|A_i)P(A_i)</script><p><img src="https://s1.ax1x.com/2020/09/26/0izCTO.png" alt="lotp"></p>
-<h2 id="Inference-amp-Bayes’-Rule"><a href="#Inference-amp-Bayes’-Rule" class="headerlink" title="Inference &amp; Bayes’ Rule"></a>Inference &amp; Bayes’ Rule</h2><p>Let $A_1,\dots,A_n$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events and their union is $S$), with $P(A_i)&gt;0$ for all $i$. Then for any event $B$ such that $P(B)&gt;0$, we have</p>
+Var(X)=E(X-EX)^2=E(X)^2-(EX)^2</script><p>The square root of the variance is called the standard deviation (<strong>SD</strong>):</p>
 <script type="math/tex; mode=display">
-P(A_i|B)=\frac{P(A_i)P(B|A_i)}{P(A_1)P(B|A_1)+\cdots +P(A_n)P(B|A_n)}</script><h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Bayes-Spam-Filter"><a href="#Bayes-Spam-Filter" class="headerlink" title="Bayes Spam Filter"></a>Bayes Spam Filter</h3><p>A spam filter is designed by looking at commonly occurring phrases in spam. Suppose that 80% of email is spam. In 10% of the spam emails, the phrase “free money” is used, whereas this phrase is only used in 1% of non-spam emails. A new email has just arrived, which does mention “free money”. What is the probability that it is spam?</p>
-<p>Ans: $\frac{80}{82}$</p>
-<p>Reference: <a href="https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering</a></p>
-<h3 id="Random-Coins"><a href="#Random-Coins" class="headerlink" title="Random Coins"></a>Random Coins</h3><p>You have one fair coin, and one biased coin which lands Heads with probability 3/4. You pick one of the coins at random and flip it three times. It lands Heads all three times. Given this information, what is the probability that the coin you picked is the fair one?</p>
-<p>Ans: $\frac{8}{35}$</p>
-<h3 id="Communication-Channel"><a href="#Communication-Channel" class="headerlink" title="Communication Channel"></a>Communication Channel</h3><p>Suppose that Alice sends only one bit (a 0 or 1) to Bob, with equal probabilities. If she sends a 0, there is a 5% chance of an error occurring, resulting in Bob receiving a 1; if she sends a 1, there is a 5% chance of an error occurring, resulting in Bob receiving a 0.<br>Given that Bob receives a 1, what is the probability that Alice actually sent a 1?</p>
-<p>Ans: $0.95$</p>
-<h1 id="Conditional-Probability"><a href="#Conditional-Probability" class="headerlink" title="Conditional Probability"></a>Conditional Probability</h1><p>Def function $\hat{P}(\cdot)=P(\cdot|E)$ </p>
-<p>$\hat{P}$ is also a probability function with sample space $S$ </p>
-<h2 id="Bayes’-Rule-with-Extra-Conditioning"><a href="#Bayes’-Rule-with-Extra-Conditioning" class="headerlink" title="Bayes’ Rule with Extra Conditioning"></a>Bayes’ Rule with Extra Conditioning</h2><p>Provided that $P(A\cap E)&gt;0$ and $P(B\cap E)&gt;0$, we have</p>
-<script type="math/tex; mode=display">
-P(A|B,E)=\frac{P(B|A,E)P)(A|E)}{P(B|E)}</script><h2 id="LOTP-with-Extra-Conditioning"><a href="#LOTP-with-Extra-Conditioning" class="headerlink" title="LOTP with Extra Conditioning"></a>LOTP with Extra Conditioning</h2><p>Let $A_1,\dots,A_n$ be a partition of the sample space $S$ (i.e., the $A_i$ are disjoint events and their union is $S$), with $P(A_i)&gt;0$ for all $i$. Then</p>
-<script type="math/tex; mode=display">
-P(B|E)=\sum_{i=1}^n P(B|A_i,E)P(A_i|E)</script><h2 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h2><h3 id="Random-Coin"><a href="#Random-Coin" class="headerlink" title="Random Coin"></a>Random Coin</h3><p>You have one fair coin, and one biased coin which lands Heads with probability 3/4. You pick one of the coins at random and flip it three times. It lands Heads all three times. If we toss the coin a fourth time, what is the probability that it will land Heads once more?</p>
-<p>Ans: $\frac{97}{140}$</p>
-<h2 id="Approaches-for-Finding-P-A-B-C"><a href="#Approaches-for-Finding-P-A-B-C" class="headerlink" title="Approaches for Finding $P(A|B,C)$"></a>Approaches for Finding $P(A|B,C)$</h2><ul>
-<li>Think of $B,C$ as the single event $B\cap C$.</li>
-<li>Use Bayes’ rule with extra conditioning on $C$.</li>
-<li>Use Bayes’ rule with extra conditioning on $B$.</li>
+SD(X)=\sqrt{Var(X)}</script><h2 id="Properties-of-Variance"><a href="#Properties-of-Variance" class="headerlink" title="Properties of Variance"></a>Properties of Variance</h2><ul>
+<li>For any $r.v.$ $X$ , $Var (X ) = E (X^2 )-(EX )^2$ </li>
+<li>$Var (X + c) =Var (X )$ for any constant $c$</li>
+<li>$Var (cX ) = c^2 Var (X )$ for any constant $c$</li>
+<li>If $X$ and $Y$ are independent, then $Var (X + Y ) = Var (X ) + Var (Y )$</li>
+<li>$Var (X ) \geq0$ with equality if and only if $P(X = a) = 1$ for some constant $a$.</li>
 </ul>
-<h1 id="Independence-of-Events"><a href="#Independence-of-Events" class="headerlink" title="Independence of Events"></a>Independence of Events</h1><h2 id="Independence-of-Two-Events"><a href="#Independence-of-Two-Events" class="headerlink" title="Independence of Two Events"></a>Independence of Two Events</h2><p>Events $A$ and $B$ are independence if</p>
+<h1 id="Geometric-and-Negative-Binomial"><a href="#Geometric-and-Negative-Binomial" class="headerlink" title="Geometric and Negative Binomial"></a>Geometric and Negative Binomial</h1><h2 id="Geometric-Distribution"><a href="#Geometric-Distribution" class="headerlink" title="Geometric Distribution"></a>Geometric Distribution</h2><p>Consider a sequence of independent Bernoulli trials, each with the same success probability $p\in(0, 1)$, with trials performed until a success occurs. Let $X$ be the number of <strong>failures</strong> before the first successful trial. Then $X$ has the Geometric distribution with parameter $p$; we denote this by $X \sim Geom(p)$.</p>
+<h2 id="Geometric-PMF"><a href="#Geometric-PMF" class="headerlink" title="Geometric PMF"></a>Geometric PMF</h2><p>If $X \sim Geom(p)$, then the <strong>PMF</strong> of $X$ is</p>
 <script type="math/tex; mode=display">
-P(A\cap B)=P(A)P(B)</script><p>If $P(A)&gt;0$ and $P(B)&gt;0$, then this is equivalent to</p>
+P(X=k)=q^k p</script><p>for $k = 0, 1, 2,\dots$, where $q=1-p$</p>
+<h2 id="Memoryless-Property"><a href="#Memoryless-Property" class="headerlink" title="Memoryless Property"></a>Memoryless Property</h2><p>If $X\sim Geom(p)$, then for any positive integer $n$,</p>
 <script type="math/tex; mode=display">
-P(A|B)=P(A)</script><script type="math/tex; mode=display">
-P(B|A)=P(B)</script><h2 id="Independence-vs-Disjointness"><a href="#Independence-vs-Disjointness" class="headerlink" title="Independence vs. Disjointness"></a>Independence vs. Disjointness</h2><p>$A,B$ disjoint ====&gt; $P(A\cap B)=0$</p>
-<p>$A,B$ independent ====&gt; $P(A\cap B)=P(A)P(B)$</p>
-<h2 id="Independence-of-Three-Events"><a href="#Independence-of-Three-Events" class="headerlink" title="Independence of Three Events"></a>Independence of Three Events</h2><p>Events $A,B$ and $C$ are independent if all of the following equations hold:</p>
+P(X\geq n+k|X\geq k)=P(X\geq n)</script><p>for $k=1,2,3,\dots$</p>
+<p><strong>Also,</strong></p>
+<p>Suppose for any positive integer $n$, discrete random variable $X$ satisfies</p>
 <script type="math/tex; mode=display">
-P(A\cap B)=P(A)P(B)</script><script type="math/tex; mode=display">
-P(A\cap C)=P(A)P(C)</script><script type="math/tex; mode=display">
-P(B\cap C)=P(B)P(C)</script><script type="math/tex; mode=display">
-P(A\cap B\cap C)=P(A)P(B)P(C) \quad//can't \,be \,omitted</script><h2 id="Conditional-Independence"><a href="#Conditional-Independence" class="headerlink" title="Conditional Independence"></a>Conditional Independence</h2><p>Events $A$ and $B$ are said to be conditionally independent given $E$ if:</p>
+P(X\geq n+k|X\geq k)=P(X\geq n)</script><p>for $k = 0, 1, 2,\dots$,  then $X \sim Geom(p)$.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Geometric distribution is the one and the only one discrete distribution that is memoryless.</span><br></pre></td></tr></table></figure>
+<h2 id="First-Success-Distribution"><a href="#First-Success-Distribution" class="headerlink" title="First Success Distribution"></a>First Success Distribution</h2><p>In a sequence of independent Bernoulli trials with success probability $p$, let $Y$ be the number of trials until the first successful trial, including<br>the success. Then $Y$ has the First Success distribution with parameter $p$; we denote this by $Y \sim FS(p)$.</p>
+<h3 id="Example-Geometric-amp-First-Success-Expectation"><a href="#Example-Geometric-amp-First-Success-Expectation" class="headerlink" title="Example: Geometric &amp; First Success Expectation"></a>Example: Geometric &amp; First Success Expectation</h3><p>Let $X \sim Geom(p)$ and $Y \sim FS(p)$, find $E (X )$ and $E (Y )$.</p>
+<p><strong>Solution:</strong></p>
+<p>Calculate $E(X)$ By survival function</p>
 <script type="math/tex; mode=display">
-P(A\cap B|E)=P(A|E)P(B|E)</script><h1 id="Conditioning-As-A-Problem-Solving-Tool"><a href="#Conditioning-As-A-Problem-Solving-Tool" class="headerlink" title="Conditioning As A Problem-Solving Tool"></a>Conditioning As A Problem-Solving Tool</h1><h2 id="Laplace’s-Rule-of-Succession"><a href="#Laplace’s-Rule-of-Succession" class="headerlink" title="Laplace’s Rule of Succession"></a>Laplace’s Rule of Succession</h2><p>There are $k + 1$ coins in a box. When flipped, the $i$ coin will turn up heads with probability $i/k$, $i = 0, 1,\dots , k.$ A coin is randomly selected from the box and is then repeatedly flipped. If the first $n$ flips all result in heads, what is the conditional probability that the $(n + 1)^{th}$ flip will do likewise?</p>
-<p>Res=$\frac{\sum_{i=0}^k (\frac{i}{k})^{n+1}}{\sum_{i=0}^k (\frac{i}{k})^n}=\frac{n+1}{n+2}$</p>
-<h2 id="Branching-Process"><a href="#Branching-Process" class="headerlink" title="Branching Process"></a>Branching Process</h2><p>A single amoeba, Bobo, lives in a pond. After one minute Bobo will either die, split into two amoebas, or stay the same, with equal probability, and in subsequent minutes all living amoebas will behave the same way, independently. What is the probability that the amoeba population will eventually die out?</p>
-<p>Res=$1$</p>
+P(X\geq k)=q^k=(1-p)^k</script><script type="math/tex; mode=display">
+\begin{align}
+E(X)&=\sum\limits_{k=0}^\infty P(X>k)\\
+&=\sum_{k=1}^\infty P(x\geq k)\\
+&=\sum_{k=1}^\infty q^k\\
+&=\frac{q}{1-q}\\
+&=\frac{1-p}{p}
+\end{align}</script><p>Then calculate $E(Y)$ </p>
+<script type="math/tex; mode=display">
+E(Y)=E(1+X)=1+E(X)=\frac{1}{p}</script><h2 id="Negative-Binomial-Distribution"><a href="#Negative-Binomial-Distribution" class="headerlink" title="Negative Binomial Distribution"></a>Negative Binomial Distribution</h2><p>In a sequence of independent Bernoulli trials with success probability $p$, if $X$ is the number of failures before the $r^{th}$ success, then $X$ is said to have the Negative Binomial distribution with parameters $r$ and $p$, denoted $X \sim NBin(r , p)$.</p>
+<h2 id="Negative-Binomial-PMF"><a href="#Negative-Binomial-PMF" class="headerlink" title="Negative Binomial PMF"></a>Negative Binomial PMF</h2><p>If $X \sim NBin(r , p)$, then the <strong>PMF</strong> of $X$ is</p>
+<script type="math/tex; mode=display">
+P(X=n)=\left(\begin{array}{c}n+r-1\\r-1\end{array}\right)p^rq^n</script><p>for $n = 0, 1, 2,\dots$ , where $q=1-p$.</p>
+<h2 id="Geometric-amp-Negative-Binomial"><a href="#Geometric-amp-Negative-Binomial" class="headerlink" title="Geometric &amp; Negative Binomial"></a>Geometric &amp; Negative Binomial</h2><p>Let $X \sim NBin(r , p)$, viewed as the number of failures before the $r^{th}$ success in a sequence of independent Bernoulli trials with success probability $p$. Then we can write $X = X_1 + \cdots + X_r$ where the $X_i$ are <em>i.i.d.</em> $Geom(p)$.</p>
+<h3 id="Example-Expectation"><a href="#Example-Expectation" class="headerlink" title="Example: Expectation"></a>Example: Expectation</h3><p>Let $X \sim NBin(r , p)$, find $E (X)$</p>
+<p><strong>Solution:</strong></p>
+<script type="math/tex; mode=display">
+X_i \sim Geon(p) \text{ and } E(X_i)=\frac{1-p}{p}</script><script type="math/tex; mode=display">
+X=X_1+X_2+\cdots+X_r</script><script type="math/tex; mode=display">
+E(X)=E(X_1)+E(X_2)+\cdots+E(X_r)=r\cdot \frac{1-p}{p}</script><h2 id="Example-Coupon-Collector"><a href="#Example-Coupon-Collector" class="headerlink" title="Example: Coupon Collector"></a>Example: Coupon Collector</h2><p>Suppose there are $n$ types of toys, which you are collecting one by one , with the goal of getting a complete set. When collecting toys, the toy types are random (as is sometimes the case, for example, with toys included in cereal boxes or included with kids’ meals from a fast food restaurant). Assume that each time you collect a toy, it is equally likely to be any of the $n$ types. Let $N$ denote the number of toys needed until you have a complete set. Find $E (N)$.</p>
+<p>Res$\approx n[ln(n)+0.57]$</p>
+<h1 id="Indicator-R-V-s-and-The-Fundamental-Bridge"><a href="#Indicator-R-V-s-and-The-Fundamental-Bridge" class="headerlink" title="Indicator R.V.s and The Fundamental Bridge"></a>Indicator R.V.s and The Fundamental Bridge</h1><h2 id="Properties-of-Indicator-R-V"><a href="#Properties-of-Indicator-R-V" class="headerlink" title="Properties of Indicator R.V."></a>Properties of Indicator R.V.</h2><p>Let $A$ and $B$ be events. Then the following properties hold:</p>
+<ul>
+<li>$(I_A )^k = I_A$ for any positive integer $k$</li>
+<li>$I_{A^\complement} = 1- I_A$</li>
+<li>$I_{A\cap B}=I_A I_B$</li>
+<li>$I_{A\cup B}=I_A + I_B- I_A I_B$</li>
+</ul>
+<h2 id="Fundamental-Bridge-Between-Probability-and-Expectation"><a href="#Fundamental-Bridge-Between-Probability-and-Expectation" class="headerlink" title="Fundamental Bridge Between Probability and Expectation"></a>Fundamental Bridge Between Probability and Expectation</h2><p>There is a one-to-one correspondence between events and indicator $r.v.$s, and the probability of an event $A$ is the expected value of its indicator $r.v.$ $I_ A$:</p>
+<script type="math/tex; mode=display">
+E(I_A)=P(A)</script><h3 id="Example-Booler’s-Inequality"><a href="#Example-Booler’s-Inequality" class="headerlink" title="Example: Booler’s Inequality"></a>Example: Booler’s Inequality</h3><p><img src="https://s1.ax1x.com/2020/10/26/BnJP2T.png" alt="booler"></p>
+<h3 id="Example-Inclusion-Exclusion-Formula"><a href="#Example-Inclusion-Exclusion-Formula" class="headerlink" title="Example: Inclusion-Exclusion Formula"></a>Example: Inclusion-Exclusion Formula</h3><p><img src="https://s1.ax1x.com/2020/10/26/BnJixU.png" alt="IEF"></p>
+<h1 id="Moments-and-Indicators"><a href="#Moments-and-Indicators" class="headerlink" title="Moments and Indicators"></a>Moments and Indicators</h1><h2 id="Moments-of-Indicator-Methods"><a href="#Moments-of-Indicator-Methods" class="headerlink" title="Moments of Indicator Methods"></a>Moments of Indicator Methods</h2><p>Given $n$ events $A_1 ,\cdots, A_n$ and indicators $I_j , j = 1, . . . , n$.</p>
+<p>$X=\sum_{j=1}^n I_j$: the number of events that occur</p>
+<p>$\left(\begin{array}{c}X\\2\end{array}\right)=\sum\limits_{i&lt;j}I_i I_j$: the number of pairs of distinct events that occur</p>
+<p>$E(\left(\begin{array}{c}X\\2\end{array}\right))=\sum\limits_{i&lt;j}P(A_i\cap A_j)$</p>
+<p>$E(X^2)=2 \sum\limits_{i&lt;j}P(A_i\cap A_j)+ E(X)$</p>
+<p>$Var(X)=2\sum\limits_{i&lt;j}P(A_i\cap A_j)+E(X)-(EX)^2$</p>
+<h2 id="Moments-of-Binomial-Random-Variables"><a href="#Moments-of-Binomial-Random-Variables" class="headerlink" title="Moments of Binomial Random Variables"></a>Moments of Binomial Random Variables</h2><p><img src="https://s1.ax1x.com/2020/10/26/BnYa79.png" alt="moments"></p>
+<h1 id="Poisson"><a href="#Poisson" class="headerlink" title="Poisson"></a>Poisson</h1><h2 id="Poisson-Distribution"><a href="#Poisson-Distribution" class="headerlink" title="Poisson Distribution"></a>Poisson Distribution</h2><p>An $r.v.$ $X$ has the Poisson distribution with parameter $\lambda$ if the <strong>PMF</strong> of $X$ is</p>
+<script type="math/tex; mode=display">
+P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!},\qquad k=0,1,2,\dots</script><p>We write this as $X \sim Pois(\lambda )$.</p>
+<h3 id="Example-E-and-Var"><a href="#Example-E-and-Var" class="headerlink" title="Example: E and Var"></a>Example: E and Var</h3><p>Prove that $E(X)=Var(X)=\lambda$ if $X\sim Pois(\lambda)$</p>
+<h2 id="Poisson-Approximation"><a href="#Poisson-Approximation" class="headerlink" title="Poisson Approximation"></a>Poisson Approximation</h2><p>Let $A_1 , A_2 , \cdots , A_n$ be events with $p_j = P(A_j )$, where $n$ is large, the $p_j$ are small, and the $A_j$ are independent or weakly dependent. Let</p>
+<script type="math/tex; mode=display">
+X=\sum_{j=1}^n I(A_j)</script><p>count how many of the $A_j$ occur. Then $X$ is approximately $Pois(\lambda)$, with $\lambda=\sum\limits_{j=1}^n p_j$.</p>
+<h3 id="Example-Birthday-Probelm-revisited"><a href="#Example-Birthday-Probelm-revisited" class="headerlink" title="Example: Birthday Probelm revisited"></a>Example: Birthday Probelm revisited</h3><p>再次考虑生日问题，利用泊松近似，则至少一对匹配成功的概率为</p>
+<script type="math/tex; mode=display">
+P(X\geq 1) = 1-P(X=0)\approx1-e^{-\lambda}</script><script type="math/tex; mode=display">
+When\,\, m=23, \lambda = \frac{253}{365},\,e^{-\lambda}\approx0.500002</script><h2 id="Poisson-amp-Binomial"><a href="#Poisson-amp-Binomial" class="headerlink" title="Poisson &amp; Binomial"></a>Poisson &amp; Binomial</h2><ul>
+<li>Poisson $\Rightarrow$ Binomial: conditioning</li>
+<li>Binomial $\Rightarrow$ Poisson taking a limit</li>
+</ul>
+<h2 id="Sum-of-Independent-Poissons"><a href="#Sum-of-Independent-Poissons" class="headerlink" title="Sum of Independent Poissons"></a>Sum of Independent Poissons</h2><p>If $X \sim Pois( \lambda_1 )$, $Y \sim Pois( \lambda_2 )$, and $X$ is independent of $Y$ , then $X + Y \sim Pois( \lambda_1 + \lambda_2 )$.</p>
+<h2 id="Poisson-Given-A-Sum-of-Poissons"><a href="#Poisson-Given-A-Sum-of-Poissons" class="headerlink" title="Poisson Given A Sum of Poissons"></a>Poisson Given A Sum of Poissons</h2><p>If $X \sim Pois( \lambda_1 )$, $Y \sim Pois( \lambda_2 )$, and $X$ is independent of $Y$ , then the <strong><em>conditional distribution</em></strong> of $X$ given $X + Y = n$ is $Bin(n,\frac{\lambda_1}{\lambda_1+\lambda_2})$.</p>
+<h2 id="Poisson-Approximation-to-Binomial"><a href="#Poisson-Approximation-to-Binomial" class="headerlink" title="Poisson Approximation to Binomial"></a>Poisson Approximation to Binomial</h2><p>If $X \sim Bin(n, p)$ and we let $n \rightarrow \infty$ and $p \rightarrow 0$ such that $\lambda= np$ remains fixed, then the <strong>PMF</strong> of $X$ converges to the $Pois(\lambda )$ <strong>PMF</strong>. More generally, the same conclusion holds if $n \rightarrow \infty$ and $p \rightarrow 0$ in such a way that np converges to a constant $\lambda$.</p>
+<h2 id="Example-Visitors-to-A-Website"><a href="#Example-Visitors-to-A-Website" class="headerlink" title="Example: Visitors to A Website"></a>Example: Visitors to A Website</h2><p>The owner of a certain website is studying the distribution of the number of visitors to the site. Every day, a million people independently decide whether to visit the site, with probability $p = 2 \times 10^ 6$ of visiting. Give a good approximation for the probability of getting at least three visitors on a particular day.</p>
+<p>Res=$1-5e^{-2}\approx0.3233$, it’s easy to solve by poisson approximation.</p>
+<h1 id="Distance-between-Two-Probability-Distributions"><a href="#Distance-between-Two-Probability-Distributions" class="headerlink" title="Distance between Two Probability Distributions"></a>Distance between Two Probability Distributions</h1><h2 id="Total-Variation-Distance"><a href="#Total-Variation-Distance" class="headerlink" title="Total Variation Distance"></a>Total Variation Distance</h2><ul>
+<li>Distance measure between two probability distributions</li>
+</ul>
+<p>The total variation distance between two distributions $\mu$ and $\mathcal{v}$ on a countable set $\Omega$ is</p>
+<script type="math/tex; mode=display">
+d_{TV}(\mu,\mathcal{v})=||\mu-\mathcal{v}||_TV=\frac{1}{2}\cdot \sum_{x\in\Omega}|\mu(x)-\mathcal{v}(x)|</script><h3 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h3><p>Let $\mu$ be the distribution with $\mu(1) = p$ and $\mu(0) = 1 -p$. Let $\mathcal{v}$ be a Poisson distribution with mean $p$. Then we have $d_{TV} (μ,\mathcal{v})\leq p^2$.</p>
+<p><img src="https://s1.ax1x.com/2020/10/26/BuE80S.png" alt="distance"></p>
+<h2 id="The-Law-of-Small-Numbers"><a href="#The-Law-of-Small-Numbers" class="headerlink" title="The Law of Small Numbers"></a>The Law of Small Numbers</h2><p>Given independent random variables $Y_1 , \dots , Y _n$ such that for any $1 \leq m \leq n$, $\mathbb{P}(Y_m=1)=p_m$ and $\mathbb{P}(Y_m=0)=1-p_m$. Let $S_n = Y_1 + \dots + Y_n $. Suppose</p>
+<script type="math/tex; mode=display">
+\sum_{m=1}^n p_m\rightarrow \lambda\in(0,\infty) \text{ as } n\rightarrow\infty,</script><p>and,</p>
+<script type="math/tex; mode=display">
+\max\limits_{1\leq m\leq n} p_m\rightarrow 0 \text{ as } n\rightarrow \infty,</script><p>then,</p>
+<script type="math/tex; mode=display">
+d_{TV}(S_n,Poi(\lambda))\rightarrow0 \text{ as } n\rightarrow\infty.</script><h2 id="Gap-of-Poisson-Approximation"><a href="#Gap-of-Poisson-Approximation" class="headerlink" title="Gap of Poisson Approximation"></a>Gap of Poisson Approximation</h2><ul>
+<li>A bound on the gap due to Hodges and Le Cam (1960): $d_{TV}(S_n,Poi(\lambda))\leq\sum\limits_{m=1}^n p_m^2$</li>
+<li>by Stein-Chen method (C.Stein 1987) we can have a tighter bound on the gap: $d_{TV}(S_n,Poi(\lambda))\leq\min(1,\frac{1}{\lambda})\sum\limits_{m=1}^np_m^2$.</li>
+</ul>
+<h1 id="Probability-Generating-Functions"><a href="#Probability-Generating-Functions" class="headerlink" title="Probability Generating Functions"></a>Probability Generating Functions</h1><h2 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h2><p>The <strong><em>probability generating function</em></strong> (<strong>PGF</strong>) of a nonnegative integer-valued $r.v.$ $X$ with <strong>PMF</strong> $p_k = P(X = k)$ is the generating function<br>of the <strong>PMF</strong>. By <strong>LOTUS</strong>, this is</p>
+<script type="math/tex; mode=display">
+E(t^X)=\sum_{k=0}^\infty p_k t^k.</script><p>The <strong>PGF</strong> converges to a value in $[-1, 1]$ for all $t$ in $[-1, 1]$ since $\sum\limits_{k=1}^\infty p_k=1$ and $|p_kt^k|\leq p_k$ for $|t|\leq 1$.</p>
+<h3 id="Example-Generating-Dice-Probabilities"><a href="#Example-Generating-Dice-Probabilities" class="headerlink" title="Example: Generating Dice Probabilities"></a>Example: Generating Dice Probabilities</h3><p>Let $X$ be the total from rolling $6$ fair dice, and let $X_1 , \dots , X_6$ be the individual rolls. What is $P(X = 18)$?</p>
+<p>Res=$\frac{3431}{6^6}$, it’s easy to solve by probability generating function.</p>
+<h2 id="PGF-and-Moments"><a href="#PGF-and-Moments" class="headerlink" title="PGF and Moments"></a>PGF and Moments</h2><p>Let $X$ be a nonnegative integer-valued $r.v.$ with <strong>PMF</strong> $p_k = P(X = k)$, and the <strong>PGF</strong> of $X$ is $g (t) =\sum\limits_{k=0}^\infty p_kt^k $, we have</p>
+<ul>
+<li>$E(X)=g’(t)|_{t=1}$</li>
+<li>$E(X(X-1))=g’’(t)|_{t=1}$</li>
+</ul>
 
       
     </div>
