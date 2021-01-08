@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/12/01/probability-7/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2021/01/09/10%E5%88%86%E9%92%9F%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%96%E7%9F%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/12/01/probability-7/" class="post-title-link" itemprop="url">SI140 Lec7</a>
+            <a href="/2021/01/09/10%E5%88%86%E9%92%9F%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%8C%96%E7%9F%BF/" class="post-title-link" itemprop="url">15min快速入门挖矿及BTC交易(纯小白向</a>
         </h2>
 
         <div class="post-meta">
@@ -183,24 +183,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-12-01 01:01:15" itemprop="dateCreated datePublished" datetime="2020-12-01T01:01:15+08:00">2020-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-13 00:54:39" itemprop="dateModified" datetime="2020-12-13T00:54:39+08:00">2020-12-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Probability/" itemprop="url" rel="index"><span itemprop="name">Probability</span></a>
-                </span>
+              <time title="Created: 2021-01-09 04:45:37 / Modified: 06:16:08" itemprop="dateCreated datePublished" datetime="2021-01-09T04:45:37+08:00">2021-01-09</time>
             </span>
 
           
@@ -214,108 +199,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Transformations"><a href="#Transformations" class="headerlink" title="Transformations"></a>Transformations</h1><h2 id="Change-of-Variables"><a href="#Change-of-Variables" class="headerlink" title="Change of Variables"></a>Change of Variables</h2><h3 id="Theroem1-Change-of-Variables-in-One-Dimension"><a href="#Theroem1-Change-of-Variables-in-One-Dimension" class="headerlink" title="Theroem1: Change of Variables in One Dimension"></a>Theroem1: Change of Variables in One Dimension</h3><p>Let $X$ be a continuous $r.v.$ with PDF $f_X$ , and let $Y = g(X)$, where $g$ is differentiable and strictly increasing (or strictly decreasing). Then the PDF of $Y$ is given by</p>
-<script type="math/tex; mode=display">
-f_Y(y) = f_X(x)|\frac{dx}{dy}|,</script><p>where  $x=g^{-1}(y).$ The  support of $Y $ is all $g(x)$ with $x$ in the support of $X$. </p>
-<h3 id="Theorem2-Change-of-Variables"><a href="#Theorem2-Change-of-Variables" class="headerlink" title="Theorem2: Change of Variables"></a>Theorem2: Change of Variables</h3><p>Let $X=(X_1, \dots, X_n)$ be a continuous random vector with joint PDF $f_X(x)$, and let $Y = g(X)$ where $g$ is an invertible function from $\mathbb{R}^n$ to $\mathbb{R}^n$. Let $y = g(x)$ and suppose that all the partial derivatives $\frac{\partial x_i}{\partial y_i}$ exists and are continuous, so we can form the Jacobian matrix</p>
-<script type="math/tex; mode=display">
-\frac{\partial \mathbf{x}}{\partial \mathbf{y}}=\left(\begin{array}{cccc}
-\frac{\partial x_{1}}{\partial y_{1}} & \frac{\partial x_{1}}{\partial y_{2}} & \cdots & \frac{\partial x_{1}}{\partial y_{n}} \\
-\vdots & \vdots & & \vdots \\
-\frac{\partial x_{n}}{\partial y_{1}} & \frac{\partial x_{n}}{\partial y_{2}} & \cdots & \frac{\partial x_{n}}{\partial y_{n}}
-\end{array}\right)</script><p>Also assume that the determinant of the Jacobian matrix is never $0$. Then the joint PDF of $Y$ is</p>
-<script type="math/tex; mode=display">
-f_{Y}(y)=f_{X}(x)\left|\frac{\partial x}{\partial y}\right|</script><h3 id="Jacobian-or-not"><a href="#Jacobian-or-not" class="headerlink" title="Jacobian or not"></a>Jacobian or not</h3><ul>
-<li>For discrete $r.v.s$: No Jacobian</li>
-<li>For continuous $r.v.s$: Jacobian Yes</li>
+          <h1 id="15min快速入门挖矿及BTC交易-纯小白向"><a href="#15min快速入门挖矿及BTC交易-纯小白向" class="headerlink" title="15min快速入门挖矿及BTC交易(纯小白向"></a>15min快速入门挖矿及BTC交易(纯小白向</h1><p>最近一个月BTC一路狂飙，又正好入了RTX3070的显卡，于是就稍微了解了下挖矿是怎么个流程</p>
+<p>在此分享一个简单入门教程，希望能对也想挖矿赚点饭钱但是不知道咋整的HXD们做出一点微小的工作</p>
+<p>事先声明，爷不懂区块链不懂啥加密货币原理，也不懂金融杠杆炒币，只挖不抄</p>
+<p><img src="https://ae01.alicdn.com/kf/U35e7ad3a9f054abcaca123d3664ba869M.jpg" alt="bitcoin" style="zoom:30%;" /></p>
+<h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><ul>
+<li>一块不错的显卡 至少AMD580-8G or NV1660s，低于这个的可能赚的十分少，挖得你心焦（甚至可能抵不掉电费</li>
+<li>一架梯子（如果没有看看这个 <a href="https://portal.shadowsocks.nz/aff.php?aff=38679" target="_blank" rel="noopener">https://portal.shadowsocks.nz/aff.php?aff=38679</a></li>
 </ul>
-<h3 id="Box-Muller"><a href="#Box-Muller" class="headerlink" title="Box-Muller"></a>Box-Muller</h3><p>Let $U \sim \operatorname{Unif}(0,2\pi),$ and let $T \sim \operatorname{Expo}(1)$ be independent of $U$ Define $X=\sqrt{2 T} \cos U$ and $Y=\sqrt{2 T} \sin U .$ Find the joint $\mathrm{PDF}$ of $(X, Y) .$ Are they independent? What are their marginal distributions?</p>
-<script type="math/tex; mode=display">
-F_{X,Y}(x,y)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}</script><script type="math/tex; mode=display">
-\text{Also, it's easy to oberserve that they are independent}</script><h2 id="Convolutions"><a href="#Convolutions" class="headerlink" title="Convolutions"></a>Convolutions</h2><h3 id="Theorem1-Convolution-Sums-and-Integrals"><a href="#Theorem1-Convolution-Sums-and-Integrals" class="headerlink" title="Theorem1: Convolution Sums and Integrals"></a>Theorem1: Convolution Sums and Integrals</h3><p>If $X$ and $Y$ are independent discrete $r . v . s,$ then the $P M F$ of their sum $T=X+Y$ is</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-P(T=t) &=\sum_{x} P(Y=t-x) P(X=x) \\
-&=\sum_{y} P(X=t-y) P(Y=y)
-\end{aligned}</script><p>If $X$ and $Y$ are independent continuous $r . v . s,$ then the $P D F$ of their sum $T=X+Y$ is</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f_{T}(t) &=\int_{-\infty}^{\infty} f_{Y}(t-x) f_{X}(x) d x \\
-&=\int_{-\infty}^{\infty} f_{X}(t-y) f_{Y}(y) d y
-\end{aligned}</script><h3 id="Example-Exponential-Convolution"><a href="#Example-Exponential-Convolution" class="headerlink" title="Example: Exponential Convolution"></a>Example: Exponential Convolution</h3><p>$\text { Let } X, Y \stackrel{\text { i.i.d. }}{\sim} \operatorname{Expo}(\lambda) \text { . Find the distribution of } T=X+Y \text { . }$</p>
-<p><strong>Res:</strong> $f_T(t)=\lambda^2 t e^{-\lambda t}$</p>
-<h2 id="Order-Statistics"><a href="#Order-Statistics" class="headerlink" title="Order Statistics"></a>Order Statistics</h2><h3 id="Definition1"><a href="#Definition1" class="headerlink" title="Definition1:"></a>Definition1:</h3><p>For r.v.s $X_{1}, X_{2}, \ldots, X_{n}$, the order statistics are the random variables $X_{(1)}, \ldots, X_{(n)},$ where</p>
-<script type="math/tex; mode=display">
-X_{(1)}=\min \left(X_{1}, \ldots, X_{n}\right)</script><script type="math/tex; mode=display">
-X_{(2)} \text{ is the second-smallest of } X_{1}, \ldots, X_{n}</script><script type="math/tex; mode=display">
-\vdots</script><script type="math/tex; mode=display">
-X_{(n-1)} \text{ is the second-largest of } X_{1}, \ldots, X_{n}</script><script type="math/tex; mode=display">
-X_{(n)}=\max \left(X_{1}, \ldots, X_{n}\right)</script><p>Note that $X_{(1)} \leq X_{(2)} \leq \ldots \leq X_{(n)}$ by definition. We call $X_{(j)}$ the $j^{th}$  order statistic.</p>
-<h3 id="CDF-of-Order-Statistics"><a href="#CDF-of-Order-Statistics" class="headerlink" title="CDF of Order Statistics"></a>CDF of Order Statistics</h3><p>Let $X_{1}, \ldots, X_{n}$ be i.i.d. continuous $r . v . s$ with $C D F F .$ Then the CDF of the $j^{th}$ order statistic $X_{(j)}$ is</p>
-<script type="math/tex; mode=display">
-P\left(X_{(j)} \leq x\right)=\sum_{k=j}^{n}\left(\begin{array}{c}
-n \\
-k
-\end{array}\right) F(x)^{k}(1-F(x))^{n-k}</script><h3 id="PDF-of-Order-Statistic"><a href="#PDF-of-Order-Statistic" class="headerlink" title="PDF of Order Statistic"></a>PDF of Order Statistic</h3><p>Let $X_{1}, \ldots, X_{n}$ be $i.i.d.$ continuous $r . v . s$ with <strong>CDF</strong> $F$ and <strong>PDF</strong> $f$ . Then the marginal PDF of the $j^{th}$ order statistic $X_{(j)}$ is</p>
-<script type="math/tex; mode=display">
-f_{X_{(j)}}(x)=n\left(\begin{array}{c}
-n-1 \\
-j-1
-\end{array}\right) f(x) F(x)^{j-1}(1-F(x))^{n-j}</script><h3 id="Joint-PDF"><a href="#Joint-PDF" class="headerlink" title="Joint PDF"></a>Joint PDF</h3><p>Let $X_{1}, \ldots, X_{n}$ be $i.i.d.$ continuous r.v.s with <strong>PDF</strong> $f$. Then the joint <strong>PDF</strong> of all order statistics is</p>
-<script type="math/tex; mode=display">
-f_{X_{(1)}, \ldots, X_{(n)}}\left(x_{1}, \ldots, x_{n}\right)=n ! \prod_{i=1}^{n} f\left(x_{i}\right), x_{1}<x_{2}<\cdots<x_{n}</script><h3 id="Example-Order-Statistics-of-Uniforms"><a href="#Example-Order-Statistics-of-Uniforms" class="headerlink" title="Example: Order Statistics of Uniforms"></a>Example: Order Statistics of Uniforms</h3><p>$U_1,\dots,U_n\sim^{i.i.d} Unif(0,1)$, find order statistics</p>
-<p><strong>Res:</strong> $\int_0^x\frac{n!}{(j-1)!(n-j)!}t^{j-1}(1-t)^{n-j}\,dt$</p>
-<h3 id="Related-Identity"><a href="#Related-Identity" class="headerlink" title="Related Identity"></a>Related Identity</h3><p>For $0&lt;p&lt;1,$ and nonnegative integer $k,$ we have</p>
-<script type="math/tex; mode=display">
-\sum_{j=0}^{k}\left(\begin{array}{c}
-n \\
-j
-\end{array}\right) p^{j}(1-p)^{n-j}=\frac{n !}{k !(n-k-1) !} \int_{p}^{1} x^{k}(1-x)^{n-k-1} d x</script><h2 id="Beta-Binomial-Conjugacy"><a href="#Beta-Binomial-Conjugacy" class="headerlink" title="Beta-Binomial Conjugacy"></a>Beta-Binomial Conjugacy</h2><h3 id="Definition1-1"><a href="#Definition1-1" class="headerlink" title="Definition1:"></a>Definition1:</h3><p>An $r.v.$ $X$ is said to have the Beta distribution with parameters a and $b$, $a&gt;0$ and $b&gt;0,$ if its  <strong>PDF</strong> is</p>
-<script type="math/tex; mode=display">
-f(x)=\frac{1}{\beta(a, b)} x^{a-1}(1-x)^{b-1}, 0<x<1</script><p>where the constant $\beta(a, b)$ is chosen to make the PDF integrate to $1 .$ We write this as $X \sim \operatorname{Beta}(a, b)$. Beta distribution is a generalization of uniform distribution.</p>
-<h3 id="Story-Bayes’-billiards"><a href="#Story-Bayes’-billiards" class="headerlink" title="Story: Bayes’ billiards"></a>Story: Bayes’ billiards</h3><p>Show without using calculus that for any integers $k$ and $n$ with $0 \leq k \leq n$,</p>
-<script type="math/tex; mode=display">
-\int_{0}^{1}\left(\begin{array}{l}
-n \\
-k
-\end{array}\right) x^{k}(1-x)^{n-k} d x=\frac{1}{n+1}</script><p><img src="https://s3.ax1x.com/2020/12/01/DWDrX6.png" alt="DWDrX6.png"></p>
-<p><img src="https://s3.ax1x.com/2020/12/01/DWDD6x.png" alt="DWDD6x.png"></p>
-<h3 id="Story-Beta-Binomial-Conjugacy"><a href="#Story-Beta-Binomial-Conjugacy" class="headerlink" title="Story: Beta Binomial Conjugacy"></a>Story: Beta Binomial Conjugacy</h3><p>We have a coin that lands Heads with probability $p$, but we don’t know what $p$ is. Our goal is to infer the value of $p$ after observing the outcomes of $n$ tosses of the coin. The larger that $n$ is, the more accurately we should be able to estimate $p$.</p>
-<h4 id="Bayesian-Inference"><a href="#Bayesian-Inference" class="headerlink" title="Bayesian Inference"></a>Bayesian Inference</h4><ul>
-<li>Treats all unknown quantities as random variables.</li>
-<li>In the Bayesian approach, we would treat the unknown probability $p$ as a random variable and give $p$ a distribution.</li>
-<li>This is called a <strong>prior distribution</strong>, and it reflects our uncertainty about the true value of $p$ before observing the coin tosses.</li>
-<li>After the experiment is performed and the data are gathered, the prior distribution is updated using Bayes’ rule; this yields the <strong>posterior distribution</strong>, which reflects our new beliefs about $p$.</li>
+<h2 id="Software-amp-amp-Applications"><a href="#Software-amp-amp-Applications" class="headerlink" title="Software &amp;&amp; Applications"></a>Software &amp;&amp; Applications</h2><h3 id="Miner"><a href="#Miner" class="headerlink" title="Miner"></a>Miner</h3><p>也就是用来挖矿的软件，这个教程基于<strong>NiceHash Miner!!!</strong></p>
+<p>因为这是最简单地挖矿软件，它本质上不是在直接挖矿获取收益而是提供你的算力给平台上的算力买家（你可以不用管这点</p>
+<p>当然国内外也有很多其他的Miner Software，它们大多需要自行选择币池、货币种类等</p>
+<ul>
+<li>轻松矿工 <a href="http://www.qskg.top/" target="_blank" rel="noopener">http://www.qskg.top/</a></li>
+<li>开源矿工 <a href="https://ntminer.com/" target="_blank" rel="noopener">https://ntminer.com/</a></li>
+<li>一号矿工 <a href="http://1hkg.net/" target="_blank" rel="noopener">http://1hkg.net/</a></li>
+<li>POW <a href="https://www.pow.one/" target="_blank" rel="noopener">https://www.pow.one/</a></li>
+<li>CGMiner <a href="https://github.com/ckolivas/cgminer" target="_blank" rel="noopener">https://github.com/ckolivas/cgminer</a></li>
+<li>国外有很多，可以参考 <a href="https://www.thebalance.com/best-bitcoin-mining-software-4171623" target="_blank" rel="noopener">https://www.thebalance.com/best-bitcoin-mining-software-4171623</a></li>
 </ul>
-<h4 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h4><p>If win $k$ times of $n$ trails, we suppose $p\sim Beta(a, b)$ at first, then we will get the answer that $p\sim Beta(a+k, b+n-k)$</p>
-<h4 id="Furthermore"><a href="#Furthermore" class="headerlink" title="Furthermore"></a>Furthermore</h4><ul>
-<li><p>Furthermore, notice the very simple formula for updating the distribution of $p$.</p>
+<h3 id="Wallet-amp-amp-Exchange"><a href="#Wallet-amp-amp-Exchange" class="headerlink" title="Wallet &amp;&amp; Exchange"></a>Wallet &amp;&amp; Exchange</h3><p>好的钱包软件帮助你更好地管理你的各种加密货币钱包地址，并且帮助你快捷地进行各种交易</p>
+<p><strong>NiceHash</strong> 附带了钱包功能同时也附带了交易功能，但是不支持C2C也就是法币交易，也就是说你无法在该平台直接把BTC卖成CNY</p>
+<p>所以我们需要一些其他专(fang)业(bian)的交易所以及钱包软件</p>
+<ul>
+<li>Binance币安 <a href="https://www.binance.com/cn" target="_blank" rel="noopener">https://www.binance.com/cn</a></li>
+<li>Huobi火币 <a href="https://www.huobi.com/zh-cn/" target="_blank" rel="noopener">https://www.huobi.com/zh-cn/</a></li>
+<li>其他国外的如大名鼎鼎的Coinbase, Kraken, Bitstamp可以自行选择 (Note: 它们中有不少不支持中国大陆地区，且大多不支持CNY交易</li>
+</ul>
+<h3 id="Shopping"><a href="#Shopping" class="headerlink" title="Shopping"></a>Shopping</h3><p>许多国外的网站也已经支持BTC直接付款</p>
+<ul>
+<li>NewEgg <a href="https://www.newegg.com/" target="_blank" rel="noopener">https://www.newegg.com/</a></li>
+<li>Amazon(通过用BTC购买礼品卡) <a href="https://www.amazon.com/" target="_blank" rel="noopener">https://www.amazon.com/</a></li>
+<li>Bitrefill(BTC兑换礼品卡平台) <a href="https://www.bitrefill.com/" target="_blank" rel="noopener">https://www.bitrefill.com/</a></li>
+<li>更多可以参考 <a href="https://www.buybitcoinworldwide.com/who-accepts-bitcoin/" target="_blank" rel="noopener">https://www.buybitcoinworldwide.com/who-accepts-bitcoin/</a> and <a href="https://icoholder.com/blog/places-accept-bitcoin/" target="_blank" rel="noopener">https://icoholder.com/blog/places-accept-bitcoin/</a></li>
+</ul>
+<h3 id="Extra"><a href="#Extra" class="headerlink" title="Extra"></a>Extra</h3><p>显卡超频软件 MSI Afterburner <a href="https://www.msi.com/Landing/afterburner" target="_blank" rel="noopener">https://www.msi.com/Landing/afterburner</a></p>
+<h2 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h2><ol>
+<li><p>在NiceHash上注册账号 <a href="https://www.nicehash.com/" target="_blank" rel="noopener">https://www.nicehash.com/</a></p>
 </li>
-<li><p>We just add the number of observed successes, $k$, to the first parameter of the Beta distribution.</p>
+<li><p>进入你的wallets页面 <a href="https://www.nicehash.com/my/wallets/" target="_blank" rel="noopener">https://www.nicehash.com/my/wallets/</a></p>
 </li>
-<li><p>We also add the number of observed failures, $n - k$, to the second parameter of the Beta distribution.</p>
+<li><p>选择Bitcoin</p>
 </li>
-<li><p>So $a$ and $b$ have a concrete interpretation in this context:</p>
-<script type="math/tex; mode=display">
-\left\{
-\begin{array}[l]
-&a\text{ as the number of prior successes in earlier experiments}\\
-b\text{ as the number of prior failures in earlier experiments}\\
-a,b:\text{ pseudo counts}
-\end{array}
-\right.</script></li>
-<li></li>
-</ul>
-<h4 id="Mean-vs-Bayesian-Average"><a href="#Mean-vs-Bayesian-Average" class="headerlink" title="Mean vs. Bayesian Average"></a>Mean vs. Bayesian Average</h4><ul>
-<li>Infer the value of $p$ (probability of coin lands heads)</li>
-<li>Observed $k$ heads out of $n$ tosses of the coin</li>
-<li>Mean: $\frac{k}{n}$</li>
-<li>Bayesian Average: $E(p|X=k)=\frac{a+k}{a+b+n}$</li>
-<li>Suppose the prior distribution is Unif(0,1): $a=1$, $b=1$</li>
-<li>Bayesian Average: $\frac{k+1}{n+2}$</li>
-<li>When $k=n$, we have : 1(mean) vs. $\frac{n+1}{n+2}$(Bayesian Average)</li>
-</ul>
-<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>If we have a Beta prior distribution on $p$ and data that are conditionally Binomial given $p$, then when going from prior to posterior, we don’t leave the family of Beta distributions. We say that <strong>the Beta is the conjugate prior of the Binomial</strong>.</p>
+</ol>
+<p>​                                                                                                       <img src="https://ae01.alicdn.com/kf/U73b5869c57de4c528574b1d82c4026c1i.jpg" alt="wallet"  /></p>
+<ol>
+<li>点击右上角绿色的存款-&gt;显示(BTC)地址，你会看到一张二维码和一串字符串，他就是你的BTC钱包地址，copy它</li>
+<li>下载NiceHash Miner <a href="https://www.nicehash.com/download-center" target="_blank" rel="noopener">https://www.nicehash.com/download-center</a> 下载列表里第一个</li>
+<li>打开后正常地安装就好，会有一步要登陆，我选择了手动输入钱包地址那个选项，因为网络问题好像登录并不好使</li>
+<li>进入后点击右上角齿轮 Setting-&gt;General，看到Wallet address确认是否是你的钱包地址，别挖到别人号上了(牛头人狂喜)</li>
+<li>接着不要急着开始，记得我们在前面提过显卡超频软件 MSI Afterburner，打开它 <img src="https://ae01.alicdn.com/kf/Ufabe454667034ad98825d00a26394cb36.jpg"/></li>
+<li>MEMORY CLOCK, POWER LIMIT, CORE CLOCK是我们需要调整的，我的RTX3070根据网上经验和我个人实验下来选择了-100 Core/+1200 MEM/70 PWL的设定，注意<strong>每款显卡的优化方式不一样！！！</strong>具体请自行google，你可以search “{GPU} mining setting”, “{GPU} NiceHash”, “{GPU} hashrate”等关键字(这里GPU替换成你的显卡型号)，一般可以在NIceHash Blog或者 reddit上找到答案</li>
+<li>OK！现在是最后一步了，重新回到NiceHash Miner，选择Benchmark，然后点击右下角 START BENCHMARK, 等着完成就好，如果你发现出现Error Benchmark的异常，一般不用担心，在完成全部benchmark后disable掉它们即可。你需要关心的是DaggerHashimoto这个算法，我们一般使用Excavator作为Miner，也就是图中第一个所示那样<img src="https://ae01.alicdn.com/kf/U7b183ffddec34030ab0056aeb7e807e86.jpg"/></li>
+<li>Fine！回到软件的Dashboard界面，点击那个大大的开始，Excavator(或者你选的其他Miner如NBMiner之类)就会出现在你的屏幕上，如果你看到类似下图的东西，Nice！你已经开挖了！蓝色行字代表着目前的算力/功耗/效率<img src="https://ae01.alicdn.com/kf/Ucc689febfce94fe1acd862397e60ab90M.jpg"/></li>
+<li>回到软件，点开Devices就看看到目前的挖矿情况：CURRENT PROFITABILITY当前算力下预估日收益 UNPAID BALANCE未支付收益(NiceHash每四小时向你的钱包中发放一次收益，在这一栏你看到在当前四小时周期内你的收益)，下面是你的可用挖矿设备，它们的温度、负载、风扇转速、日盈利(我们一般不用CPU挖矿，因为并不合适)<img src="https://ae01.alicdn.com/kf/U6babca68bedd4ccbb1a9389e68440c78n.jpg"/></li>
+<li>OK 经过四个小时的焦灼等待后，你的第一桶金就要到账了，这是你会发现UPAID BALANCE归零了，但是你在你的钱包<a href="https://www.nicehash.com/my/wallets/中还没有看到收益进账，别担心这是在结算，有一定延迟，通常5-10分钟可以到账，这时你就可以在网页端的NiceHashhttps://www.nicehash.com/my/dashboard右上角的通知里看到到账提示，就这么简单！但是还没结束，NiceHash里的BTC不会自己飞进你的支付宝、微信或者银行卡里" target="_blank" rel="noopener">https://www.nicehash.com/my/wallets/中还没有看到收益进账，别担心这是在结算，有一定延迟，通常5-10分钟可以到账，这时你就可以在网页端的NiceHashhttps://www.nicehash.com/my/dashboard右上角的通知里看到到账提示，就这么简单！但是还没结束，NiceHash里的BTC不会自己飞进你的支付宝、微信或者银行卡里</a><img src="https://ae01.alicdn.com/kf/U38480277d2f24f46b46283cfbef89a99I.jpg" style="zoom: 67%;" /></li>
+<li>将BTC换成CNY的路子很多，我讲述最EZ的一种，记得之前提到的交易所以及钱包软件么，这里以手机端的Binance为例：点击右下角资产，点击上方充值，选择BTC，二维码和一串字符串地址又出现了，别把它和之前的搞混了，这是你的币安BTC钱包地址，和之前NiceHash上的BTC地址一样它们都是你的钱包<img src="https://ae01.alicdn.com/kf/Ua9c938f09e034260b32521f59b3519d6l.jpg" style="zoom: 25%;" /><img src="https://ae01.alicdn.com/kf/U34ea58900472448aa3cd703af4801c21N.jpg" style="zoom:25%;" /></li>
+<li>重新回到NiceHash <a href="https://www.nicehash.com/my/wallets/，点进你的BTC" target="_blank" rel="noopener">https://www.nicehash.com/my/wallets/，点进你的BTC</a> Wallet，这回选择提款(小飞机)，在“提款到”选项中选择“添加新的提现地址”，输入你刚刚的<strong>币安BTC钱包地址</strong>，取个地址名称如“myBinanceBitcoin”之类，接着选择要提的数额就OK啦！这里主要补充注意一点！！！所有的BTC转账都是需要手续费的，即使平台不抽取也会有手续费(也叫矿工费)，NiceHash针对各种加密货币的提现有不同的手续费，请<strong>仔细参考</strong><a href="https://www.nicehash.com/support/general-help/nicehash-service/fees" target="_blank" rel="noopener">https://www.nicehash.com/support/general-help/nicehash-service/fees</a> 你会发现直接转账BTC并不合算，转换成LTC, BCH等或许会更好，它们的转账方式与BTC转账方式如出一辙，不做赘述</li>
+<li>Nice，一旦你的BTC到了你的币安BTC钱包后你就可以拿他卖钱啦！打开币安APP，点击资产-&gt;划转，将你的BTC现货转为C2C，然后返回主界面选择下面菜单栏中间的交易，选择上方的C2C，点击我要卖，点击BTC，OK选一个买家卖给他就行，值得注意的是很多买家会有最低交易限额，也会有支持的平台限定(如支付宝，微信，银行卡) 你需要选择一个合适你的出售，选择你要出售的数量点击出售即可！以支持支付宝的买家为例，你会在平台绑定上你的支付宝账号和收款码，当你选择出售给他BTC后，他会在一定时间内支付宝转账给你付款，请<strong>务必check</strong>真的收到付款后再在币安平台上confirm交易<img src="https://ae01.alicdn.com/kf/U6d8ce4c5c04e47749da4c67f214db2c7J.jpg" style="zoom: 25%;" /></li>
+</ol>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>基本的流程就是这样，操作其实并不麻烦，以我的RTX3070一天下来能挖30元左右CNY(当然这还要取决于目前的BTC价)，说多肯定不算多，但是电脑闲着也是闲着，30怎么说一顿多饭钱有了</p>
+<p>上面没有提及到<strong>币币兑换</strong>，<strong>Bitrefill购买礼品卡方法</strong>等，这些并不难，自己捣鼓几分钟就会了</p>
+<p>遇到任何问题可以先google或者查阅NiceHash官网指南和Blog，也可以reddit提问或官网提交工单申请support，基本会获得积极的回应</p>
+<p>最后的最后，随着对加密货币市场了解的深入肯定会打起炒币的心思，我并不反对，但是请<strong>谨慎</strong>，加密货币市场的波动极大，远大于一般股票基金，至于更深层的杠杆、合约等金融操作，我也不懂不好评论，但是这一市场投资回报很高(我第一次接触买了200块CNY，两天就卖了240)，但是<strong>风险也很大</strong>，老话说的好“挖币不炒币，来回都是赚”</p>
 
       
     </div>
@@ -334,7 +280,7 @@ a,b:\text{ pseudo counts}
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -400,7 +346,7 @@ a,b:\text{ pseudo counts}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -442,7 +388,7 @@ a,b:\text{ pseudo counts}
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -523,61 +469,6 @@ document.querySelectorAll('.pdfobject-container').forEach(element => {
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-          load: ['[tex]/mhchem'],
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-          packages: {'[+]': ['mhchem']},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

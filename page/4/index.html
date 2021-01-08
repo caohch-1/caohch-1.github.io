@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/11/16/probaility-1/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/11/16/Sorting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/16/probaility-1/" class="post-title-link" itemprop="url">SI140 Lec1</a>
+            <a href="/2020/11/16/Sorting/" class="post-title-link" itemprop="url">Sorting</a>
         </h2>
 
         <div class="post-meta">
@@ -191,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-20 14:44:30" itemprop="dateModified" datetime="2020-09-20T14:44:30+08:00">2020-09-20</time>
+                <time title="Modified: 2020-08-16 21:01:06" itemprop="dateModified" datetime="2020-08-16T21:01:06+08:00">2020-08-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -199,7 +199,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Probability/" itemprop="url" rel="index"><span itemprop="name">Probability</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
                 </span>
             </span>
 
@@ -214,109 +214,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Counting"><a href="#Counting" class="headerlink" title="Counting"></a>Counting</h1><h2 id="Generalized-Birthday-Problem"><a href="#Generalized-Birthday-Problem" class="headerlink" title="Generalized Birthday Problem"></a>Generalized Birthday Problem</h2><p>If the probability that at least two people have the same number is 50%, then $k\approx 1.18\sqrt{n}$.</p>
-<p>Proof:</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-P(A^C)&=\frac{n(n-1)\cdots(n-k+1)}{n^k}\\
-      &=1\cdot(1-\frac{1}{n})\cdot(1-\frac{2}{n})\cdots(1-\frac{k-1}{n})\\
-      &=e^{-\frac{1+2+\cdots+(k-1)}{n}}\\
-      &=e^{-\frac{k\cdot(k-1)}{2n}}\\
-      &\approx e^{-\frac{k^2}{2n}}\\
-if\,P(A^C)&=0.5,\,k\approx 1.18\sqrt{n}
-\end{align*}</script><p>Application: Hash Collision, Cryptographic Hash Function</p>
-<h2 id="Story-Proof"><a href="#Story-Proof" class="headerlink" title="Story Proof"></a>Story Proof</h2><p><strong>Story Proof的好处在与构建一个例子，从而得以简化复杂的数学推导进而快速证明</strong></p>
-<h3 id="Team-Capatin"><a href="#Team-Capatin" class="headerlink" title="Team Capatin"></a>Team Capatin</h3><p>For any postive integers $n$ and $k$ with $k\leq n$,</p>
-<script type="math/tex; mode=display">
-n\cdot C_{n-1}^{k-1}=k\cdot C_{n}^{k}</script><p>Consider a group of $n$ people.</p>
-<p>Choose a team of $k$ people, one of the team member is captain.</p>
-<p>LHS: First choose captain, then team member</p>
-<p>RHS: First choose team member, then captain</p>
-<h3 id="Vandermonde’s-identity"><a href="#Vandermonde’s-identity" class="headerlink" title="Vandermonde’s identity"></a>Vandermonde’s identity</h3><p>A famous relationship between binomial coefficients, called <em>Vandermonde’s identity</em>, says that </p>
-<script type="math/tex; mode=display">
-C_{m+n}^{k}=\sum_{j=0}^{k}C_m^j\cdot C_n^{k-j}</script><p>Consider a group of $m$ women and $n$ men.</p>
-<p>Choose a team of $k$ people.</p>
-<p>LHS: Directly choose $k$ people</p>
-<p>RHS: First $j$ men, then $k-j$ women </p>
-<h2 id="Bose-Einstein"><a href="#Bose-Einstein" class="headerlink" title="Bose-Einstein"></a>Bose-Einstein</h2><p>How many ways are there to choose $k$ times from a set of $n$ objects with replacement, if order doesn’t matter (we only care about how many times each object was choosen, not the order in which they were chosen)?</p>
-<p>A equivalent problem is $x_1+x_2\cdots+x_n=k,\,x_i\geq 0,\,i=1,2,\dots,n.$ (Diophantine Equation</p>
-<p>Answer is $C_{n+k-1}^{n-1}$(can be solved easily using knowledge in discrete mathematics</p>
-<h2 id="Summary-of-counting"><a href="#Summary-of-counting" class="headerlink" title="Summary of counting"></a>Summary of counting</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Order Matters</th>
-<th>Order Not Matter</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>with replacement</td>
-<td>$n^k$</td>
-<td>$C_{n+k-1}^{k}$</td>
-</tr>
-<tr>
-<td>without replacement</td>
-<td>$n(n-1)\cdots(n-k+1)$</td>
-<td>$C_n^k$</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h1 id="Definition-of-Probability"><a href="#Definition-of-Probability" class="headerlink" title="Definition of Probability"></a>Definition of Probability</h1><h2 id="Two-axioms"><a href="#Two-axioms" class="headerlink" title="Two axioms"></a>Two axioms</h2><p>1.$P(\emptyset)=0,\,P(S)=1$</p>
-<p>2.If $A_1,A_2,\dots$ are disjoint events, then $P(\bigcup_{j=1}^\infty A_j)=\sum_{j=1}^\infty P(A_j)$</p>
-<h2 id="Two-views"><a href="#Two-views" class="headerlink" title="Two views"></a>Two views</h2><p>The <em>frequentist view:</em> probability represents a long-run frequency over a large number of repetitions of an experiment</p>
-<p>The <em>Bayesian view</em>: probability represents a degree of blief about the event in question</p>
-<h2 id="Properties-of-Probability"><a href="#Properties-of-Probability" class="headerlink" title="Properties of Probability"></a>Properties of Probability</h2><ol>
-<li><p>$P(A^C)=1-P(A)$</p>
-<p>Proof:</p>
-<p>$P(A\cup A^C)=P(S)=1$</p>
-<p>$P(A)+P(A^C)=1$</p>
-</li>
-</ol>
-<ol>
-<li><p>If $A\subseteq B,$ then $P(A)\leq P(B)$</p>
-<p> Proof:</p>
-<p> $B=A\cup (B\cap A^C)$</p>
-<p> $P(B)=P(A)+P(B\cap A^C)$</p>
-<p> Because $P(B\cap A^C)\geq 0$</p>
-<p>So $P(B)\geq P(A)$</p>
-</li>
-</ol>
-<ol>
-<li><p>$P(A\cup B)=P(A)+P(B)-P(A\cap B)$</p>
-<p>Proof: </p>
-<p>$P(A\cup B)=P(A\cup (B\cap A^C))=P(A)+P(B\cap A……C)$</p>
-<p>$P(B)=P((A\cup B)\cup(B\cap A^C))=P(A\cup B)+P(B\cap A^C)$</p>
-<p>$P(B\cap A^C)=P(B)-P(A\cap B)$</p>
-<p>$P(A\cup B)-P(A)=P(B)-P(A\cap B)$</p>
-</li>
-</ol>
-<h2 id="Bonferroni’s-Inequality"><a href="#Bonferroni’s-Inequality" class="headerlink" title="Bonferroni’s Inequality"></a>Bonferroni’s Inequality</h2><p>For any $n$ events $A_1,\dots,A_n$, we have</p>
-<script type="math/tex; mode=display">
-P(A_1\cap A_2\cap\cdots\cap A_n)\geq P(A_1)+P(A_2)+\cdots+P(A_n)-(n-1)</script><p>Proof: </p>
-<script type="math/tex; mode=display">
-\begin{align}
-1^\circ P(A_1\cap A_2\cap\cdots\cap A_n)&=1-P(\overline{A_1\cap A_2\cap\cdots\cap A_n})\\
-&=1-P(\bar{A_1}\cup\cdots\cup\bar{A_n})\\
-2^\circ P(\bar{A_1}\cup\cdots\cup\bar{A_n})&\leq P(\bar{A_1})+P(\bar{A_2})+\cdots+P(\bar{A_n})\\
-&=(1-P(A_1))+(1-P(A_2))+\cdots+(1-P(A_n))\\
-&=n-(P(A_1)+P(A_2)+\cdots+P(A_n))\\
-3^\circ P(A_1\cap A_2\cap\cdots\cap A_n)&\geq 1-n+(P(A_1)+P(A_2)+\cdots+P(A_n)
-\end{align}</script><h2 id="Boole’s-Inequality"><a href="#Boole’s-Inequality" class="headerlink" title="Boole’s Inequality"></a>Boole’s Inequality</h2><p>For any events $A_1,A_2,\dots$, we have</p>
-<script type="math/tex; mode=display">
-P(\bigcup_{i=1}^\infty A_i)\leq\sum_{i=1}^\infty P(A_i)</script><p>Proof:</p>
-<script type="math/tex; mode=display">
-\begin{align}
-1^\circ \text{We need to find }&B\text{ satisfy }\bigcup_{i=1}^\infty A_i=\bigcup_{i=1}^\infty B_i,\,B_i\cap B_j=\emptyset\\
-2^\circ A_1\cup\cdots\cup& A_n=A_1\cup(A_2\cup\bar{A_1})\cup(A_3\cup\overline{A_1\cup A_2})\cdots\cup(A_n\cup\overline{A_1\cup\cdots\cup A_{n-1}})\\
-3^\circ B_i&=A_i\cap\overline{\bigcup_{j=1}^{i-1}A_j},\,i=1,\dots\infty(B_i\subseteq A_i)\\
-4^\circ P(\bigcup_{i=1}^\infty A_i)&=P(\bigcup_{i=1}^\infty B_i)\\
-&=\sum_{i=1}^\infty P(B_i)\\
-&=\sum_{i=1}^\infty P(A_i\cap\overline{\bigcup_{j=1}^{i-1}A_j})\\
-&\leq\sum_{i=1}^\infty P(A_i)
-\end{align}</script>
+          <p><strong><em>基于《算法导论》中的伪代码 以及部分网络资源</em></strong></p>
+<h1 id="INSERT-SORT"><a href="#INSERT-SORT" class="headerlink" title="INSERT_SORT"></a><strong><em>INSERT_SORT</em></strong></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">INSERT_SORT</span><span class="params">(<span class="keyword">int</span> *original_data, <span class="keyword">int</span> data_size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; data_size; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> key = original_data[j];</span><br><span class="line">        <span class="keyword">int</span> i = j - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; original_data[i] &gt; key)</span><br><span class="line">        &#123;</span><br><span class="line">            original_data[i + <span class="number">1</span>] = original_data[i];</span><br><span class="line">            i = i - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        original_data[i + <span class="number">1</span>] = key;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="MERGE-SORT"><a href="#MERGE-SORT" class="headerlink" title="MERGE_SORT"></a><strong><em>MERGE_SORT</em></strong></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MERGE</span><span class="params">(<span class="keyword">int</span> *original_data, <span class="keyword">int</span> p, <span class="keyword">int</span> q, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Create two sub-arr</span></span><br><span class="line">    <span class="keyword">int</span> n1 = q - p + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> n2 = r - q;</span><br><span class="line">    <span class="keyword">int</span> *left_arr = <span class="keyword">new</span> <span class="keyword">int</span>[n1 + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> *right_arr = <span class="keyword">new</span> <span class="keyword">int</span>[n2 + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n1; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        left_arr[i] = original_data[p + i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n2; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        right_arr[j] = original_data[q + j + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//The last element of two arr must be infinite big</span></span><br><span class="line">    left_arr[n1] = <span class="number">10000000</span>;</span><br><span class="line">    right_arr[n2] = <span class="number">10000000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Sort</span></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = p; k &lt;= r; k++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (left_arr[i] &lt;= right_arr[j])</span><br><span class="line">        &#123;</span><br><span class="line">            original_data[k] = left_arr[i];</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            original_data[k] = right_arr[j];</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Never forget to free memory</span></span><br><span class="line">    <span class="keyword">delete</span>[] left_arr;</span><br><span class="line">    <span class="keyword">delete</span>[] right_arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>《算法导论》2.3-2 ：不使用哨兵的MERGE</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MERGE_WZOUT_FLAG</span><span class="params">(<span class="keyword">int</span> *original_data, <span class="keyword">int</span> p, <span class="keyword">int</span> q, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Create two sub-arr</span></span><br><span class="line">    <span class="keyword">int</span> n1 = q - p + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> n2 = r - q;</span><br><span class="line">    <span class="keyword">int</span> *left_arr = <span class="keyword">new</span> <span class="keyword">int</span>[n1 + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> *right_arr = <span class="keyword">new</span> <span class="keyword">int</span>[n2 + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n1; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        left_arr[i] = original_data[p + i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n2; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        right_arr[j] = original_data[q + j + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//The last element of two arr must be infinite big</span></span><br><span class="line">    left_arr[n1] = <span class="number">10000000</span>;</span><br><span class="line">    right_arr[n2] = <span class="number">10000000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Sort</span></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> k = p;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; n1 &amp;&amp; j &lt; n2)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (left_arr[i] &lt;= right_arr[j])</span><br><span class="line">        &#123;</span><br><span class="line">            original_data[k] = left_arr[i];</span><br><span class="line">            k++;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            original_data[k] = right_arr[j];</span><br><span class="line">            k++;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (i &lt; n1)</span><br><span class="line">    &#123;</span><br><span class="line">        original_data[k] = left_arr[i];</span><br><span class="line">        k++;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; n2)</span><br><span class="line">    &#123;</span><br><span class="line">        original_data[k] = right_arr[j];</span><br><span class="line">        k++;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Never forget to free memory</span></span><br><span class="line">    <span class="keyword">delete</span>[] left_arr;</span><br><span class="line">    <span class="keyword">delete</span>[] right_arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>MERGE_SORT</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MERGE_SORT</span><span class="params">(<span class="keyword">int</span> *original_data, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (p &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> q = (p + r) / <span class="number">2</span>;</span><br><span class="line">        MERGE_SORT(original_data, p, q);</span><br><span class="line">        MERGE_SORT(original_data, q + <span class="number">1</span>, r);</span><br><span class="line">        <span class="comment">//Two method</span></span><br><span class="line">        MERGE(original_data, p, q, r);</span><br><span class="line">        MERGE_WZOUT_FLAG(original_data, p, q, r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="BUBBLE-SORT"><a href="#BUBBLE-SORT" class="headerlink" title="BUBBLE_SORT"></a><strong><em>BUBBLE_SORT</em></strong></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BUBBLE_SORT</span><span class="params">(<span class="keyword">int</span> *original_data, <span class="keyword">int</span> <span class="built_in">size</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span> - <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="built_in">size</span> - <span class="number">1</span>; j &gt; i; j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (original_data[j] &lt; original_data[j - <span class="number">1</span>])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//Swap</span></span><br><span class="line">                <span class="keyword">int</span> temp = original_data[j - <span class="number">1</span>];</span><br><span class="line">                original_data[j - <span class="number">1</span>] = original_data[j];</span><br><span class="line">                original_data[j] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="QUICKSORT"><a href="#QUICKSORT" class="headerlink" title="QUICKSORT"></a><strong><em>QUICKSORT</em></strong></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">PARTITION</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = arr[r];</span><br><span class="line">    <span class="keyword">int</span> i = p - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = p; j &lt;= r - <span class="number">1</span>; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[j] &lt;= x)</span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">            swap(arr[i], arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    swap(arr[i + <span class="number">1</span>], arr[r]);</span><br><span class="line">    <span class="keyword">return</span> i + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QUICKSORT</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (p &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> q = PARTITION(arr, p, r);</span><br><span class="line">        QUICKSORT(arr, p, q - <span class="number">1</span>);</span><br><span class="line">        QUICKSORT(arr, q + <span class="number">1</span>, r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>随机化版本<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">RANDOMIZED_PARTITION</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = p + rand() % (r - p + <span class="number">1</span>);</span><br><span class="line">    swap(arr[r], arr[i]);</span><br><span class="line">    <span class="keyword">return</span> PARTITION(arr, p, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RANDOMIZED_QUICKSORT</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (p &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> q = RANDOMIZED_PARTITION(arr, p, r);</span><br><span class="line">        RANDOMIZED_QUICKSORT(arr, p, q - <span class="number">1</span>);</span><br><span class="line">        RANDOMIZED_QUICKSORT(arr, q + <span class="number">1</span>, r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="COUNTING-SORT"><a href="#COUNTING-SORT" class="headerlink" title="COUNTING_SORT"></a><strong><em>COUNTING_SORT</em></strong></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> *<span class="title">COUNTING_SORT</span><span class="params">(<span class="keyword">int</span> *arr, <span class="keyword">int</span> max_value, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//initialization</span></span><br><span class="line">    <span class="keyword">int</span> *res = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">    <span class="keyword">int</span> *temp_arr = <span class="keyword">new</span> <span class="keyword">int</span>[max_value + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; max_value + <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        temp_arr[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*let temp_arr[i] contains the number of elements equal to i</span></span><br><span class="line"><span class="comment">    ie. arr=&#123;2,5,3,0,2,3,0,3&#125; then temp_arr=&#123;2,0,2,3,0,1&#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        temp_arr[arr[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*let temp_arr[i] contains the number of elements less than or equal to i</span></span><br><span class="line"><span class="comment">    ie. arr=&#123;2,5,3,0,2,3,0,3&#125; then temp_arr=&#123;2,2,4,7,7,8&#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; max_value + <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        temp_arr[i] += temp_arr[i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//sort</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        res[temp_arr[arr[i]] - <span class="number">1</span>] = arr[i];</span><br><span class="line">        <span class="comment">//elements may be same</span></span><br><span class="line">        temp_arr[arr[i]]--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span>[] temp_arr;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+
       
     </div>
 
@@ -334,7 +249,7 @@ P(\bigcup_{i=1}^\infty A_i)\leq\sum_{i=1}^\infty P(A_i)</script><p>Proof:</p>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -400,7 +315,7 @@ P(\bigcup_{i=1}^\infty A_i)\leq\sum_{i=1}^\infty P(A_i)</script><p>Proof:</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -442,7 +357,7 @@ P(\bigcup_{i=1}^\infty A_i)\leq\sum_{i=1}^\infty P(A_i)</script><p>Proof:</p>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -523,61 +438,6 @@ document.querySelectorAll('.pdfobject-container').forEach(element => {
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-          load: ['[tex]/mhchem'],
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-          packages: {'[+]': ['mhchem']},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

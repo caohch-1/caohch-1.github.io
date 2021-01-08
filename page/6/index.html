@@ -160,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/11/16/probability-3/">
+    <link itemprop="mainEntityOfPage" href="https://caohch1.cn/2020/11/16/probability-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/16/probability-3/" class="post-title-link" itemprop="url">SI140 Lec3</a>
+            <a href="/2020/11/16/probability-4/" class="post-title-link" itemprop="url">SI140 Lec4</a>
         </h2>
 
         <div class="post-meta">
@@ -191,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-19 13:32:34" itemprop="dateModified" datetime="2020-10-19T13:32:34+08:00">2020-10-19</time>
+                <time title="Modified: 2020-10-26 06:56:02" itemprop="dateModified" datetime="2020-10-26T06:56:02+08:00">2020-10-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -214,81 +214,143 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Random-Variables"><a href="#Random-Variables" class="headerlink" title="Random Variables"></a>Random Variables</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>A function from the <strong>sample space</strong> $S$ to the <strong>real numbers</strong> $R$.</p>
-<h2 id="Probability-Mass-Function-PMF"><a href="#Probability-Mass-Function-PMF" class="headerlink" title="Probability Mass Function (PMF)"></a>Probability Mass Function (PMF)</h2><h3 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h3><p>The probability mass function (PMF) of a discrete r.v. $X$ is the function $p_X$ given by $p_X(x)=P(X=x)$.</p>
-<p>Actually, </p>
+          <h1 id="Expectation-amp-Variance"><a href="#Expectation-amp-Variance" class="headerlink" title="Expectation &amp; Variance"></a>Expectation &amp; Variance</h1><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>The expected value (also called the expectation or mean) of a discrete $r.v.$ $X$ whose distinct possible values are $x_1,x_2,\dots$ is defined by</p>
 <script type="math/tex; mode=display">
+E(X)=\sum\limits_{j=1}^\infty x_j\cdot P(X=x_j)</script><h2 id="Distribution"><a href="#Distribution" class="headerlink" title="Distribution"></a>Distribution</h2><p>If $X$ and $Y$ are discrete $r.v.$s with the same distribution, then $E (X ) = E(Y)$  (if either side exists).</p>
+<h2 id="Linearity"><a href="#Linearity" class="headerlink" title="Linearity"></a>Linearity</h2><p>For any $r.v.$s $X$, $Y$ and any constant $c$,</p>
+<script type="math/tex; mode=display">
+E(X+Y)=E(X)+E(Y)</script><script type="math/tex; mode=display">
+E(cX)=cE(X)</script><h2 id="Monotonicity-of-Expectation"><a href="#Monotonicity-of-Expectation" class="headerlink" title="Monotonicity of Expectation"></a>Monotonicity of Expectation</h2><p>Let $X$ and $Y$ be $r.v.$s such that $X\geq Y$ with probability 1. Then $E (X )\geq E (Y )$, with equality holding if and only if $X = Y$ with probability 1.</p>
+<h2 id="Survival-Function"><a href="#Survival-Function" class="headerlink" title="Survival Function"></a>Survival Function</h2><p>有时候通过定义很难计算期望，可以考虑使用存活函数</p>
+<p>Let $X$ be a nonnegative integer-valued $r.v.$. Let $F$ be the <strong>CDF</strong> of $X$ , and $G (x) = 1-F (x) = P(X &gt; x)$. The function $G$ is called the<br>survival function of $X$. Then</p>
+<script type="math/tex; mode=display">
+E(X)=\sum\limits_{n=0}^\infty G(n)</script><p>That is, we can obtain the expectation of $X$ by summing up the survival function (or, stated otherwise, summing up tail probabilities of the distribution).</p>
+<h3 id="Proof"><a href="#Proof" class="headerlink" title="Proof"></a>Proof</h3><script type="math/tex; mode=display">
+E(X)=\sum\limits_{n=0}^\infty n\cdot P(X=n)=0\cdot P(X=0) +1\cdot P(X=1)+2\cdot P(X=2)+\cdots</script><script type="math/tex; mode=display">
+\left[\begin{array}{ccccc}
+&P(X\geq 1): & P(X=1) &P(X=2) &P(X=3) &\cdots\\
+&P(X\geq 2): &  &P(X=2) &P(X=3) &\cdots\\
+&P(X\geq 3): &  & &P(X=3) &\cdots\\
+&\vdots &\vdots &\vdots &\vdots &\vdots\\
+&Sum: &1\cdot P(X=1) & 2\cdot P(X=2) &3\cdot P(X=3) &\cdots
+\end{array}\right]</script><h2 id="Law-Of-The-Unconscious-Statistician-LOTUS"><a href="#Law-Of-The-Unconscious-Statistician-LOTUS" class="headerlink" title="Law Of The Unconscious Statistician (LOTUS)"></a>Law Of The Unconscious Statistician (LOTUS)</h2><p>可以看成$r.v.$函数的期望吧，反正直观上很好理解</p>
+<p>If $X$ is a discrete $r.v.$ and $g$ is a function from $\mathbb{R}$ to $\mathbb{R}$, then</p>
+<script type="math/tex; mode=display">
+E(g(x))=\sum_x g(x)\cdot P(X=x)</script><p>where the sum is taken over all possible values of $X$.</p>
+<h2 id="Variance-and-Standard-Deviation"><a href="#Variance-and-Standard-Deviation" class="headerlink" title="Variance and Standard Deviation"></a>Variance and Standard Deviation</h2><p>The variance of an $r.v.$ $X$ is</p>
+<script type="math/tex; mode=display">
+Var(X)=E(X-EX)^2=E(X)^2-(EX)^2</script><p>The square root of the variance is called the standard deviation (<strong>SD</strong>):</p>
+<script type="math/tex; mode=display">
+SD(X)=\sqrt{Var(X)}</script><h2 id="Properties-of-Variance"><a href="#Properties-of-Variance" class="headerlink" title="Properties of Variance"></a>Properties of Variance</h2><ul>
+<li>For any $r.v.$ $X$ , $Var (X ) = E (X^2 )-(EX )^2$ </li>
+<li>$Var (X + c) =Var (X )$ for any constant $c$</li>
+<li>$Var (cX ) = c^2 Var (X )$ for any constant $c$</li>
+<li>If $X$ and $Y$ are independent, then $Var (X + Y ) = Var (X ) + Var (Y )$</li>
+<li>$Var (X ) \geq0$ with equality if and only if $P(X = a) = 1$ for some constant $a$.</li>
+</ul>
+<h1 id="Geometric-and-Negative-Binomial"><a href="#Geometric-and-Negative-Binomial" class="headerlink" title="Geometric and Negative Binomial"></a>Geometric and Negative Binomial</h1><h2 id="Geometric-Distribution"><a href="#Geometric-Distribution" class="headerlink" title="Geometric Distribution"></a>Geometric Distribution</h2><p>Consider a sequence of independent Bernoulli trials, each with the same success probability $p\in(0, 1)$, with trials performed until a success occurs. Let $X$ be the number of <strong>failures</strong> before the first successful trial. Then $X$ has the Geometric distribution with parameter $p$; we denote this by $X \sim Geom(p)$.</p>
+<h2 id="Geometric-PMF"><a href="#Geometric-PMF" class="headerlink" title="Geometric PMF"></a>Geometric PMF</h2><p>If $X \sim Geom(p)$, then the <strong>PMF</strong> of $X$ is</p>
+<script type="math/tex; mode=display">
+P(X=k)=q^k p</script><p>for $k = 0, 1, 2,\dots$, where $q=1-p$</p>
+<h2 id="Memoryless-Property"><a href="#Memoryless-Property" class="headerlink" title="Memoryless Property"></a>Memoryless Property</h2><p>If $X\sim Geom(p)$, then for any positive integer $n$,</p>
+<script type="math/tex; mode=display">
+P(X\geq n+k|X\geq k)=P(X\geq n)</script><p>for $k=1,2,3,\dots$</p>
+<p><strong>Also,</strong></p>
+<p>Suppose for any positive integer $n$, discrete random variable $X$ satisfies</p>
+<script type="math/tex; mode=display">
+P(X\geq n+k|X\geq k)=P(X\geq n)</script><p>for $k = 0, 1, 2,\dots$,  then $X \sim Geom(p)$.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Geometric distribution is the one and the only one discrete distribution that is memoryless.</span><br></pre></td></tr></table></figure>
+<h2 id="First-Success-Distribution"><a href="#First-Success-Distribution" class="headerlink" title="First Success Distribution"></a>First Success Distribution</h2><p>In a sequence of independent Bernoulli trials with success probability $p$, let $Y$ be the number of trials until the first successful trial, including<br>the success. Then $Y$ has the First Success distribution with parameter $p$; we denote this by $Y \sim FS(p)$.</p>
+<h3 id="Example-Geometric-amp-First-Success-Expectation"><a href="#Example-Geometric-amp-First-Success-Expectation" class="headerlink" title="Example: Geometric &amp; First Success Expectation"></a>Example: Geometric &amp; First Success Expectation</h3><p>Let $X \sim Geom(p)$ and $Y \sim FS(p)$, find $E (X )$ and $E (Y )$.</p>
+<p><strong>Solution:</strong></p>
+<p>Calculate $E(X)$ By survival function</p>
+<script type="math/tex; mode=display">
+P(X\geq k)=q^k=(1-p)^k</script><script type="math/tex; mode=display">
 \begin{align}
-P(X=x)&=P(s:X(s)=x,s\in S)\\&=\sum_{\quad s\in S\\S:X(s)=x}P(s)
-\end{align}</script><h3 id="Two-criteria"><a href="#Two-criteria" class="headerlink" title="Two criteria"></a>Two criteria</h3><ul>
-<li>Nonnegative:$p_X(x)&gt;0$ if $x=x_j$ for some $j$, and $p_X(x)=0$ otherwise;</li>
-<li>Sums to $1$: $\sum\limits_{j=1}^\infty p_X(x_j)=1$</li>
-</ul>
-<h1 id="Bernoulli-and-Binomial"><a href="#Bernoulli-and-Binomial" class="headerlink" title="Bernoulli and Binomial"></a>Bernoulli and Binomial</h1><h2 id="Definition-of-Bernoulli-Distribution"><a href="#Definition-of-Bernoulli-Distribution" class="headerlink" title="Definition of Bernoulli Distribution"></a>Definition of Bernoulli Distribution</h2><p>An r.v. $X$ is said to have the <em>Bernoulli distribution</em> with parameter $p$ if $P(X=1)=p$ and $p(X=0)=1-p$, where $0&lt;p&lt;1$. We write this as $X\sim Bern(p)$. </p>
-<h2 id="Definition-of-Indicator-Random-Varible"><a href="#Definition-of-Indicator-Random-Varible" class="headerlink" title="Definition of Indicator Random Varible"></a>Definition of Indicator Random Varible</h2><p>The <em>indicator random varible</em> of an event $A$ is th r.v. which equals $1$ if $A$ occurs and $0$ otherwise. We will denote the indicator r.v. of $A$ by $I_A$ or $I(A)$.</p>
-<h2 id="Definition-of-Binomial-Distribution"><a href="#Definition-of-Binomial-Distribution" class="headerlink" title="Definition of Binomial Distribution"></a>Definition of Binomial Distribution</h2><p>Suppose that $n$ independent Bernoulli trials are performed, each with the same success probability $p$. Let $X$ be the number od success. THe distributuon of $X$ is called the <em>BInomial distribution</em> with parameters $n$ and $p$. We write $X\sim Bin(n,p)$ to mean that $X$ has the Binomial distribution with parameters $n$ and $p$, where $n$ is a postive integer and $0&lt;p&lt;1$.</p>
-<h2 id="Binomial-PMF"><a href="#Binomial-PMF" class="headerlink" title="Binomial PMF"></a>Binomial PMF</h2><h3 id="Theorem-1"><a href="#Theorem-1" class="headerlink" title="Theorem 1"></a>Theorem 1</h3><p>If $X\sim Bin(n,p)$, then the PMF of $X$ is</p>
+E(X)&=\sum\limits_{k=0}^\infty P(X>k)\\
+&=\sum_{k=1}^\infty P(x\geq k)\\
+&=\sum_{k=1}^\infty q^k\\
+&=\frac{q}{1-q}\\
+&=\frac{1-p}{p}
+\end{align}</script><p>Then calculate $E(Y)$ </p>
 <script type="math/tex; mode=display">
-P(X=k)=\left(\begin{array}{cc} n\\k \end{array}\right)p^k(1-p)^{n-k}</script><p>for $k=0,1,\cdots,n$ (and $P(X=k)=0$ otherwise).</p>
-<h3 id="Theorem-2"><a href="#Theorem-2" class="headerlink" title="Theorem 2"></a>Theorem 2</h3><p>Let $X\sim Bin(n,p)$, and $q=1-p$ (we often use $q$ to denote the failure of a <em>Bernouli trial</em>). Then $n-X\sim Bin(n,q)$.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Statistical-Multiplexing"><a href="#Statistical-Multiplexing" class="headerlink" title="Statistical Multiplexing"></a>Statistical Multiplexing</h3><p>There are $N$ senders using one multiplexor, the shared medium is $1$Mbps and each sender requests $100$kbps and their active probability is $0.1$.</p>
-<p>What’s $N_{max}$?</p>
-<p>Res:$35$</p>
-<h3 id="Multiple-Access-Aloha-Protocol"><a href="#Multiple-Access-Aloha-Protocol" class="headerlink" title="Multiple Access (Aloha Protocol)"></a>Multiple Access (Aloha Protocol)</h3><ul>
-<li><p>$N$ smart devices sharing a WiFi access point</p>
-</li>
-<li><p>$\geq 2$ devices transmit simultaneously lead to collision</p>
-</li>
-<li><p>Each device transmits with probability $p$ independently</p>
-</li>
-<li><p>What’s the transmission rate (the number of successful transmissions per unit time) ?</p>
-<p>Res:$e^{-1}=0.36$</p>
-</li>
-</ul>
-<h1 id="Hypergeometric"><a href="#Hypergeometric" class="headerlink" title="Hypergeometric"></a>Hypergeometric</h1><h2 id="Definition-2"><a href="#Definition-2" class="headerlink" title="Definition"></a>Definition</h2><p>Consider an urn with $w$ white balls and $b$ black balls. We draw $n$ balls out of the urn at random without replacement, such that all $\left(\begin{array}{c} w+b\\n \end{array}\right)$ samples are equally likely. Let $X$ be the number of white balls in the sample. Then $X$ is said to have the <em>Hypergeometric distribution</em> with parameters $w,b$, and $n$; we denote this by $X\sim HGeom(w,b,n)$.</p>
-<h2 id="Hypergeometric-PMF"><a href="#Hypergeometric-PMF" class="headerlink" title="Hypergeometric PMF"></a>Hypergeometric PMF</h2><p>If $X\sim HGeom(w,b,n)$, then the PMF of $X$ is</p>
+E(Y)=E(1+X)=1+E(X)=\frac{1}{p}</script><h2 id="Negative-Binomial-Distribution"><a href="#Negative-Binomial-Distribution" class="headerlink" title="Negative Binomial Distribution"></a>Negative Binomial Distribution</h2><p>In a sequence of independent Bernoulli trials with success probability $p$, if $X$ is the number of failures before the $r^{th}$ success, then $X$ is said to have the Negative Binomial distribution with parameters $r$ and $p$, denoted $X \sim NBin(r , p)$.</p>
+<h2 id="Negative-Binomial-PMF"><a href="#Negative-Binomial-PMF" class="headerlink" title="Negative Binomial PMF"></a>Negative Binomial PMF</h2><p>If $X \sim NBin(r , p)$, then the <strong>PMF</strong> of $X$ is</p>
 <script type="math/tex; mode=display">
-P(X=k)=\frac{\left(\begin{array}{c} w\\k \end{array}\right)\left(\begin{array}{c} b\\n-k \end{array}\right)}{\left(\begin{array}{c} w+b\\n \end{array}\right)}</script><p>for integers $k$ satisfying $0\leq k\leq w$ and $0\leq n-k\leq b$, and $P(X=k)=0$ otherwise.</p>
-<h2 id="Identical-Distribution"><a href="#Identical-Distribution" class="headerlink" title="Identical Distribution"></a>Identical Distribution</h2><p>The $HGeom(w,b,n)$ and $HGeom(n,w+b-n,w)$ distributions are identical. That is, if $X\sim HGeom(w,b,n)$ and $Y\sim HGeom(n,w+b-n,w)$, then $X$ and $Y$ have the same distribution.</p>
-<p>An simply explaination:</p>
-<p>超几何分布的适用基础是总体根据两套标签进行分类。在球的例子里，对于 r.v. $X$ 而言，白黑是第一套标签，是否抓到作为样本是第二套标签；对于 $Y$ 则反过来。故而事实上 $X$ 和 $Y$ 都表示被抽出来的白球数量，故而分布相同。我们也可以用麻烦的代数方法验证。</p>
-<h1 id="Discrete-Uniform-amp-Zipf-Distribution"><a href="#Discrete-Uniform-amp-Zipf-Distribution" class="headerlink" title="Discrete Uniform &amp; Zipf Distribution"></a>Discrete Uniform &amp; Zipf Distribution</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<h1 id="Cumulative-Distribution-Functions-CDF"><a href="#Cumulative-Distribution-Functions-CDF" class="headerlink" title="Cumulative Distribution Functions (CDF)"></a>Cumulative Distribution Functions (CDF)</h1><h2 id="Definition-3"><a href="#Definition-3" class="headerlink" title="Definition"></a>Definition</h2><p>The <em>cumulative distribution function (CDF)</em> of an r.v. $X$ is the function $F_X$ given by $F_X(x)=P(X\leq x)$.</p>
-<h1 id="Functions-of-Random-Variables-Random-Variables"><a href="#Functions-of-Random-Variables-Random-Variables" class="headerlink" title="Functions of Random Variables: Random Variables"></a>Functions of Random Variables: Random Variables</h1><h2 id="Definition-4"><a href="#Definition-4" class="headerlink" title="Definition"></a>Definition</h2><p>For an experiment with sample space $S$, an r.v. $X$, and a function $g:\mathbb{R}\rightarrow\mathbb{R}$, $g(X)$ is the r.v. that maps $s$ to $g(X(s))$ for all $s\in S$.</p>
-<h2 id="Sympathetic-Magic"><a href="#Sympathetic-Magic" class="headerlink" title="Sympathetic Magic"></a>Sympathetic Magic</h2><p>GIven an r.v. $X$, trying to get the PMF of $2X$ by multiply the PMF of $X$ by 2:</p>
+P(X=n)=\left(\begin{array}{c}n+r-1\\r-1\end{array}\right)p^rq^n</script><p>for $n = 0, 1, 2,\dots$ , where $q=1-p$.</p>
+<h2 id="Geometric-amp-Negative-Binomial"><a href="#Geometric-amp-Negative-Binomial" class="headerlink" title="Geometric &amp; Negative Binomial"></a>Geometric &amp; Negative Binomial</h2><p>Let $X \sim NBin(r , p)$, viewed as the number of failures before the $r^{th}$ success in a sequence of independent Bernoulli trials with success probability $p$. Then we can write $X = X_1 + \cdots + X_r$ where the $X_i$ are <em>i.i.d.</em> $Geom(p)$.</p>
+<h3 id="Example-Expectation"><a href="#Example-Expectation" class="headerlink" title="Example: Expectation"></a>Example: Expectation</h3><p>Let $X \sim NBin(r , p)$, find $E (X)$</p>
+<p><strong>Solution:</strong></p>
+<script type="math/tex; mode=display">
+X_i \sim Geon(p) \text{ and } E(X_i)=\frac{1-p}{p}</script><script type="math/tex; mode=display">
+X=X_1+X_2+\cdots+X_r</script><script type="math/tex; mode=display">
+E(X)=E(X_1)+E(X_2)+\cdots+E(X_r)=r\cdot \frac{1-p}{p}</script><h2 id="Example-Coupon-Collector"><a href="#Example-Coupon-Collector" class="headerlink" title="Example: Coupon Collector"></a>Example: Coupon Collector</h2><p>Suppose there are $n$ types of toys, which you are collecting one by one , with the goal of getting a complete set. When collecting toys, the toy types are random (as is sometimes the case, for example, with toys included in cereal boxes or included with kids’ meals from a fast food restaurant). Assume that each time you collect a toy, it is equally likely to be any of the $n$ types. Let $N$ denote the number of toys needed until you have a complete set. Find $E (N)$.</p>
+<p>Res$\approx n[ln(n)+0.57]$</p>
+<h1 id="Indicator-R-V-s-and-The-Fundamental-Bridge"><a href="#Indicator-R-V-s-and-The-Fundamental-Bridge" class="headerlink" title="Indicator R.V.s and The Fundamental Bridge"></a>Indicator R.V.s and The Fundamental Bridge</h1><h2 id="Properties-of-Indicator-R-V"><a href="#Properties-of-Indicator-R-V" class="headerlink" title="Properties of Indicator R.V."></a>Properties of Indicator R.V.</h2><p>Let $A$ and $B$ be events. Then the following properties hold:</p>
 <ul>
-<li>Wrong: $Y=2X\Rightarrow P(Y=y)=2P(X=y)$</li>
-<li>Right: $P(Y=y)=P(2X=y)=P(X=\frac{y}{2})$</li>
+<li>$(I_A )^k = I_A$ for any positive integer $k$</li>
+<li>$I_{A^\complement} = 1- I_A$</li>
+<li>$I_{A\cap B}=I_A I_B$</li>
+<li>$I_{A\cup B}=I_A + I_B- I_A I_B$</li>
 </ul>
-<h1 id="Independence-of-R-V-s"><a href="#Independence-of-R-V-s" class="headerlink" title="Independence of R.V.s"></a>Independence of R.V.s</h1><h2 id="Definition-5"><a href="#Definition-5" class="headerlink" title="Definition"></a>Definition</h2><p>Random variables $X$ and $Y$ are said to be <em>independent</em> if</p>
+<h2 id="Fundamental-Bridge-Between-Probability-and-Expectation"><a href="#Fundamental-Bridge-Between-Probability-and-Expectation" class="headerlink" title="Fundamental Bridge Between Probability and Expectation"></a>Fundamental Bridge Between Probability and Expectation</h2><p>There is a one-to-one correspondence between events and indicator $r.v.$s, and the probability of an event $A$ is the expected value of its indicator $r.v.$ $I_ A$:</p>
 <script type="math/tex; mode=display">
-P(X\leq x, Y\leq y)=P(X\leq x)P(Y\leq y),</script><p>for all $x,y \in \mathbb{R}$.</p>
-<h2 id="I-I-D"><a href="#I-I-D" class="headerlink" title="I.I.D"></a>I.I.D</h2><p>We will often work with random variables that are independent and have the same distribution. We call such r.v.s independent and identically distributed, or i.i.d for short.</p>
-<h2 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h2><p><img src="https://s1.ax1x.com/2020/10/19/0v5jlF.png" alt="bayesian"></p>
-<h1 id="Binomial-amp-Hypergeometric"><a href="#Binomial-amp-Hypergeometric" class="headerlink" title="Binomial &amp; Hypergeometric"></a>Binomial &amp; Hypergeometric</h1><h2 id="Connection-1"><a href="#Connection-1" class="headerlink" title="Connection 1"></a>Connection 1</h2><ul>
-<li>Binomial $\Rightarrow$ Hypergeometric: <strong>conditioning</strong></li>
-<li>Hypergeometric $\Rightarrow$ Binomial: <strong>taking a limit</strong></li>
+E(I_A)=P(A)</script><h3 id="Example-Booler’s-Inequality"><a href="#Example-Booler’s-Inequality" class="headerlink" title="Example: Booler’s Inequality"></a>Example: Booler’s Inequality</h3><p><img src="https://s1.ax1x.com/2020/10/26/BnJP2T.png" alt="booler"></p>
+<h3 id="Example-Inclusion-Exclusion-Formula"><a href="#Example-Inclusion-Exclusion-Formula" class="headerlink" title="Example: Inclusion-Exclusion Formula"></a>Example: Inclusion-Exclusion Formula</h3><p><img src="https://s1.ax1x.com/2020/10/26/BnJixU.png" alt="IEF"></p>
+<h1 id="Moments-and-Indicators"><a href="#Moments-and-Indicators" class="headerlink" title="Moments and Indicators"></a>Moments and Indicators</h1><h2 id="Moments-of-Indicator-Methods"><a href="#Moments-of-Indicator-Methods" class="headerlink" title="Moments of Indicator Methods"></a>Moments of Indicator Methods</h2><p>Given $n$ events $A_1 ,\cdots, A_n$ and indicators $I_j , j = 1, . . . , n$.</p>
+<p>$X=\sum_{j=1}^n I_j$: the number of events that occur</p>
+<p>$\left(\begin{array}{c}X\\2\end{array}\right)=\sum\limits_{i&lt;j}I_i I_j$: the number of pairs of distinct events that occur</p>
+<p>$E(\left(\begin{array}{c}X\\2\end{array}\right))=\sum\limits_{i&lt;j}P(A_i\cap A_j)$</p>
+<p>$E(X^2)=2 \sum\limits_{i&lt;j}P(A_i\cap A_j)+ E(X)$</p>
+<p>$Var(X)=2\sum\limits_{i&lt;j}P(A_i\cap A_j)+E(X)-(EX)^2$</p>
+<h2 id="Moments-of-Binomial-Random-Variables"><a href="#Moments-of-Binomial-Random-Variables" class="headerlink" title="Moments of Binomial Random Variables"></a>Moments of Binomial Random Variables</h2><p><img src="https://s1.ax1x.com/2020/10/26/BnYa79.png" alt="moments"></p>
+<h1 id="Poisson"><a href="#Poisson" class="headerlink" title="Poisson"></a>Poisson</h1><h2 id="Poisson-Distribution"><a href="#Poisson-Distribution" class="headerlink" title="Poisson Distribution"></a>Poisson Distribution</h2><p>An $r.v.$ $X$ has the Poisson distribution with parameter $\lambda$ if the <strong>PMF</strong> of $X$ is</p>
+<script type="math/tex; mode=display">
+P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!},\qquad k=0,1,2,\dots</script><p>We write this as $X \sim Pois(\lambda )$.</p>
+<h3 id="Example-E-and-Var"><a href="#Example-E-and-Var" class="headerlink" title="Example: E and Var"></a>Example: E and Var</h3><p>Prove that $E(X)=Var(X)=\lambda$ if $X\sim Pois(\lambda)$</p>
+<h2 id="Poisson-Approximation"><a href="#Poisson-Approximation" class="headerlink" title="Poisson Approximation"></a>Poisson Approximation</h2><p>Let $A_1 , A_2 , \cdots , A_n$ be events with $p_j = P(A_j )$, where $n$ is large, the $p_j$ are small, and the $A_j$ are independent or weakly dependent. Let</p>
+<script type="math/tex; mode=display">
+X=\sum_{j=1}^n I(A_j)</script><p>count how many of the $A_j$ occur. Then $X$ is approximately $Pois(\lambda)$, with $\lambda=\sum\limits_{j=1}^n p_j$.</p>
+<h3 id="Example-Birthday-Probelm-revisited"><a href="#Example-Birthday-Probelm-revisited" class="headerlink" title="Example: Birthday Probelm revisited"></a>Example: Birthday Probelm revisited</h3><p>再次考虑生日问题，利用泊松近似，则至少一对匹配成功的概率为</p>
+<script type="math/tex; mode=display">
+P(X\geq 1) = 1-P(X=0)\approx1-e^{-\lambda}</script><script type="math/tex; mode=display">
+When\,\, m=23, \lambda = \frac{253}{365},\,e^{-\lambda}\approx0.500002</script><h2 id="Poisson-amp-Binomial"><a href="#Poisson-amp-Binomial" class="headerlink" title="Poisson &amp; Binomial"></a>Poisson &amp; Binomial</h2><ul>
+<li>Poisson $\Rightarrow$ Binomial: conditioning</li>
+<li>Binomial $\Rightarrow$ Poisson taking a limit</li>
 </ul>
-<h2 id="Connection-2"><a href="#Connection-2" class="headerlink" title="Connection 2"></a>Connection 2</h2><p>If $X\sim Bin(n,p)$, $Y\sim Bin(m,p)$, and $X$ is independent of $Y$, then the conditional distribution of $X$ given $X+Y=r$ is $HGeom(n,n,r)$.</p>
-<h2 id="Connection-3"><a href="#Connection-3" class="headerlink" title="Connection 3"></a>Connection 3</h2><p>If $X\sim HGeom(w,b,n)$ and $N=w+b\rightarrow\infty$ such that $p=w/(w+b)$ remains fixed, then the PMF of $X$ converges to the $Bin(n,p)$ PMF.</p>
-<p>Because when $N\rightarrow\infty$, whether with replacement become meaningless.</p>
-<h1 id="Information-Theory-amp-Entropy"><a href="#Information-Theory-amp-Entropy" class="headerlink" title="Information Theory &amp; Entropy"></a>Information Theory &amp; Entropy</h1><h2 id="Definition-of-Entropy"><a href="#Definition-of-Entropy" class="headerlink" title="Definition of Entropy"></a>Definition of Entropy</h2><p>Given a random variable $X$ with a probability mass function $p(x)$ and a support $\mathcal{X}$. The entropy of $X$ is defined by</p>
-<script type="math/tex; mode=display">
-H(X)=-\sum_{x\in\mathcal{X}}p(x)log_2p(x)</script><h2 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h2><p>One of 13 coins is fake. At least how many times to weigh can we know which of them is fake? (We can get a result $\in \{=,&lt;,&gt;\}$  every time we weigh, but we don’t know whether the fake coin is lighter or heavier).</p>
-<h3 id="Res"><a href="#Res" class="headerlink" title="Res"></a>Res</h3><ul>
-<li>每次称重的有三个结果，故而每次提供$log_2 3$ bits 信息</li>
-<li>假设要至少需要$n$次，则我们将获得$nlog_2 3$ bits 信息</li>
-<li>总共13个硬币，故而需要$log_2 13$ bits 信息</li>
-<li>假硬币可能重可能轻，故而需要$log_2 2$ bits 信息</li>
+<h2 id="Sum-of-Independent-Poissons"><a href="#Sum-of-Independent-Poissons" class="headerlink" title="Sum of Independent Poissons"></a>Sum of Independent Poissons</h2><p>If $X \sim Pois( \lambda_1 )$, $Y \sim Pois( \lambda_2 )$, and $X$ is independent of $Y$ , then $X + Y \sim Pois( \lambda_1 + \lambda_2 )$.</p>
+<h2 id="Poisson-Given-A-Sum-of-Poissons"><a href="#Poisson-Given-A-Sum-of-Poissons" class="headerlink" title="Poisson Given A Sum of Poissons"></a>Poisson Given A Sum of Poissons</h2><p>If $X \sim Pois( \lambda_1 )$, $Y \sim Pois( \lambda_2 )$, and $X$ is independent of $Y$ , then the <strong><em>conditional distribution</em></strong> of $X$ given $X + Y = n$ is $Bin(n,\frac{\lambda_1}{\lambda_1+\lambda_2})$.</p>
+<h2 id="Poisson-Approximation-to-Binomial"><a href="#Poisson-Approximation-to-Binomial" class="headerlink" title="Poisson Approximation to Binomial"></a>Poisson Approximation to Binomial</h2><p>If $X \sim Bin(n, p)$ and we let $n \rightarrow \infty$ and $p \rightarrow 0$ such that $\lambda= np$ remains fixed, then the <strong>PMF</strong> of $X$ converges to the $Pois(\lambda )$ <strong>PMF</strong>. More generally, the same conclusion holds if $n \rightarrow \infty$ and $p \rightarrow 0$ in such a way that np converges to a constant $\lambda$.</p>
+<h2 id="Example-Visitors-to-A-Website"><a href="#Example-Visitors-to-A-Website" class="headerlink" title="Example: Visitors to A Website"></a>Example: Visitors to A Website</h2><p>The owner of a certain website is studying the distribution of the number of visitors to the site. Every day, a million people independently decide whether to visit the site, with probability $p = 2 \times 10^ 6$ of visiting. Give a good approximation for the probability of getting at least three visitors on a particular day.</p>
+<p>Res=$1-5e^{-2}\approx0.3233$, it’s easy to solve by poisson approximation.</p>
+<h1 id="Distance-between-Two-Probability-Distributions"><a href="#Distance-between-Two-Probability-Distributions" class="headerlink" title="Distance between Two Probability Distributions"></a>Distance between Two Probability Distributions</h1><h2 id="Total-Variation-Distance"><a href="#Total-Variation-Distance" class="headerlink" title="Total Variation Distance"></a>Total Variation Distance</h2><ul>
+<li>Distance measure between two probability distributions</li>
 </ul>
-<p>故而列出下列不等式，求解</p>
+<p>The total variation distance between two distributions $\mu$ and $\mathcal{v}$ on a countable set $\Omega$ is</p>
 <script type="math/tex; mode=display">
-\begin{align}
-log_2 13+log_2 2&\leq nlog_2 3\\
-log_2 26&\leq log_2 3^n\\
-3^n&\geq 26\\
-n&\geq 3
-\end{align}</script>
+d_{TV}(\mu,\mathcal{v})=||\mu-\mathcal{v}||_TV=\frac{1}{2}\cdot \sum_{x\in\Omega}|\mu(x)-\mathcal{v}(x)|</script><h3 id="Example"><a href="#Example" class="headerlink" title="Example:"></a>Example:</h3><p>Let $\mu$ be the distribution with $\mu(1) = p$ and $\mu(0) = 1 -p$. Let $\mathcal{v}$ be a Poisson distribution with mean $p$. Then we have $d_{TV} (μ,\mathcal{v})\leq p^2$.</p>
+<p><img src="https://s1.ax1x.com/2020/10/26/BuE80S.png" alt="distance"></p>
+<h2 id="The-Law-of-Small-Numbers"><a href="#The-Law-of-Small-Numbers" class="headerlink" title="The Law of Small Numbers"></a>The Law of Small Numbers</h2><p>Given independent random variables $Y_1 , \dots , Y _n$ such that for any $1 \leq m \leq n$, $\mathbb{P}(Y_m=1)=p_m$ and $\mathbb{P}(Y_m=0)=1-p_m$. Let $S_n = Y_1 + \dots + Y_n $. Suppose</p>
+<script type="math/tex; mode=display">
+\sum_{m=1}^n p_m\rightarrow \lambda\in(0,\infty) \text{ as } n\rightarrow\infty,</script><p>and,</p>
+<script type="math/tex; mode=display">
+\max\limits_{1\leq m\leq n} p_m\rightarrow 0 \text{ as } n\rightarrow \infty,</script><p>then,</p>
+<script type="math/tex; mode=display">
+d_{TV}(S_n,Poi(\lambda))\rightarrow0 \text{ as } n\rightarrow\infty.</script><h2 id="Gap-of-Poisson-Approximation"><a href="#Gap-of-Poisson-Approximation" class="headerlink" title="Gap of Poisson Approximation"></a>Gap of Poisson Approximation</h2><ul>
+<li>A bound on the gap due to Hodges and Le Cam (1960): $d_{TV}(S_n,Poi(\lambda))\leq\sum\limits_{m=1}^n p_m^2$</li>
+<li>by Stein-Chen method (C.Stein 1987) we can have a tighter bound on the gap: $d_{TV}(S_n,Poi(\lambda))\leq\min(1,\frac{1}{\lambda})\sum\limits_{m=1}^np_m^2$.</li>
+</ul>
+<h1 id="Probability-Generating-Functions"><a href="#Probability-Generating-Functions" class="headerlink" title="Probability Generating Functions"></a>Probability Generating Functions</h1><h2 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h2><p>The <strong><em>probability generating function</em></strong> (<strong>PGF</strong>) of a nonnegative integer-valued $r.v.$ $X$ with <strong>PMF</strong> $p_k = P(X = k)$ is the generating function<br>of the <strong>PMF</strong>. By <strong>LOTUS</strong>, this is</p>
+<script type="math/tex; mode=display">
+E(t^X)=\sum_{k=0}^\infty p_k t^k.</script><p>The <strong>PGF</strong> converges to a value in $[-1, 1]$ for all $t$ in $[-1, 1]$ since $\sum\limits_{k=1}^\infty p_k=1$ and $|p_kt^k|\leq p_k$ for $|t|\leq 1$.</p>
+<h3 id="Example-Generating-Dice-Probabilities"><a href="#Example-Generating-Dice-Probabilities" class="headerlink" title="Example: Generating Dice Probabilities"></a>Example: Generating Dice Probabilities</h3><p>Let $X$ be the total from rolling $6$ fair dice, and let $X_1 , \dots , X_6$ be the individual rolls. What is $P(X = 18)$?</p>
+<p>Res=$\frac{3431}{6^6}$, it’s easy to solve by probability generating function.</p>
+<h2 id="PGF-and-Moments"><a href="#PGF-and-Moments" class="headerlink" title="PGF and Moments"></a>PGF and Moments</h2><p>Let $X$ be a nonnegative integer-valued $r.v.$ with <strong>PMF</strong> $p_k = P(X = k)$, and the <strong>PGF</strong> of $X$ is $g (t) =\sum\limits_{k=0}^\infty p_kt^k $, we have</p>
+<ul>
+<li>$E(X)=g’(t)|_{t=1}$</li>
+<li>$E(X(X-1))=g’’(t)|_{t=1}$</li>
+</ul>
+
       
     </div>
 
@@ -306,7 +368,7 @@ n&\geq 3
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -372,7 +434,7 @@ n&\geq 3
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -414,7 +476,7 @@ n&\geq 3
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
