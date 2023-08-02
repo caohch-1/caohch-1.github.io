@@ -1,12 +1,13 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - caohch-1
 
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - caohch-1/Paper-Reading-DL-Security 
+  - caohch-1/Paper-Reading-OS-Bugs 
+  - caohch-1/CS110-Computer-Architecture 
+  - caohch-1/Tetris-AI 
+  - caohch-1/CS277-Introduction-to-Data-Science-and-FinTech 
+  - caohch-1/CS253-Cyber-Security
+  - caohch-1/CS224-Program-Analysis
+
+  
