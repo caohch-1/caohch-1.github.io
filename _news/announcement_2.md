@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Our paper "**POBO: Safe and Optimal Resource Management for Cloud Microservices**" was accepted by IFIP Performance'23!
+Our paper entitled "**POBO: Safe and Optimal Resource Management for Cloud Microservices**" has benn accepted by IFIP Performance'23!
