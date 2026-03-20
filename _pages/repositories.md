@@ -1,13 +1,24 @@
 ---
 layout: page
-permalink: /repositories/
-title: repositories
-description: Github repos includes my course projects, paper reading notes, etc.
+permalink: /services/
+title: services
+# description: services.
 nav: true
 nav_order: 3
 ---
 
-## GitHub users
+## Conferences
+- ICWS '26 PC Member
+- OOPSLA '26 AEC Member
+
+## Journals
+- IET Software, 2022
+- Frontiers in Computer Science, 2026
+
+
+
+
+<!-- ## GitHub users
 
 {% if site.data.repositories.github_users %}
 <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center">
@@ -41,4 +52,4 @@ nav_order: 3
     {% include repository/repo.html repository=repo %}
   {% endfor %}
 </div>
-{% endif %}
+{% endif %} -->
