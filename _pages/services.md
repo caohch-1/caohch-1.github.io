@@ -12,8 +12,8 @@ nav_order: 3
 - OOPSLA '26 AEC Member
 
 ## Journals
-- IET Software, 2022
-- Frontiers in Computer Science, 2026
+- IET Software Reviewer, 2022
+- Frontiers in Computer Science Reviewer, 2026
 
 
 
