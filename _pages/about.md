@@ -18,11 +18,10 @@ latest_posts: false  # includes a list of the newest posts
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
-> **I am actively seeking internship opportunities in software engineering, cloud computing, and related areas.**
 
-I am a third-year master's student in the **[School of Information Science and Technology](http://sist.shanghaitech.edu.cn/sist_en)** at **[ShanghaiTech University](https://www.shanghaitech.edu.cn/eng/)**, advised by **[Prof. Jingzhu He](https://jhe16.github.io/)**.
+I am currently a research intern at **[Ant Group](https://www.antgroup.com/en)**, working on LLM Infra.
 
-I received my BS degree from **[ShanghaiTech University](https://www.shanghaitech.edu.cn/eng/)** in 2023, where I was advised by **[Prof. Yutian Tang](https://www.chrisyttang.org/index.html)** from December 2020 to September 2022.
+I received my MS and BS degree from **[ShanghaiTech University](https://www.shanghaitech.edu.cn/eng/)**, advised by **[Prof. Jingzhu He](https://jhe16.github.io/)**. I was advised by **[Prof. Yutian Tang](https://www.chrisyttang.org/index.html)** at CATLab from December 2020 to September 2022.
 
 
 My research interests lie in **Software Engineering**, especially **Cloud Availability & Reliability**.
